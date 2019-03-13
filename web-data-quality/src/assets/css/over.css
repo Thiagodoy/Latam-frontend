@@ -1,0 +1,172 @@
+@font-face {
+    font-family: 'Gil';
+    src: url('../fonts/GIL_____.TTF');
+}
+
+@font-face {
+    font-family: 'Gil';
+    src: url('../fonts/GILB____.TTF');
+    font-weight: bold;
+}
+
+body {
+    font-family: 'Gil', sans-serif;
+}
+
+body a {
+    color: #fff
+}
+
+body a:hover {
+    color: #1DE7FF
+}
+
+.al-sidebar-list-item.selected:not(.with-sub-menu) {
+    background-color: #012E3D;
+    color: #1DE7FF;
+}
+
+.al-sidebar-list-item.selected:not(.with-sub-menu) 
+a.al-sidebar-list-link, 
+.al-sidebar-list-item.selected:not(.with-sub-menu) 
+a.al-sidebar-list-link b {
+    color: #1DE7FF;
+}
+
+a.al-sidebar-list-link:hover {
+    color: #1DE7FF;
+}
+
+button.btn.btn-primary,
+button.btn.btn-primary:hover,
+button.btn.btn-primary:active {
+    background-color: #012E3D;
+    color: #1DE7FF;
+    border-color: #0d4e64!important;
+}
+
+.modal .modal-header .dismiss {
+    float: right;
+}
+
+.modal .modal-content {
+    background-color: rgb(52, 116, 138, 0.3);
+    -webkit-background-color: rgb(52, 116, 138, 0.3);
+}
+
+.modal .modal-header .modal-title {
+    color: #fff;
+    float: left;
+    width: 95%;
+}
+
+.modal .modal-dialog table {
+    color: #fff;
+}
+
+.modal .modal-dialog select.form-control {
+    background-color: rgb(52, 116, 138, 0.3);
+}
+
+.modal .modal-dialog .form-control {
+    color: #fff;
+    font-weight: bold;
+}
+
+.modal .modal-dialog .form-control::-webkit-input-placeholder {
+    color: #fff;
+}
+
+.modal .modal-dialog .form-control::-moz-placeholder {
+    color: #fff;
+}
+
+.modal .modal-dialog .form-control:-ms-input-placeholder {
+    color: #fff;
+}
+
+.al-sidebar {
+    font-family: 'Gil';
+    font-size: 1em;
+}
+
+a.al-sidebar-list-link {
+    font-size: 1em;
+}
+
+.graphFilter i {
+    position: fixed;
+    width: 50px;
+    height: 42px;
+    cursor: pointer;
+    z-index: 1;
+    text-decoration: none;
+    right: 64px;
+    bottom: 40px!important;
+    font-size: 30px;
+    text-align: center;
+    opacity: .4;
+    color: #1DE7FF;
+    background-color: rgba(0, 0, 0, .75);
+    border-radius: 50%;
+    line-height: 46ng-init="filterTotal=0"px;
+}
+
+.graphFilter i:hover {
+    opacity: .8
+}
+
+.al-msg-center {
+    margin-top: 22px;
+}
+
+.al-msg-center li.open>a,
+.al-msg-center a {
+    color: #fff;
+}
+
+.al-msg-center li a:active,
+.al-msg-center li a:hover {
+    color: #1DE7FF!important
+}
+
+.al-msg-center li i span {
+    display: inline-block;
+    min-width: 10px;
+    padding: 2px 4px;
+    color: #fff;
+    vertical-align: baseline;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 13px;
+    text-shadow: none;
+    line-height: 11px;
+    background-color: #e85656;
+    position: absolute;
+    top: -7px;
+    right: -11px;
+    font-size: 11px;
+}
+
+.graphFilter i span {
+    display: inline-block;
+    min-width: 10px;
+    padding: 2px 4px;
+    color: #fff;
+    vertical-align: baseline;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 13px;
+    text-shadow: none;
+    line-height: 11px;
+    background-color: #e85656;
+    position: absolute;
+    top: -12px;
+    right: 0px;
+    font-size: 11px;
+}
+
+.componentLoading {
+    margin-right: 10px;
+    color: #fff;
+}
