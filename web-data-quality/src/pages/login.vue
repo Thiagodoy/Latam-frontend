@@ -11,17 +11,17 @@
                                     
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-2 text-right">
+                                            <div class="col-md-2 pl-4 label-auth  ">
                                                 <label for="inputUsername" class="  control-label">Email</label>
                                             </div>
-                                            <div class="col-10">
+                                            <div class="col-md-10">
                                                 <input type="text"  class="  form-control" id="inputUsername" required placeholder="Email">
                                             </div>
                                         </div> 
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-2 text-right">
+                                            <div class="col-md-2 pl-4 label-auth ">
                                                  <label for="inputPassword" class=" control-label">Password</label>
                                             </div>
                                             <div class="col-md-10">
@@ -222,8 +222,12 @@ a.forgot-pass {
     color: #fff!important
 }
 
+@media (min-width: 768px) {
+    .label-auth{
+        text-align: right;
+    }
 
-
+}
 
     
 
