@@ -1,33 +1,19 @@
 <template>
-    <div>
-       
-        <div class="header">
+    <div> 
+        <nav class="header">
             <navbar 
             v-on:OpenMenu="OpenMenu"
             ></navbar>
-        </div>
+        </nav>
         <section>
             <div class="corpo">
                 <div v-if="menuStatus" class=" menu-lateral"> 
-                 <sidebar></sidebar>
+                    <sidebar></sidebar>
                 </div>
-               
                 <div  v-bind:class="{ active: isActive }"  class="conteudo"  >
-                    <div class="content">
-                        <p>Conteudo</p><br><br><br><br><br>
-                        <p>Conteudo</p><br><br><br><br><br>
-                        <p>Conteudo</p><br><br><br><br><br>
-                        <p>Conteudo</p><br><br><br><br><br>
-                        <p>Conteudo</p><br><br><br><br><br>
-                        <p>Conteudo</p><br><br><br><br><br>
-                        <p>Conteudo</p><br><br><br><br><br>
-
-
+                    <div class="render-content">
+                            <p>Conteudo</p><br><br><br><br><br>     
                     </div>
-                   
-                   
-                  
-                  
                 </div>
             </div>    
         </section>
@@ -50,14 +36,12 @@ export default {
     methods:{
         OpenMenu(){
            if(this.menuStatus==true){this.menuStatus=false}else{this.menuStatus=true}
-           this.isActive = this.menuStatus;
-          
+           this.isActive = this.menuStatus; 
         }
     },
 
     created(){
         this.menuStatus == this.isActive;
-
     },
 
     components:{
@@ -71,72 +55,37 @@ export default {
 
 .header{
     position: fixed;
-    
     }
-
 .corpo{
     padding-top: 53px;
     display: flex;
     color:white;
-    height: 100vh;
-   
-    
+    height: 100vh;  
 }
-
 .menu-lateral{
     width: 180px;
     min-width: 180px;
-    position: fixed;
-  
-    
-    
-   
+    position: fixed; 
 }
 .conteudo{
-    
     width: 100%;
- 
-   overflow: scroll;
-    
-    
-   
-    
-     
-   
+    overflow: scroll;  
 }
-
-.content{
-     
-     overflow: auto;
-     width: 100%;
-     overflow: auto;
-     padding: 20px;
-   
+.render-content{
+    overflow: auto;
+    width: 100%;
+    overflow: auto;
+    padding: 20px; 
 }
-
 .active{
-     margin-left: 180px;
-
+    margin-left: 180px;
 }
-
-
 ::-webkit-scrollbar {
     width: 6px;
     height: 0px;
 }
-
 ::-webkit-scrollbar-thumb {
     background: #d9d9d9;
     cursor: pointer
 }
-
-
-
-
-
-
-
-
-    
-
 </style>

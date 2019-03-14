@@ -1,36 +1,36 @@
 <template>
-<div>
-    <div class="x-navbar">
-        <div class="logo-box text-center"><img id="logo" class="img-fluid" src="../../assets/images/headerbar.png"/></div>
-        <div class="menu">
-            <div @click="$emit('OpenMenu')" class="menu-ham">
-                <div class="menu-bar"></div>
-                <div class="menu-bar"></div>
-                <div class="menu-bar"></div>
+    <div>
+        <div class="x-navbar">
+            <div class="logo-box text-center">
+                <img id="logo" class="img-fluid" src="../../assets/images/headerbar.png"/>
             </div>
+            <div class="menu">
+                <div @click="$emit('OpenMenu')" class="menu-ham">
+                    <div class="menu-bar"></div>
+                    <div class="menu-bar"></div>
+                    <div class="menu-bar"></div>
+                </div>
+            </div>
+            <div class="space">
+                <img class="mr-1" style="width:20px;" src="../../assets/images/brazil.png"/>
+                 <img  class="mr-1" style="width:20px;" src="../../assets/images/united-states.png"/>
+                  <img  class="mr-1" style="width:20px;" src="../../assets/images/united-kingdom.png"/>
+                   <img  class="mr-1" style="width:20px;" src="../../assets/images/spain.png"/>
+            </div>
+            <div class="options text-right"></div>
         </div>
-        <div class=""></div>
-        <div class="options"></div>
-
-    </div>
-</div>    
-    
+    </div>     
 </template>
 <script>
 export default {
     data(){
         return{
-        
-         
-        }
-    },
-
-    methods:{
        
+       }
     },
 
-  
-    
+    methods:{  
+    },    
 }
 </script>
 <style scoped>
@@ -46,21 +46,17 @@ export default {
         padding: 0 0 0 0
     }
     .logo-box{
-        width: 200px;
-        
+        width: 180px;
         padding: 5px 0 5px 0;
     }
     #logo{
         max-height: 40px;
     }
-
     .menu-ham{
         width: 25px;
         height: 25px;
         margin-top:18px;
         cursor: pointer;
-        
-        
         }
     .menu-bar{
         width: 100%;
@@ -68,6 +64,16 @@ export default {
         height: 4px;
         background: #fff;
         border-radius: 3px;
-    }    
+    } 
+    
+    .space{
+        padding-top: 14px;
+        padding-left: 20px;
+    }
+
+    .options{
+       
+
+    }
        
 </style>
