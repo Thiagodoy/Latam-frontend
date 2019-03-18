@@ -5,18 +5,18 @@
                 <img @click="pt_BR" class="mr-2" style="width:20px; cursor:pointer" src="../../assets/images/brazil.png"/>
                 <img @click="en_USA"  class="mr-2" style="width:20px;cursor:pointer" src="../../assets/images/united-states.png"/>
               <!--  <img  class="mr-1" style="width:20px;cursor:pointer" src="../../assets/images/united-kingdom.png"/> -->
-                <img @click="spain"  class="mr-2" style="width:20px;cursor:pointer" src="../../assets/images/spain.png"/>
+              
            </div>
             <div class="x-menu">
             <li class="x-item" id="">
-                <a href="#" class="x-btn menu-active"><i class="fas fa-home "></i>&nbsp;Home</a>
+                 <router-link class="x-btn" tag="a" to="/home"><i class="fas fa-home "></i>&nbsp;Home</router-link>
                 
             </li>    
             <li class="x-item" id="cadastro">
-                <a href="#cadastro"  v-bind:class="{ active: menuActive }" class="x-btn"><i class="far fa-clone"></i>&nbsp;Cadastros &nbsp; <i class="fas fa-caret-down"></i></a>
+                <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                 <div class="x-smenu">
-                    <a href="#">Agências</a>
-                    <a href="#">Usuários</a>
+                    <router-link class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
+                
                 </div>
             </li>
             <li class="x-item" id="mensagem">
@@ -31,7 +31,7 @@
                     </div>
             </li>
                 <li class="x-item" id="teste">
-                    <a href="#teste" class="x-btn"><i class="far fa-chart-bar"></i>&nbsp;Gráficos &nbsp; <i class="fas fa-caret-down"></i></a>
+                    <a href="#teste" class="x-btn"><i class="far fa-chart-bar"></i>&nbsp;{{$t('lang.graphics')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                     <div class="x-smenu">
                         <a href="#">Post</a>
                         <a href="#">Imagens</a>
@@ -52,7 +52,7 @@ export default {
     data(){
         return{
 
-            menuActive:true
+          
 
         }
     },
@@ -69,9 +69,7 @@ export default {
             i18n.locale="esp";
         },
 
-        menuActive(){
-
-        }
+     
 
     }
     
@@ -209,6 +207,15 @@ a:hover{text-decoration-line: none;}
     transition: max-height 0.5s;
     max-height: 0;
     opacity: .5;
+}
+
+.x-smenu:hover > a{
+  
+}
+
+.x-item:hover > a{
+    color: #ffed69;
+    
 }
 
 .x-smenu a{

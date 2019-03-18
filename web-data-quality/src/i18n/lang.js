@@ -1,24 +1,35 @@
 module.exports = {
-    pt_BR: {
-      lang: {
-        exit: 'Sair',
-        language:'Protuguês_BR'
- 
-        }
-      },
+   
     
       en_USA: {
         lang: {
           exit: 'Exit',
-          language:'Inglês'
+          graphics: 'Graphichs',
+          language:'Inglês',
+          register:'Register',
+          users:'Users'
    
           }
         },
 
+        pt_BR: {
+          lang: {
+            exit: 'Sair',
+            graphics: 'Gráficos',
+            language:'Protuguês_BR',
+            register:'Cadastro',
+            users:'Usuários'
+           
+     
+            }
+          },
+
         esp: {
           lang: {
             exit: 'Dejar',
-            language:'Espanhol'
+            language:'Gráficos',
+            register:'Catastro',
+            graphics: 'Gráficos',
             }
           }
         

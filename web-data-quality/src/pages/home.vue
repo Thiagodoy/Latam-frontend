@@ -15,7 +15,7 @@
                 <div  v-bind:class="{ active: isActive }"  class="conteudo"  >
                     <div class="render-content">
 
-                            <p>{{$t('lang.language')}}</p>
+                           <router-view/>
                            
                     </div>
                 </div>

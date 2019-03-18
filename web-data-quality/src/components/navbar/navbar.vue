@@ -93,6 +93,7 @@ export default {
         padding-top: 15px;
         padding-right: 40px;
         color: #fff;
+        cursor: pointer;
     }
        
 </style>
