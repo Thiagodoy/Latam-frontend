@@ -1,17 +1,27 @@
 module.exports = {
-    pt_BR: {
-        lang: {
-            exit: 'Sair',
-            language: 'Protuguês_BR',
-            msg_error_01: 'Usuário não encontrado'
-        }
-    },
+
 
     en_USA: {
         lang: {
             exit: 'Exit',
+            graphics: 'Graphichs',
             language: 'Inglês',
+            register: 'Register',
+            users: 'Users',
             msg_error_01: 'Not found the user'
+
+        }
+    },
+
+    pt_BR: {
+        lang: {
+            exit: 'Sair',
+            graphics: 'Gráficos',
+            language: 'Protuguês_BR',
+            register: 'Cadastro',
+            users: 'Usuários',
+            msg_error_01: 'Usuário não encontrado'
+
 
         }
     },
@@ -19,8 +29,12 @@ module.exports = {
     esp: {
         lang: {
             exit: 'Dejar',
-            language: 'Espanhol',
+            language: 'Gráficos',
+            register: 'Catastro',
+            graphics: 'Gráficos',
+            users: 'Usuários',
             msg_error_01: 'no encontré al usuario'
         }
     }
-}
+
+};

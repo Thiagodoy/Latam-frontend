@@ -4,7 +4,7 @@
             <div class="auth-main">
                 <div class="wrapper">
                     <div class="auth-block">
-                        <img class="mx-auto d-block" src="../assets/images/Login_Logo.png">
+                        <img class=" img-fluid mx-auto d-block" src="../assets/images/Login_Logo.png">
                         <div class="row" >
                             <div class="col-12">
                                 <div   id="formLogin" style="margin-top: 20px; "  class="form-horizontal " >
@@ -227,8 +227,17 @@ a.forgot-pass {
         text-align: right;
     }
 
+
 }
 
+
+@media (max-width:600px){
+     .auth-block {
+    width: 300px;
+    
+
+}
+}
     
 
 </style>

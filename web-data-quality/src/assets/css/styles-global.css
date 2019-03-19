@@ -7,18 +7,15 @@
 }
 
 
-/*
-body{
-   
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    will-change: transform
 
+body h1{
+font-size:20px; 
 }
-*/
+
+body p,span ,button,label{
+    font-size: 16px;
+}
+
 
 body::before {
     content: '';
