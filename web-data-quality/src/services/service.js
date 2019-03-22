@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Interceptor from '../config-axios';
+import Interceptor from './inteceptors';
 export default class Service {
     constructor(url) {
 

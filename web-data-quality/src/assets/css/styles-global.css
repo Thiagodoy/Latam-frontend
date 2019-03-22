@@ -1,21 +1,21 @@
-*{
-	margin:0;
-	padding:0;
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-
-
-body h1{
-font-size:20px; 
+body h1 {
+    font-size: 20px;
 }
 
-body p,span ,button,label{
+body p,
+span,
+button,
+label {
     font-size: 16px;
 }
-
 
 body::before {
     content: '';
@@ -30,8 +30,6 @@ body::before {
     z-index: -1
 }
 
-
-
 div.login {
     content: '';
     position: fixed;
@@ -45,18 +43,11 @@ div.login {
     z-index: 1;
 }
 
-
-
-
-
 .auth-main,
 body,
 html {
     height: 100%
 }
-
-
-
 
 .form-group label {
     margin-bottom: 5px;
@@ -67,9 +58,9 @@ html {
 
 .form-control {
     background-color: rgba(0, 0, 0, .2);
-    border: 1px solid transparent}
+    border: 1px solid transparent
+}
 
-    
 .form-control {
     border: 1px solid transparent;
     box-shadow: none
@@ -153,5 +144,19 @@ fieldset[disabled] button.btn.btn-default:hover {
     background: 0 0
 }
 
+.has-error .form-control {
+    border-color: #ffed69;
+    border-radius: .25rem;
+}
 
+.help-block {
+    color: #ffed69;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
 
+button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+}

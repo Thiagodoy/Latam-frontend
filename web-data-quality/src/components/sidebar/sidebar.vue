@@ -1,12 +1,9 @@
 <template >
     <div>
         <div class="all-sidebar">
-           <div class="lang text-center">
-                <img @click="pt_BR" class="mr-2" style="width:20px; cursor:pointer" src="../../assets/images/brazil.png"/>
-                <img @click="en_USA"  class="mr-2" style="width:20px;cursor:pointer" src="../../assets/images/united-states.png"/>
-              <!--  <img  class="mr-1" style="width:20px;cursor:pointer" src="../../assets/images/united-kingdom.png"/> -->
-              
-           </div>
+            <!-- Component -->
+            <localization></localization> 
+
             <div class="x-menu">
             <li class="x-item" id="">
                  <router-link class="x-btn" tag="a" to="/home"><i class="fas fa-home "></i>&nbsp;Home</router-link>
@@ -44,8 +41,8 @@
     </div>  
 </template>
 <script>
-
-    import {i18n} from '../../main'
+import {i18n} from '../../main'
+import Localization from '../local/localization.vue'
 
 export default {
 
@@ -57,20 +54,9 @@ export default {
         }
     },
 
-    methods:{
-         pt_BR(){
-            i18n.locale="pt_BR";
-        },
-        en_USA(){
-            i18n.locale="en_USA";
-        },
-
-        spain(){ 
-            i18n.locale="esp";
-        },
-
-     
-
+    
+    components:{
+        Localization
     }
     
 }

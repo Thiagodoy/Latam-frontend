@@ -16,7 +16,7 @@
                 <div class="bar-options container-fluid">
                     <div class="row">
                         <div class="col-md-6"></div>
-                        <div class="col-md-6 text-right logaut"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div>
+                        <div class="col-md-6 text-right logaut" @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div>
 
                     </div>
                 </div>
@@ -36,6 +36,9 @@ export default {
 
     methods:{  
 
+        logout(){
+            this.$router.push({name:'login'});
+        }
        
     },    
 }

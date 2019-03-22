@@ -1,5 +1,6 @@
 import Service from './service';
 import md5 from 'md5';
+import axios from 'axios'
 
 class Authentication extends Service {
     constructor(endpoint) {
@@ -7,7 +8,17 @@ class Authentication extends Service {
     }
 
     login(request) {
-        request.password = md5(request.password);
+        this._url = '/user/login';
+
+
+        request = {
+            "email": "gustavo@gustavo",
+            "firstName": "string",
+            "id": "string",
+            "lastName": "string",
+            "password": md5('123456')
+        };
+
         return this.post(request);
     }
 }

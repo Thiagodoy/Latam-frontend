@@ -12,29 +12,31 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-2 pl-4 label-auth  ">
-                                                <label for="inputUsername" class="  control-label">Email</label>
+                                                <label for="inputUsername" class="  control-label">{{$t('lang.label_input_email')}}</label>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text"  class="  form-control" id="inputUsername" required placeholder="Email">
+                                                <input type="text"  class="  form-control" v-model="request.email"  :placeholder="$t('lang.label_input_email')">
                                             </div>
                                         </div> 
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-2 pl-4 label-auth ">
-                                                 <label for="inputPassword" class=" control-label">Password</label>
+                                                 <label for="inputPassword" class=" control-label">{{$t('lang.label_input_password')}}</label>
                                             </div>
                                             <div class="col-md-10">
-                                                 <input type="password"  name="password" class="form-control" id="inputPassword" required placeholder="Password">
+                                                 <input type="password"  name="password"  v-model="request.password" class="form-control" id="inputPassword"  :placeholder="$t('lang.label_input_password')">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2"></div>
-                                        <div class="col-md-10">
-                                            <router-link to="/home"><button  @click="Logar"    class="btn btn-default btn-sm btn-auth mr-1">Sign in</button></router-link>
+                                        <div class="col-md-6">
+                                            <button  @click="login"   class="btn btn-default btn-sm btn-auth mr-1">{{$t('lang.button_sign_in')}}</button>
                                         </div>
-                                        
+                                        <div class="col-md-4">
+                                            <localization></localization>
+                                        </div>
                                     </div>  
                                 </div>
                             </div>
@@ -46,20 +48,30 @@
     </div>               
 </template>
 <script>
+import Localization from '../components/local/localization.vue';
+import AuthenticationService from '../services/authentication.js'
 export default {
     data(){
         return{
-            email:"",
-            pass:""
+            request:{
+                email:undefined,
+                password:undefined
+            },
+            loading:undefined
         }
     },
     
     methods:{
-        Logar(){
-
+        login(){
+            this.loading = AuthenticationService.login(this.request).then((response)=>{
+                this.$router.push({name:'home'});
+            });
         }
 
 
+    },
+    components:{
+        Localization
     }
     
 }
