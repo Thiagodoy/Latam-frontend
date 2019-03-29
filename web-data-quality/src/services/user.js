@@ -24,6 +24,22 @@ class UserService extends Service {
         request.password = md5(request.password);
         return this.post(request);
     }
+
+    /**
+     * @param  {} request
+     */
+    deleteUser(request) {
+        this._url = '/{id}'
+        return this.delete(request);
+    }
+
+    /**
+     * @param  {} request
+     */
+    updateUser(request) {
+        this._url = '';
+        return this.put(request);
+    }
 }
 
 

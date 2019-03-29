@@ -8,14 +8,14 @@
                 </span>
                
                
-                <span class=" dropdown-toggle btn-search"   data-toggle="dropdown" aria-haspopup="true" >
+                <span v-if="config.filter.length > 0" class=" dropdown-toggle btn-search"   data-toggle="dropdown" aria-haspopup="true" >
                     &nbsp; <i class="fas fa-search"></i>
                 </span>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div v-if="config.filter.length > 0" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <span v-for="(v,i) in config.filter"  :key="i + 3" @click="filterSelected = v.attribute" class="dropdown-item">{{$t(`lang.${v.label}`)}}</span>
                 </div>&nbsp;
             </div> &nbsp;  
-            <div class="toolbar-item input-search-box">
+            <div v-if="config.filter.length > 0" class="toolbar-item input-search-box">
                   <input style="color:#eee" class="input-search form-control mx-auto" v-model="searchText" @keyup="search"  type="text" :placeholder="labelFilter"/>
             </div>
         </div>
@@ -50,7 +50,8 @@ export default {
     methods:{
         search:_.debounce(function(){
              if(!!this.filterSelected ){
-                this.filter[this.filterSelected] = this.searchText; 
+                this.filter[this.filterSelected] = this.searchText.length > 0 ? this.searchText : undefined;
+                console.log('filter', this.filter); 
                 this.$emit('filter',this.filter);                   
              }   
         },400),

@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router';
 import Login from '../pages/login'
 import HomePage from '../pages/home.vue'
-import UsersRegister from '../pages/register/users/users-home.vue'
+import UserHome from '../pages/register/users/users-home.vue'
+import ProfileHome from '../pages/register/profile/profile-home.vue'
+import FileHome from '../pages/file/file-home.vue'
 
 Vue.use(Router)
 
@@ -16,7 +18,9 @@ export default new Router({
             component: HomePage,
             display: 'Home',
             children: [
-                { name: 'users-register', path: '/users-register', component: UsersRegister }
+                { name: 'users-register', path: '/users-register', component: UserHome },
+                { name: 'file', path: '/file', component: FileHome },
+                { name: 'users-profile', path: '/users-profile', component: ProfileHome }
             ]
 
         }

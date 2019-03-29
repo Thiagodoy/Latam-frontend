@@ -19,23 +19,17 @@
                             <th v-if="config.showOptions"></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- <tr>  $t('lang.exit')
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td style="min-width:120px;">
-                                <span @click="buttonClick('view',v)"> <i class= " btn-option far fa-sticky-note mr-3" alt="View"  title="View"></i></span>
-                                <span @click="buttonClick('edit',v)"><i class=" btn-option  fas fa-pen mr-3" title="Edit"></i></span>
-                                <span @click="buttonClick('delete',v)"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
-                            </td>
-                        </tr> -->
+                    <tbody>                        
                         <tr v-for="(v,i) in data.conteudo" :key="i">
                             <td v-if="config.showCount">{{de + i}}</td>                           
                             <td v-for="(x,j) in config.columns" :key="j" :style="{'width': x.width}" v-html="getData(x,v)"></td>
                             <td v-if="config.showOptions">
-                                <template >
+                               <template v-if="config.showOptionsTYPE == 'FILE'">                                   
+                                    <span @click="buttonClick('upload',v)"><i class=" btn-option  fas fa-upload mr-3" title="Edit"></i></span>
+                                    <span @click="buttonClick('delete',v)"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
+                                    <span @click="buttonClick('erro',v)"><i style="color:red;margin-left:10px;" class=" btn-option fas fa-exclamation-circle" title="Erro"></i></span>
+                                </template>                              
+                                <template v-else>
                                     <span @click="buttonClick('view',v)"> <i class= " btn-option far fa-sticky-note mr-3" alt="View"  title="View"></i></span>
                                     <span @click="buttonClick('edit',v)"><i class=" btn-option  fas fa-pen mr-3" title="Edit"></i></span>
                                     <span @click="buttonClick('delete',v)"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
@@ -46,28 +40,28 @@
                 </table>
             </div>
             <div v-if="config.showPagination" class="row">
-                <div class="col">
+                <div class="col" v-if="data.pagination">
                     <p class="no-margin entries">{{`${$t('lang.table_pagination_show_info')} ${ de } ${$t('lang.table_pagination_show_to')} ${ para } ${$t('lang.table_pagination_show_of')} ${ totais } ${$t('lang.table_pagination_show_registers')}`}}</p>
                 </div>
                 <div class="col text-right">
                     <nav>
-                    <pagination :info-page="data.pagination" v-on:page="setPage"></pagination>
+                      <pagination ref="pagination" :info-page="data.pagination" @page="setPage"></pagination>
                     </nav>
                 </div>
                 <div class="col text-right" style="margin-right:50px" v-if="config.showRowPerPage">
-                <ul>
-                    <li class="inline" style="color:#b4b4b4">
+                    <div class="row">
+                      <div>
                         <p>{{$t('lang.table_pagination_row_page_title')}}</p>
-                    </li>
-                    <li class="inline">
+                      </div>
+                      <div>
                         <select class="select-filtro" v-model="rowPerPage">
-                        <option value="10" class="select-filtro">10</option>
-                        <option value="20" class="select-filtro">20</option>
-                        <option value="30" class="select-filtro">30</option>
-                        <option value="40" class="select-filtro">40</option>
+                          <option value="10" class="select-filtro">10</option>
+                          <option value="20" class="select-filtro">20</option>
+                          <option value="30" class="select-filtro">30</option>
+                          <option value="40" class="select-filtro">40</option>
                         </select>
-                    </li>
-                </ul>
+                      </div>                      
+                    </div>
                 </div>
             </div>              
         </div>
@@ -92,16 +86,21 @@ export default {
             rowPerPage:10
         }
     },
-    computed:{
+    mounted(){},
+    computed:{      
+
       de(){
-        return this.data.pagination ? (this.data.pagination.paginaAtual * this.data.pagination.nroElementoPorPagina) - (this.data.pagination.nroElementoPorPagina) + 1 : 1;
+     
+        console.log(`pagina`, (this.data.pagination.pageable.pageNumber + 1),'numberOfElements', this.data.pagination.numberOfElements)
+
+        return this.data.pagination ? ((this.data.pagination.pageable.pageNumber + 1) * this.data.pagination.size) - (this.data.pagination.size) + 1 : 0;
       },
       para(){        
-        return this.data.pagination ? (this.data.pagination.totalDePaginas == this.data.pagination.paginaAtual) ? this.data.pagination.totalDeItems :
-        (this.data.pagination.paginaAtual * this.data.pagination.nroElementoPorPagina) : 0;
+        return this.data.pagination ? (this.data.pagination.totalPages ==(this.data.pagination.pageable.pageNumber + 1)) ? this.data.pagination.totalElements :
+        ((this.data.pagination.pageable.pageNumber + 1) * this.data.pagination.numberOfElements) : 0;
       },
       totais(){
-        return this.data.pagination ? this.data.pagination.totalDeItems : 0;
+        return this.data.pagination ? this.data.pagination.totalElements : 0;
       }
     },
     methods:{
@@ -114,11 +113,11 @@ export default {
                let attribute1 = `${a[name]}`;
                let attribute2 = `${b[name]}`;
                return ordem === 'ascending' ? attribute1.localeCompare(attribute2) : attribute2.localeCompare(attribute1); 
-             });
-           
+             });          
 
         },
         setPage(page){
+          
             this.$emit('page',page)
         },
         setRowPerPage(){

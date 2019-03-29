@@ -5,8 +5,32 @@ class ToolbarConfigFactory {
         switch (key) {
             case 'TOOLBAR-USER-VISUALIZATION':
                 return this.configToolbarUserVisualization();
+            case 'TOOLBAR-USER-VIEW-VISUALIZATION':
+                return this.configToolbarUserViewVisualization();
+            case 'TOOLBAR-FILE-VISUALIZATION':
+                return this.configToolbarFileVisualization();
+            case 'TOOLBAR-GROUP-VISUALIZATION':
+                return this.configToolbarGroupVisualization();
             default:
                 throw new Error('Configuration not exists!');
+        }
+    }
+    configToolbarUserViewVisualization() {
+        return {
+            buttons: [
+                { emit: 'back', class: 'btn-add-user', icon: 'fas fa-arrow-circle-left', label: 'button_back' },
+                { emit: 'edit', class: 'btn-add-user', icon: 'fas fa-pen mr-3', label: 'button_edit' },
+                { emit: 'delete', class: 'btn-add-user', icon: 'far fa-times-circle', label: 'button_delete' }
+            ],
+            filter: []
+        }
+    }
+    configToolbarFileVisualization() {
+        return {
+            buttons: [
+                { emit: 'upload', class: 'btn-add-user', icon: 'fas fa-file-import', label: 'button_upload' }
+            ],
+            filter: []
         }
     }
     configToolbarUserVisualization() {
@@ -18,6 +42,19 @@ class ToolbarConfigFactory {
                 { label: 'table_view_user_firstname', attribute: 'firstName' },
                 { label: 'table_view_user_lastname', attribute: 'lastName' },
                 { label: 'table_view_user_email', attribute: 'email' }
+            ]
+
+        };
+    }
+
+    configToolbarGroupVisualization() {
+        return {
+            buttons: [
+                { emit: 'new', class: 'btn-add-user', icon: 'fas fa-user-plus', label: 'button_new' }
+            ],
+            filter: [
+                { label: 'table_view_group_type', attribute: 'type' },
+                { label: 'table_view_group_name', attribute: 'name' }
             ]
 
         };

@@ -13,18 +13,14 @@
                 <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                 <div class="x-smenu">
                     <router-link class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
-                
+                    <router-link class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{'Profile'}}</router-link>
+                                    
                 </div>
             </li>
             <li class="x-item" id="mensagem">
                 <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
                     <div class="x-smenu">
-                        <a href="#">Post</a>
-                        <a href="#">Imagens</a>
-                         <a href="#">Imagens</a>
-                            <a href="#">Post</a>
-                            <a href="#">Imagens</a>
-                           
+                        <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-user"></i>&nbsp;File</router-link>                           
                     </div>
             </li>
                 <li class="x-item" id="teste">

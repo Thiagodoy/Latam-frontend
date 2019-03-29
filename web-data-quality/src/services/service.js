@@ -23,7 +23,7 @@ export default class Service {
         this._url += '?';
         let count = 0
         for (let key of keys) {
-            if (!request[key] || request[key] === undefined || request[key] === 'undefined') {
+            if (request[key] == null || request[key] === undefined || request[key] === 'undefined') {
                 continue;
             }
             this._url += `${((count > 0) ? '&' : '')}${key}=${request[key]}`;
