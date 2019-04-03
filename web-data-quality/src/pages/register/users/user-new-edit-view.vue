@@ -102,7 +102,7 @@ export default {
     },
     mounted(){
         //FIXME:Put the loading on request
-        GroupService.getGroups({page:1, size:100}).then((response)=>{this.groups = response.content});
+        GroupService.getGroups({page:0, size:100}).then((response)=>{this.groups = response.content});
 
        if(this.userEdit){
                 this.request.id = this.userEdit.email;
