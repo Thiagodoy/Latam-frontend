@@ -27,7 +27,7 @@ export default {
                  {company:'Tam',name:'file_22012019.csv', date: '10/02/2019', status:'ERROR'},                 
                 
              ],
-             pagination:undefined
+             pagination:{pageable:{}}
          }
         }
     },

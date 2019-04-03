@@ -25,7 +25,7 @@ class DataTableConfigFactory {
             showSearch: false,
             showHeaderOptions: false,
             showRowPerPage: false,
-            showPagination: true,
+            showPagination: false,
             searchBy: "",
             columns: [
                 { name: "company", title: "table_view_file_company_name" },
