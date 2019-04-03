@@ -1,74 +1,187 @@
 <template>
   <div class="pai">
+    <!-- <loading></loading> -->
+   
     <div class="login">
       <div class="auth-main">
         <div class="wrapper">
           <div class="auth-block">
+            
             <img class="img-fluid mx-auto d-block" src="../assets/images/Login_Logo.png">
             <div class="row">
               <div class="col-12">
-                <div id="formLogin" style="margin-top: 20px; " class="form-horizontal">
-                  <div class="form-group" :class="{'has-error':errors.has('email')}">
-                    <div class="row">
-                      <div class="col-md-2 pl-4 label-auth">
-                        <label for="email" class="control-label">{{$t('lang.label_input_email')}}</label>
-                      </div>
-                      <div class="col-md-10">
-                        <input
-                          type="text"
-                          v-validate="'required'"
-                          name="email"
-                          class="form-control"
-                          v-model="request.email"
-                          :placeholder="$t('lang.label_input_email')"
-                        >
-                      </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-10">
-                            <div class="help-block">{{errors.first('email')}}</div>
+                
+                  <div  id="formLogin" style="margin-top: 20px; " class="form-horizontal">
+                    
+                    <div v-if="tipoLogin=='login'" class="campos-login">
+                      <div class="form-group" :class="{'has-error':errors.has('email')}">
+                        <div class="row">
+                          <div class="col-md-2 pl-4 label-auth">
+                            <label for="email" class="control-label">{{$t('lang.label_input_email')}}</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input
+                              type="text"
+                              v-validate="'required'"
+                              name="email"
+                              class="form-control"
+                              v-model="request.email"
+                              :placeholder="$t('lang.label_input_email')"
+                            >
+                          </div>
                         </div>
-                    </div>
-                  </div>
-                  <div class="form-group" :class="{'has-error':errors.has('password')}">
-                    <div class="row">
-                      <div class="col-md-2 pl-4 label-auth">
-                        <label
-                          for="password"
-                          class="control-label"
-                        >{{$t('lang.label_input_password')}}</label>
-                      </div>
-                      <div class="col-md-10">
-                        <input
-                          type="password"
-                          name="password"
-                          v-validate="'required'"
-                          v-model="request.password"
-                          class="form-control"
-                          id="inputPassword"
-                          :placeholder="$t('lang.label_input_password')"
-                        >
-                      </div>                    
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-10">
-                            <div class="help-block">{{errors.first('password')}}</div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <div class="help-block">{{errors.first('email')}}</div>
+                            </div>
                         </div>
+                      </div>
+                      <div class="form-group" :class="{'has-error':errors.has('password')}">
+                        <div class="row">
+                          <div class="col-md-2 pl-4 label-auth">
+                            <label
+                              for="password"
+                              class="control-label"
+                            >{{$t('lang.label_input_password')}}</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input
+                              type="password"
+                              name="password"
+                              v-validate="'required'"
+                              v-model="request.password"
+                              class="form-control"
+                              id="inputPassword"
+                              :placeholder="$t('lang.label_input_password')"
+                            >
+                          </div>                    
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <div class="help-block">{{errors.first('password')}}</div>
+                            </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-6">
-                      <button
+
+                    <div v-if="tipoLogin=='cadastro'" class="campos-cadastro">
+                      <div class="form-group" :class="{'has-error':errors.has('email')}">
+                        <div class="row">
+                          <div class="col-md-2 pl-4 label-auth">
+                            <label for="email" class="control-label">{{$t('lang.label_input_email')}}</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input
+                              type="text"
+                              v-validate="'required'"
+                              name="email"
+                              class="form-control"
+                              v-model="request.email"
+                              :placeholder="$t('lang.label_input_email')"
+                            >
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <div class="help-block">{{errors.first('email')}}</div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="form-group" :class="{'has-error':errors.has('password')}">
+                        <div class="row">
+                          <div class="col-md-2 pl-4 label-auth">
+                            <label
+                              for="password"
+                              class="control-label"
+                            >{{$t('lang.label_input_password')}}</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input
+                              type="password"
+                              name="password"
+                              v-validate="'required'"
+                              v-model="request.password"
+                              class="form-control"
+                              id="inputPassword"
+                              :placeholder="$t('lang.label_input_password')"
+                            >
+                          </div>                    
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <div class="help-block">{{errors.first('password')}}</div>
+                            </div>
+                        </div>
+                      </div>
+
+
+
+
+
+
+
+
+
+
+
+                      <div class="form-group" :class="{'has-error':errors.has('password')}">
+                        <div class="row">
+                          <div class="col-md-2 pl-4 label-auth">
+                            <label
+                              for="password"
+                              class="control-label"
+                            >{{$t('lang. label_input_confirm_password')}}</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input
+                              type="password"
+                              name="password"
+                              v-validate="'required'"
+                              v-model="request.password"
+                              class="form-control"
+                              id="inputPassword"
+                              :placeholder="$t('lang. label_input_confirm_password')"
+                            >
+                          </div>                    
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <div class="help-block">{{errors.first('password')}}</div>
+                            </div>
+                        </div>
+                      </div>
+
+
+
+
+
+
+
+
+
+
+                      
+                    </div>
+                  
+
+                  <div class="row  container-options">
+                    <div>
+                       <button v-if="tipoLogin=='login'"
                         @click="login" :disabled="(errors.items.length > 0)"
                         class="btn btn-default btn-sm btn-auth mr-1"
                       >{{$t('lang.button_sign_in')}}</button>
+                       <button v-if="tipoLogin=='cadastro'"
+                        @click="login" :disabled="(errors.items.length > 0)"
+                        class="btn btn-default btn-sm btn-auth mr-1"
+                      >{{$t('lang.button_new_pass')}}</button>
                     </div>
-                    <div class="col-md-4">
-                      <localization></localization>
-                    </div>
+                    <div @click="logarCadastrar" class="link-pass">{{textLink}}</div>
+                    <div>  <localization></localization></div>
                   </div>
                 </div>
               </div>
@@ -82,9 +195,13 @@
 <script>
 import Localization from "../components/local/localization.vue";
 import AuthenticationService from "../services/authentication.js";
+import Loading from '../components/loading/loading.vue'
 export default {
   data() {
     return {
+
+      tipoLogin:"login",
+      textLink:"Esqueceu sua senha ?",
       request: {
         email: undefined,
         password: undefined
@@ -94,6 +211,19 @@ export default {
   },
 
   methods: {
+
+    logarCadastrar(){
+      if(this.tipoLogin=="login"){
+        this.tipoLogin = "cadastro";
+        this.textLink = "Fazer login";
+      }else{
+        this.tipoLogin="login";
+        this.textLink="Esqueceu sua senha ?"
+      }
+    },
+
+
+
     // FIXME: Put loading on the page when  make a request
     login() {
       this.loading = this.$validator.validateAll().then(response => {
@@ -107,7 +237,8 @@ export default {
     }
   },
   components: {
-    Localization
+    Localization,
+    Loading,
   }
 };
 </script>
@@ -121,6 +252,20 @@ export default {
   justify-content: center;
   height: 100vh;
   min-height: 100vh;
+}
+
+.link-pass:hover{
+  cursor: pointer;
+  color: #ffed69;
+}
+
+.container-options{
+ 
+  justify-content: space-between;
+  width: 385px;
+  position: relative;
+  float: right;
+  margin-right: 0px;
 }
 
 .auth-block {
@@ -270,6 +415,23 @@ a.forgot-pass {
     text-align: right;
   }
 }
+
+@media(max-width: 768px){
+   .container-options{
+    width: 100%;
+}
+}
+
+
+@media(max-width: 600px){
+   .container-options{
+    width: 100%;
+  justify-content: center;
+   
+}
+}
+
+
 
 @media (max-width: 600px) {
   .auth-block {
