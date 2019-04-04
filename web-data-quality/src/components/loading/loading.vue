@@ -2,7 +2,7 @@
     <div>
         <div class="wrapper-loading">
             <div>
-              <img width="530" height="450" src="../../assets/images/loading/loading.gif">
+              <img width="530" height="450" src="../../assets/images/loading/three-dots.svg">
             </div>
 
         </div>
@@ -20,7 +20,7 @@ export default {
 <style lang="scss" scoped>
 
 .wrapper-loading{
-   background:  rgba(0, 0, 0, .0);
+   background:  rgba(0, 0, 0, .5);
     width: 100%;
     height: 100vh;
     display: flex;

@@ -76,6 +76,7 @@ class DataTableConfigFactory {
         };
 
     }
+
     configTableUserVisualisation() {
         return {
             showCount: true,

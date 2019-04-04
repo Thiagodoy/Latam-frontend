@@ -1,10 +1,73 @@
 <template>
-    <div>
+    <div v-async="loading" >
             <!-- Toolbar  -->
             <toolbar :config="configToolbar" @upload="openUpload"></toolbar>
-            <!-- DataTable -->
+                <br>
+              
+            <nav mt-5>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Upload</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Progress</a>
+                   
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                    <!-- DataTable -->
             <data-table :data="data" :config="configDataTable"></data-table>
             <input type="file"  id="file-upload" style="display:none;" multiple>
+
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><br>
+                  
+                     <div class="wrapper-table">  
+                        <table class="table tabela table-striped table-dark">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Primeiro</th>
+                                <th scope="col">Último</th>
+                                <th scope="col">Nickname</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                     </div>
+                 
+                </div>
+            </div>
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+            
     </div>
      
 </template>
@@ -17,6 +80,7 @@ import FileService from '../../services/file';
 export default {
     data(){
         return {
+             loading:undefined,
          configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
          configDataTable: DataTableFactory.build('DATA-TABLE-FILE-VISUALIZATION'),
          data:{
@@ -45,10 +109,9 @@ export default {
 
             };
 
-            inputFile.click();
-
-            
+            inputFile.click();   
         },
+
     },
     components:{
         Toolbar,
@@ -57,6 +120,30 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+.nav-item:active{
+    background: #ff0;
+
+   
+}
+
+.nav-item{
+
+ color:white;
+  
+
+}
+
+
+.tabela{
+
+      background-color: rgba(0,0,0,0.5);
+    
+}
+
+
+
+
 
 </style>
 

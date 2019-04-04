@@ -2,15 +2,18 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './route/routes';
 import 'bootstrap';
+import 'jquery'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/assets/css/styles-global.css';
 import VueI18n from 'vue-i18n';
 import VeeValidate from 'vee-validate';
+import Diretivas from './directives/index'
 
 
 
 
 
+Vue.use(Diretivas);
 Vue.use(VeeValidate, {
     // i18nRootKey: 'validations', // customize the root path for validation messages.
     i18n,

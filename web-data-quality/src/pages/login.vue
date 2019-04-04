@@ -1,6 +1,6 @@
 <template>
   <div class="pai">
-    <!-- <loading></loading> -->
+    <!-- <loading></loading>  -->
    
     <div class="login">
       <div class="auth-main">
