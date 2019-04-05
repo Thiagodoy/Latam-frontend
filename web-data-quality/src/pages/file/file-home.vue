@@ -6,116 +6,120 @@
               
             <nav mt-5>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Upload</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Progress</a>
+                    <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab"  role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
+                    <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab"  role="tab" aria-controls="nav-home" aria-selected="true">Status</a>
                    
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
-                    <!-- DataTable -->
-            <data-table :data="data" :config="configDataTable"></data-table>
-            <input type="file"  id="file-upload" style="display:none;" multiple>
+                <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}"  role="tabpanel" aria-labelledby="nav-home-tab">
+                            <!-- DataTable -->
+                    <data-table :data="data" @download="download" :config="configDataTable"></data-table>
+                    <input type="file"  id="file-upload" style="display:none;" multiple>
 
                 </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><br>
+                <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}"  role="tabpanel" aria-labelledby="nav-profile-tab"><br>
                   
                      <div class="wrapper-table">  
                         <table class="table tabela table-striped table-dark">
                             <thead>
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Primeiro</th>
-                                <th scope="col">Último</th>
-                                <th scope="col">Nickname</th>
+                                <tr>                                
+                                    <th scope="col" style="width:30%">File name</th>
+                                    <th scope="col">status</th>                                
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                </tr>
+                            <tbody> 
+                              <file-upload-progress v-for="(v,i) in filesUploads"  :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
                             </tbody>
                             </table>
                      </div>
                  
                 </div>
             </div>
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-            
+            <a id="mobi" href="" target="_blank" rel=""></a>
     </div>
      
 </template>
 <script>
 import Toolbar from '../../components/toolbar/toolbar.vue';
+import FileUploadProgress from '../../components/file-upload-progress/file-upload-progress.vue'
 import ToolbarFactory from '../../components/toolbar/toolbar-config-factory';
 import DataTable from '../../components/data-table/data-table.vue';
 import DataTableFactory from '../../components/data-table/data-config-factory';
 import FileService from '../../services/file';
+
 export default {
     data(){
         return {
-             loading:undefined,
-         configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
-         configDataTable: DataTableFactory.build('DATA-TABLE-FILE-VISUALIZATION'),
-         data:{
-             conteudo:[
-                 {company:'Gol',name:'file_22012019.csv', date: '10/10/2019', status:'NEW'},
-                 {company:'Latam',name:'file_22012019.csv', date: '10/09/2019', status:'UPLOADED'},
-                 {company:'Emirates',name:'file_22012019.csv', date: '21/10/2019',status:'PROCESSING'},
-                 {company:'Tam',name:'file_22012019.csv', date: '10/02/2019', status:'ERROR'},                 
-                
-             ],
-             pagination:{pageable:{}}
-         }
+            show:'upload',
+            loading:undefined,
+            configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
+            configDataTable: DataTableFactory.build('DATA-TABLE-FILE-VISUALIZATION'),
+            data:{
+                conteudo:[
+                    // {company:'Gol',name:'file_22012019.csv', date: '10/10/2019', status:'NEW'},
+                    // {company:'Latam',name:'file_22012019.csv', date: '10/09/2019', status:'UPLOADED'},
+                    // {company:'Emirates',name:'file_22012019.csv', date: '21/10/2019',status:'PROCESSING'},
+                    // {company:'Tam',name:'file_22012019.csv', date: '10/02/2019', status:'ERROR'},                 
+                    
+                ],
+                pagination:{pageable:{}},
+            },
+            filesUploads:[],
+            removeFileUploads:[]
         }
     },
+    mounted(){
+        this.listFiles();
+    },
     methods:{
+        download(data){
+             this.downloadStatementUrl = `/file/errors/${data.id}/2`;
+       
+        var aTag = window.document.getElementById('mobi');
+        aTag.setAttribute('href', this.downloadStatementUrl);
+        aTag.setAttribute('download', 'erros.txt');
+       // aTag.style.display = "none";
+       // aTag.innerHTML = "";
+       // mydiv.appendChild(aTag);
+        aTag.click();
+        },
+        listFiles(){
+            FileService.listFile({page:0,size:10}).then((response)=>{
+               this.data.conteudo = response.content;
+                this.data.pagination = response
+            }).catch((erro)=>{
+                console.log("erro");
+            });
+        },
+        hideProgress(index){
+            this.reveFile(index);
+        },
+        reveFile:_.debounce(function(){             
+                this.filesUploads.splice(arguments[0],1);
+           
+        }, 1000),
          openUpload(){          
             let inputFile = document.getElementById('file-upload');
             inputFile.onchange = (e)=>{
-                console.log('files',e.target.files);
-
                 let formData =  new FormData();
-
-                formData.append('file',e.target.files[0]);
-
-                FileService.uploadFile(formData).then(()=>{alert('FINALIZOU')});
-
+                for(let i = 0; i < e.target.files.length; i++){                   
+                    this.filesUploads.push(e.target.files[i]);
+                }
+                inputFile.value = "";
             };
-
             inputFile.click();   
         },
-
+    },
+    watch:{
+        show(newValue,oldValue){
+            
+        }
     },
     components:{
         Toolbar,
-        DataTable
+        DataTable,
+        FileUploadProgress
     }
 }
 </script>

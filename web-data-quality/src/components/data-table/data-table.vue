@@ -25,9 +25,9 @@
                             <td v-for="(x,j) in config.columns" :key="j" :style="{'width': x.width}" v-html="getData(x,v)"></td>
                             <td v-if="config.showOptions">
                                <template v-if="config.showOptionsTYPE == 'FILE'">                                   
-                                    <span @click="buttonClick('upload',v)"><i class=" btn-option  fas fa-upload mr-3" title="Edit"></i></span>
-                                    <span @click="buttonClick('delete',v)"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
-                                    <span @click="buttonClick('erro',v)"><i style="color:red;margin-left:10px;" class=" btn-option fas fa-exclamation-circle" title="Erro"></i></span>
+                                    <span v-if="v.status == 'ERROR'" @click="buttonClick('download',v)"><i class=" btn-option  fas fa-download mr-3" title=""></i></span>
+                                    <span v-if="v.status == 'ERROR'" @click="buttonClick('delete',v)"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
+                                    <span v-if="v.status == 'ERROR'" ><i style="color:red;margin-left:10px;" class=" btn-option fas fa-exclamation-circle" title="Erro"></i></span>
                                 </template>                              
                                 <template v-else>
                                     <span @click="buttonClick('view',v)"> <i class= " btn-option far fa-sticky-note mr-3" alt="View"  title="View"></i></span>

@@ -222,16 +222,14 @@ export default {
       }
     },
 
-
-
     // FIXME: Put loading on the page when  make a request
     login() {
       this.loading = this.$validator.validateAll().then(response => {
         if (response) {
-          // return AuthenticationService.login(this.request).then(response => {
+          return AuthenticationService.login(this.request).then(response => {
             this.$router.push({ name: "home" });
-          //   return Promise.resolve();
-          // });
+            return Promise.resolve();
+          });
         }
       });
     }

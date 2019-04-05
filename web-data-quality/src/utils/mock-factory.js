@@ -1,6 +1,6 @@
 class MockFactory {
     constructor() {
-        this.mockImage = `<img class="img-fluid rounded-circle avatar-view" style="height:16%"  src="{source}"/>`;
+        this.mockImage = `<img class="img-fluid rounded-circle avatar-view" style="max-width: 20%;max-height: 20%;"  src="{source}"/>`;
     }
     build(key, params) {
 

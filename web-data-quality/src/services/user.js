@@ -21,7 +21,7 @@ class UserService extends Service {
      */
     saveUser(request) {
         this._url = '';
-        request.password = md5(request.password);
+        request.password = md5('123456');
         return this.post(request);
     }
 

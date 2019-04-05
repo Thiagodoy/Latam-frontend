@@ -36,7 +36,7 @@ module.exports = {
             button_upload: 'Upload',
             button_back: 'Back',
             button_sign_in: 'Sign in',
-            button_new_pass:'Save',
+            button_new_pass: 'Save',
             label_input_firstname: 'First Name',
             label_input_lastname: 'Last Name',
             label_input_email: 'E-mail',
@@ -47,6 +47,9 @@ module.exports = {
             label_input_group_name: 'Name',
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
+
+            msg_error_1987: 'File repeated!',
+            msg_error_500: 'File repeated!'
 
         }
     },
@@ -86,7 +89,7 @@ module.exports = {
             button_upload: 'Upload',
             button_cancel: 'Cancelar',
             button_sign_in: 'Entrar',
-            button_new_pass:'Salvar',
+            button_new_pass: 'Salvar',
             label_input_firstname: 'Nome',
             label_input_lastname: 'Sobrenome',
             label_input_email: 'Email',
@@ -98,7 +101,8 @@ module.exports = {
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
 
-
+            msg_error_1987: 'File repeated!',
+            msg_error_500: 'File repeated!'
 
         }
     },
@@ -138,7 +142,7 @@ module.exports = {
             button_delete: 'Delete',
             button_back: 'Regreso',
             button_sign_in: 'Entrar',
-            button_new_pass:'Guardar',
+            button_new_pass: 'Guardar',
             label_input_firstname: 'Nombre',
             label_input_lastname: 'Apellido',
             label_input_company: 'Company',
@@ -148,7 +152,10 @@ module.exports = {
             label_input_group_name: 'Name',
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
-            label_select_option: 'Seleccione una opción'
+            label_select_option: 'Seleccione una opción',
+
+            msg_error_1987: 'File repeated!',
+            msg_error_500: 'File repeated!'
 
         }
     }

@@ -30,20 +30,16 @@ class DataTableConfigFactory {
             columns: [
                 { name: "company", title: "table_view_file_company_name" },
                 { name: "name", title: "table_view_file_name" },
-                { name: "date", title: "table_view_file_company_data" },
+                { name: "createdDate", title: "table_view_file_company_data", formatter: undefined },
                 {
                     name: "status",
                     title: "table_view_file_company_status",
                     formatter: (v) => {
 
                         switch (v) {
-                            case 'NEW':
-                                return `<div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                        </div>`;
                             case 'PROCESSING':
-                                return '<div class="spinner-grow text-primary" role="status"><span class="sr-only">20%</span></div>'
-                            case 'UPLOADED':
+                                return '<div src="..." alt="..." class="spinner-grow text-warning" style="height:25px;width:25px; background-color:#ffc107;"/>'
+                            case 'SUCCESS':
                                 return '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;"/>'
                             case 'ERROR':
                                 return '<div src="..." alt="..." class="rounded-circle" style="height:25px;width:25px; background-color:red;"/>'

@@ -4,12 +4,17 @@ class FileService extends Service {
         super(endpoint);
     }
 
+    /**
+     * @param  {Object} request
+     */
+    listFile(request) {
+        this._url = '';
+        return this.get(request, true)
+    }
 
-    uploadFile(file) {
-        return this._api.post("", file, {
-            onUploadProgress: (event) => {
-                console.log('onUploadProgress', event);
-            }
+    uploadFile(file, userId, company, callbackProgress) {
+        return this._api.post(`/${company}/${userId}`, file, {
+            onUploadProgress: callbackProgress
         })
     }
 }

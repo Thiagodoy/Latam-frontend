@@ -143,11 +143,11 @@ export default {
             //FIXME: Colocar o loading 
             this.$validator.validateAll().then((valid)=>{
 
+                this.request.password = '123456';                    
+                this.request.id = this.request.email;
+                this.request.photo = this.userPhoto;
+
                 if(valid && !this.userEdit){
-                    //FIXME: Set the field password temporaly
-                    this.request.password = '123456';                    
-                    this.request.id = this.request.email;
-                    this.request.photo = this.userPhoto;
                     return UserService.saveUser(this.request).then((response)=>{
                       this.savedSuccess();
                     });
