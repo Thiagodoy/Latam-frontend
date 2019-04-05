@@ -231,6 +231,8 @@ export default {
             return Promise.resolve();
           });
         }
+      }).catch((erro)=>{
+        alert("Usuario não cadastrado!")
       });
     }
   },

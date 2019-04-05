@@ -10,15 +10,7 @@ class Authentication extends Service {
     login(request) {
         this._url = '/user/login';
 
-
-        request = {
-            "email": "gustavo@gustavo",
-            "firstName": "string",
-            "id": "string",
-            "lastName": "string",
-            "password": md5('123456')
-        };
-
+        request.password = md5(request.password);
         return this.post(request);
     }
 }
