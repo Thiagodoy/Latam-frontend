@@ -14,6 +14,6 @@ class Authentication extends Service {
         return this.post(request);
     }
 }
-let url = 'http://localhost:8001';
+let url = 'http://10.93.1.139:8001';
 const singleton = new Authentication(url);
 export default singleton;
