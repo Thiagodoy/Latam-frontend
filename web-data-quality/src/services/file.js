@@ -17,6 +17,12 @@ class FileService extends Service {
             onUploadProgress: callbackProgress
         })
     }
+
+    deleteFile(request) {
+        this._url = '/{id}'
+        return this.delete(request)
+    }
+
 }
 
 const instance = new FileService("/file");

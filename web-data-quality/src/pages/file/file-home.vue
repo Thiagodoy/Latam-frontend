@@ -73,16 +73,17 @@ export default {
         this.listFiles();
     },
     methods:{
+        delete(data){
+            FileService.deleteFile({id:data.id}).then((response)=>{
+                this.listFiles();
+            });
+        },
         download(data){
-             this.downloadStatementUrl = `/file/errors/${data.id}/2`;
-       
-        var aTag = window.document.getElementById('mobi');
-        aTag.setAttribute('href', this.downloadStatementUrl);
-        aTag.setAttribute('download', 'erros.txt');
-       // aTag.style.display = "none";
-       // aTag.innerHTML = "";
-       // mydiv.appendChild(aTag);
-        aTag.click();
+            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/errors/${data.id}/2`;       
+            var aTag = window.document.getElementById('mobi');
+            aTag.setAttribute('href', this.downloadStatementUrl);
+            aTag.setAttribute('download', 'erros.txt');      
+            aTag.click();
         },
         listFiles(){
             FileService.listFile({page:0,size:10}).then((response)=>{
@@ -113,7 +114,9 @@ export default {
     },
     watch:{
         show(newValue,oldValue){
-            
+            if(this.show == 'file'){
+                this.listFiles();
+            }
         }
     },
     components:{
