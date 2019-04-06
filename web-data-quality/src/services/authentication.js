@@ -8,12 +8,12 @@ class Authentication extends Service {
     }
 
     login(request) {
-        this._url = '/user/login';
+        this._url = '/login';
 
         request.password = md5(request.password);
         return this.post(request);
     }
 }
-let url = 'http://10.93.1.139:8001';
+let url = '/user';
 const singleton = new Authentication(url);
 export default singleton;

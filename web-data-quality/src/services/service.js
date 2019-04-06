@@ -4,7 +4,7 @@ export default class Service {
     constructor(url) {
 
         this._api = axios.create({
-            baseURL: url,
+            baseURL: `${process.env.VUE_APP_BASE_PATH}${url}`,
             timeout: 100000,
             headers: { 'Access-Control-Allow-Origin': '*' }
         });

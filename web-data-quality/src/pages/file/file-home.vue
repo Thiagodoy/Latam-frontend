@@ -36,7 +36,7 @@
                  
                 </div>
             </div>
-            <a id="mobi" href="" target="_blank" rel=""></a>
+            
     </div>
      
 </template>

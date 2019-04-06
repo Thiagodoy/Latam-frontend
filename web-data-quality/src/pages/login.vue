@@ -195,7 +195,8 @@
 <script>
 import Localization from "../components/local/localization.vue";
 import AuthenticationService from "../services/authentication.js";
-import Loading from '../components/loading/loading.vue'
+import Loading from '../components/loading/loading.vue';
+import * as _ from 'lodash';
 export default {
   data() {
     return {
@@ -208,6 +209,10 @@ export default {
       },
       loading: undefined
     };
+  },
+  mounted(){
+
+    console.log('URL_BASE',process.env.VUE_APP_BASE_PATH);
   },
 
   methods: {
@@ -226,6 +231,7 @@ export default {
     login() {
       this.loading = this.$validator.validateAll().then(response => {
         if (response) {
+          let request = _.cloneDeep(this.request);
           return AuthenticationService.login(this.request).then(response => {
             this.$router.push({ name: "home" });
             return Promise.resolve();

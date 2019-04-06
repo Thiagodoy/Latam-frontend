@@ -1,3 +1,4 @@
+import { dateTime } from '../../filter/date'
 class DataTableConfigFactory {
     constructor() {
 
@@ -30,7 +31,7 @@ class DataTableConfigFactory {
             columns: [
                 { name: "company", title: "table_view_file_company_name" },
                 { name: "name", title: "table_view_file_name" },
-                { name: "createdDate", title: "table_view_file_company_data", formatter: undefined },
+                { name: "createdDate", title: "table_view_file_company_data", formatter: (value) => { return dateTime(value) } },
                 {
                     name: "status",
                     title: "table_view_file_company_status",

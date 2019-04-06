@@ -28,5 +28,5 @@ class GroupService extends Service {
     }
 }
 
-const instance = new GroupService('http://10.93.1.139:8001/group');
+const instance = new GroupService('/group');
 export default instance;

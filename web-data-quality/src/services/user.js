@@ -44,5 +44,5 @@ class UserService extends Service {
 
 
 
-const instance = new UserService('http://10.93.1.139:8001/user');
+const instance = new UserService('/user');
 export default instance;

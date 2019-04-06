@@ -19,5 +19,5 @@ class FileService extends Service {
     }
 }
 
-const instance = new FileService("http://10.93.1.139:8001/file");
+const instance = new FileService("/file");
 export default instance;

@@ -20,7 +20,7 @@
             <li class="x-item" id="mensagem">
                 <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
                     <div class="x-smenu">
-                        <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-user"></i>&nbsp;File</router-link>                           
+                        <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;File</router-link>                           
                     </div>
             </li>
                 <li class="x-item" id="teste">
