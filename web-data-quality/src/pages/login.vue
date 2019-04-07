@@ -213,6 +213,9 @@ export default {
   mounted(){
 
     console.log('URL_BASE',process.env.VUE_APP_BASE_PATH);
+    this.request.login =`thiago@thiago.com`;
+    this.request.password =`123456`;
+    this.login();
   },
 
   methods: {
