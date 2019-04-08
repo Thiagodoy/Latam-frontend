@@ -35,7 +35,7 @@ export default {
         formData.append('file',this.file);
 
 
-        axios.post(`http://localhost:8001/file/${this.company}/${this.userId}`, formData, {
+        axios.post(`${process.env.VUE_APP_BASE_PATH}/file/${this.company}/${this.userId}`, formData, {
             onUploadProgress: (event)=>{
               this.percentUpload =  Math.round((event.loaded/event.total)*100);                  
             },

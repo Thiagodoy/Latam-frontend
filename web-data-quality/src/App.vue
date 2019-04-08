@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-    
+    <a id="mobi"></a>
   </div>
 </template>
 
