@@ -140,7 +140,7 @@ fieldset[disabled] button.btn.btn-default.focus,
 fieldset[disabled] button.btn.btn-default:active,
 fieldset[disabled] button.btn.btn-default:focus,
 fieldset[disabled] button.btn.btn-default:hover {
-    border-color: #666;
+    border-color: #fff;
     background: 0 0
 }
 

@@ -23,6 +23,16 @@ module.exports = {
             table_view_group_rev: 'Rev',
             table_view_group_name: 'Name',
             table_view_group_type: 'Type',
+
+            table_file_status_fieldname: 'Field name',
+            table_file_status_percentualError: 'Percent error',
+            table_file_status_percentualHit: 'Percent hit',
+            table_file_status_qtdErrors: 'Qtd errors',
+            table_file_status_qtdTotalLines: 'Qtd lines',
+
+            table_view_information: 'Information',
+            table_view_empty: '',
+
             table_pagination_row_page_title: 'Rows per page:',
             table_pagination_show_info: 'Show',
             table_pagination_show_to: 'to',
@@ -77,6 +87,15 @@ module.exports = {
             table_view_group_rev: 'Rev',
             table_view_group_name: 'Name',
             table_view_group_type: 'Type',
+
+            table_file_status_fieldname: 'Campo',
+            table_file_status_percentualError: 'Percentual de erro',
+            table_file_status_percentualHit: 'Percental de acerto',
+            table_file_status_qtdErrors: 'Qtd erros',
+            table_file_status_qtdTotalLines: 'Qtd linhas',
+            table_view_information: 'Informação',
+            table_view_empty: '',
+
             table_pagination_row_page_title: 'Linhas por página:',
             table_pagination_show_info: 'Exibindo',
             table_pagination_show_to: 'à',
@@ -131,6 +150,15 @@ module.exports = {
             table_view_group_rev: 'Rev',
             table_view_group_name: 'Name',
             table_view_group_type: 'Type',
+            table_view_information: 'Informação',
+            table_view_empty: '',
+
+            table_file_status_fieldname: 'Campo',
+            table_file_status_percentualError: 'Percentual de erro',
+            table_file_status_percentualHit: 'Percental de acerto',
+            table_file_status_qtdErrors: 'Qtd erros',
+            table_file_status_qtdTotalLines: 'Qtd linhas',
+
             table_pagination_row_page_title: 'Filas por página:',
             table_pagination_show_info: 'Visualización',
             table_pagination_show_to: 'la',
