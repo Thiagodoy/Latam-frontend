@@ -26,23 +26,46 @@
                         <div class="col-md-12">
                             <div style="color:#fff;" class="form-group" :class="{'has-error': errors.has('firstname')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_firstname')}}:</label>
-                                <input :disabled="typeAction == 'VIEW'" style="color:#eee" v-validate="'required'" v-model="request.firstName" type="text" class="form-control" name="firstname"  :placeholder="$t('lang.label_input_firstname')" >
+                                <input :disabled="typeAction == 'VIEW'"  v-validate="'required'" v-model="request.firstName" type="text" class="form-control campos" name="firstname"  :placeholder="$t('lang.label_input_firstname')" >
                             </div>
                             <div class="help-block">{{errors.first('firstname')}}</div>                        
                         </div>
                         <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('email')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_email')}}</label>
-                                <input :disabled="typeAction == 'EDIT' || typeAction == 'VIEW'" style="color:#eee" v-validate="'required|email'" name="email"  type="email" v-model="request.email" class="form-control"  :placeholder="$t('lang.label_input_email')">
+                                <input :disabled="typeAction == 'EDIT' || typeAction == 'VIEW'"  v-validate="'required|email'" name="email"  type="email" v-model="request.email" class="form-control campos"  :placeholder="$t('lang.label_input_email')">
                                 <div class="help-block">{{errors.first('email')}}</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                       
+                       <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('email')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_company')}}</label>
-                                <input :disabled="typeAction == 'VIEW'" style="color:#eee" v-validate="'required'" name="email"  type="text" v-model="request.company" class="form-control"  :placeholder="$t('lang.label_input_company')">
+                                <select :disabled="typeAction == 'VIEW'" v-model="request.company"  v-validate="'required'" class="custom-select form-control selct1 campos">
+                                    <option value="Daileon" selected >Flytour</option>
+                                </select>  
+                                   <div class="help-block">{{errors.first('email')}}</div>  
+                             </div>        
+                       </div>
+                       
+                       <!--
+                        <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error':errors.has('email')}">
+                                <label for="exampleInputEmail1">{{$t('lang.label_input_company')}}</label>
+                                <input :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="email"  type="text" v-model="request.company" class="form-control campos"  :placeholder="$t('lang.label_input_company')">
                                 <div class="help-block">{{errors.first('email')}}</div>
                             </div>
+                        </div> -->
+                       
+                         <div class="col-md-12">
+                        <div class="form-group" :class="{'has-error':errors.has('profile')}">
+                            <label for="profile">Profile</label>
+                            <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="request.groups" name="profile" id="profile" multiple>
+
+                                <option class="campos"  v-for="(v,i) in groups" :value="v.id" :key="i">{{v.name}}</option>
+                            </select>
+                            <div class="help-block">{{errors.first('profile')}}</div>
+                            </div>                        
                         </div>
                     </div>
                     <!-- Column B -->
@@ -50,20 +73,11 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('lastname')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_lastname')}}</label>
-                                <input  :disabled="typeAction == 'VIEW'" style="color:#eee" v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control"  :placeholder="$t('lang.label_input_lastname')" >
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control campos"  :placeholder="$t('lang.label_input_lastname')" >
                                 <div class="help-block">{{errors.first('lastname')}}</div>
                             </div>
                          </div>
-                         <div class="col-md-12">
-                        <div class="form-group" :class="{'has-error':errors.has('profile')}">
-                            <label for="profile">Profile</label>
-                            <select :disabled="typeAction == 'VIEW'" class="form-control" v-validate="'required'" v-model="request.groups" name="profile" id="profile" multiple>
-
-                                <option  v-for="(v,i) in groups" :value="v.id" :key="i">{{v.name}}</option>
-                            </select>
-                            <div class="help-block">{{errors.first('profile')}}</div>
-                            </div>                        
-                        </div>
+                        
                     </div>
                 </div>    
                 
@@ -224,6 +238,21 @@ select:disabled{
     color: #ffed69;
 }
 
+.campos{
+    color:#fff;
+     font-size: 18px;
+    &:disabled{
+        color: #222;
+        font-size:18px;
+    }
+    &:focus{
+       color:#fff;  
+    }
+    &:active{
+       
+    }
+}
+
 .change-photo-remove:hover{
     cursor: pointer;
     color: #fd4732;
@@ -234,6 +263,15 @@ select:disabled{
      color:#eee;
      border: none;
 
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    cursor: pointer
 }
 
 @media (max-width: 769px) {
@@ -248,4 +286,10 @@ select:disabled{
      }
 
 }
+
+.selct1:disabled{
+    background-color: rgba(255, 255, 255, 0.5);
+
+}
+
 </style>

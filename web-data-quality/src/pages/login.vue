@@ -63,6 +63,29 @@
                                 <div class="help-block">{{errors.first('password')}}</div>
                             </div>
                         </div>
+
+
+                        <div class="row  container-options">
+                          <div>
+                            <button v-if="tipoLogin=='login'"
+                              @click="login" :disabled="(errors.items.length > 0)"
+                              class="btn btn-default btn-sm btn-auth mr-1"
+                            >{{$t('lang.button_sign_in')}}</button>
+                            <button v-if="tipoLogin=='cadastro'"
+                              @click="login" :disabled="(errors.items.length > 0)"
+                              class="btn btn-default btn-sm btn-auth mr-1"
+                            >{{$t('lang.button_new_pass')}}</button>
+                          </div>
+                          <div @click="logarCadastrar" class="link-pass"> {{$t('lang.Forgot_password')}} </div>
+                        <div>  <localization></localization></div>
+                        </div>
+
+
+
+
+
+
+
                       </div>
                     </div>
 
@@ -156,6 +179,22 @@
                         </div>
                       </div>
 
+                      <div class="row  container-options">
+                          <div>
+                            <button v-if="tipoLogin=='login'"
+                              @click="login" :disabled="(errors.items.length > 0)"
+                              class="btn btn-default btn-sm btn-auth mr-1"
+                            >{{$t('lang.button_sign_in')}}</button>
+                            <button v-if="tipoLogin=='cadastro'"
+                              @click="login" :disabled="(errors.items.length > 0)"
+                              class="btn btn-default btn-sm btn-auth mr-1"
+                            >{{$t('lang.button_new_pass')}}</button>
+                          </div>
+                          <div @click="logarCadastrar" class="link-pass"> {{$t('lang.go_to_login')}} </div>
+                        <div>  <localization></localization></div>
+                        </div>
+
+
 
 
 
@@ -169,20 +208,7 @@
                     </div>
                   
 
-                  <div class="row  container-options">
-                    <div>
-                       <button v-if="tipoLogin=='login'"
-                        @click="login" :disabled="(errors.items.length > 0)"
-                        class="btn btn-default btn-sm btn-auth mr-1"
-                      >{{$t('lang.button_sign_in')}}</button>
-                       <button v-if="tipoLogin=='cadastro'"
-                        @click="login" :disabled="(errors.items.length > 0)"
-                        class="btn btn-default btn-sm btn-auth mr-1"
-                      >{{$t('lang.button_new_pass')}}</button>
-                    </div>
-                    <div @click="logarCadastrar" class="link-pass">{{textLink}}</div>
-                    <div>  <localization></localization></div>
-                  </div>
+                 
                 </div>
               </div>
             </div>
@@ -202,7 +228,7 @@ export default {
     return {
 
       tipoLogin:"login",
-      textLink:"Esqueceu sua senha ?",
+      textLink:"{$t('lang.Forgot_password')}",
       request: {
         email: undefined,
         password: undefined

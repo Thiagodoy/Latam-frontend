@@ -47,9 +47,10 @@ module.exports = {
             label_input_group_name: 'Name',
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
-
+            Forgot_password:'Forgot password',   
             msg_error_1987: 'File repeated!',
-            msg_error_500: 'File repeated!'
+            msg_error_500: 'File repeated!',
+            go_to_login:'Go to login',
 
         }
     },
@@ -100,9 +101,10 @@ module.exports = {
             label_input_group_name: 'Name',
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
-
+            Forgot_password:'Esqueceu a senha ?',    
             msg_error_1987: 'File repeated!',
-            msg_error_500: 'File repeated!'
+            msg_error_500: 'File repeated!',
+            go_to_login:'Ir para login',
 
         }
     },
@@ -153,9 +155,10 @@ module.exports = {
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
             label_select_option: 'Seleccione una opción',
-
+            Forgot_password:'Olvido la contraseña',
             msg_error_1987: 'File repeated!',
-            msg_error_500: 'File repeated!'
+            msg_error_500: 'File repeated!',
+            go_to_login:'Ir al inicio',
 
         }
     }

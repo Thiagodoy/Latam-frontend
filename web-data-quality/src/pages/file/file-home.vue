@@ -6,7 +6,7 @@
               
             <nav mt-5>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab"  role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
+                    <a  class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab"  role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
                     <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab"  role="tab" aria-controls="nav-home" aria-selected="true">Status</a>
                    
                 </div>
@@ -141,11 +141,40 @@ export default {
 
 }
 
+.nav-item:hover{
+    cursor: pointer;
+    color: #222;
+}
+
+.nav-item > a:hover{
+    color: #222;
+}
+
 
 .tabela{
 
       background-color: rgba(0,0,0,0.5);
     
+}
+
+#nav-profile-tab{
+    &:hover{
+    
+    }
+
+}
+
+.btnnav-item.active.focus,
+.nav-item.active:focus,
+.nav-item.focus,
+.nav-item:active.focus,
+.nav-item:active:focus,
+.nav-item:focus {
+   
+}
+
+.nav-item:active.focus,.nav-item.focus,.nav-item::before{
+  
 }
 
 

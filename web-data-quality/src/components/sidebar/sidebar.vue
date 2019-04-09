@@ -23,13 +23,7 @@
                         <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;File</router-link>                           
                     </div>
             </li>
-                <li class="x-item" id="teste">
-                    <a href="#teste" class="x-btn"><i class="far fa-chart-bar"></i>&nbsp;{{$t('lang.graphics')}} &nbsp; <i class="fas fa-caret-down"></i></a>
-                    <div class="x-smenu">
-                        <a href="#">Post</a>
-                        <a href="#">Imagens</a>
-                    </div>
-                </li>
+               
                 
         </div>
 
