@@ -11,10 +11,22 @@ class ToolbarConfigFactory {
                 return this.configToolbarFileVisualization();
             case 'TOOLBAR-GROUP-VISUALIZATION':
                 return this.configToolbarGroupVisualization();
+            case 'TOOLBAR-BACK':
+                return this.configToolbarBack();
             default:
                 throw new Error('Configuration not exists!');
         }
     }
+
+    configToolbarBack() {
+        return {
+            buttons: [
+                { emit: 'back', class: 'btn-add-user', icon: 'fas fa-arrow-circle-left', label: 'button_back' },
+            ],
+            filter: []
+        }
+    }
+
     configToolbarUserViewVisualization() {
         return {
             buttons: [

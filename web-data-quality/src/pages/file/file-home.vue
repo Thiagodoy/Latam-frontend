@@ -1,41 +1,55 @@
 <template>
     <div v-async="loading" >
-            <!-- Toolbar  -->
-            <toolbar :config="configToolbar" @upload="openUpload"></toolbar>
-                <br>
-              
-            <nav mt-5>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab"  role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
-                    <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab"  role="tab" aria-controls="nav-home" aria-selected="true">Status</a>
-                   
-                </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}"  role="tabpanel" aria-labelledby="nav-home-tab">
-                            <!-- DataTable -->
-                    <data-table :data="data" @download="download" :config="configDataTable"></data-table>
-                    <input type="file"  id="file-upload" style="display:none;" multiple>
 
-                </div>
-                <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}"  role="tabpanel" aria-labelledby="nav-profile-tab"><br>
-                  
-                     <div class="wrapper-table">  
-                        <table class="table tabela table-striped table-dark">
-                            <thead>
-                                <tr>                                
-                                    <th scope="col" style="width:30%">File name</th>
-                                    <th scope="col">status</th>                                
-                                </tr>
-                            </thead>
-                            <tbody> 
-                              <file-upload-progress v-for="(v,i) in filesUploads"  :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
-                            </tbody>
-                            </table>
-                     </div>
-                 
-                </div>
+            <div v-if="showOp== 'list'">
+                    <!-- List File -->
+                    <!-- Toolbar  -->
+                    <toolbar :config="configToolbar" @upload="openUpload"></toolbar>
+                        <br>
+                    
+                    <nav mt-5>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab"  role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
+                            <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab"  role="tab" aria-controls="nav-home" aria-selected="true">Status</a>
+                        
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}"  role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <!-- DataTable -->
+                            <data-table 
+                                :data="data" 
+                                @download="download" 
+                                @info="showDetail"
+                                :config="configDataTable">
+                            </data-table>
+                            <input type="file"  id="file-upload" style="display:none;" multiple>
+
+                        </div>
+                        <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}"  role="tabpanel" aria-labelledby="nav-profile-tab"><br>
+                        
+                            <div class="wrapper-table">  
+                                <table class="table tabela table-striped table-dark">
+                                    <thead>
+                                        <tr>                                
+                                            <th scope="col" style="width:30%">File name</th>
+                                            <th scope="col">status</th>                                
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                    <file-upload-progress v-for="(v,i) in filesUploads"  :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
+                                    </tbody>
+                                    </table>
+                            </div>
+                        
+                        </div>
+                    </div>
             </div>
+            <div v-else>
+                <!-- Detail file -->
+                <file-detail-status @back="showOp = 'list'" :file="fileCurrent"></file-detail-status>
+            </div>
+           
             
     </div>
      
@@ -47,6 +61,7 @@ import ToolbarFactory from '../../components/toolbar/toolbar-config-factory';
 import DataTable from '../../components/data-table/data-table.vue';
 import DataTableFactory from '../../components/data-table/data-config-factory';
 import FileService from '../../services/file';
+import FileDetailStatus from './file-status-detail.vue';
 
 export default {
     data(){
@@ -66,13 +81,19 @@ export default {
                 pagination:{pageable:{}},
             },
             filesUploads:[],
-            removeFileUploads:[]
+            removeFileUploads:[],
+            showOp:'list',
+            fileCurrent:undefined
         }
     },
     mounted(){
         this.listFiles();
     },
     methods:{
+        showDetail(data){
+            this.showOp = 'detail';
+            this.fileCurrent = data;
+        },
         delete(data){
             FileService.deleteFile({id:data.id}).then((response)=>{
                 this.listFiles();
@@ -122,7 +143,8 @@ export default {
     components:{
         Toolbar,
         DataTable,
-        FileUploadProgress
+        FileUploadProgress,
+        FileDetailStatus
     }
 }
 </script>

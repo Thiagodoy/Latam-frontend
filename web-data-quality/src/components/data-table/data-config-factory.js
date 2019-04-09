@@ -12,12 +12,55 @@ class DataTableConfigFactory {
                 return this.configTableFileVisualisation();
             case 'DATA-TABLE-GROUP-VISUALIZATION':
                 return this.configTableGroupVisualization();
+            case 'DATA-TABLE-FILE-STATUS-VISUALIZATION':
+                return this.configTableFileStatusVisualization();
+            case 'DATA-TABLE-FILE-INFORMATION-VISUALIZATION':
+                return this.configTableFileInformationVisualization();
             default:
                 throw new Error('Configuration not exists!');
 
         }
     }
 
+    configTableFileInformationVisualization() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'FILE-DETAIL',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+                { name: "information", title: "table_view_information", formatter: undefined },
+                { name: "value", title: "table_view_empty", formatter: undefined },
+
+            ]
+        };
+
+
+    }
+    configTableFileStatusVisualization() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'FILE-DETAIL',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+                { name: "fieldName", title: "table_file_status_fieldname", formatter: undefined },
+                { name: "qtdErrors", title: "table_file_status_qtdErrors", formatter: undefined },
+                { name: "qtdTotalLines", title: "table_file_status_qtdTotalLines", formatter: undefined },
+                { name: "percentualError", title: "table_file_status_percentualError", formatter: (value) => { return `${value}%` } },
+                { name: "percentualHit", title: "table_file_status_percentualHit", formatter: (value) => { return `${value}%` } },
+
+            ]
+        };
+    }
     configTableFileVisualisation() {
         return {
             showCount: true,
