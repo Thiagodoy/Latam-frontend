@@ -1,16 +1,19 @@
-import { Pie } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs'
 
 export default {
     props: ['data'],
 
-    extends: Pie,
+    extends: Bar,
     mounted() {
         // Overwriting base render method with actual data.
         this.renderChart(this.data, {
             responsive: true,
-            maintainAspectRatio: false,
             legend: {
                 display: true
+            },
+            scales: {
+                xAxes: [{ stacked: true }],
+                yAxes: [{ stacked: true }]
             }
 
         })
@@ -23,6 +26,10 @@ export default {
                     maintainAspectRatio: false,
                     legend: {
                         display: true
+                    },
+                    scales: {
+                        xAxes: [{ stacked: true }],
+                        yAxes: [{ stacked: true }]
                     }
 
                 })
