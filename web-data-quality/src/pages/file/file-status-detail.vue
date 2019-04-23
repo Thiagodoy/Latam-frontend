@@ -12,10 +12,23 @@
                 </data-table>
             </div>
             <div class="col-md-6">
-                <pie v-if="dataPier" :data="dataPier"></pie>
-                <data-information 
-                    :config="dataTableConfigInformation" 
-                    :data="dataw"></data-information>
+                <div class="row">
+                    <div class="col-md-4">
+                        <pie v-if="dataPier" :data="dataPier"></pie>
+                    </div>                    
+                    <div class="col-md-4">
+                        <bar :data="dataBar"> </bar>
+                    </div>
+                     <div v-if="file.repeatedLine" class="col-md-4">
+                        <bar :data="dataBarRepeatedLine"> </bar>
+                    </div>
+                </div>
+                <div class="row">
+                    <data-information 
+                        :config="dataTableConfigInformation" 
+                        :data="dataw"></data-information>
+                </div>
+
             </div>
         </div>
     </div>
@@ -25,7 +38,8 @@ import Toolbar from '../../components/toolbar/toolbar.vue';
 import ToolbarFactory from '../../components/toolbar/toolbar-config-factory';
 import DataTable from '../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../components/data-table/data-config-factory';
- import Pie from './pie'
+ import Pie from './pie';
+ import Bar from './bar'
 export default {
    props:['file'],
    data(){
@@ -41,7 +55,9 @@ export default {
                 conteudo:[],
                 pagination:{pageable:{}},
             },
-            dataPier:undefined
+            dataPier:undefined,
+            dataBar:undefined,
+            dataBarRepeatedLine:undefined
        }
    },
 
@@ -60,7 +76,7 @@ export default {
        information.push({information:'Aprovado',value:this.file.qtdTotalLines - erros});
        information.push({information:'Reprovado',value:erros});
 
-       this. dataPier = {
+       this.dataPier = {
                 labels:["Aprovado", "Reprovado"],
               datasets: [{
                 backgroundColor: [
@@ -71,6 +87,38 @@ export default {
 
               }]
             };
+
+        this.dataBar =  {
+                labels:["Processamento"],
+              datasets: [ {
+                                label: 'Parse',
+                                data: [this.file.parseTime],
+                                backgroundColor: '#D6E9C6' // green
+                            },
+                           {
+                                label: 'Write',
+                                data: [this.file.persistTime],
+                                backgroundColor: "#E54245" // yellow
+                            }
+                        ]
+            };   
+         
+          this.dataBarRepeatedLine =  {
+                labels:["Repeated lines"],
+              datasets: [
+                  {
+                                label: 'Ok',
+                                data: [this.file.qtdTotalLines],
+                                backgroundColor: "blue" // yellow
+                            },
+                  {
+                                label: 'Repeted',
+                                data: [this.file.repeatedLine],
+                                backgroundColor: 'red' // green
+                            },
+                           
+                        ]
+            };   
        
        this.dataw.conteudo = information; 
        this.$forceUpdate();
@@ -79,6 +127,7 @@ export default {
        DataTable,
        Toolbar,
        Pie,
+       Bar,
        'data-information':DataTable
    }
 }
