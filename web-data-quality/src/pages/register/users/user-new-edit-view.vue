@@ -30,6 +30,13 @@
                             </div>
                             <div class="help-block">{{errors.first('firstname')}}</div>                        
                         </div>
+                         <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error': errors.has('lastname')}">
+                                <label for="exampleInputEmail1">{{$t('lang.label_input_lastname')}}</label>
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control campos"  :placeholder="$t('lang.label_input_lastname')" >
+                                <div class="help-block">{{errors.first('lastname')}}</div>
+                            </div>
+                         </div>
                         <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('email')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_email')}}</label>
@@ -71,12 +78,29 @@
                     <!-- Column B -->
                     <div class="col-md-6">
                          <div class="col-md-12">
-                            <div class="form-group" :class="{'has-error': errors.has('lastname')}">
-                                <label for="exampleInputEmail1">{{$t('lang.label_input_lastname')}}</label>
-                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control campos"  :placeholder="$t('lang.label_input_lastname')" >
-                                <div class="help-block">{{errors.first('lastname')}}</div>
+                            <div class="form-group" :class="{'has-error': errors.has('cpf')}">
+                                <label for="exampleInputEmail1">CPF/CNPJ</label>
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control campos"  placeholder="CPF/CNPJ" >
+                                <div class="help-block">{{errors.first('cpf')}}</div>
                             </div>
                          </div>
+
+                         <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error': errors.has('tel')}">
+                                <label for="exampleInputEmail1">Phone</label>
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control campos"  placeholder="Phone" >
+                                <div class="help-block">{{errors.first('cpf')}}</div>
+                            </div>
+                         </div>
+
+                         <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error': errors.has('linkedin')}">
+                                <label for="exampleInputEmail1">Linkedin</label>
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control campos"  placeholder="Linkedin" >
+                                <div class="help-block">{{errors.first('linkedin')}}</div>
+                            </div>
+                         </div>
+                        
                         
                     </div>
                 </div>    

@@ -14,12 +14,14 @@
                 <div class="x-smenu">
                     <router-link class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
                     <router-link class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{'Profile'}}</router-link>
+                    <router-link class="pl-5" tag="a" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('Change Pass')}}</router-link>
                                     
                 </div>
             </li>
             <li class="x-item" id="mensagem">
                 <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
                     <div class="x-smenu">
+                        <router-link class="pl-5" tag="a" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;Upload</router-link>    
                         <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;File</router-link>                           
                     </div>
             </li>
@@ -54,7 +56,7 @@ export default {
 <style scoped>
 .all-sidebar{
    background-color: rgba(0, 0, 0, .5);
-    width: 180px;
+    width: 200px;
     height:calc(100vh - 53px);
     overflow: auto;
    
@@ -144,7 +146,7 @@ a:hover{text-decoration-line: none;}
 
 
 .x-menu{
-    width: 180px;
+    width: 200px;
 }
 
 

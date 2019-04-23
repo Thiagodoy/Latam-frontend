@@ -61,6 +61,7 @@ module.exports = {
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
             go_to_login:'Go to login',
+            change_password:'Change Password',
 
         }
     },
@@ -124,6 +125,7 @@ module.exports = {
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
             go_to_login:'Ir para login',
+            change_password:'Alterar senha',
 
         }
     },
@@ -187,6 +189,7 @@ module.exports = {
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
             go_to_login:'Ir al inicio',
+            change_password:'Cambiar contraseña',
 
         }
     }
