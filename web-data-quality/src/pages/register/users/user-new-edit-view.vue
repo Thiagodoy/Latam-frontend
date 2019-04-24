@@ -42,7 +42,7 @@
                             <div class="form-group" :class="{'has-error':errors.has('email')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_company')}}</label>
                                 <select :disabled="typeAction == 'VIEW'" v-model="request.company"  v-validate="'required'" class="custom-select form-control selct1 campos">
-                                    <option value="Daileon" selected >Flytour</option>
+                                    <option v-for="(v, i) in agencys" :key="i" :value="v.id">{{v.name}}</option>
                                 </select>  
                                    <div class="help-block">{{errors.first('email')}}</div>  
                              </div>        
@@ -102,6 +102,7 @@
 <script>
 import UserService from '../../../services/user';
 import GroupService from '../../../services/group';
+import AgencyService from '../../../services/agency';
 export default {
     props:['userEdit','typeAction'],
     data(){
@@ -111,12 +112,24 @@ export default {
             request:{
                 groups:[]   
             },
-            groups:[]
+            groups:[],
+            agencys:[]
         }
-    },
+    },    
     mounted(){
         //FIXME:Put the loading on request
         GroupService.getGroups({page:0, size:100}).then((response)=>{this.groups = response.content});
+
+        AgencyService.list().then(response => {
+            this.agencys = response.map(e=>{
+                let ne = {};
+                ne.id = e.id;
+                ne.name = e.name
+                return ne;
+            });
+        })
+
+
 
        if(this.userEdit){
                 this.request.id = this.userEdit.email;
@@ -160,8 +173,11 @@ export default {
                 this.request.password = '123456';                    
                 this.request.id = this.request.email;
                 this.request.photo = this.userPhoto;
+                this.request.info = [];
 
                 if(valid && !this.userEdit){
+                    this.request.info.push({key:'agencia', userId: this.request.id, value:this.request.company});
+                    this.request.info.push({key:'primeiro_acesso', userId: this.request.id, value:'true'});
                     return UserService.saveUser(this.request).then((response)=>{
                       this.savedSuccess();
                     });
