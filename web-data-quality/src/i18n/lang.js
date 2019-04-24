@@ -3,11 +3,14 @@ module.exports = {
 
     en: {
         lang: {
+            home:'Home',
             exit: 'Exit',
             graphics: 'Graphichs',
             language: 'Inglês',
             register: 'Register',
             users: 'Users',
+            file:'Files',
+            profile: 'Profile',
             change_password:'Change Pass',
             msg_error_01: 'Not found the user',
             msg_success_user: 'User saved successfully!',
@@ -24,6 +27,8 @@ module.exports = {
             table_view_group_rev: 'Rev',
             table_view_group_name: 'Name',
             table_view_group_type: 'Type',
+            aba_report:'Report',
+            table_created_date: 'Created date',
 
             table_file_status_fieldname: 'Field name',
             table_file_status_percentualError: 'Percent error',
@@ -69,7 +74,8 @@ module.exports = {
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
             go_to_login:'Go to login',
-            title_change_pass:'Change Password'
+            title_change_pass:'Change Password',
+            add_photo:'Add photo',
            
             
 
@@ -78,11 +84,14 @@ module.exports = {
 
     pt_BR: {
         lang: {
+            home:'Inicio',
             exit: 'Sair',
             graphics: 'Gráficos',
             language: 'Protuguês_BR',
             register: 'Cadastro',
             users: 'Usuários',
+            file:'Arquivos',
+            profile: 'Perfil',
             change_password:'Alterar senha',
             msg_error_01: 'Usuário não encontrado',
             msg_success_user: 'Usuario salvo com sucesso!',
@@ -91,14 +100,16 @@ module.exports = {
             table_view_user_firstname: 'Nome',
             table_view_user_lastname: 'Sobrenome',
             table_view_user_email: 'Email',
-            table_view_file_company_name: 'Company',
-            table_view_file_name: 'File',
+            table_view_file_company_name: 'Agência',
+            table_view_file_name: 'Arquivos',
             table_view_file_company_status: 'Status',
-            table_view_file_company_data: 'Created date',
+            table_view_file_company_data: 'Data de criação',
             table_view_group_id: 'Id',
             table_view_group_rev: 'Rev',
-            table_view_group_name: 'Name',
-            table_view_group_type: 'Type',
+            table_view_group_name: 'Nome',
+            table_view_group_type: 'Tipo',
+            aba_report:'Relatório',
+            table_created_date: 'Data de criação',
 
             table_file_status_fieldname: 'Campo',
             table_file_status_percentualError: 'Percentual de erro',
@@ -126,12 +137,12 @@ module.exports = {
             label_input_firstname: 'Nome',
             label_input_lastname: 'Sobrenome',
             label_input_email: 'Email',
-            label_input_company: 'Company',
+            label_input_company: 'Agência',
             label_input_password: 'Senha',
             label_input_confirm_password: 'Confirme',
             label_select_option: 'Selecione uma opção',
-            label_input_group_name: 'Name',
-            label_input_group_type: 'Type',
+            label_input_group_name: 'Nome',
+            label_input_group_type: 'Tipo',
             label_input_group_rev: 'Rev',
             label_input_phone: 'Telefone',
             label_input_current_pass:'Senha atual',
@@ -140,10 +151,11 @@ module.exports = {
             label_input_search_date_To: 'Até:',
             confirm_pass: 'Confirmar senha',
             Forgot_password:'Esqueceu a senha ?',    
-            msg_error_1987: 'File repeated!',
-            msg_error_500: 'File repeated!',
+            msg_error_1987: 'Arquivo repetido!',
+            msg_error_500: 'Arquivo repetido!',
             go_to_login:'Ir para login',
-            title_change_pass:'Alterar senha'
+            title_change_pass:'Alterar senha',
+            add_photo:'Add imagem',
            
 
         }
@@ -151,11 +163,14 @@ module.exports = {
 
     esp: {
         lang: {
+            home:'Inicio',
             exit: 'Dejar',
             language: 'Gráficos',
             register: 'Catastro',
             graphics: 'Gráficos',
             users: 'Usuários',
+            file:'Archivos',
+            profile: 'Perfil',
             change_password:'Cambiar contraseña',
             msg_error_01: 'no encontré al usuario',
             msg_success_user: 'Usuario guardado con éxito!',
@@ -164,16 +179,18 @@ module.exports = {
             table_view_user_firstname: 'Nombre',
             table_view_user_lastname: 'Apellido',
             table_view_user_email: 'Email',
-            table_view_file_company_name: 'Company',
-            table_view_file_name: 'File',
+            table_view_file_company_name: 'Agência',
+            table_view_file_name: 'Archivos',
             table_view_file_company_status: 'Status',
-            table_view_file_company_data: 'Created date',
+            table_view_file_company_data: 'Creación',
             table_view_group_id: 'Id',
             table_view_group_rev: 'Rev',
             table_view_group_name: 'Name',
             table_view_group_type: 'Type',
             table_view_information: 'Informação',
             table_view_empty: '',
+            aba_report:'Informe',
+            table_created_date: 'Creación',
 
             table_file_status_fieldname: 'Campo',
             table_file_status_percentualError: 'Percentual de erro',
@@ -216,7 +233,8 @@ module.exports = {
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
             go_to_login:'Ir al inicio',
-            title_change_pass:'Cambiar contraseña'
+            title_change_pass:'Cambiar contraseña',
+            add_photo:'Add imagen',
             
 
         }

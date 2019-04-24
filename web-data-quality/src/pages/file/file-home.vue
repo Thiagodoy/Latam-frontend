@@ -33,7 +33,7 @@
                                 <table class="table tabela table-striped table-dark">
                                     <thead>
                                         <tr>                                
-                                            <th scope="col" style="width:30%">File name</th>
+                                            <th scope="col" style="width:30%">{{$t('lang.file')}}</th>
                                             <th scope="col">status</th>                                
                                         </tr>
                                     </thead>

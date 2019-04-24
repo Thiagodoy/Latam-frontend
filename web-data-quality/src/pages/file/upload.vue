@@ -15,7 +15,7 @@
                     <nav mt-5>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab"  role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
-                            <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab"  role="tab" aria-controls="nav-home" aria-selected="true">Relatório</a>
+                            <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab"  role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
                         
                         </div>
                     </nav>
@@ -62,9 +62,9 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Company</th>
-      <th scope="col">File</th>
-      <th scope="col">Created date</th>
+      <th scope="col">{{$t('lang.table_view_file_company_name')}}</th>
+      <th scope="col">{{$t('lang.file')}}</th>
+      <th scope="col">{{$t('lang.table_created_date')}}</th>
       <th scope="col">Status</th>
       <th scope="col">Dowload</th>
       
@@ -137,7 +137,7 @@
                                 <table class="table tabela table-striped table-dark">
                                     <thead>
                                         <tr>                                
-                                            <th scope="col" style="width:30%">File name</th>
+                                            <th scope="col" style="width:30%">{{$t('lang.file')}}</th>
                                             <th scope="col">status</th>                                
                                         </tr>
                                     </thead>

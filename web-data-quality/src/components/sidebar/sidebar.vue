@@ -6,14 +6,14 @@
 
             <div class="x-menu">
             <li class="x-item" id="">
-                 <router-link class="x-btn" tag="a" to="/home"><i class="fas fa-home "></i>&nbsp;Home</router-link>
+                 <router-link class="x-btn" tag="a" to="/home"><i class="fas fa-home "></i>&nbsp;{{$t('lang.home')}}</router-link>
                 
             </li>    
             <li class="x-item" id="cadastro">
                 <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                 <div class="x-smenu">
                     <router-link class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
-                    <router-link class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{'Profile'}}</router-link>
+                    <router-link class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
                     <router-link class="pl-5" tag="a" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>
                                     
                 </div>
@@ -22,7 +22,7 @@
                 <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
                     <div class="x-smenu">
                         <router-link class="pl-5" tag="a" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;Upload</router-link>    
-                        <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;File</router-link>                           
+                        <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                           
                     </div>
             </li>
                

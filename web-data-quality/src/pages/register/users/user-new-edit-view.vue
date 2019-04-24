@@ -15,8 +15,8 @@
                 <img v-if="!userPhoto"  class="img-fluid rounded-circle avatar-view mb-2"  src="../../../assets/images/avatar-null.jpg"/><br>
                 <img v-if="userPhoto" id="image-photo" class="img-fluid rounded-circle avatar-view mb-2"  :src="userPhoto"/><br>
                 <input type="file" id="file-load-photo" style="display:none">                
-                <span v-if="!userPhoto"  class="change-photo" @click="addPhoto"><i class="far fa-save"></i>&nbsp;Add photo</span>
-                <span v-else class="change-photo-remove" @click="removePhoto"><i class="far fa-trash-alt"></i>&nbsp;Remove photo</span>
+                <span v-if="!userPhoto"  class="change-photo" @click="addPhoto"><i class="far fa-save"></i>&nbsp;{{$t('lang.add_photo')}}</span>
+                <span v-else class="change-photo-remove" @click="removePhoto"><i class="far fa-trash-alt"></i>&nbsp;Remover imagem</span>
             </div>
             <div class="infos-box col-md-10">
 
@@ -66,7 +66,7 @@
                        
                          <div class="col-md-12">
                         <div class="form-group" :class="{'has-error':errors.has('profile')}">
-                            <label for="profile">Profile</label>
+                            <label for="profile">{{$t('lang.profile')}}</label>
                             <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="request.groups" name="profile" id="profile" multiple>
 
                                 <option class="campos "  v-for="(v,i) in groups" :value="v.id" :key="i">{{v.name}}</option>
