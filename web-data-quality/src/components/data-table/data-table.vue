@@ -32,7 +32,8 @@
                                 </template>
                                 <template v-else-if="config.showOptionsTYPE == 'FILE-DETAIL'">                                   
                                     <span><i class=" btn-option  fas  mr-3" :style="{color:(v.qtdErrors == 0 ? 'green':'red')}" :class="{'fa-check-circle':v.qtdErrors == 0,'fa-exclamation-circle':v.qtdErrors > 0 }"></i></span>                                    
-                                </template>                              
+                                </template>   
+                                                        
                                 <template v-else>
                                     <span @click="buttonClick('view',v)"> <i class= " btn-option far fa-sticky-note mr-3" alt="View"  title="View"></i></span>
                                     <span @click="buttonClick('edit',v)"><i class=" btn-option  fas fa-pen mr-3" title="Edit"></i></span>
