@@ -32,7 +32,8 @@
         "node-sass": "^4.11.0",
         "sass-loader": "^7.1.0",
         "vee-validate": "^2.2.0",
-        "vue-template-compiler": "^2.6.9"
+        "vue-template-compiler": "^2.6.9",
+        "jquery": "^3.3.1"
     },
     "eslintConfig": {
         "root": true,

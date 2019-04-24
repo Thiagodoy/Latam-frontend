@@ -2,6 +2,7 @@
   <div id="app">
     <router-view/>
     <a id="mobi"></a>
+    <message-dialog></message-dialog>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 
  
 import {dictionary} from './validators';
+import MessageDialog from './components/modal/message-dialog.vue'
 export default {
   name: 'app',
   created(){
@@ -16,7 +18,9 @@ export default {
       messages: dictionary.brasil.messages,      
     });
   },
-  components: {}
+  components: {
+    MessageDialog
+  }
 }
 </script>
 

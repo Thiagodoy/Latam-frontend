@@ -1,4 +1,5 @@
-import { Validator } from 'vee-validate'
+import { Validator } from 'vee-validate';
+import { accountExists } from './user'
 
 
 const dictionary = {
@@ -17,4 +18,12 @@ const dictionary = {
     }
 };
 
-export { dictionary }
+
+
+const plugin = {};
+
+plugin.install = function(Vue, options) {
+    Validator.extend('userExists', accountExists);
+};
+
+export { dictionary, plugin }

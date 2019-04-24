@@ -29,7 +29,7 @@ class UserService extends Service {
      * @param  {} request
      */
     deleteUser(request) {
-        this._url = '/{id}'
+        this._url = `?id=${request.id}`;
         return this.delete(request);
     }
 
@@ -39,6 +39,22 @@ class UserService extends Service {
     updateUser(request) {
         this._url = '';
         return this.put(request);
+    }
+
+    /**
+     * @param  {} value
+     */
+    checkCpfCnpj(value) {
+        this._url = `/userExists/${value}`;
+        return this.get();
+    }
+
+    /**
+     * @param  {} value
+     */
+    resendAcces(value) {
+        this._url = `/resendPassword`;
+        return this.get({ email: value }, true);
     }
 }
 
