@@ -8,6 +8,7 @@ module.exports = {
             language: 'Inglês',
             register: 'Register',
             users: 'Users',
+            change_password:'Change Pass',
             msg_error_01: 'Not found the user',
             msg_success_user: 'User saved successfully!',
             table_view_user_photo: 'Photo',
@@ -57,11 +58,17 @@ module.exports = {
             label_input_group_name: 'Name',
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
+            label_input_phone: 'Phone',
+            label_input_current_pass:'Current password',
+            label_imput_newpass: 'New password',
+            confirm_pass: 'Confirm password',
             Forgot_password:'Forgot password',   
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
             go_to_login:'Go to login',
-            change_password:'Change Password',
+            title_change_pass:'Change Password'
+           
+            
 
         }
     },
@@ -73,6 +80,7 @@ module.exports = {
             language: 'Protuguês_BR',
             register: 'Cadastro',
             users: 'Usuários',
+            change_password:'Alterar senha',
             msg_error_01: 'Usuário não encontrado',
             msg_success_user: 'Usuario salvo com sucesso!',
             table_view_user_photo: 'Foto',
@@ -121,11 +129,16 @@ module.exports = {
             label_input_group_name: 'Name',
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
+            label_input_phone: 'Telefone',
+            label_input_current_pass:'Senha atual',
+            label_imput_newpass: 'Nova senha',
+            confirm_pass: 'Confirmar senha',
             Forgot_password:'Esqueceu a senha ?',    
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
             go_to_login:'Ir para login',
-            change_password:'Alterar senha',
+            title_change_pass:'Alterar senha'
+           
 
         }
     },
@@ -137,6 +150,7 @@ module.exports = {
             register: 'Catastro',
             graphics: 'Gráficos',
             users: 'Usuários',
+            change_password:'Cambiar contraseña',
             msg_error_01: 'no encontré al usuario',
             msg_success_user: 'Usuario guardado con éxito!',
             table_view_user_photo: 'Foto',
@@ -184,12 +198,17 @@ module.exports = {
             label_input_group_name: 'Name',
             label_input_group_type: 'Type',
             label_input_group_rev: 'Rev',
+            label_input_phone: 'Teléfono',
+            label_input_current_pass:'Contraseña actual',
+            label_imput_newpass: 'Nueva contraseña',
+            confirm_pass: 'Confirmar seña',
             label_select_option: 'Seleccione una opción',
             Forgot_password:'Olvido la contraseña',
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
             go_to_login:'Ir al inicio',
-            change_password:'Cambiar contraseña',
+            title_change_pass:'Cambiar contraseña'
+            
 
         }
     }
