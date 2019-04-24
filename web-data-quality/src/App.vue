@@ -13,8 +13,7 @@ export default {
   name: 'app',
   created(){
     this.$validator.localize('pt_BR', {
-      messages: dictionary.brasil.messages,
-      
+      messages: dictionary.brasil.messages,      
     });
   },
   components: {}

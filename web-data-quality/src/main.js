@@ -24,7 +24,7 @@ Vue.use(VeeValidate, {
 let messages = require('./i18n/lang.js')
 Vue.use(VueI18n)
 
-const i18n = new VueI18n({ locale: 'en', messages });
+const i18n = new VueI18n({ locale: 'pt_BR', messages });
 
 Vue.config.productionTip = false
 
