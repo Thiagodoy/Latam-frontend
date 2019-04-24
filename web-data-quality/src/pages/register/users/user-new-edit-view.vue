@@ -30,6 +30,13 @@
                             </div>
                             <div class="help-block">{{errors.first('firstname')}}</div>                        
                         </div>
+                         <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error': errors.has('lastname')}">
+                                <label for="exampleInputEmail1">{{$t('lang.label_input_lastname')}}</label>
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control campos"  :placeholder="$t('lang.label_input_lastname')" >
+                                <div class="help-block">{{errors.first('lastname')}}</div>
+                            </div>
+                         </div>
                         <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('email')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_email')}}</label>
@@ -39,12 +46,18 @@
                         </div>
                        
                        <div class="col-md-12">
-                            <div class="form-group" :class="{'has-error':errors.has('email')}">
+                            <div class="form-group" :class="{'has-error':errors.has('company')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_company')}}</label>
+<<<<<<< HEAD
                                 <select :disabled="typeAction == 'VIEW'" v-model="request.company"  v-validate="'required'" class="custom-select form-control selct1 campos">
                                     <option v-for="(v, i) in agencys" :key="i" :value="v.id">{{v.name}}</option>
+=======
+                                <select id="company" :disabled="typeAction == 'VIEW'" v-model="request.company" name="company" v-validate="'required'" class="custom-select form-control selct1 campos">
+                                   
+                                    <option class="option" value="Daileon"  >Flytour</option>
+>>>>>>> dcef8491a1acff49e9d30bd01db90f6115eb6e79
                                 </select>  
-                                   <div class="help-block">{{errors.first('email')}}</div>  
+                                   <div class="help-block">{{errors.first('company')}}</div>  
                              </div>        
                        </div>
                        
@@ -62,7 +75,7 @@
                             <label for="profile">Profile</label>
                             <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="request.groups" name="profile" id="profile" multiple>
 
-                                <option class="campos"  v-for="(v,i) in groups" :value="v.id" :key="i">{{v.name}}</option>
+                                <option class="campos "  v-for="(v,i) in groups" :value="v.id" :key="i">{{v.name}}</option>
                             </select>
                             <div class="help-block">{{errors.first('profile')}}</div>
                             </div>                        
@@ -71,12 +84,29 @@
                     <!-- Column B -->
                     <div class="col-md-6">
                          <div class="col-md-12">
-                            <div class="form-group" :class="{'has-error': errors.has('lastname')}">
-                                <label for="exampleInputEmail1">{{$t('lang.label_input_lastname')}}</label>
-                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="lastname" v-model="request.lastName"  type="text" class="form-control campos"  :placeholder="$t('lang.label_input_lastname')" >
-                                <div class="help-block">{{errors.first('lastname')}}</div>
+                            <div class="form-group" :class="{'has-error': errors.has('cpf')}">
+                                <label for="exampleInputEmail1">CPF/CNPJ</label>
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="cpf"   type="text" class="form-control campos"  placeholder="CPF/CNPJ" >
+                                <div class="help-block">{{errors.first('cpf')}}</div>
                             </div>
                          </div>
+
+                         <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error': errors.has('phone')}">
+                                <label for="exampleInputEmail1">{{$t('lang.label_input_phone')}}</label>
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="phone"   type="text" class="form-control campos"  :placeholder="$t('lang.label_input_phone')" >
+                                <div class="help-block">{{errors.first('phone')}}</div>
+                            </div>
+                         </div>
+
+                         <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error': errors.has('linkedin')}">
+                                <label for="exampleInputEmail1">Linkedin</label>
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="linkedin"   type="text" class="form-control campos"  placeholder="Linkedin" >
+                                <div class="help-block">{{errors.first('linkedin')}}</div>
+                            </div>
+                         </div>
+                        
                         
                     </div>
                 </div>    
@@ -212,6 +242,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+#company option{
+
+   background-color: rgba(0,0,0,0.8);
+    
+}
+
 input:disabled{
     background-color: rgba(255,255,255,0.6);
     color:#000;

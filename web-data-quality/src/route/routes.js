@@ -5,6 +5,9 @@ import HomePage from '../pages/home.vue'
 import UserHome from '../pages/register/users/users-home.vue'
 import ProfileHome from '../pages/register/profile/profile-home.vue'
 import FileHome from '../pages/file/file-home.vue'
+import ChangePass from '../pages/register/change-pass/change-pass.vue'
+import Upload from '../pages/file/upload.vue'
+
 
 Vue.use(Router)
 
@@ -20,7 +23,9 @@ export default new Router({
             children: [
                 { name: 'users-register', path: '/users-register', component: UserHome },
                 { name: 'file', path: '/file', component: FileHome },
-                { name: 'users-profile', path: '/users-profile', component: ProfileHome }
+                { name: 'users-profile', path: '/users-profile', component: ProfileHome },
+                { name: 'change-pass', path: '/change-pass', component: ChangePass },
+                { name: 'upload', path: '/upload', component: Upload }
             ]
 
         }

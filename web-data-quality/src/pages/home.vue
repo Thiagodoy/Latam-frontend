@@ -82,8 +82,8 @@ export default {
     height: 100vh;  
 }
 .menu-lateral{
-    width: 180px;
-    min-width: 180px;
+    width: 200px;
+    min-width: 200px;
     position: fixed; 
     
 }
@@ -100,7 +100,7 @@ export default {
     padding: 20px; 
 }
 .active{
-    margin-left: 180px;
+    margin-left: 200px;
 }
 ::-webkit-scrollbar {
     width: 6px;
