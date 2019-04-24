@@ -48,14 +48,8 @@
                        <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('company')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_company')}}</label>
-<<<<<<< HEAD
                                 <select :disabled="typeAction == 'VIEW'" v-model="request.company"  v-validate="'required'" class="custom-select form-control selct1 campos">
                                     <option v-for="(v, i) in agencys" :key="i" :value="v.id">{{v.name}}</option>
-=======
-                                <select id="company" :disabled="typeAction == 'VIEW'" v-model="request.company" name="company" v-validate="'required'" class="custom-select form-control selct1 campos">
-                                   
-                                    <option class="option" value="Daileon"  >Flytour</option>
->>>>>>> dcef8491a1acff49e9d30bd01db90f6115eb6e79
                                 </select>  
                                    <div class="help-block">{{errors.first('company')}}</div>  
                              </div>        
