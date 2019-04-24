@@ -28,21 +28,21 @@
   <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="">
      
   <tr style="width:10%;">
-    <td class="text-right"> Agência &nbsp;</td>
+    <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
     <th>
-         <input  class="input-search form-control " type="text" placeholder="Agência"/>
+         <input  class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')"/>
     </th>
-     <td class="text-right">De &nbsp;</td>
+     <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
     <td>
     <input style="color:#ccc"   class="form-control mx-auto ml-2" type="date"/>
     </td>  
-    <td class="text-right">Até &nbsp;</td>
+    <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
     <td>
     <input style="color:#ccc;"  class="form-control mx-auto" type="date"/>
     </td> 
     <td class="text-right"></td>
     <td>
-       <button  style="color:#fff"  class="btn btn-default btn-small ml-3 ">Filtrar</button> 
+       <button  style="color:#fff"  class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button> 
     
     </td>
     
