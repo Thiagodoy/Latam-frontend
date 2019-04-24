@@ -16,7 +16,11 @@ class DataTableConfigFactory {
                 return this.configTableFileStatusVisualization();
             case 'DATA-TABLE-FILE-INFORMATION-VISUALIZATION':
                 return this.configTableFileInformationVisualization();
-            default:
+            case 'DATA-TABLE-RELATORIO-VISUALIZATION':
+            return this.configTableRelatorioVisualisation();
+           
+           
+                default:
                 throw new Error('Configuration not exists!');
 
         }
@@ -41,6 +45,22 @@ class DataTableConfigFactory {
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     configTableFileStatusVisualization() {
         return {
             showCount: false,
@@ -97,6 +117,67 @@ class DataTableConfigFactory {
 
 
     }
+
+    configTableRelatorioVisualisation() {
+        return {
+            showCount: true,
+            showOptions: true,
+            showOptionsTYPE: 'FILE',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+                { name: "company", title: "table_view_file_company_name" },
+                { name: "name", title: "table_view_file_name" },
+                { name: "createdDate", title: "table_view_file_company_data", formatter: (value) => { return dateTime(value) } },
+                {
+                    name: "status",
+                    title: "table_view_file_company_status",
+                    formatter: (v) => {
+
+                        switch (v) {
+                            case 'PROCESSING':
+                                return '<div src="..." alt="..." class="spinner-grow text-warning" style="height:25px;width:25px; background-color:#ffc107;"/>'
+                            case 'SUCCESS':
+                                return '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;"/>'
+                            case 'ERROR':
+                                return '<div src="..." alt="..." class="rounded-circle" style="height:25px;width:25px; background-color:red;"/>'
+                        }
+                    }
+                },
+
+                //{ name: "loading", title: "table_view_user_firstname", formatter: undefined },             
+            ]
+        };
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     configTableGroupVisualization() {
 
         return {

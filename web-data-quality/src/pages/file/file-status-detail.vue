@@ -2,8 +2,9 @@
     <div>
 
         <toolbar :config="configToolbar" @back="$emit('back')"></toolbar>
+        
         <div class="row">
-            
+              teste
             <div class="col-md-6">
                 <!--Data Table  -->
                 <data-table 
