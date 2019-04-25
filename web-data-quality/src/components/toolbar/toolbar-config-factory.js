@@ -5,6 +5,8 @@ class ToolbarConfigFactory {
         switch (key) {
             case 'TOOLBAR-USER-VISUALIZATION':
                 return this.configToolbarUserVisualization();
+            case 'TOOLBAR-COMPANY-VISUALIZATION':
+                return this.configToolbarCompanyVisualization();    
             case 'TOOLBAR-USER-VIEW-VISUALIZATION':
                 return this.configToolbarUserViewVisualization();
             case 'TOOLBAR-FILE-VISUALIZATION':
@@ -54,6 +56,19 @@ class ToolbarConfigFactory {
                 { label: 'table_view_user_firstname', attribute: 'firstName' },
                 { label: 'table_view_user_lastname', attribute: 'lastName' },
                 { label: 'table_view_user_email', attribute: 'email' }
+            ]
+
+        };
+    }
+
+    configToolbarCompanyVisualization() {
+        return {
+            buttons: [
+                { emit: 'new', class: 'btn-add-user', icon: 'fas fa-user-plus', label: 'button_new' }
+            ],
+            filter: [
+                { label: 'table_view_file_company_name', attribute: 'firstName' },
+                
             ]
 
         };

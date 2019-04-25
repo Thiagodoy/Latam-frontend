@@ -8,6 +8,8 @@ class DataTableConfigFactory {
         switch (data) {
             case 'DATA-TABLE-USER-VISUALIZATION':
                 return this.configTableUserVisualisation();
+            case 'DATA-TABLE-COMPANY-VISUALIZATION':
+                return this.configTableCompanyVisualisation();    
             case 'DATA-TABLE-FILE-VISUALIZATION':
                 return this.configTableFileVisualisation();
             case 'DATA-TABLE-GROUP-VISUALIZATION':
@@ -45,21 +47,6 @@ class DataTableConfigFactory {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     configTableFileStatusVisualization() {
         return {
@@ -155,29 +142,6 @@ class DataTableConfigFactory {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     configTableGroupVisualization() {
 
         return {
@@ -218,7 +182,35 @@ class DataTableConfigFactory {
         };
     }
 
+    configTableCompanyVisualisation() {
+        return {
+            showCount: true,
+            showOptions: true,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+                { name: "name", title: "table_agency_name", width: "10%" },
+                { name: "inputPath", title: "table_agency_input_path", formatter: undefined },
+                { name: "processedPath", title: "table_agency_processed_path", formatter: undefined },
+                { name: "localFilePath", title: "table_agency_local_file_path", formatter: undefined },
+                { name: "agencyCode", title: "table_agency_code", formatter: undefined },
+                { name:  "odFlag", title: "table_Agency_od_flag", formatter: undefined },
+                { name: "flagMonthly", title: "table_agency_flag_monthly", formatter: undefined },
+                { name:  "flagApproved", title: "table_agency_flag_approved", formatter: undefined },
+
+            ]
+        };
+    }
+
 }
 
 const instance = new DataTableConfigFactory();
 export default instance;
+
+
+
+

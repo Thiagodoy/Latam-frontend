@@ -307,7 +307,7 @@ export default {
 
 #company option{
 
-   background-color: rgba(0,0,0,0.8);
+   background-color: rgba(0,0,0,0.9);
     
 }
 
@@ -339,6 +339,7 @@ select:disabled{
      background-color: rgba(0,0,0,0.3);
      margin: 0px;
     color:#ddd;
+    padding: 20px;
 }
 .picture-box{
    padding: 15px;
