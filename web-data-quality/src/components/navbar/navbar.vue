@@ -10,30 +10,28 @@
                     <div class="menu-bar"></div>
                     <div class="menu-bar"></div>
                 </div>
-            </div>
+            </div>           
+            <div class="bar-options container-fluid">
+                <div class="row" v-if="!(getIsFirstAccess == true)">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6 text-right logaut" @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div>
 
-           
-                <div class="bar-options container-fluid">
-                    <div class="row">
-                        <div class="col-md-6"></div>
-                        <div class="col-md-6 text-right logaut" @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div>
-
-                    </div>
                 </div>
-
-           
+            </div>           
         </div>
     </div>     
 </template>
 <script>
-
+import {mapGetters} from 'vuex';
 export default {
     data(){
         return{
        
        }
     },
-
+    computed:{
+        ...mapGetters(['getIsFirstAccess'])
+    },
     methods:{  
 
         logout(){

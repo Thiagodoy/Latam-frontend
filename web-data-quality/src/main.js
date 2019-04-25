@@ -9,6 +9,7 @@ import VueI18n from 'vue-i18n';
 import VeeValidate from 'vee-validate';
 import Diretivas from './directives/index';
 import { plugin } from './validators/index';
+import store from './store/index';
 
 
 
@@ -36,6 +37,7 @@ Vue.config.productionTip = false
 
 new Vue({
     router,
+    store,
     i18n,
 
     render: h => h(App),

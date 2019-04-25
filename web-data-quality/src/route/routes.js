@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router';
-import Login from '../pages/login'
+import Login from '../pages/login';
+
 import HomePage from '../pages/home.vue'
 import UserHome from '../pages/register/users/users-home.vue'
 import ProfileHome from '../pages/register/profile/profile-home.vue'
@@ -22,10 +23,10 @@ export default new Router({
             component: HomePage,
             display: 'Home',
             children: [
+                { name: 'change-pass', path: '/change-pass', component: ChangePass },
                 { name: 'users-register', path: '/users-register', component: UserHome },
                 { name: 'file', path: '/file', component: FileHome },
                 { name: 'users-profile', path: '/users-profile', component: ProfileHome },
-                { name: 'change-pass', path: '/change-pass', component: ChangePass },
                 { name: 'upload', path: '/upload', component: Upload },
                 { name: 'company', path: '/company', component: CompanyHome }
             ]

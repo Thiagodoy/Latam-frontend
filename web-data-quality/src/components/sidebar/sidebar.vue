@@ -4,57 +4,53 @@
             <!-- Component -->
             <localization></localization> 
 
-            <div class="x-menu">
-            <li class="x-item" id="">
-                 <router-link class="x-btn" tag="a" to="/home"><i class="fas fa-home "></i>&nbsp;{{$t('lang.home')}}</router-link>
-                
-            </li>    
-            <li class="x-item" id="cadastro">
-                <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
-                <div class="x-smenu">
-                    <router-link class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
-                     <router-link class="pl-5" tag="a" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
-                    <router-link class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
-                   
-                                    
-                </div>
-            </li>
-            <li class="x-item" id="mensagem">
-                <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
+            <div v-if="!(getIsFirstAccess == true)" class="x-menu">
+                <li class="x-item" id="">
+                    <router-link class="x-btn" tag="a" to="/home"><i class="fas fa-home "></i>&nbsp;{{$t('lang.home')}}</router-link>
+                    
+                </li>    
+                <li class="x-item" id="cadastro">
+                    <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                     <div class="x-smenu">
-                        <router-link class="pl-5" tag="a" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;Upload</router-link>    
-                        <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                           
+                        <router-link class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
+                        <router-link class="pl-5" tag="a" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
+                        <router-link class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
+                    
+                                        
                     </div>
-            </li>
-            <li class="x-item" id="senha">
-                <a href="#senha" class="x-btn"><i class="fas fa-cog"></i>&nbsp;{{$t('lang.options')}} &nbsp; <i class="fas fa-caret-down "></i></a>
-                    <div class="x-smenu">
-                        <router-link class="pl-5" tag="a" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>                        
-                    </div>
-            </li>
-           
-               
-                
-        </div>
-
+                </li>
+                <li class="x-item" id="mensagem">
+                    <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
+                        <div class="x-smenu">
+                            <router-link class="pl-5" tag="a" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;Upload</router-link>    
+                            <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                           
+                        </div>
+                </li>
+                <li class="x-item" id="senha">
+                    <a href="#senha" class="x-btn"><i class="fas fa-cog"></i>&nbsp;{{$t('lang.options')}} &nbsp; <i class="fas fa-caret-down "></i></a>
+                        <div class="x-smenu">
+                            <router-link class="pl-5" tag="a" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>                        
+                        </div>
+                </li>
+            </div>
         </div>   
     </div>  
 </template>
 <script>
 import {i18n} from '../../main'
-import Localization from '../local/localization.vue'
+import Localization from '../local/localization.vue';
+import {mapGetters} from 'vuex';
 
 export default {
 
     data(){
         return{
-
-          
-
         }
     },
 
-    
+    computed:{
+        ...mapGetters(['getIsFirstAccess'])
+    },
     components:{
         Localization
     }

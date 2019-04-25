@@ -15,6 +15,8 @@ class UserService extends Service {
         return this.get(request, true);
     }
 
+
+
     /**
      * @summary Endpoint save a User
      * @param  {Object} request Object tha represents a User

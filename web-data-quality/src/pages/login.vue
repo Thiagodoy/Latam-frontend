@@ -223,6 +223,7 @@ import Localization from "../components/local/localization.vue";
 import AuthenticationService from "../services/authentication.js";
 import Loading from '../components/loading/loading.vue';
 import * as _ from 'lodash';
+import {mapActions, mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -238,14 +239,16 @@ export default {
   },
   mounted(){
 
-    console.log('URL_BASE',process.env.VUE_APP_BASE_PATH);
-    this.request.login =`thiago@thiago.com`;
-    this.request.password =`123456`;
-    this.login();
+   // console.log('URL_BASE',process.env.VUE_APP_BASE_PATH);
+    //this.request.login =`thiago@thiago.com`;
+    //this.request.password =`123456`;
+   // this.login();
   },
-
+  computed:{
+    ...mapGetters(['getIsFirstAccess'])
+  },
   methods: {
-
+    ...mapActions(['loginStore']),
     logarCadastrar(){
       if(this.tipoLogin=="login"){
         this.tipoLogin = "cadastro";
@@ -256,18 +259,25 @@ export default {
       }
     },
 
-    // FIXME: Put loading on the page when  make a request
+   
     login() {
       this.loading = this.$validator.validateAll().then(response => {
+        
         if (response) {
-          let request = _.cloneDeep(this.request);
-          return AuthenticationService.login(this.request).then(response => {
-            this.$router.push({ name: "home" });
+          let request = {...this.request};
+          return this.loginStore(this.request).then(response => {
+
+            if(this.getIsFirstAccess == true){
+              this.$router.push({ name: "change-pass" });
+            }else{
+              this.$router.push({ name: "home" });
+            }
+            
             return Promise.resolve();
           });
         }
       }).catch((erro)=>{
-        alert("Usuario não cadastrado!")
+        console.log(erro);
       });
     }
   },
