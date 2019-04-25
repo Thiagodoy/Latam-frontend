@@ -20,7 +20,7 @@ module.exports = {
             table_view_user_firstname: 'FirstName',
             table_view_user_lastname: 'LastName',
             table_view_user_email: 'E-mail',
-            table_view_file_company_name: 'Company',
+            table_view_file_company_name: 'Agency',
             table_view_file_name: 'File',
             table_view_file_company_status: 'Status',
             table_view_file_company_data: 'Created date',
@@ -30,6 +30,16 @@ module.exports = {
             table_view_group_type: 'Type',
             aba_report:'Report',
             table_created_date: 'Created date',
+            
+            
+            table_agency_name: "Agency",
+            table_agency_input_path: "Input path",
+            table_agency_processed_path: "Processed path",
+            table_agency_local_file_path: "Local file path",
+            table_agency_code: "Agency code",
+            table_Agency_od_flag: "Od ",
+            table_agency_flag_monthly:"Monthly",
+            table_agency_flag_approved: "Approved",
 
             table_file_status_fieldname: 'Field name',
             table_file_status_percentualError: 'Percent error',
@@ -58,7 +68,7 @@ module.exports = {
             label_input_firstname: 'First Name',
             label_input_lastname: 'Last Name',
             label_input_email: 'E-mail',
-            label_input_company: 'Company',
+            label_input_company: 'Agency',
             label_input_password: 'Password',
             label_input_confirm_password: 'Confirm',
             label_select_option: 'Select a option',
@@ -112,6 +122,16 @@ module.exports = {
             table_view_group_type: 'Tipo',
             aba_report:'Relatório',
             table_created_date: 'Data de criação',
+           
+            
+            table_agency_name: "Agência",
+            table_agency_input_path: "Entrada",
+            table_agency_processed_path: "Processado",
+            table_agency_local_file_path: "Local do arquivo",
+            table_agency_code: "Código agencia",
+            table_Agency_od_flag: "Od",
+            table_agency_flag_monthly:"Por mês",
+            table_agency_flag_approved: "Aprovado",
 
             table_file_status_fieldname: 'Campo',
             table_file_status_percentualError: 'Percentual de erro',
@@ -195,6 +215,17 @@ module.exports = {
             aba_report:'Informe',
             table_created_date: 'Creación',
 
+            
+            table_agency_name: "Agência",
+            table_agency_input_path: "Input path",
+            table_agency_processed_path: "Processed path",
+            table_agency_local_file_path: "Local file path",
+            table_agency_code: "Agency code",
+            table_Agency_od_flag: "Od flag",
+            table_agency_flag_monthly:"Flag monthly",
+            table_agency_flag_approved: "Flag approved",
+
+
             table_file_status_fieldname: 'Campo',
             table_file_status_percentualError: 'Percentual de erro',
             table_file_status_percentualHit: 'Percental de acerto',
@@ -238,6 +269,7 @@ module.exports = {
             go_to_login:'Ir al inicio',
             title_change_pass:'Cambiar contraseña',
             add_photo:'Add imagen',
+           
             
 
         }
