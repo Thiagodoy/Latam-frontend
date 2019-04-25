@@ -121,12 +121,6 @@ methods:{
            monthly = "S"
         }
 
-
-
-       
-       
-       
-       
        let request = {
             "id": this.editAgency.id,
             "name": this.agencia,
@@ -141,6 +135,8 @@ methods:{
         }
 
       console.log("Request: ",request)
+
+      
 
     }
 

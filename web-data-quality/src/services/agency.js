@@ -29,7 +29,7 @@ class AgencyService extends Service {
     /**
      * @param  {} request
      */
-    deleteUser(request) {
+    delete(request) {
         this._url = '/{id}'
         return this.delete(request);
     }

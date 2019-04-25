@@ -21,7 +21,7 @@
                 :data="data"
                  @view="view"
                  @edit="edit"
-             
+                 @delete="del"
                  @page="setPage"
                
               
@@ -53,6 +53,7 @@ import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import AgencyService from '../../../services/agency.js';
 import _ from 'lodash';
+import Modal from '../../../components/modal/message-dialog.vue';
 
 
 export default {
@@ -78,6 +79,19 @@ export default {
 
 
     methods:{
+
+         del(data){
+            Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
+                 if(response == 'YES'){
+                    //Corrigir o loading
+                   AgencyService.delete({id:data.id}).then(response=>{
+                       this.getAgency()
+                       }).catch(erro=>{
+                        Modal.show({title:"Erro", message:erro.message, type:'OK'})
+                   }) 
+                }
+            })
+        },
 
          edit(data){
             this.show = 'edit';
