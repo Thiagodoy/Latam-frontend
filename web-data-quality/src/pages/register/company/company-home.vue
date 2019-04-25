@@ -19,8 +19,10 @@
             <data-table
                 :config="configTable"
                 :data="data"
-                @view="viewAgency"
-                @edit="editAgency"
+                 @view="view"
+                 @edit="edit"
+                 @delete="del"
+                 @page="setPage"
                
               
                 
@@ -33,8 +35,8 @@
 
         <!--Componentes Options -->   
         <agency-new @back="show = 'home'" v-if="show=='new'"></agency-new>
-        <agency-view @back="show = 'home'" v-if="show=='view'"></agency-view> 
-        <agency-edit @back="show = 'home'" v-if="show=='edit'"></agency-edit>         
+        <agency-view v-bind:viewAgency="viewAgency" @back="show = 'home'" v-if="show=='view'"></agency-view> 
+        <agency-edit v-bind:editAgency="editAgency" @back="show = 'home'" v-if="show=='edit'"></agency-edit>         
      
 
     
@@ -51,6 +53,7 @@ import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import AgencyService from '../../../services/agency.js';
 import _ from 'lodash';
+import Modal from '../../../components/modal/message-dialog.vue';
 
 
 export default {
@@ -65,10 +68,11 @@ export default {
             loading:undefined,
             show:'home',
             typeAction:undefined,
-            data:{
+           data:{
                 conteudo:[],
-              
+                pagination:undefined
             },
+             filter:{page:0,size:10}
            
         }
     },
@@ -76,26 +80,53 @@ export default {
 
     methods:{
 
-         editAgency(data){
-            this.show = 'new';
+         del(data){
+            Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
+                 if(response == 'YES'){
+                    //Corrigir o loading
+                   AgencyService.delete({id:data.id}).then(response=>{
+                       this.getAgency()
+                       }).catch(erro=>{
+                        Modal.show({title:"Erro", message:erro.message, type:'OK'})
+                   }) 
+                }
+            })
+        },
+
+         edit(data){
+            this.show = 'edit';
             this.editAgency = data;
            
-        },   
-        viewAgency(data){
-            this.show = 'new';
-            this.viewAgency =data;
-           
-        },     
+        }, 
+
+        view(data){
+            this.show = 'view';
+            this.viewAgency = data;
+        },  
+        
+        
+         setPage(page){
+            
+            let temp = {...this.filter};
+            temp.page = page;
+            this.filter = temp;
+            // this.getUsers();
+        },
+        setFilter(filter){    
+            
+            this.filter = _.merge({...filter},{
+                page:0,
+                size:10
+            })
+            
+        },
 
         getAgency(){
-             AgencyService.list().then((response)=>{
-                this.data.conteudo = response ;
-                console.log("DATA.CONTEUDO:",this.data.conteudo) 
-
-                 alert(this.data.conteudo);
-           
-           }); 
-
+              AgencyService.getAgency(this.filter).then((response)=>{
+                
+                this.data.conteudo = response.content;
+                this.data.pagination = response
+            }); 
         }
 
        
@@ -113,7 +144,12 @@ export default {
     },
 
      watch:{
-       
+        filter:{
+            handler:function(newValue, oldValue){
+                this.getAgency();
+            },
+            deep:true
+        },
         show(newValue, oldValue){
             if(newValue == 'home'){
                 this.currentObject = undefined;

@@ -190,14 +190,15 @@ class DataTableConfigFactory {
             showSearch: false,
             showHeaderOptions: false,
             showRowPerPage: false,
-            showPagination: false,
+            showPagination: true,
             searchBy: "",
             columns: [
                 { name: "name", title: "table_agency_name", width: "10%" },
-                { name: "inputPath", title: "table_agency_input_path", formatter: undefined },
-                { name: "processedPath", title: "table_agency_processed_path", formatter: undefined },
+              
+             
                 { name: "localFilePath", title: "table_agency_local_file_path", formatter: undefined },
                 { name: "agencyCode", title: "table_agency_code", formatter: undefined },
+                { name:  "S3_PATH", title: "table_agency_s3", formatter: undefined },
                 { name:  "odFlag", title: "table_Agency_od_flag", formatter: undefined },
                 { name: "flagMonthly", title: "table_agency_flag_monthly", formatter: undefined },
                 { name:  "flagApproved", title: "table_agency_flag_approved", formatter: undefined },

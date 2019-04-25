@@ -19,10 +19,12 @@ const userStore = {
             return state.user ? state.user : { matricula: '', nome: '' };
         },
         getIsFirstAccess: (state, getters) => {
+
             if (!state.user) return false;
             let value = state.user.info.find(e => e.key == 'primeiro_acesso').value
             return !(value == 'false');
         },
+
         getCheckPermission: (state) => (chave) => {
 
 
