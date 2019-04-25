@@ -151,7 +151,7 @@ export default {
         GroupService.getGroups({page:0, size:100}).then((response)=>{this.groups = response.content});
 
         AgencyService.list({page:0,size:1000}).then(response => {
-            this.agencys = response.map(e=>{
+            this.agencys = response.content.map(e=>{
                 let ne = {};
                 ne.id = e.id;
                 ne.name = e.name

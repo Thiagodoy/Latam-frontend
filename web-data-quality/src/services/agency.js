@@ -19,6 +19,7 @@ class AgencyService extends Service {
      * @summary Lista as agencias
      */
     list(request) {
+        this._url = ''
         return this.get(request, true);
     }
 
