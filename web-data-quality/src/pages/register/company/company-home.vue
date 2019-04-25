@@ -36,7 +36,7 @@
         <!--Componentes Options -->   
         <agency-new @back="show = 'home'" v-if="show=='new'"></agency-new>
         <agency-view v-bind:viewAgency="viewAgency" @back="show = 'home'" v-if="show=='view'"></agency-view> 
-        <agency-edit v-bind:editAgency="editAgency" @back="show = 'home'" v-if="show=='edit'"></agency-edit>         
+        <agency-edit v-bind:editAgency="edit" @back="show = 'home'" v-if="show=='edit'"></agency-edit>         
      
 
     
