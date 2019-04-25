@@ -1,164 +1,96 @@
 <template>
-    <div v-async="loading" >
+<div v-async="loading">
 
+    <div v-if="showOp== 'list'">
 
-            <div v-if="showOp== 'list'">
-                    <!-- List File -->
-                    <!-- Toolbar  -->
-                    <toolbar 
-                    :config="configToolbar" 
-                    @upload="openUpload"
-                    ></toolbar>
-                    
-                        <br>
-                    
-                    <nav mt-5>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab"  role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
-                            <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab"  role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
-                        
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}"  role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <!-- DataTable -->
+        <toolbar :config="configToolbar" @upload="openUpload">
+        </toolbar>
 
-                                   
-                      
-  <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="">
-     
-  <tr style="width:10%;">
-    <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
-    <th>
-         <input  class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')"/>
-    </th>
-     <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
-    <td>
-    <input style="color:#ccc"   class="form-control mx-auto ml-2" type="date"/>
-    </td>  
-    <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
-    <td>
-    <input style="color:#ccc;"  class="form-control mx-auto" type="date"/>
-    </td> 
-    <td class="text-right"></td>
-    <td>
-       <button  style="color:#fff"  class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button> 
-    
-    </td>
-    
-  </tr>
-  <tr>
-   
-   
-  </tr>
-  <tr>
-    
-   
-  </tr>
-</table> <br> 
+        <br>
 
-
-<table id="table-mock" class="table table-striped table-dark  tabela">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">{{$t('lang.table_view_file_company_name')}}</th>
-      <th scope="col">{{$t('lang.file')}}</th>
-      <th scope="col">{{$t('lang.table_created_date')}}</th>
-      <th scope="col">Status</th>
-      <th scope="col">Dowload</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Company 1</td>
-      <td>latam_movimento_aereo_FBT_20190301_20190321.csv</td>
-      <td>03/05/2019 13:31</td>
-      <td><div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;"/></td>
-      <td><i class="fas fa-download"></i></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Company 2</td>
-      <td>latam_movimento_aereo_FBT_20190301_20190321.csv</td>
-      <td>08/05/2019 11:49</td>
-      <td><div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;"/></td>
-      <td><i class="fas fa-download"></i></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Company 3</td>
-      <td>latam_movimento_aereo_FBT_20190301_20190321.csv</td>
-      <td>23/05/2019 17:15</td>
-      <td><div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;"/></td>
-      <td><i class="fas fa-download"></i></td>
-    </tr>
-
-  </tbody>
-</table>
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                   
-                                   
-                                   
-                                   
-
-                                   
-                           
-                          
-                          
-                          
-                         <!--
-                            <data-table 
-                                :data="data" 
-                                @download="download" 
-                                @info="showDetail"
-                                :config="configDataTable">
-                            </data-table>
-                          
-                          -->
-                          
-                          
-                          
-                            <input type="file"  id="file-upload" style="display:none;" multiple>
-
-                        </div>
-                        <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}"  role="tabpanel" aria-labelledby="nav-profile-tab"><br>
-                       
-                            <div class="wrapper-table">  
-                               
-                                <table class="table tabela table-striped table-dark">
-                                    <thead>
-                                        <tr>                                
-                                            <th scope="col" style="width:30%">{{$t('lang.file')}}</th>
-                                            <th scope="col">status</th>                                
-                                        </tr>
-                                    </thead>
-                                    <tbody> 
-                                    <file-upload-progress v-for="(v,i) in filesUploads"  :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
-                                    </tbody>
-                                    </table>
-                            </div>
-                        
-                        </div>
-                    </div>
+        <nav mt-5>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab" role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
+                <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
             </div>
-            <div v-else>
-                
-                <!-- Detail file -->
-                <file-detail-status @back="showOp = 'list'" :file="fileCurrent"></file-detail-status>
-
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}" role="tabpanel" aria-labelledby="nav-home-tab">
+                <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="">
+                    <tr style="width:10%;">
+                        <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
+                        <th>
+                            <input class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" />
+                        </th>
+                        <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
+                        <td>
+                            <input style="color:#ccc" class="form-control mx-auto ml-2" type="date" />
+                        </td>
+                        <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
+                        <td>
+                            <input style="color:#ccc;" class="form-control mx-auto" type="date" />
+                        </td>
+                        <td class="text-right"></td>
+                        <td>
+                            <button style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                    </tr>
+                </table>
+                <br>
+                <table id="table-mock" class="table table-striped table-dark  tabela">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">{{$t('lang.table_view_file_company_name')}}</th>
+                            <th scope="col">{{$t('lang.file')}}</th>
+                            <th scope="col">{{$t('lang.table_created_date')}}</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Dowload</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(v,i) in data.conteudo" :key="i">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{getNameAgency(v.company)}}</td>
+                            <td>{{v.name}}</td>
+                            <td>03/05/2019 13:31</td>
+                            <td>
+                                <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />
+                            </td>
+                            <td @click="download(v.name)"><i class="fas fa-download"></i></td>
+                        </tr>                       
+                    </tbody>
+                </table>
+                <input type="file" id="file-upload" style="display:none;" multiple>
             </div>
-           
-            
+            <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <br>
+                <div class="wrapper-table">
+                    <table class="table tabela table-striped table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width:30%">{{$t('lang.file')}}</th>
+                                <th scope="col">status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <file-upload-progress v-for="(v,i) in filesUploads" :processFile="false" :uploadAws="true" :uploadFtp="false" :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    <div v-else>
+        <!-- Detail file -->
+        <file-detail-status @back="showOp = 'list'" :file="fileCurrent"></file-detail-status>
+    </div>
+
+</div>
      
 </template>
 <script>
@@ -169,6 +101,8 @@ import DataTable from '../../components/data-table/data-table.vue';
 import DataTableFactory from '../../components/data-table/data-config-factory';
 import FileService from '../../services/file';
 import FileDetailStatus from './file-status-detail.vue';
+import AgencyService from '../../services/agency'; 
+import { mapGetters } from 'vuex';
 
 export default {
     data(){
@@ -178,11 +112,7 @@ export default {
             configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
             configDataTable: DataTableFactory.build('DATA-TABLE-RELATORIO-VISUALIZATION'),
             data:{
-                conteudo:[
-                    // {company:'Gol',name:'file_22012019.csv', date: '10/10/2019', status:'NEW'},
-                    // {company:'Latam',name:'file_22012019.csv', date: '10/09/2019', status:'UPLOADED'},
-                    // {company:'Emirates',name:'file_22012019.csv', date: '21/10/2019',status:'PROCESSING'},
-                    // {company:'Tam',name:'file_22012019.csv', date: '10/02/2019', status:'ERROR'},                 
+                conteudo:[                          
                     
                 ],
                 pagination:{pageable:{}},
@@ -190,13 +120,33 @@ export default {
             filesUploads:[],
             removeFileUploads:[],
             showOp:'list',
-            fileCurrent:undefined
+            fileCurrent:undefined,
+            agencys:[]
         }
     },
     mounted(){
         this.listFiles();
+
+        AgencyService.list({page:0,size:1000}).then(response=>{            
+            this.agencys = response.content;
+        })    
+
+
+    },
+     computed:{
+    ...mapGetters(['getUser'])
     },
     methods:{
+        getNameAgency(id){
+
+                if(this.agencys.length == 0){
+                    return ""
+                }
+
+                return this.agencys.find(e=>e.id == id).name;
+
+
+        },
         showDetail(data){
             this.showOp = 'detail';
             this.fileCurrent = data;
@@ -207,14 +157,16 @@ export default {
             });
         },
         download(data){
-            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/errors/${data.id}/2`;       
+            let agency = this.getUser.info.find(e=>e.key == 'agencia').value;
+            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download?fileName=${data}&company=${agency}`;       
             var aTag = window.document.getElementById('mobi');
             aTag.setAttribute('href', this.downloadStatementUrl);
             aTag.setAttribute('download', 'erros.txt');      
             aTag.click();
         },
         listFiles(){
-            FileService.listFile({page:0,size:10}).then((response)=>{
+           
+            FileService.listFile({status:'UPLOADED', page:0,size:10}).then((response)=>{
                this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch((erro)=>{

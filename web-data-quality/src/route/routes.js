@@ -9,6 +9,7 @@ import FileHome from '../pages/file/file-home.vue'
 import ChangePass from '../pages/register/change-pass/change-pass.vue'
 import Upload from '../pages/file/upload.vue'
 import CompanyHome from '../pages/register/company/company-home.vue'
+import RouterGuard from './route-guard';
 
 
 Vue.use(Router)
@@ -22,6 +23,7 @@ export default new Router({
             path: '/home',
             component: HomePage,
             display: 'Home',
+            beforeEnter: RouterGuard.checkUserIsLogged.bind(RouterGuard),
             children: [
                 { name: 'change-pass', path: '/change-pass', component: ChangePass },
                 { name: 'users-register', path: '/users-register', component: UserHome },

@@ -66,11 +66,10 @@ class AgencyService extends Service {
     /**
      * @summary Lista as agencias
      */
-    list() {
-        return this.get(null, false);
+    list(request) {
+        return this.get(request, true);
     }
 }
 
 const instance = new AgencyService('/agency');
 export default instance;
-

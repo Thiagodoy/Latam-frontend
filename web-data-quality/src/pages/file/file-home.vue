@@ -38,7 +38,7 @@
                                         </tr>
                                     </thead>
                                     <tbody> 
-                                    <file-upload-progress v-for="(v,i) in filesUploads"  :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
+                                    <file-upload-progress v-for="(v,i) in filesUploads" :processFile="true" :uploadAws="true" :uploadFtp="false"  :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
                                     </tbody>
                                     </table>
                             </div>

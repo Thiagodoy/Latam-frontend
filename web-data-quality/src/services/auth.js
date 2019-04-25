@@ -15,6 +15,8 @@ class AuthenticationService extends Service {
         temp.password = md5(request.password);
         temp.newPassword = md5(request.newPassword);
         temp.email = request.email;
+        temp.firstAccess = request.isFirstAcces;
+        debugger;
         return this.post(temp);
     }
 
@@ -29,6 +31,14 @@ class AuthenticationService extends Service {
         temp.password = md5(request.password);
 
         return this.post(temp);
+    }
+
+    /**
+     * @param  {} request
+     */
+    forgot(request) {
+        this._url = '/forgot';
+        return this.post(request);
     }
 }
 

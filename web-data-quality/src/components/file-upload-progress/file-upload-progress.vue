@@ -17,8 +17,10 @@ import FileService from '../../services/file';
 import { error } from 'util';
 import axios from 'axios';
 import { setTimeout } from 'timers';
+import {mapActions, mapGetters } from 'vuex';
+
 export default {
-    props:['fileInput','index'],
+    props:['fileInput','index','uploadAws','uploadFtp','processFile'],
     data(){
         return {
            percentUpload: 0 ,
@@ -35,7 +37,11 @@ export default {
         formData.append('file',this.file);
 
 
-        axios.post(`${process.env.VUE_APP_BASE_PATH}/file/${this.company}/${this.userId}`, formData, {
+        let email = this.getUser.email;
+        let agencia = this.getUser.info.find(e=>e.key == 'agencia').value;
+        var lo = this.getUser.info;
+       
+        axios.post(`${process.env.VUE_APP_BASE_PATH}/file/${agencia}/${email}/${this.uploadAws}/${this.uploadFtp}/${this.processFile}`, formData, {
             onUploadProgress: (event)=>{
               this.percentUpload =  Math.round((event.loaded/event.total)*100);                  
             },
@@ -53,6 +59,9 @@ export default {
             console.log('erro',erro.message)
              this.error = true;
         });      
+    },
+    computed:{
+        ...mapGetters(['getUser'])
     },
   
 }
