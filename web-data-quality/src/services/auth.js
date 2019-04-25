@@ -16,7 +16,6 @@ class AuthenticationService extends Service {
         temp.newPassword = md5(request.newPassword);
         temp.email = request.email;
         temp.firstAccess = request.isFirstAcces;
-        debugger;
         return this.post(temp);
     }
 

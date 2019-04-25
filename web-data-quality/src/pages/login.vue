@@ -146,28 +146,24 @@ export default {
       this.loading = Promise.all([this.$validator.validate('forgot-password-email')]).then(response=>{
        
        if(response[0]){
-          return AuthenticationService.forgot(this.forgotRequest).the(response=>{
+          return AuthenticationService.forgot(this.forgotRequest).the(()=>{
                   this.tipoLogin=='login';
                 });
        }
      }).catch(erro=>{
-
-          let message = this.$t(`lang.`)
           console.info(erro);
-          Modal.show({title:"Erro", message:''});
+          let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
+          Modal.show({title:"Erro", message:message});
      });
     },
-    login() {
-      
+    login() {     
       
       this.loading = Promise.all([this.$validator.validate('email'),this.$validator.validate('password')]).then(response => {  
         
         let valid = response.every(e=> e == true);
 
-        if (valid) {
-          let request = {...this.request};
-          return this.loginStore(this.request).then(response => {
-
+        if (valid) {          
+          return this.loginStore(this.request).then(() => {
             if(this.getIsFirstAccess == true){
               this.$router.push({ name: "change-pass" });
             }else{
@@ -178,7 +174,9 @@ export default {
           });
         }
       }).catch((erro)=>{
-        console.log(erro);
+         console.info(erro);
+          let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
+          Modal.show({title:"Erro", message:message});
       });
     }
   },

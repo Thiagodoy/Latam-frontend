@@ -43,7 +43,7 @@ class AgencyService extends Service {
     /**
      * @param  {} request
      */
-    updateUser(request) {
+    update(request) {
         this._url = '';
         return this.put(request);
     }
