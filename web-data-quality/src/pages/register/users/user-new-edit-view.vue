@@ -150,7 +150,7 @@ export default {
         //FIXME:Put the loading on request
         GroupService.getGroups({page:0, size:100}).then((response)=>{this.groups = response.content});
 
-        AgencyService.list().then(response => {
+        AgencyService.list({page:0,size:1000}).then(response => {
             this.agencys = response.map(e=>{
                 let ne = {};
                 ne.id = e.id;

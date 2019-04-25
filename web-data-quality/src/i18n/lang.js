@@ -40,7 +40,7 @@ module.exports = {
             table_Agency_od_flag: "Od ",
             table_agency_flag_monthly: "Monthly",
             table_agency_flag_approved: "Approved",
-            table_agency_s3:'S3',
+            table_agency_s3: 'S3',
 
             table_file_status_fieldname: 'Field name',
             table_file_status_percentualError: 'Percent error',
@@ -86,6 +86,8 @@ module.exports = {
             Forgot_password: 'Forgot password',
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
+            msg_error_1: 'Not found the user!',
+            msg_error_2: 'No match password',
             go_to_login: 'Go to login',
             title_change_pass: 'Change Password',
             title_change_pass_first_acess: 'Change Password First Acess',
@@ -135,7 +137,7 @@ module.exports = {
             table_Agency_od_flag: "Od",
             table_agency_flag_monthly: "Por mês",
             table_agency_flag_approved: "Aprovado",
-            table_agency_s3:'S3',
+            table_agency_s3: 'S3',
 
             table_file_status_fieldname: 'Campo',
             table_file_status_percentualError: 'Percentual de erro',
@@ -178,8 +180,12 @@ module.exports = {
             label_input_search_date_To: 'Até:',
             confirm_pass: 'Confirmar senha',
             Forgot_password: 'Esqueceu a senha ?',
+
             msg_error_1987: 'Arquivo repetido!',
             msg_error_500: 'Arquivo repetido!',
+            msg_error_1: 'Usuário não cadastrado!',
+            msg_error_2: 'Password não confere',
+
             go_to_login: 'Ir para login',
             title_change_pass: 'Alterar senha',
             title_change_pass_first_acess: 'Alterar senha  de primeiro acesso',
@@ -230,7 +236,7 @@ module.exports = {
             table_Agency_od_flag: "Od flag",
             table_agency_flag_monthly: "Flag monthly",
             table_agency_flag_approved: "Flag approved",
-            table_agency_s3:'S3',
+            table_agency_s3: 'S3',
 
 
             table_file_status_fieldname: 'Campo',
@@ -272,8 +278,13 @@ module.exports = {
             label_input_search_date_To: 'Para:',
             label_select_option: 'Seleccione una opción',
             Forgot_password: 'Olvido la contraseña',
+
             msg_error_1987: 'File repeated!',
             msg_error_500: 'File repeated!',
+            msg_error_1: 'Not found the user!',
+            msg_error_2: 'No match password',
+
+
             go_to_login: 'Ir al inicio',
             title_change_pass: 'Cambiar contraseña',
             title_change_pass_first_acess: 'Cambiar contraseña de primer acceso',

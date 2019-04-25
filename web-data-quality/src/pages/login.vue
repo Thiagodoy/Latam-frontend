@@ -104,6 +104,7 @@ import AuthenticationService from "../services/auth.js";
 import Loading from '../components/loading/loading.vue';
 import * as _ from 'lodash';
 import {mapActions, mapGetters } from 'vuex';
+import Modal from "../components/modal/message-dialog.vue";
 export default {
   data() {
     return {
@@ -150,7 +151,10 @@ export default {
                 });
        }
      }).catch(erro=>{
+
+          let message = this.$t(`lang.`)
           console.info(erro);
+          Modal.show({title:"Erro", message:''});
      });
     },
     login() {
