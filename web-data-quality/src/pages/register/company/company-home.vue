@@ -51,7 +51,7 @@ import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import AgencyService from '../../../services/agency.js';
 import _ from 'lodash';
-import Modal from '../../../components/modal/message-dialog.vue';
+
 
 export default {
 
@@ -91,7 +91,10 @@ export default {
              AgencyService.list().then((response)=>{
                 this.data.conteudo = response ;
                 console.log("DATA.CONTEUDO:",this.data.conteudo) 
-            }); 
+
+                 alert(this.data.conteudo);
+           
+           }); 
 
         }
 
@@ -102,10 +105,8 @@ export default {
 
         this.getAgency();
 
+       
 
-        Modal.show({title: "Informação",message: "Teste de Modal",type: "OK"}).then(() => {
-                   
-                  });
 
            
 

@@ -41,7 +41,7 @@ import DataTableConfigFactory from '../../../components/data-table/data-config-f
 import UserService from '../../../services/user';
 import MockFactory from '../../../utils/mock-factory';
 import _ from 'lodash';
-import Modal from '../../../components/modal/message-dialog.vue';
+
 
 export default {
 
@@ -135,7 +135,7 @@ export default {
         Toolbar,
         DataTable,        
         UserNewEditView,
-        Modal,
+       
     }
     
 }
