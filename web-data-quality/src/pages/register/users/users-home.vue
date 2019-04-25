@@ -14,6 +14,7 @@
                 @page="setPage"
                 @view="viewUser"
                 @edit="editUser"
+                @delete="deleteUser"
             ></data-table>   
             
 
@@ -66,6 +67,16 @@ export default {
       this.getUsers();
     },
     methods:{
+        deleteUser(data){
+            Modal.show({title:"Informação", message:`Deseja deletar esse usuário ${data.email}`, type:'YES-NO'}).then(response =>{
+                if(response == 'YES'){
+                    //Corrigir o loading
+                   UserService.deleteUser({id:data.id}).then(response=>{this.getUsers()}).catch(erro=>{
+                        Modal.show({title:"Erro", message:erro.message, type:'OK'})
+                   }) 
+                }
+            })
+        },
         editUser(data){
             this.currentObject = data;
             this.show = 'new';

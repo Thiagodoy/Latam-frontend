@@ -48,7 +48,7 @@
                        <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('company')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_company')}}</label>
-                                <select :disabled="typeAction == 'VIEW'" v-model="request.company"  v-validate="'required'" class="custom-select form-control selct1 campos">
+                                <select :disabled="typeAction == 'VIEW'" v-model="agencia"  v-validate="'required'" class="custom-select form-control selct1 campos">
                                     <option v-for="(v, i) in agencys" :key="i" :value="v.id">{{v.name}}</option>
                                 </select>  
                                    <div class="help-block">{{errors.first('company')}}</div>  
@@ -68,7 +68,6 @@
                         <div class="form-group" :class="{'has-error':errors.has('profile')}">
                             <label for="profile">{{$t('lang.profile')}}</label>
                             <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="request.groups" name="profile" id="profile" multiple>
-
                                 <option class="campos "  v-for="(v,i) in groups" :value="v.id" :key="i">{{v.name}}</option>
                             </select>
                             <div class="help-block">{{errors.first('profile')}}</div>
@@ -80,7 +79,7 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('cpf')}">
                                 <label for="exampleInputEmail1">CPF/CNPJ</label>
-                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="cpf"   type="text" class="form-control campos"  placeholder="CPF/CNPJ" >
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required|userExists'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF/CNPJ" >
                                 <div class="help-block">{{errors.first('cpf')}}</div>
                             </div>
                          </div>
@@ -88,7 +87,7 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('phone')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_phone')}}</label>
-                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="phone"   type="text" class="form-control campos"  :placeholder="$t('lang.label_input_phone')" >
+                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" v-model="telefone" name="phone"   type="text" class="form-control campos"  :placeholder="$t('lang.label_input_phone')" >
                                 <div class="help-block">{{errors.first('phone')}}</div>
                             </div>
                          </div>
@@ -96,9 +95,14 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('linkedin')}">
                                 <label for="exampleInputEmail1">Linkedin</label>
-                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" name="linkedin"   type="text" class="form-control campos"  placeholder="Linkedin" >
+                                <input  :disabled="typeAction == 'VIEW'" v-model="linkedin"  v-validate="'required'" name="linkedin"   type="text" class="form-control campos"  placeholder="Linkedin" >
                                 <div class="help-block">{{errors.first('linkedin')}}</div>
                             </div>
+                         </div>
+                         <div class="col-md-12">
+                             <div class="form-group">
+                                <button v-if="typeAction == 'VIEW'" style="color:#fff" @click="resendEmail" class="btn btn-default">Reenviar email de acesso</button>                       
+                             </div>
                          </div>
                         
                         
@@ -127,6 +131,7 @@
 import UserService from '../../../services/user';
 import GroupService from '../../../services/group';
 import AgencyService from '../../../services/agency';
+
 export default {
     props:['userEdit','typeAction'],
     data(){
@@ -134,7 +139,8 @@ export default {
             show:'',
             userPhoto:undefined,
             request:{
-                groups:[]   
+                groups:[],
+                info:[]   
             },
             groups:[],
             agencys:[]
@@ -162,11 +168,71 @@ export default {
                 this.request.email = this.userEdit.email;
                 this.request.photo = this.userPhoto === '../../../assets/images/avatar-null.jpg' ? '' :this.userPhoto;
                 this.request.groups = this.userEdit.groups.map((g)=>g.groupId);
-                this.request.company = this.userEdit.info.find((i)=> i.key == 'agencia').value;
+                this.request.info = this.userEdit.info;
+                this.$forceUpdate();   
             }
+    },
+    computed:{
+        telefone:{
+            set:function(newValue){
+                if(this.request.info.some(e => e.key == 'telefone')){
+                    this.request.info.find(e=> e.key == 'telefone').value = newValue
+                }else{
+                    this.request.info.push({key:'telefone',value:newValue});
+                }
+            },
+            get:function(){
+                 let info = this.request.info.find(e=> e.key == 'telefone');
+                return (info && info.value) || ''; 
+            }
+        },
+        linkedin:{
+            set:function(newValue){
+                if(this.request.info.some(e => e.key == 'linkedin')){
+                    this.request.info.find(e=> e.key == 'linkedin').value = newValue
+                }else{
+                    this.request.info.push({key:'linkedin',value:newValue});
+                }
+            },
+            get:function(){
+                let info = this.request.info.find(e=> e.key == 'linkedin');
+                return (info && info.value) || '';               
+            }
+        },
+        cpf:{
+            set:function(newValue){
+                if(this.request.info.some(e => e.key == 'cpfCnpj')){
+                    this.request.info.find(e=> e.key == 'cpfCnpj').value = newValue
+                }else{
+                    this.request.info.push({key:'cpfCnpj',value:newValue});
+                }
+            },
+            get:function(){
+                let info = this.request.info.find(e=> e.key == 'cpfCnpj');
+                return (info && info.value) || '';               
+            }
+        },
+        agencia:{
+            set:function(newValue){
+                if(this.request.info.some(e => e.key == 'agencia')){
+                    this.request.info.find(e=> e.key == 'agencia').value = newValue
+                }else{
+                    this.request.info.push({key:'agencia',value:newValue});
+                }
+            },
+            get:function(){
+                let info = this.request.info.find(e=> e.key == 'agencia');
+                return (info && info.value) || '';               
+            }
+        }
     },
     methods:{
 
+        resendEmail(){
+           UserService.resendAcces(this.userEdit.email).then(response=>{
+               console.log('Email enviado do acesso');
+           })   
+        },
         removePhoto(){
             this.userPhoto = undefined;
             document.getElementById('file-load-photo').value = '';
@@ -197,28 +263,30 @@ export default {
                 this.request.password = '123456';                    
                 this.request.id = this.request.email;
                 this.request.photo = this.userPhoto;
-                this.request.info = [];
+                
 
-                if(valid && !this.userEdit){
-                    this.request.info.push({key:'agencia', userId: this.request.id, value:this.request.company});
+                if(valid && !this.userEdit){                
                     this.request.info.push({key:'primeiro_acesso', userId: this.request.id, value:'true'});
                     return UserService.saveUser(this.request).then((response)=>{
                       this.savedSuccess();
                     });
                 }else if(valid && this.userEdit){
+                   
                   return UserService.updateUser(this.request).then(()=>{
                       this.savedSuccess();
                   })
                 }
 
 
+            }).catch(erro=>{
+                console.log('Erro',erro)
             });
         },
         savedSuccess(){
-            this.request = {groups:[]};
+            this.request = {groups:[], info:[]};
             this.show='SAVED';
             setInterval(()=>{this.$emit('back')},1500);
-        }
+        },       
     },
     watch:{
         userEdit(newValue, oldValue){
