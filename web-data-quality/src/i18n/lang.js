@@ -40,6 +40,7 @@ module.exports = {
             table_Agency_od_flag: "Od ",
             table_agency_flag_monthly:"Monthly",
             table_agency_flag_approved: "Approved",
+            table_agency_s3:'S3',
 
             table_file_status_fieldname: 'Field name',
             table_file_status_percentualError: 'Percent error',
@@ -132,6 +133,7 @@ module.exports = {
             table_Agency_od_flag: "Od",
             table_agency_flag_monthly:"Por mês",
             table_agency_flag_approved: "Aprovado",
+            table_agency_s3:'S3',
 
             table_file_status_fieldname: 'Campo',
             table_file_status_percentualError: 'Percentual de erro',
@@ -224,6 +226,7 @@ module.exports = {
             table_Agency_od_flag: "Od flag",
             table_agency_flag_monthly:"Flag monthly",
             table_agency_flag_approved: "Flag approved",
+            table_agency_s3:'S3',
 
 
             table_file_status_fieldname: 'Campo',

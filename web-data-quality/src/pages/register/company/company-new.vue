@@ -10,20 +10,20 @@
                     <div class="col-md-12">
                         <div class="form-group" :class="{'has-error':errors.has('agency')}">
                             <label class="" >{{$t('lang.table_agency_name')}}</label>
-                            <input v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_name')"  >
-                            <span>{{ errors.first('agency') }}</span>
+                            <input v-model="agencia"  type="text" class="form-control campos" :placeholder="$t('lang.table_agency_name')"  >
+                           
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group" >
                             <label >{{$t('lang.table_agency_input_path')}}</label>
-                            <input v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_input_path')"   >
+                            <input v-model="entrada"  type="text" class="form-control campos" :placeholder="$t('lang.table_agency_input_path')"   >
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group" >
                             <label >{{$t('lang.table_agency_processed_path')}}</label>
-                            <input v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_processed_path')"   >
+                            <input v-model="processando"  type="text" class="form-control campos" :placeholder="$t('lang.table_agency_processed_path')"   >
                         </div>
                     </div>
                     </div>
@@ -31,14 +31,20 @@
                         <div class="col-md-12">
                             <div class="form-group" >
                                 <label >{{$t('lang.table_agency_local_file_path')}}</label>
-                                <input v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_local_file_path')"   >
+                                <input v-model="local"  type="text" class="form-control campos" :placeholder="$t('lang.table_agency_local_file_path')"   >
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group" >
                                 <label >{{$t('lang.table_agency_code')}}</label>
-                                <input v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_code')"   >
+                                <input v-model="codigo"  type="text" class="form-control campos" :placeholder="$t('lang.table_agency_code')"   >
+                            </div>
+                        </div>
+                         <div class="col-md-12">
+                            <div class="form-group" >
+                                <label >{{$t('lang.table_agency_s3')}}</label>
+                                <input v-model="s3"  type="text" class="form-control campos" :placeholder="$t('lang.table_agency_s3')"   >
                             </div>
                         </div>
                     </div>
@@ -48,8 +54,8 @@
                             <input class="ml-2" type="checkbox" value="0" name="campo-checkbox" id="od" />
                             <label class="checkboxtext mr-3" for="od">{{$t('lang.table_Agency_od_flag')}}</label>&nbsp;
                            
-                            <input type="checkbox" value="0" name="campo-checkbox" id="aproved" />
-                            <label for="aproved">{{$t('lang.table_agency_flag_approved')}}</label>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <input type="checkbox" value="0" name="campo-checkbox" id="approved" />
+                            <label for="approved">{{$t('lang.table_agency_flag_approved')}}</label>&nbsp;&nbsp;|&nbsp;&nbsp;
 
                             <span class="mt-3">{{$t('lang.table_agency_flag_monthly')}}:</span>&nbsp;
                             <input class="ml-2" type="radio" value="0" name="campo-checkbox" id="m" /><label>M</label>&nbsp;&nbsp;
@@ -59,7 +65,7 @@
                     </div>
 
                     <div class="col-md-6 mt-3 ml-3">                        
-                        <button v-if="!(typeAction == 'VIEW')"  style="color:#fff" @click="saveAgency()" class="btn btn-default btn-large" :disabled="(errors.items.length > 0)">{{$t('lang.button_save')}}</button>
+                        <button   style="color:#fff" @click="saveAgency" class="btn btn-default btn-large" >{{$t('lang.button_save')}}</button>
                         <button  style="color:#fff" @click="$emit('back')" class="btn btn-default btn-large ml-3 ">{{$t('lang.button_cancel')}}</button>                       
                     </div>
             </div>
@@ -67,33 +73,71 @@
     </div>
 </template>
 <script>
+import AgencyService from '../../../services/agency.js';
+
 export default {
     data(){
         return{
+  
+        agencia:undefined,
+        entrada:undefined,
+        processando:undefined,
+        local:undefined,
+        codigo:undefined,
+        s3:undefined,
+
+        odChecked:undefined,
+        approvedChecked:undefined,
+        monthlyChecked:undefined,
+
 
         }
     },
 
     methods:{
 
-        saveAgency(){
+       saveAgency(){
 
-              this.$validator.validateAll().then((valid)=>{
+             var od =undefined;
+            var approved = undefined;
+            var monthly = undefined; 
 
-                   if(valid){
+            if( document.getElementById('od').checked == true){
+            od = 1;
+            } else if (document.getElementById('od').checked == false){
+                od = 0
+            }
 
-                        alert("Salvar");
+            if( document.getElementById('approved').checked == true){
+                approved = 1;
+            } else if (document.getElementById('approved').checked == false){
+                approved = 0
+            }
 
-                   }
-                   
-                   else{
+            if( document.getElementById('m').checked == true){
+            monthly = "M";
+            } else if (document.getElementById('s').checked == true){
+            monthly = "S"
+            }
 
-                        
+              var request = {
+                          "id": 0,
+                            "name": this.agencia ,
+                            "inputPath": this.entrada ,
+                            "processedPath": this.processando ,
+                            "localFilePath": this.local ,
+                            "agencyCode": this.codigo ,
+                            "odFlag": od,
+                            "flagMonthly": monthly,
+                            "flagApproved": approved,
+                            "s3Path":this.s3,
+                      }
 
-                   }
+                      console.log("REQUEST",request);
 
+                      AgencyService.save(request);
 
-              })
+                     
 
           
 
