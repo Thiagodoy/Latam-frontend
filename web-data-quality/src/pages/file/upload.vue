@@ -57,7 +57,7 @@
                             <th scope="row">{{i + 1}}</th>
                             <td>{{getNameAgency(v.company)}}</td>
                             <td>{{v.name}}</td>
-                            <td>03/05/2019 13:31</td>
+                            <td>{{v.createdDate|dateTime}}</td>
                             <td>
                                 <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />
                             </td>
@@ -125,11 +125,15 @@ export default {
         }
     },
     mounted(){
-        this.listFiles();
+       
+        
+        
 
         AgencyService.list({page:0,size:1000}).then(response=>{            
             this.agencys = response.content;
+            this.listFiles();
         })    
+
 
 
     },
@@ -166,11 +170,14 @@ export default {
         },
         listFiles(){
            
-            FileService.listFile({status:'UPLOADED', page:0,size:10}).then((response)=>{
+            let agency = this.getUser.info.find(e=>e.key == 'agencia').value;       
+
+
+            FileService.listFile({company:agency, status:'UPLOADED', page:0,size:10}).then((response)=>{
                this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch((erro)=>{
-                console.log("erro");
+                console.log("erro",erro);
             });
         },
         hideProgress(index){
