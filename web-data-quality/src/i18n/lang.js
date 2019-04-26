@@ -89,6 +89,7 @@ module.exports = {
             msg_error_500: 'File repeated!',
             msg_error_1: 'Not found the user!',
             msg_error_2: 'No match password',
+            msg_error_undefined: 'Server off',
             go_to_login: 'Go to login',
             title_change_pass: 'Change Password',
             title_change_pass_first_acess: 'Change Password First Acess',
@@ -187,6 +188,7 @@ module.exports = {
             msg_error_500: 'Arquivo repetido!',
             msg_error_1: 'Usuário não cadastrado!',
             msg_error_2: 'Password não confere',
+            msg_error_undefined: 'Servidor off!',
 
             go_to_login: 'Ir para login',
             title_change_pass: 'Alterar senha',
@@ -286,6 +288,7 @@ module.exports = {
             msg_error_500: 'File repeated!',
             msg_error_1: 'Not found the user!',
             msg_error_2: 'No match password',
+            msg_error_undefined: 'Servidor off!',
 
 
             go_to_login: 'Ir al inicio',

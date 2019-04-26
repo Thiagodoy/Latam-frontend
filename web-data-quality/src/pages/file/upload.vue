@@ -170,10 +170,15 @@ export default {
         },
         listFiles(){
            
-            let agency = this.getUser.info.find(e=>e.key == 'agencia').value;       
+            let agency = this.getUser.info.find(e=>e.key == 'agencia').value; 
 
+            let request = { status:'UPLOADED', page:0,size:10};
 
-            FileService.listFile({company:agency, status:'UPLOADED', page:0,size:10}).then((response)=>{
+            if(agency != 142 && agency != 143 ){
+                request.company = agency;
+            }
+
+            FileService.listFile(request).then((response)=>{
                this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch((erro)=>{
