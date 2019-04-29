@@ -90,6 +90,9 @@ module.exports = {
             msg_error_500: 'File repeated!',
             msg_error_1: 'Not found the user!',
             msg_error_2: 'No match password',
+            msg_error_3: 'Expired password',
+            msg_error_4: 'Access Expired for 45 days',
+            msg_error_5: 'Access Expired',
             msg_error_undefined: 'Server off',
             go_to_login: 'Go to login',
             title_change_pass: 'Change Password',
@@ -189,7 +192,10 @@ module.exports = {
             msg_error_1987: 'Arquivo repetido!',
             msg_error_500: 'Arquivo repetido!',
             msg_error_1: 'Usuário não cadastrado!',
-            msg_error_2: 'Password não confere',
+            msg_error_2: 'Password não confere!',
+            msg_error_3: 'Senha expirada!',
+            msg_error_4: 'Acesso expirado.',
+            msg_error_5: 'Informação de usuário não encontrada!',
             msg_error_undefined: 'Servidor off!',
 
             go_to_login: 'Ir para login',
@@ -291,6 +297,9 @@ module.exports = {
             msg_error_500: 'File repeated!',
             msg_error_1: 'Not found the user!',
             msg_error_2: 'No match password',
+            msg_error_3: 'Expired password',
+            msg_error_4: 'Acesso expirado.',
+            msg_error_5: 'Informação de usuário não encontrada!',
             msg_error_undefined: 'Servidor off!',
 
 

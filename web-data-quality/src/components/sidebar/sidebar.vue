@@ -51,10 +51,6 @@ export default {
     computed:{
         ...mapGetters(['getIsFirstAccess','getUser']),
         isAgencia(){
-            
-            // if(!this.getUser.groups)return false;
-
-
             let agencia = this.getUser.groups.find(g=> g.name == 'AGENCIA');
             return !!agencia;
         }

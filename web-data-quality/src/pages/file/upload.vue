@@ -20,15 +20,15 @@
                     <tr style="width:10%;">
                         <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
                         <th>
-                            <input class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" />
+                            <input  v-model="filter.company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" />
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
                         <td>
-                            <input style="color:#ccc" class="form-control mx-auto ml-2" type="date" />
+                            <input v-model="filter.timeStart" style="color:#ccc" class="form-control mx-auto ml-2" type="date" />
                         </td>
                         <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
                         <td>
-                            <input style="color:#ccc;" class="form-control mx-auto" type="date" />
+                            <input v-model="filter.timeEnd" style="color:#ccc;" class="form-control mx-auto" type="date" />
                         </td>
                         <td class="text-right"></td>
                         <td>
@@ -103,6 +103,7 @@ import FileService from '../../services/file';
 import FileDetailStatus from './file-status-detail.vue';
 import AgencyService from '../../services/agency'; 
 import { mapGetters } from 'vuex';
+import Modal from '../../components/modal/message-dialog.vue'
 
 export default {
     data(){
@@ -121,21 +122,17 @@ export default {
             removeFileUploads:[],
             showOp:'list',
             fileCurrent:undefined,
-            agencys:[]
+            agencys:[],
+            filter:{}
         }
     },
     mounted(){
-       
-        
-        
-
         AgencyService.list({page:0,size:1000}).then(response=>{            
             this.agencys = response.content;
             this.listFiles();
-        })    
-
-
-
+        }).catch(erro=>{
+            this.showError(erro);
+        })
     },
      computed:{
     ...mapGetters(['getUser'])
@@ -149,7 +146,6 @@ export default {
 
                 return this.agencys.find(e=>e.id == id).name;
 
-
         },
         showDetail(data){
             this.showOp = 'detail';
@@ -158,6 +154,8 @@ export default {
         delete(data){
             FileService.deleteFile({id:data.id}).then((response)=>{
                 this.listFiles();
+            }).catch(erro=>{
+               this.showError(erro);
             });
         },
         download(data){
@@ -182,7 +180,7 @@ export default {
                this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch((erro)=>{
-                console.log("erro",erro);
+               this.showError(erro);
             });
         },
         hideProgress(index){
@@ -192,7 +190,7 @@ export default {
                 this.filesUploads.splice(arguments[0],1);
            
         }, 1000),
-         openUpload(){          
+        openUpload(){          
             let inputFile = document.getElementById('file-upload');
             inputFile.onchange = (e)=>{
                 let formData =  new FormData();
@@ -203,6 +201,11 @@ export default {
             };
             inputFile.click();   
         },
+        showError(erro){
+          console.info(erro);
+          let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
+          Modal.show({title:"Erro", message:message});
+        }
     },
     watch:{
         show(newValue,oldValue){

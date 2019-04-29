@@ -15,14 +15,13 @@
                 <div class="row" v-if="!(getIsFirstAccess == true)">
                     <div class="col-md-6"></div>
                     <div class="col-md-6 text-right logaut" @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div>
-
                 </div>
             </div>           
         </div>
     </div>     
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 export default {
     data(){
         return{
@@ -33,10 +32,7 @@ export default {
         ...mapGetters(['getIsFirstAccess'])
     },
     methods:{  
-
-        logout(){
-            this.$router.push({name:'login'});
-        }
+        ...mapActions(['logout']),       
        
     },    
 }
