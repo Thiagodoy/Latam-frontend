@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { instance } from '../main';
 
 class RouterGuard extends Vue {
 
@@ -25,10 +26,10 @@ class RouterGuard extends Vue {
         }
     }
     isLogged() {
-        return JSON.parse(sessionStorage.getItem('user'));
+        return instance.$session.exists();
     }
 }
 
 
-const instance = new RouterGuard();
-export default instance;
+const instancee = new RouterGuard();
+export default instancee;

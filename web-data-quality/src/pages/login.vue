@@ -151,9 +151,7 @@ export default {
                 });
        }
      }).catch(erro=>{
-          console.info(erro);
-          let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
-          Modal.show({title:"Erro", message:message});
+         this.mxShowModalError(erro);
      });
     },
     login() {     
@@ -173,10 +171,8 @@ export default {
             return Promise.resolve();
           });
         }
-      }).catch((erro)=>{
-         console.info(erro);
-          let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
-          Modal.show({title:"Erro", message:message});
+      }).catch((erro)=>{        
+        c
       });
     }
   },

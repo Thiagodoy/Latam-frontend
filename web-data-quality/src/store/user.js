@@ -1,5 +1,5 @@
 import AuthService from '../services/auth';
-
+import { instance } from '../main'
 // TYPES
 const MAIN_LOGIN = 'MAIN_SET_LOGIN';
 
@@ -34,11 +34,16 @@ const userStore = {
         loginStore({ commit }, payload) {
             return AuthService.login(payload).then(response => {
                 commit(MAIN_LOGIN, response);
+                instance.$session.set('user', response);
+                console.log('session-id', instance.$session.id());
                 return response;
             });
         },
-        logout({ commit, dispatch }) {
 
+        logout({ commit, dispatch }) {
+            instance.$session.destroy();
+            instance.$router.push({ name: 'login' });
+            commit(MAIN_LOGIN, undefined);
         },
     }
 

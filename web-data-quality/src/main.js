@@ -11,10 +11,13 @@ import Diretivas from './directives/index';
 import { plugin } from './validators/index';
 import store from './store/index';
 import filter from './filter/index';
+import VueSession from 'vue-session';
+import MiximModal from './mixins/modal-error';
 
+//Mixins
+Vue.mixin(MiximModal);
 
-
-
+Vue.use(VueSession);
 Vue.use(filter);
 Vue.use(plugin);
 Vue.use(Diretivas);
@@ -30,13 +33,9 @@ Vue.use(VueI18n)
 
 const i18n = new VueI18n({ locale: 'pt_BR', messages });
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-
-
-
-
-new Vue({
+const instance = new Vue({
     router,
     store,
     i18n,
@@ -47,5 +46,6 @@ new Vue({
 console.log('i18n', i18n);
 
 export {
-    i18n
+    i18n,
+    instance
 }

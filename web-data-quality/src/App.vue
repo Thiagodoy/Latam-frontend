@@ -19,9 +19,9 @@ export default {
     });
   },
   mounted(){
-     window.addEventListener('beforeunload', ()=>{
-         sessionStorage.removeItem('user');
-     });
+    //  window.addEventListener('beforeunload', ()=>{
+    //      sessionStorage.removeItem('user');
+    //  });
   },
   components: {
     MessageDialog
