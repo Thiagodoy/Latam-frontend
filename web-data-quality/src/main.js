@@ -10,11 +10,12 @@ import VeeValidate from 'vee-validate';
 import Diretivas from './directives/index';
 import { plugin } from './validators/index';
 import store from './store/index';
+import filter from './filter/index';
 
 
 
 
-
+Vue.use(filter);
 Vue.use(plugin);
 Vue.use(Diretivas);
 Vue.use(VeeValidate, {

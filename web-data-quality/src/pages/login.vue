@@ -11,23 +11,17 @@
             <div class="row">
               <div class="col-12">
                 
-                  <div  id="formLogin" style="margin-top: 20px; " class="form-horizontal">
+                  <div  style="margin-top: 20px; " class="form-horizontal">
                     
-                    <div v-if="tipoLogin=='login'" class="campos-login">
+                    <div v-show="tipoLogin=='login'" class="campos-login">
+
                       <div class="form-group" :class="{'has-error':errors.has('email')}">
                         <div class="row">
                           <div class="col-md-2 pl-4 label-auth">
                             <label for="email" class="control-label">{{$t('lang.label_input_email')}}</label>
                           </div>
                           <div class="col-md-10">
-                            <input
-                              type="text"
-                              v-validate="'required'"
-                              name="email"
-                              class="form-control"
-                              v-model="request.email"
-                              :placeholder="$t('lang.label_input_email')"
-                            >
+                            <input type="text" v-validate="'required'"  name="email" class="form-control"  v-model="request.email" :placeholder="$t('lang.label_input_email')">
                           </div>
                         </div>
                         <div class="row">
@@ -37,178 +31,64 @@
                             </div>
                         </div>
                       </div>
+
                       <div class="form-group" :class="{'has-error':errors.has('password')}">
-                        <div class="row">
-                          <div class="col-md-2 pl-4 label-auth">
-                            <label
-                              for="password"
-                              class="control-label"
-                            >{{$t('lang.label_input_password')}}</label>
-                          </div>
-                          <div class="col-md-10">
-                            <input
-                              type="password"
-                              name="password"
-                              v-validate="'required'"
-                              v-model="request.password"
-                              class="form-control"
-                              id="inputPassword"
-                              :placeholder="$t('lang.label_input_password')"
-                            >
-                          </div>                    
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-10">
-                                <div class="help-block">{{errors.first('password')}}</div>
+                          <div class="row">
+                            <div class="col-md-2 pl-4 label-auth">
+                              <label for="password" class="control-label">{{$t('lang.label_input_password')}}</label>
                             </div>
-                        </div>
-
-
-                        <div class="row  container-options">
-                          <div>
-                            <button v-if="tipoLogin=='login'"
-                              @click="login" :disabled="(errors.items.length > 0)"
-                              class="btn btn-default btn-sm btn-auth mr-1"
-                            >{{$t('lang.button_sign_in')}}</button>
-                            <button v-if="tipoLogin=='cadastro'"
-                              @click="login" :disabled="(errors.items.length > 0)"
-                              class="btn btn-default btn-sm btn-auth mr-1"
-                            >{{$t('lang.button_new_pass')}}</button>
+                            <div class="col-md-10">
+                              <input  type="password" name="password" v-validate="'required'" v-model="request.password"  class="form-control"  :placeholder="$t('lang.label_input_password')">
+                            </div>                    
                           </div>
-                          <div @click="logarCadastrar" class="link-pass"> {{$t('lang.Forgot_password')}} </div>
-                        <div>  <localization></localization></div>
-                        </div>
-
-
-
-
-
-
-
+                          <div class="row">
+                              <div class="col-md-2"></div>
+                              <div class="col-md-10">
+                                  <div class="help-block">{{errors.first('password')}}</div>
+                              </div>
+                          </div>
+                          <div class="row  container-options">
+                            <div>
+                              <button  @click="login" :disabled="(errors.items.length > 0)"  class="btn btn-default btn-sm btn-auth mr-1" >{{$t('lang.button_sign_in')}}</button>                            
+                            </div>
+                            <div @click="logarCadastrar" class="link-pass"> {{$t('lang.Forgot_password')}} </div>   
+                            <div><localization></localization></div>                     
+                          </div>
                       </div>
                     </div>
 
                     <div v-if="tipoLogin=='cadastro'" class="campos-cadastro">
-                      <div class="form-group" :class="{'has-error':errors.has('email')}">
-                        <div class="row">
-                          <div class="col-md-2 pl-4 label-auth">
-                            <label for="email" class="control-label">{{$t('lang.label_input_email')}}</label>
-                          </div>
-                          <div class="col-md-10">
-                            <input
-                              type="text"
-                              v-validate="'required'"
-                              name="email"
-                              class="form-control"
-                              v-model="request.email"
-                              :placeholder="$t('lang.label_input_email')"
-                            >
-                          </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-10">
-                                <div class="help-block">{{errors.first('email')}}</div>
+                        <div class="form-group" :class="{'has-error':errors.has('forgot-password-email')}">
+                          <div class="row">
+                            <div class="col-md-2 pl-4 label-auth">
+                              <label for="forgot-password-email" class="control-label">{{$t('lang.label_input_email')}}</label>
                             </div>
-                        </div>
-                      </div>
-                      <div class="form-group" :class="{'has-error':errors.has('password')}">
-                        <div class="row">
-                          <div class="col-md-2 pl-4 label-auth">
-                            <label
-                              for="password"
-                              class="control-label"
-                            >{{$t('lang.label_input_password')}}</label>
-                          </div>
-                          <div class="col-md-10">
-                            <input
-                              type="password"
-                              name="password"
-                              v-validate="'required'"
-                              v-model="request.password"
-                              class="form-control"
-                              id="inputPassword"
-                              :placeholder="$t('lang.label_input_password')"
-                            >
-                          </div>                    
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2"></div>
                             <div class="col-md-10">
-                                <div class="help-block">{{errors.first('password')}}</div>
+                              <input
+                                type="text"
+                                v-validate="'required'"
+                                name="forgot-password-email"
+                                class="form-control"
+                                v-model="forgotRequest.email"
+                                :placeholder="$t('lang.label_input_email')"
+                              >
                             </div>
-                        </div>
-                      </div>
-
-
-
-
-
-
-
-
-
-
-
-                      <div class="form-group" :class="{'has-error':errors.has('password')}">
-                        <div class="row">
-                          <div class="col-md-2 pl-4 label-auth">
-                            <label
-                              for="password"
-                              class="control-label"
-                            >{{$t('lang. label_input_confirm_password')}}</label>
                           </div>
-                          <div class="col-md-10">
-                            <input
-                              type="password"
-                              name="password"
-                              v-validate="'required'"
-                              v-model="request.password"
-                              class="form-control"
-                              id="inputPassword"
-                              :placeholder="$t('lang. label_input_confirm_password')"
-                            >
-                          </div>                    
+                          <div class="row">
+                              <div class="col-md-2"></div>
+                              <div class="col-md-10">
+                                  <div class="help-block">{{errors.first('forgot-password-email')}}</div>
+                              </div>
+                          </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-10">
-                                <div class="help-block">{{errors.first('password')}}</div>
+                        <div class="row  container-options">
+                            <div>                              
+                              <button @click="sendEmailForgotPassword"  class="btn btn-default btn-sm btn-auth mr-1">{{$t('lang.button_send_email')}}</button>
                             </div>
-                        </div>
-                      </div>
-
-                      <div class="row  container-options">
-                          <div>
-                            <button v-if="tipoLogin=='login'"
-                              @click="login" :disabled="(errors.items.length > 0)"
-                              class="btn btn-default btn-sm btn-auth mr-1"
-                            >{{$t('lang.button_sign_in')}}</button>
-                            <button v-if="tipoLogin=='cadastro'"
-                              @click="login" :disabled="(errors.items.length > 0)"
-                              class="btn btn-default btn-sm btn-auth mr-1"
-                            >{{$t('lang.button_new_pass')}}</button>
-                          </div>
-                          <div @click="logarCadastrar" class="link-pass"> {{$t('lang.go_to_login')}} </div>
-                        <div>  <localization></localization></div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-                      
+                            <div @click="logarCadastrar" class="link-pass"> {{$t('lang.go_to_login')}} </div>
+                            <div><localization></localization></div>
+                        </div>                        
                     </div>
-                  
-
-                 
                 </div>
               </div>
             </div>
@@ -220,10 +100,11 @@
 </template>
 <script>
 import Localization from "../components/local/localization.vue";
-import AuthenticationService from "../services/authentication.js";
+import AuthenticationService from "../services/auth.js";
 import Loading from '../components/loading/loading.vue';
 import * as _ from 'lodash';
 import {mapActions, mapGetters } from 'vuex';
+import Modal from "../components/modal/message-dialog.vue";
 export default {
   data() {
     return {
@@ -234,6 +115,7 @@ export default {
         email: undefined,
         password: undefined
       },
+      forgotRequest:{},
       loading: undefined
     };
   },
@@ -259,14 +141,29 @@ export default {
       }
     },
 
-   
-    login() {
-      this.loading = this.$validator.validateAll().then(response => {
+    sendEmailForgotPassword(){
+      
+      this.loading = Promise.all([this.$validator.validate('forgot-password-email')]).then(response=>{
+       
+       if(response[0]){
+          return AuthenticationService.forgot(this.forgotRequest).the(()=>{
+                  this.tipoLogin=='login';
+                });
+       }
+     }).catch(erro=>{
+          console.info(erro);
+          let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
+          Modal.show({title:"Erro", message:message});
+     });
+    },
+    login() {     
+      
+      this.loading = Promise.all([this.$validator.validate('email'),this.$validator.validate('password')]).then(response => {  
         
-        if (response) {
-          let request = {...this.request};
-          return this.loginStore(this.request).then(response => {
+        let valid = response.every(e=> e == true);
 
+        if (valid) {          
+          return this.loginStore(this.request).then(() => {
             if(this.getIsFirstAccess == true){
               this.$router.push({ name: "change-pass" });
             }else{
@@ -277,7 +174,9 @@ export default {
           });
         }
       }).catch((erro)=>{
-        console.log(erro);
+         console.info(erro);
+          let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
+          Modal.show({title:"Erro", message:message});
       });
     }
   },

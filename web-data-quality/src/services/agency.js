@@ -1,5 +1,3 @@
-
-
 import Service from './service';
 import md5 from 'md5';
 
@@ -18,9 +16,17 @@ class AgencyService extends Service {
     }
 
     /**
+     * @summary Lista as agencias
+     */
+    list(request) {
+        this._url = ''
+        return this.get(request, true);
+    }
+
+    /**
      * @summary Endpoint save a User
      * @param  {Object} request Object tha represents a User
-    */
+     */
     save(request) {
         this._url = '';
         return this.post(request);
@@ -37,7 +43,7 @@ class AgencyService extends Service {
     /**
      * @param  {} request
      */
-    updateUser(request) {
+    update(request) {
         this._url = '';
         return this.put(request);
     }
@@ -47,9 +53,3 @@ class AgencyService extends Service {
 
 const instance = new AgencyService('/agency');
 export default instance;
-
-
-
-
-
-

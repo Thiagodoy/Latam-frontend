@@ -1,6 +1,6 @@
 <template>
    <div v-async="loading">
-      <div class="topo text-center">  <h6><i class="fas fa-key"></i>&nbsp; {{$t('lang.title_change_pass')}}</h6></div>
+      <div class="topo text-center">  <h6><i class="fas fa-key"></i>&nbsp; {{!(getIsFirstAccess) ? $t('lang.title_change_pass') : $t('lang.title_change_pass_first_acess')}}</h6></div>
       <div class="wrapper">      
          <div class="col-md-6 form">
                <div class="col-md-11">
@@ -62,8 +62,11 @@ export default {
       change(){
          this.$validator.validateAll().then(response => {
 
-            if(response){               
+            if(response){    
+                      
                this.request.email = this.getUser.email;
+               this.request.isFirstAcces = this.getIsFirstAccess ;
+               console.log('this.getIsFirstAccess',this.getIsFirstAccess);
                return AuthService.changePassword(this.request).then(response=>{
                    this.$router.push({ name: "login" });
                }).catch(error=>{

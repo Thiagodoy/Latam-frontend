@@ -79,7 +79,7 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('cpf')}">
                                 <label for="exampleInputEmail1">CPF/CNPJ</label>
-                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required|userExists'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF/CNPJ" >
+                                <input  :disabled="typeAction == 'VIEW' || typeAction == 'EDIT'"  v-validate="'required|userExists'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF/CNPJ" >
                                 <div class="help-block">{{errors.first('cpf')}}</div>
                             </div>
                          </div>
@@ -95,7 +95,7 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('linkedin')}">
                                 <label for="exampleInputEmail1">Linkedin</label>
-                                <input  :disabled="typeAction == 'VIEW'" v-model="linkedin"  v-validate="'required'" name="linkedin"   type="text" class="form-control campos"  placeholder="Linkedin" >
+                                <input  :disabled="typeAction == 'VIEW'" v-model="linkedin"   name="linkedin"   type="text" class="form-control campos"  placeholder="Linkedin" >
                                 <div class="help-block">{{errors.first('linkedin')}}</div>
                             </div>
                          </div>
@@ -131,6 +131,7 @@
 import UserService from '../../../services/user';
 import GroupService from '../../../services/group';
 import AgencyService from '../../../services/agency';
+import Modal from '../../../components/modal/message-dialog.vue';
 
 export default {
     props:['userEdit','typeAction'],
@@ -147,18 +148,28 @@ export default {
         }
     },    
     mounted(){
-        //FIXME:Put the loading on request
-        GroupService.getGroups({page:0, size:100}).then((response)=>{this.groups = response.content});
+        
 
-        AgencyService.list().then(response => {
-            this.agencys = response.map(e=>{
+        let promises = new Array();
+        promises.push(GroupService.getGroups({page:0, size:100}));
+        promises.push(AgencyService.list({page:0,size:1000}));
+
+        Promise.all(promises).then(responses=>{
+            
+            this.agencys = responses[1].content.map(e=>{
                 let ne = {};
                 ne.id = e.id;
                 ne.name = e.name
                 return ne;
             });
-        })
 
+            this.groups = responses[0].content;
+            
+        }).catch(erro=>{
+            console.info(erro);
+            let message = this.$t(`lang.msg_error_${erro.codeMessage}`);          
+            Modal.show({title:"Erro", message:message});
+        })
 
 
        if(this.userEdit){
@@ -230,8 +241,10 @@ export default {
 
         resendEmail(){
            UserService.resendAcces(this.userEdit.email).then(response=>{
-               console.log('Email enviado do acesso');
-           })   
+               Modal.show({title:'Informação', message:'Email enviado do acesso'}); 
+           }).catch(erro=>{
+               console.log(erro);
+           });  
         },
         removePhoto(){
             this.userPhoto = undefined;

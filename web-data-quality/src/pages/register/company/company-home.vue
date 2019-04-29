@@ -6,14 +6,8 @@
             <!-- Conponente Toolbar -->
             <toolbar 
                 :config="configToolbar" 
-                @new="show = 'new'" 
-            ></toolbar>
-
-            <!-- @filter="setFilter" 
-                @new="show = 'new'"  -->
-           
-           
-           
+                @new="show = 'new';typeAction = 'new'">
+            </toolbar>          
            
             <!--Componente DataTable -->
             <data-table
@@ -22,31 +16,18 @@
                  @view="view"
                  @edit="edit"
                  @delete="del"
-                 @page="setPage"
-               
-              
-                
-            ></data-table>   
-            <!--
-                 @page="setPage"-->
-            
-
+                 @page="setPage">
+            </data-table> 
         </div>
-
-        <!--Componentes Options -->   
-        <agency-new @back="show = 'home'" v-if="show=='new'"></agency-new>
-        <agency-view v-bind:viewAgency="viewAgency" @back="show = 'home'" v-if="show=='view'"></agency-view> 
-        <agency-edit v-bind:editAgency="editAgency" @back="show = 'home'" v-if="show=='edit'"></agency-edit>         
-     
-
-    
+        <!--Componentes Options --> 
+        <agency-view-edit v-else-if="show=='view' || show=='new' || show=='edit'" :typeAction="typeAction" :currentObject="currentObject" @back="show = 'home'"></agency-view-edit>
     </div> 
 </template>
 
 <script>
-import AgencyNew from './company-new.vue';
-import AgencyView from './company-view.vue';
-import AgencyEdit from './company-edit.vue';
+
+import AgencyViewEdit from './company-view-edit.vue';
+
 import Toolbar from '../../../components/toolbar/toolbar.vue';
 import ToolbarConfigFactory from '../../../components/toolbar/toolbar-config-factory';
 import DataTable from '../../../components/data-table/data-table.vue';
@@ -60,8 +41,7 @@ export default {
 
     data(){
         return{
-            viewAgency:undefined,
-            editAgency:undefined,
+            
             currentObject:undefined,
             configTable: DataTableConfigFactory.build('DATA-TABLE-COMPANY-VISUALIZATION'),
             configToolbar: ToolbarConfigFactory.build('TOOLBAR-COMPANY-VISUALIZATION'),
@@ -95,37 +75,36 @@ export default {
 
          edit(data){
             this.show = 'edit';
-            this.editAgency = data;
-           
+             this.typeAction = 'edit';
+            this.currentObject = data;           
         }, 
 
         view(data){
             this.show = 'view';
-            this.viewAgency = data;
-        },  
+            this.typeAction = 'view';
+            this.currentObject = data;
+        },        
         
-        
-         setPage(page){
-            
+        setPage(page){            
             let temp = {...this.filter};
             temp.page = page;
-            this.filter = temp;
-            // this.getUsers();
+            this.filter = temp;            
         },
-        setFilter(filter){    
-            
+        setFilter(filter){ 
             this.filter = _.merge({...filter},{
                 page:0,
                 size:10
-            })
-            
+            });            
         },
 
         getAgency(){
-              AgencyService.getAgency(this.filter).then((response)=>{
-                
+              AgencyService.getAgency(this.filter).then((response)=>{                
                 this.data.conteudo = response.content;
                 this.data.pagination = response
+            }).catch(erro=>{
+                console.info(erro);
+                let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
+                Modal.show({title:"Erro", message:message});
             }); 
         }
 
@@ -133,14 +112,7 @@ export default {
      
     },
     mounted(){
-
         this.getAgency();
-
-       
-
-
-           
-
     },
 
      watch:{
@@ -160,14 +132,9 @@ export default {
     },
 
     components:{
-
         Toolbar,
-        DataTable,
-        AgencyNew,
-        AgencyView,
-        AgencyEdit,
-        
-
+        DataTable,       
+        AgencyViewEdit,
     }
 
 

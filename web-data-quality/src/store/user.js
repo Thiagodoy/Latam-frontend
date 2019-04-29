@@ -10,7 +10,8 @@ const userStore = {
     },
     mutations: {
         [MAIN_LOGIN](state, obj) {
-            state.user = obj
+            state.user = obj;
+            sessionStorage.setItem('user', JSON.stringify(state.user));
         }
     },
     getters: {
@@ -18,9 +19,12 @@ const userStore = {
             return state.user ? state.user : { matricula: '', nome: '' };
         },
         getIsFirstAccess: (state, getters) => {
+
+            if (!state.user) return false;
             let value = state.user.info.find(e => e.key == 'primeiro_acesso').value
-            return !(value == 'false') ;
-            },
+            return !(value == 'false');
+        },
+
         getCheckPermission: (state) => (chave) => {
 
 

@@ -18,6 +18,11 @@ export default {
       messages: dictionary.brasil.messages,      
     });
   },
+  mounted(){
+     window.addEventListener('beforeunload', ()=>{
+         sessionStorage.removeItem('user');
+     });
+  },
   components: {
     MessageDialog
   }
