@@ -12,6 +12,9 @@ import { plugin } from './validators/index';
 import store from './store/index';
 import filter from './filter/index';
 
+import { VueMaskDirective } from "v-mask";
+Vue.directive("mask", VueMaskDirective);
+
 
 
 
