@@ -143,14 +143,15 @@ export default {
 
     sendEmailForgotPassword(){
       
-      this.loading = Promise.all([this.$validator.validate('forgot-password-email')]).then(response=>{
-       
+      this.loading = Promise.all([this.$validator.validate('forgot-password-email')]).then(response=>{       
        if(response[0]){
-          return AuthenticationService.forgot(this.forgotRequest).the(()=>{
-                  this.tipoLogin=='login';
+          return AuthenticationService.forgot(this.forgotRequest).then(()=>{
+                  return this.mxShowModal({title:'Informação', message:'Email enviado com sucesso!'}).then(response=>{                    
+                    this.tipoLogin=='login';
+                  });
                 });
        }
-     }).catch(erro=>{
+     }).catch(erro=>{       
          this.mxShowModalError(erro);
      });
     },
@@ -166,13 +167,12 @@ export default {
               this.$router.push({ name: "change-pass" });
             }else{
               this.$router.push({ name: "home" });
-            }
-            
+            }            
             return Promise.resolve();
           });
         }
       }).catch((erro)=>{        
-        c
+         this.mxShowModalError(erro);
       });
     }
   },
