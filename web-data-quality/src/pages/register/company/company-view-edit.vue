@@ -64,7 +64,8 @@
 
                             <span class="mt-3">{{$t('lang.table_agency_flag_monthly')}}:</span>&nbsp;
                             <input :disabled="typeAction=='view'"  class="ml-2" v-model="viewAgency.flagMonthly" type="radio" value="M"  /><label>M</label>&nbsp;&nbsp;
-                            <input :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="S"     /><label>S</label>
+                            <input :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="S"     /><label>S</label>&nbsp;&nbsp;
+                            <input :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="D"     /><label>D</label>
                         </div>
 
                     </div>

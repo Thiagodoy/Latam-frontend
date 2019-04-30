@@ -10,6 +10,7 @@ module.exports = {
             register: 'Register',
             users: 'Users',
             file: 'Files',
+            save_file: 'Save file',
             file_not_validation: 'Files without validation',
             profile: 'Profile',
             options: 'Options',
@@ -39,7 +40,7 @@ module.exports = {
             table_agency_local_file_path: "Local file path",
             table_agency_code: "Agency code",
             table_Agency_od_flag: "Od ",
-            table_agency_flag_monthly: "Monthly",
+            table_agency_flag_monthly: "Frequency",
             table_agency_flag_approved: "Approved",
             table_agency_s3: 'S3',
 
@@ -97,6 +98,9 @@ module.exports = {
             title_change_pass: 'Change Password',
             title_change_pass_first_acess: 'Change Password First Acess',
             add_photo: 'Add photo',
+            btn_accept:'I accept',
+            btn_no_accept:'I do not accept',
+            modal_terms:'Terms and conditions',
 
 
 
@@ -112,6 +116,7 @@ module.exports = {
             register: 'Cadastro',
             users: 'Usuários',
             file: 'Arquivos',
+            save_file: 'Gravar arquivos',
             file_not_validation: 'Arq. sem validação',
             profile: 'Perfil',
             options: 'Opções',
@@ -141,7 +146,7 @@ module.exports = {
             table_agency_local_file_path: "Local do arquivo",
             table_agency_code: "Código agencia",
             table_Agency_od_flag: "Od",
-            table_agency_flag_monthly: "Por mês",
+            table_agency_flag_monthly: "Frequência",
             table_agency_flag_approved: "Aprovado",
             table_agency_s3: 'S3',
 
@@ -200,6 +205,9 @@ module.exports = {
             title_change_pass: 'Alterar senha',
             title_change_pass_first_acess: 'Alterar senha  de primeiro acesso',
             add_photo: 'Add imagem',
+            btn_accept:'Aceito',
+            btn_no_accept:'Não aceito',
+            modal_terms:'Termos e condições',
 
 
         }
@@ -214,6 +222,7 @@ module.exports = {
             graphics: 'Gráficos',
             users: 'Usuários',
             file: 'Archivos',
+            save_file: 'Grabar archivo',
             file_not_validation: 'Ar. sin validación',
             profile: 'Perfil',
             options: 'Opciones',
@@ -245,7 +254,7 @@ module.exports = {
             table_agency_local_file_path: "Local file path",
             table_agency_code: "Agency code",
             table_Agency_od_flag: "Od flag",
-            table_agency_flag_monthly: "Flag monthly",
+            table_agency_flag_monthly: "Frequência",
             table_agency_flag_approved: "Flag approved",
             table_agency_s3: 'S3',
 
@@ -304,6 +313,9 @@ module.exports = {
             title_change_pass: 'Cambiar contraseña',
             title_change_pass_first_acess: 'Cambiar contraseña de primer acceso',
             add_photo: 'Add imagen',
+            btn_accept:'Aceptado',
+            btn_no_accept:'No acepto',
+            modal_terms:'Términos y Condiciones',
 
 
 

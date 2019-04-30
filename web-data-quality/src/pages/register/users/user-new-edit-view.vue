@@ -45,6 +45,7 @@
                             </div>
                         </div>
                        
+                       <!--
                        <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('company')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_company')}}</label>
@@ -54,6 +55,7 @@
                                    <div class="help-block">{{errors.first('company')}}</div>  
                              </div>        
                        </div>
+                       -->
                        
                        <!--
                         <div class="col-md-12">
@@ -65,9 +67,9 @@
                         </div> -->
                        
                          <div class="col-md-12">
-                        <div class="form-group" :class="{'has-error':errors.has('profile')}">
+                        <div  class="form-group" :class="{'has-error':errors.has('profile')}">
                             <label for="profile">{{$t('lang.profile')}}</label>
-                            <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="request.groups" name="profile" id="profile" multiple>
+                            <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="request.groups" name="profile" id="profile" multiple style="height:200px;">
                                 <option class="campos "  v-for="(v,i) in groups" :value="v.id" :key="i">{{v.name}}</option>
                             </select>
                             <div class="help-block">{{errors.first('profile')}}</div>
@@ -78,8 +80,8 @@
                     <div class="col-md-6">
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('cpf')}">
-                                <label for="exampleInputEmail1">CPF/CNPJ</label>
-                                <input  :disabled="typeAction == 'VIEW' || typeAction == 'EDIT'"  v-validate="'required|userExists'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF/CNPJ" >
+                                <label for="exampleInputEmail1">CPF</label>
+                                <input v-mask="maskCpf"  :disabled="typeAction == 'VIEW' || typeAction == 'EDIT'"  v-validate="'required|userExists|'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF"  >
                                 <div class="help-block">{{errors.first('cpf')}}</div>
                             </div>
                          </div>
@@ -87,7 +89,7 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('phone')}">
                                 <label for="exampleInputEmail1">{{$t('lang.label_input_phone')}}</label>
-                                <input  :disabled="typeAction == 'VIEW'"  v-validate="'required'" v-model="telefone" name="phone"   type="text" class="form-control campos"  :placeholder="$t('lang.label_input_phone')" >
+                                <input v-mask="maskPhone"  :disabled="typeAction == 'VIEW'"  v-validate="'required'" v-model="telefone" name="phone"   type="text" class="form-control campos"  :placeholder="$t('lang.label_input_phone')" >
                                 <div class="help-block">{{errors.first('phone')}}</div>
                             </div>
                          </div>
@@ -137,6 +139,10 @@ export default {
     props:['userEdit','typeAction'],
     data(){
         return {
+
+             maskPhone: "(##) ####-####",
+             maskCpf: "###.###.###-##",
+
             show:'',
             userPhoto:undefined,
             request:{

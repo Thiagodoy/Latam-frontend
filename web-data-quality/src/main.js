@@ -14,8 +14,14 @@ import filter from './filter/index';
 import VueSession from 'vue-session';
 import MiximModal from './mixins/modal';
 
+//Mask
+import { VueMaskDirective } from "v-mask";
+Vue.directive("mask", VueMaskDirective);
+
+
 //Mixins
 Vue.mixin(MiximModal);
+
 
 Vue.use(VueSession);
 Vue.use(filter);

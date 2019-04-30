@@ -1,16 +1,27 @@
 <template>
    <div v-async="loading">
       <div class="topo text-center">  <h6><i class="fas fa-key"></i>&nbsp; {{!(getIsFirstAccess) ? $t('lang.title_change_pass') : $t('lang.title_change_pass_first_acess')}}</h6></div>
-      <div class="wrapper">      
+      <div class="wrapper">  
+
+        
          <div class="col-md-6 form">
-               <div class="col-md-11">
+
+            <div  class="alert" >
+            A nova senha deverá ter no mínimo 08 caracteres, sendo alfanumérico, mínimo de uma letra maiúscula,
+            no mínimo um caractere especial e repetir até dois
+            caracteres seguidos são permitidos.
+         </div>
+
+
+
+
+               <div class="col-md-12">
                   <div class="form-group" :class="{'has-error':errors.has('oldPassword')}" >
                      <label for="oldPassword">{{$t('lang.label_input_current_pass')}}</label>
                      <input v-validate="'required'" name="oldPassword"    v-model="request.password" type="password" class="form-control campos"  :placeholder="$t('lang.label_input_current_pass')" >
                       <div class="help-block">{{errors.first('oldPassword')}}</div>
                   </div>
                </div>
-
                <div class="col-md-12">
                   <div class="row">
                      <div class="col-md-11">
@@ -20,7 +31,7 @@
                            <div class="help-block">{{errors.first('password')}}</div>
                         </div>
                      </div>
-                      <div class="col-md-1" style="margin-top: auto;margin-bottom: auto;">
+                     <div class="col-md-1" style="margin-top: auto;margin-bottom: auto;">
                         <span v-if="type1=='password'" @click="type1='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
                         <span v-else @click="type1='password'"><i class=" btn-option  fas fa-eye  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
                      </div>
@@ -32,14 +43,14 @@
                   <div class="row">
                      <div class="col-md-11">
                         <div class="form-group" :class="{'has-error':errors.has('newPassword')}" >
-                           <label for="password">{{$t('lang.confirm_pass')}}</label>
-                           <input   :type="type" name="newPassword" v-validate="'required|confirmed:password|caracterEspecial|passwordLength|passwordLowerCase|passwordUpperCase'"  class="form-control campos"  :placeholder="$t('lang.confirm_pass')" >                     
+                           <label for="password">{{$t('lang.confirm_pass')}}</label>                           
+                           <input   :type="type" name="newPassword" v-validate="'required|confirmed:password|caracterEspecial|passwordLength|passwordLowerCase|passwordUpperCase'"  class="form-control campos"  :placeholder="$t('lang.confirm_pass')" >                                                                           
                            <div class="help-block">{{errors.first('newPassword')}}</div>
                         </div>
                      </div>
                      <div class="col-md-1" style="margin-top: auto;margin-bottom: auto;">
-                        <span v-if="type=='password'" @click="type='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
-                        <span v-else @click="type='password'"><i class=" btn-option  fas fa-eye  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
+                        <span v-if="type1=='password'" @click="type1='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
+                        <span v-else @click="type1='password'"><i class=" btn-option  fas fa-eye  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
                      </div>
                   </div>
                </div>              
@@ -99,6 +110,25 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.icon-pass-view{
+ 
+   position: relative;
+   top:-30px;
+   left: 10px;;
+
+   &:hover{
+   cursor: pointer;
+   }
+}
+
+.alert{
+   color: darkkhaki;
+   text-align: justify;
+  text-justify: inter-word;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 10px;
+}
 
  .wrapper{
     background-color: rgba(0,0,0,0.3);

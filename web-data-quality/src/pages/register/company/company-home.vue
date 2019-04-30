@@ -64,11 +64,11 @@ export default {
             Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
                  if(response == 'YES'){
                     //Corrigir o loading
-                   AgencyService.delete({id:data.id}).then(response=>{
-                       this.getAgency()
-                       }).catch(erro=>{
-                        Modal.show({title:"Erro", message:erro.message, type:'OK'})
-                   }) 
+                  // AgencyService.delete({id:data.id}).then(response=>{
+                     //  this.getAgency()
+                    //   }).catch(erro=>{
+                     //   Modal.show({title:"Erro", message:erro.message, type:'OK'})
+                   //}) 
                 }
             })
         },
