@@ -1,6 +1,12 @@
 
 <template>  
     <div v-async="loading">
+        
+         <div v-if="show == 'SAVED'"  class="alert alert-success text-center" role="alert">
+           {{$t('lang.msg_success_agency')}}
+        </div>
+
+
         <div class="tool mb-2">
             <div   @click="$emit('back')" class="tool-view-item"><i class="fas fa-arrow-circle-left"></i>&nbsp;{{$t('lang.button_back')}}</div> &nbsp; &nbsp;&nbsp;
         </div>
@@ -88,6 +94,7 @@ export default {
 
     data(){
         return{
+            show:'',
             odchecked:undefined,
             approvedChecked:undefined,
             viewAgency:undefined,
@@ -103,22 +110,28 @@ export default {
             let promise = [];
 
             this.$validator.reset();
-            debugger
+           
             if(!this.viewAgency.s3Path || this.viewAgency.s3Path.lenght == 0 ){
                 Modal.show({title:"Erro", message:"Campo S3 obrigatório"});
                 return;
             }    
 
             if(this.typeAction == 'new'){                
-                promise.push(AgenciaService.save(this.viewAgency));
-
+                AgenciaService.save(this.viewAgency).then(()=>{
+                      this.savedSuccess();
+                  })
+                
             }else{
-                promise.push(AgenciaService.update(this.viewAgency));                
+                AgenciaService.update(this.viewAgency).then(()=>{
+                      this.savedSuccess();
+                  }) 
             }
 
             if(promise.length  == 0)return;
 
             Promise.all(promise).then(response=>{
+
+
                     this.viewAgency = undefined;
                     this.$emit('back');
                 }).catch(erro=>{
@@ -126,7 +139,13 @@ export default {
                     let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
                     Modal.show({title:"Erro", message:message});
                 });
-        }
+        },
+
+         savedSuccess(){
+          
+            this.show='SAVED';
+            setInterval(()=>{this.$emit('back')},1500);
+        }, 
     }
 }
 
@@ -186,6 +205,14 @@ input[type=radio]
          cursor: pointer;
          color: #ffed69;}
 }
+
+.alert{
+     background-color: rgba(37,239,147,0.4);
+     color:#eee;
+     border: none;
+
+}
+
 
 .campos{
     color:#fff;

@@ -140,7 +140,7 @@ export default {
     data(){
         return {
 
-             maskPhone: "(##) ####-####",
+             maskPhone: "(##) #########",
              maskCpf: "###.###.###-##",
 
             show:'',
@@ -395,7 +395,7 @@ select:disabled{
 }
 
 .alert{
-     background-color: rgba(37,239,147,0.3);
+     background-color: rgba(37,239,147,0.4);
      color:#eee;
      border: none;
 
