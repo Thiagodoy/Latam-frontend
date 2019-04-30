@@ -22,38 +22,36 @@
                       <div class="help-block">{{errors.first('oldPassword')}}</div>
                   </div>
                </div>
-
-
                <div class="col-md-12">
-                  <div class="form-group" :class="{'has-error':errors.has('password')}" >
-                     <label for="password">{{$t('lang.label_imput_newpass')}}</label>
-                     <input v-validate="'required'"  name="password" v-model="request.newPassword" ref="password"  type="password" class="form-control campos"  :placeholder="$t('lang.label_imput_newpass')" >
-                     <div class="help-block">{{errors.first('password')}}</div>
+                  <div class="row">
+                     <div class="col-md-11">
+                        <div class="form-group" :class="{'has-error':errors.has('password')}" >
+                           <label for="password">{{$t('lang.label_imput_newpass')}}</label>
+                           <input v-validate="'required|caracterEspecial|passwordLength|passwordLowerCase|passwordUpperCase'"  name="password" v-model="request.newPassword" ref="password"  :type="type1" class="form-control campos"  :placeholder="$t('lang.label_imput_newpass')" >
+                           <div class="help-block">{{errors.first('password')}}</div>
+                        </div>
+                     </div>
+                     <div class="col-md-1" style="margin-top: auto;margin-bottom: auto;">
+                        <span v-if="type1=='password'" @click="type1='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
+                        <span v-else @click="type1='password'"><i class=" btn-option  fas fa-eye  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
+                     </div>
                   </div>
                </div>
+               
 
                <div class="col-md-12">
                   <div class="row">
-                     <div class="col-md-12">
+                     <div class="col-md-11">
                         <div class="form-group" :class="{'has-error':errors.has('newPassword')}" >
-                           <label for="password">{{$t('lang.confirm_pass')}}</label>
-                           <div class="box-senha">
-                              <input style="padding-left:40px;"   :type="type" name="newPassword" v-validate="'required|confirmed:password'"  class="form-control campos"  :placeholder="$t('lang.confirm_pass')" >                     
-                               <span  class="icon-pass-view" v-if="type=='password'" @click="type='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" ></i></span>
-                               <span  class="icon-pass-view" v-else @click="type='password'"><i style="cursor:pointer" class=" btn-option  fas fa-eye  mr-5" ></i></span>
-                           </div>
+                           <label for="password">{{$t('lang.confirm_pass')}}</label>                           
+                           <input   :type="type" name="newPassword" v-validate="'required|confirmed:password|caracterEspecial|passwordLength|passwordLowerCase|passwordUpperCase'"  class="form-control campos"  :placeholder="$t('lang.confirm_pass')" >                                                                           
                            <div class="help-block">{{errors.first('newPassword')}}</div>
                         </div>
                      </div>
-                     
-                     
-                     
-                     <!--
-                      <div class="col-md-1" style="margin-top: auto;margin-bottom: auto;">
-                        <span v-if="type=='password'" @click="type='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
-                        <span v-else @click="type='password'"><i class=" btn-option  fas fa-eye  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
+                     <div class="col-md-1" style="margin-top: auto;margin-bottom: auto;">
+                        <span v-if="type1=='password'" @click="type1='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
+                        <span v-else @click="type1='password'"><i class=" btn-option  fas fa-eye  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
                      </div>
-                    -->
                   </div>
                </div>              
                <br>
@@ -61,24 +59,28 @@
                <button @click="back" style="color:#fff"  class="btn btn-default btn-large ml-3 ">{{$t('lang.button_cancel')}}</button>                                        
             </div>
       </div>
+      <accepted :show="getIsFirstAccess" @no_accept="back"></accepted>
    </div>    
 </template>
 <script>
 import {mapActions,mapGetters} from 'vuex';
+import Accepted from '../../../components/accepted/accepted.vue'
 import AuthService from '../../../services/auth';
-// import Modal from '';
+
 export default {
 
    data(){
       return {
          request:{},
          loading:undefined,
+         type1:'password',
          type:'password'
       }
    },
    computed:{
        ...mapGetters(['getIsFirstAccess','getUser'])
-   },
+   },   
+   
    methods:{
       change(){
          this.$validator.validateAll().then(response => {
@@ -86,12 +88,13 @@ export default {
             if(response){    
                       
                this.request.email = this.getUser.email;
-               this.request.isFirstAcces = this.getIsFirstAccess ;
-               console.log('this.getIsFirstAccess',this.getIsFirstAccess);
+               this.request.isFirstAcces = this.getIsFirstAccess ;               
                return AuthService.changePassword(this.request).then(response=>{
-                   this.$router.push({ name: "login" });
+                  this.mxShowModal({title:'Informação', message:'Senha alterada com sucesso'}).then(()=>{
+                     this.$router.push({ name: "login" });
+                  });
                }).catch(error=>{
-                  console.error(error);
+                  this.mxShowModalError(error);
                });
             }
          });
@@ -103,8 +106,10 @@ export default {
              this.$router.push({ name: "home" });
          }
       }
-   }
-   
+   },
+   components:{
+      Accepted
+   }   
 }
 </script>
 

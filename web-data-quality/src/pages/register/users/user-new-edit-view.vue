@@ -133,7 +133,7 @@
 import UserService from '../../../services/user';
 import GroupService from '../../../services/group';
 import AgencyService from '../../../services/agency';
-import Modal from '../../../components/modal/message-dialog.vue';
+import moment from 'moment';
 
 export default {
     props:['userEdit','typeAction'],
@@ -171,10 +171,8 @@ export default {
 
             this.groups = responses[0].content;
             
-        }).catch(erro=>{
-            console.info(erro);
-            let message = this.$t(`lang.msg_error_${erro.codeMessage}`);          
-            Modal.show({title:"Erro", message:message});
+        }).catch(erro=>{            
+            this.mxShowModalError(erro)
         })
 
 
@@ -249,7 +247,7 @@ export default {
            UserService.resendAcces(this.userEdit.email).then(response=>{
                Modal.show({title:'Informação', message:'Email enviado do acesso'}); 
            }).catch(erro=>{
-               console.log(erro);
+               this.mxShowModalError(erro);
            });  
         },
         removePhoto(){
@@ -263,7 +261,10 @@ export default {
                 
                 if(e.target.files.length == 0){return;}
 
-                if(e.target.files[0].size > 524288){alert('Imagem maior que 50 mb'); return}
+                if(e.target.files[0].size > 524288){
+                    this.mxShowModal('Imagem maior que 50 mb'); 
+                    return
+                }
 
                 let reader = new FileReader();
 
@@ -278,27 +279,27 @@ export default {
         saveUser(){
             //FIXME: Colocar o loading 
             this.$validator.validateAll().then((valid)=>{
-
-                this.request.password = '123456';                    
+                                    
                 this.request.id = this.request.email;
-                this.request.photo = this.userPhoto;
-                
+                this.request.photo = this.userPhoto;                
 
-                if(valid && !this.userEdit){                
+                if(valid && !this.userEdit){       
+                    let dateString =  moment(new Date()).format('YYYY-MM-DD')         
                     this.request.info.push({key:'primeiro_acesso', userId: this.request.id, value:'true'});
+                    this.request.info.push({key:'ultimo_acesso', userId: this.request.id, value: dateString});
+                    this.request.info.push({key:'trocar_senha', userId: this.request.id, value: dateString});
                     return UserService.saveUser(this.request).then((response)=>{
                       this.savedSuccess();
                     });
                 }else if(valid && this.userEdit){
-                   
+
                   return UserService.updateUser(this.request).then(()=>{
                       this.savedSuccess();
                   })
                 }
 
-
             }).catch(erro=>{
-                console.log('Erro',erro)
+                this.mxShowModalError(erro);
             });
         },
         savedSuccess(){

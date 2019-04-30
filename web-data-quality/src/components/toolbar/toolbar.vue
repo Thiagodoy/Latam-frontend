@@ -53,6 +53,8 @@ export default {
                 this.filter[this.filterSelected] = this.searchText.length > 0 ? this.searchText : undefined;
                 console.log('filter', this.filter); 
                 this.$emit('filter',this.filter);                   
+             }else{
+                 this.mxShowModal({title:'Informação', message:'Selecione um filtro!'});
              }   
         },400),
     },

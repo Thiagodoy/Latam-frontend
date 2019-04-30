@@ -8,11 +8,11 @@ import '../src/assets/css/styles-global.css';
 import VueI18n from 'vue-i18n';
 import VeeValidate from 'vee-validate';
 import Diretivas from './directives/index';
-import { plugin } from './validators/index';
+import { plugin, dictionary } from './validators/index';
 import store from './store/index';
 import filter from './filter/index';
 import VueSession from 'vue-session';
-import MiximModal from './mixins/modal-error';
+import MiximModal from './mixins/modal';
 
 //Mask
 import { VueMaskDirective } from "v-mask";
@@ -28,8 +28,8 @@ Vue.use(filter);
 Vue.use(plugin);
 Vue.use(Diretivas);
 Vue.use(VeeValidate, {
-    // i18nRootKey: 'validations', // customize the root path for validation messages.
     i18n,
+    dictionary
 });
 
 //Vue.use(VueValidate);
@@ -48,8 +48,6 @@ const instance = new Vue({
 
     render: h => h(App),
 }).$mount('#app');
-
-console.log('i18n', i18n);
 
 export {
     i18n,
