@@ -1,5 +1,10 @@
 import AuthService from '../services/auth';
-import { instance } from '../main'
+import { instance } from '../main';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+
+const moment = extendMoment(Moment);
+
 // TYPES
 const MAIN_LOGIN = 'MAIN_SET_LOGIN';
 
@@ -25,13 +30,24 @@ const userStore = {
             return !(value == 'false');
         },
 
-        getCheckPermission: (state) => (chave) => {
+        getIsMaster: (state) => {
 
+            if (!state.user) return false;
+            return state.user.groups.some(g => g.id.includes('master'));
+        },
+        getCheckChangePassword: (state) => {
+            if (!state.user) return -1;
+            let value = state.user.info.find(e => e.key == 'trocar_senha').value.split('-');
+            let d = moment(value).toDate();
+            let dateInit = Date.UTC(...[d.getUTCFullYear(), d.getUTCMonth() - 1, d.getUTCDate()]);
+            let dateNow = moment().toDate();
+            let dateEnd = Date.UTC(...[dateNow.getUTCFullYear(), dateNow.getUTCMonth(), dateNow.getUTCDate()]);
 
+            return (45 - moment.range(dateInit, dateEnd).diff('days'));
         }
     },
     actions: {
-        loginStore({ commit }, payload) {
+        loginStore({ commit, getters }, payload) {
             return AuthService.login(payload).then(response => {
                 commit(MAIN_LOGIN, response);
                 instance.$session.set('user', response);

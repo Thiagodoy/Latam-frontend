@@ -216,14 +216,14 @@ export default {
         },
         cpf:{
             set:function(newValue){
-                if(this.request.info.some(e => e.key == 'cpfCnpj')){
-                    this.request.info.find(e=> e.key == 'cpfCnpj').value = newValue
+                if(this.request.info.some(e => e.key == 'cpf')){
+                    this.request.info.find(e=> e.key == 'cpf').value = newValue
                 }else{
-                    this.request.info.push({key:'cpfCnpj',value:newValue});
+                    this.request.info.push({key:'cpf',value:newValue});
                 }
             },
             get:function(){
-                let info = this.request.info.find(e=> e.key == 'cpfCnpj');
+                let info = this.request.info.find(e=> e.key == 'cpf');
                 return (info && info.value) || '';               
             }
         },

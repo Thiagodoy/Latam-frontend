@@ -39,6 +39,14 @@ class AuthenticationService extends Service {
         this._url = '/forgot';
         return this.post(request);
     }
+
+    /**
+     * @param  {} request
+     */
+    expired(request) {
+        this._url = `/expired?email=${request}`;
+        return this.post(null);
+    }
 }
 
 const instance = new AuthenticationService("/auth");
