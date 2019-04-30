@@ -16,13 +16,14 @@
                 @edit="editUser"
                 @delete="deleteUser"
             ></data-table>   
-            
-
+          
+ 
         </div>
 
         <!--Componentes Options -->             
         <user-new-edit-view :userEdit="currentObject" :typeAction="typeAction"  @back="show = 'home'" v-if="show=='new'"></user-new-edit-view>    
 
+           
     
     </div> 
 </template>
@@ -42,6 +43,7 @@ import UserService from '../../../services/user';
 import MockFactory from '../../../utils/mock-factory';
 import _ from 'lodash';
 import Modal from '../../../components/modal/message-dialog.vue';
+
 
 
 export default {
@@ -136,6 +138,7 @@ export default {
         Toolbar,
         DataTable,        
         UserNewEditView,
+      
        
     }
     

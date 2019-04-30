@@ -81,7 +81,7 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('cpf')}">
                                 <label for="exampleInputEmail1">CPF</label>
-                                <input v-mask="maskCpf"  :disabled="typeAction == 'VIEW' || typeAction == 'EDIT'"  v-validate="'required,|userExists|'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF" pattern="[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}" >
+                                <input v-mask="maskCpf"  :disabled="typeAction == 'VIEW' || typeAction == 'EDIT'"  v-validate="'required|userExists|'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF"  >
                                 <div class="help-block">{{errors.first('cpf')}}</div>
                             </div>
                          </div>

@@ -98,6 +98,9 @@ module.exports = {
             title_change_pass: 'Change Password',
             title_change_pass_first_acess: 'Change Password First Acess',
             add_photo: 'Add photo',
+            btn_accept:'I accept',
+            btn_no_accept:'I do not accept',
+            modal_terms:'Terms and conditions',
 
 
 
@@ -202,6 +205,9 @@ module.exports = {
             title_change_pass: 'Alterar senha',
             title_change_pass_first_acess: 'Alterar senha  de primeiro acesso',
             add_photo: 'Add imagem',
+            btn_accept:'Aceito',
+            btn_no_accept:'Não aceito',
+            modal_terms:'Termos e condições',
 
 
         }
@@ -307,6 +313,9 @@ module.exports = {
             title_change_pass: 'Cambiar contraseña',
             title_change_pass_first_acess: 'Cambiar contraseña de primer acceso',
             add_photo: 'Add imagen',
+            btn_accept:'Aceptado',
+            btn_no_accept:'No acepto',
+            modal_terms:'Términos y Condiciones',
 
 
 
