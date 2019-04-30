@@ -59,12 +59,14 @@
                <button @click="back" style="color:#fff"  class="btn btn-default btn-large ml-3 ">{{$t('lang.button_cancel')}}</button>                                        
             </div>
       </div>
+      <accepted :show="getIsFirstAccess" @no_accept="back"></accepted>
    </div>    
 </template>
 <script>
 import {mapActions,mapGetters} from 'vuex';
+import Accepted from '../../../components/accepted/accepted.vue'
 import AuthService from '../../../services/auth';
-// import Modal from '';
+
 export default {
 
    data(){
@@ -77,7 +79,8 @@ export default {
    },
    computed:{
        ...mapGetters(['getIsFirstAccess','getUser'])
-   },
+   },   
+   
    methods:{
       change(){
          this.$validator.validateAll().then(response => {
@@ -103,8 +106,10 @@ export default {
              this.$router.push({ name: "home" });
          }
       }
-   }
-   
+   },
+   components:{
+      Accepted
+   }   
 }
 </script>
 

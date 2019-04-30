@@ -12,7 +12,7 @@
               <span style="color:#fff;font-size:22px;" aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" v-html="message" ></div>
+          <div class="modal-body" v-html="message"></div>
           <div class="modal-footer">
             <template v-if="type == 'YES-NO'">
                 <button type="button" class="btn" data-dismiss="modal" @click="result('NO')">
