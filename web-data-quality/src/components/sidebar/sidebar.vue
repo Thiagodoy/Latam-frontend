@@ -15,6 +15,7 @@
                         <router-link class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
                         <router-link class="pl-5" tag="a" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
                         <router-link class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
+                         <router-link class="pl-5" tag="a" to="/user-agency"><i class="far fa-edit"></i>&nbsp;{{$t('lang.associate_agency')}}</router-link>
                     
                                         
                     </div>

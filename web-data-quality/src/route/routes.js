@@ -10,6 +10,7 @@ import ChangePass from '../pages/register/change-pass/change-pass.vue'
 import Upload from '../pages/file/upload.vue'
 import CompanyHome from '../pages/register/company/company-home.vue'
 import RouterGuard from './route-guard';
+import UserAgency from '../pages/register/userAgency/userAgencyHome.vue'
 
 
 Vue.use(Router)
@@ -30,7 +31,8 @@ export default new Router({
                 { name: 'file', path: '/file', component: FileHome },
                 { name: 'users-profile', path: '/users-profile', component: ProfileHome },
                 { name: 'upload', path: '/upload', component: Upload },
-                { name: 'company', path: '/company', component: CompanyHome }
+                { name: 'company', path: '/company', component: CompanyHome },
+                { name: 'user-agency', path: '/user-agency', component: UserAgency }
             ]
 
         }

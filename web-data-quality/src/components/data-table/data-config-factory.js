@@ -20,6 +20,8 @@ class DataTableConfigFactory {
                 return this.configTableFileInformationVisualization();
             case 'DATA-TABLE-RELATORIO-VISUALIZATION':
             return this.configTableRelatorioVisualisation();
+            case 'DATA-TABLE-USER-AGENCY':
+            return this.configTableUserAgencyVisualisation();
            
            
                 default:
@@ -203,6 +205,23 @@ class DataTableConfigFactory {
                 { name: "flagMonthly", title: "table_agency_flag_monthly", formatter: undefined },
                 { name:  "flagApproved", title: "table_agency_flag_approved", formatter: undefined },
 
+            ]
+        };
+    }
+
+    configTableUserAgencyVisualisation() {
+        return {
+            showCount: true,
+            showOptions: true,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: true,
+            searchBy: "",
+            columns: [
+                
+                { name: "user", title: "table_user", formatter: undefined },
             ]
         };
     }

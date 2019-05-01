@@ -4,7 +4,7 @@ import $ from 'jquery';
 export default {
 
     inserted(el) {
-        let overlay = $("<div class='async-overlay'><div class='spinner'></div></div>");
+        let overlay = $("<div  class=' async-overlay'><div class='fundo'></div><div class='spinner'></div></div>");
         $(el).append(overlay).data('overlay-div', overlay);
 
     },

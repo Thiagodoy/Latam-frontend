@@ -67,7 +67,7 @@ class ToolbarConfigFactory {
                 { emit: 'new', class: 'btn-add-user', icon: 'fas fa-user-plus', label: 'button_new' }
             ],
             filter: [
-                { label: 'table_view_file_company_name', attribute: 'firstName' },
+                { label: 'table_view_file_company_name', attribute: 'name' },
                 
             ]
 

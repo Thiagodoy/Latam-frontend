@@ -1,11 +1,14 @@
 <template>
-    <div class="all-user-home">
+    <div v-async="loading" class="all-user-home">
         <div v-if="show =='home'">
+
+            
            
            
             <!-- Conponente Toolbar -->
             <toolbar 
                 :config="configToolbar" 
+                @filter="setFilter"
                 @new="show = 'new';typeAction = 'new'">
             </toolbar>          
            
@@ -17,7 +20,14 @@
                  @edit="edit"
                  @delete="del"
                  @page="setPage">
-            </data-table> 
+            </data-table>
+
+
+           
+
+
+
+
         </div>
         <!--Componentes Options --> 
         <agency-view-edit v-else-if="show=='view' || show=='new' || show=='edit'" :typeAction="typeAction" :currentObject="currentObject" @back="show = 'home'"></agency-view-edit>
@@ -63,12 +73,15 @@ export default {
          del(data){
             Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
                  if(response == 'YES'){
-                    //Corrigir o loading
-                  // AgencyService.delete({id:data.id}).then(response=>{
-                     //  this.getAgency()
-                    //   }).catch(erro=>{
-                     //   Modal.show({title:"Erro", message:erro.message, type:'OK'})
-                   //}) 
+                    
+                   this.loading=AgencyService.deleteCompany({id:data.id}).then(response=>{
+                       
+                       this.getAgency()
+     
+                       }).catch(erro=>{
+                        Modal.show({title:"Erro", message:erro.message, type:'OK'})
+                   }) 
+                   
                 }
             })
         },
@@ -98,7 +111,8 @@ export default {
         },
 
         getAgency(){
-              AgencyService.getAgency(this.filter).then((response)=>{                
+             this.loading = AgencyService.getAgency(this.filter).then((response)=>{
+                           
                 this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch(erro=>{
@@ -113,6 +127,13 @@ export default {
     },
     mounted(){
         this.getAgency();
+
+      
+
+      
+
+       
+
     },
 
      watch:{
@@ -149,6 +170,16 @@ export default {
 
 </script>
 <style <style lang="scss" scoped>
+
+.teste{
+   width: 100%;
+    height: 100vh;
+    background: #ff0;
+    position:fixed;
+    top:0px;
+    left:0px;
+    opacity: .5;
+}
 
 </style>
 

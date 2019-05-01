@@ -35,8 +35,8 @@ class AgencyService extends Service {
     /**
      * @param  {} request
      */
-    delete(request) {
-        this._url = '/{id}'
+    deleteCompany(request) {
+        this._url = `${request.id}`;
         return this.delete(request);
     }
 

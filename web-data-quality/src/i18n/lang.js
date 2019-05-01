@@ -10,6 +10,7 @@ module.exports = {
             register: 'Register',
             users: 'Users',
             file: 'Files',
+            associate_agency:'Associate agency',
             save_file: 'Save file',
             file_not_validation: 'Files without validation',
             profile: 'Profile',
@@ -53,6 +54,7 @@ module.exports = {
 
             table_view_information: 'Information',
             table_view_empty: '',
+            table_user:'User',
 
             table_pagination_row_page_title: 'Rows per page:',
             table_pagination_show_info: 'Show',
@@ -117,6 +119,7 @@ module.exports = {
             register: 'Cadastro',
             users: 'Usuários',
             file: 'Arquivos',
+            associate_agency:'Associar agências',
             save_file: 'Gravar arquivos',
             file_not_validation: 'Arq. sem validação',
             profile: 'Perfil',
@@ -159,6 +162,7 @@ module.exports = {
             table_file_status_qtdTotalLines: 'Qtd linhas',
             table_view_information: 'Informação',
             table_view_empty: '',
+            table_user:'Usuário',
 
             table_pagination_row_page_title: 'Linhas por página:',
             table_pagination_show_info: 'Exibindo',
@@ -212,6 +216,7 @@ module.exports = {
             modal_terms:'Termos e condições',
 
 
+
         }
     },
 
@@ -224,6 +229,7 @@ module.exports = {
             graphics: 'Gráficos',
             users: 'Usuários',
             file: 'Archivos',
+            associate_agency:'Associar agencias',
             save_file: 'Grabar archivo',
             file_not_validation: 'Ar. sin validación',
             profile: 'Perfil',
@@ -249,6 +255,7 @@ module.exports = {
             table_view_empty: '',
             aba_report: 'Informe',
             table_created_date: 'Creación',
+            table_user:'Usuario',
 
 
             table_agency_name: "Agência",

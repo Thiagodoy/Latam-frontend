@@ -1,6 +1,7 @@
 
 <template>  
-    <div v-async="loading">
+    <div >
+        <div  v-async="loading"> </div>
         
          <div v-if="show == 'SAVED'"  class="alert alert-success text-center" role="alert">
            {{$t('lang.msg_success_agency')}}
@@ -22,6 +23,14 @@
                             <input :disabled="typeAction=='view'" v-model="viewAgency.name" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_name')"  >
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group" >
+                            <label class="" >CNPJ</label>
+                            <input v-mask="maskCnpj" :disabled="typeAction=='view'" v-model="viewAgency.cnpj" type="text" class="form-control campos" placeholder="CNPJ"  >
+                        </div>
+                    </div>
+
                     <div class="col-md-12">
                         <div class="form-group" >
                             <label >{{$t('lang.table_agency_input_path')}}</label>
@@ -69,9 +78,9 @@
                             <label for="approved">{{$t('lang.table_agency_flag_approved')}}</label>&nbsp;&nbsp;|&nbsp;&nbsp;
 
                             <span class="mt-3">{{$t('lang.table_agency_flag_monthly')}}:</span>&nbsp;
-                            <input :disabled="typeAction=='view'"  class="ml-2" v-model="viewAgency.flagMonthly" type="radio" value="M"  /><label>M</label>&nbsp;&nbsp;
-                            <input :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="S"     /><label>S</label>&nbsp;&nbsp;
-                            <input :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="D"     /><label>D</label>
+                            <input id="m" :disabled="typeAction=='view'"  class="ml-2" v-model="viewAgency.flagMonthly" type="radio" value="M"  /><label>M</label>&nbsp;&nbsp;
+                            <input id="s" :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="S"     /><label>S</label>&nbsp;&nbsp;
+                            <input id="d" :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="D"     /><label>D</label>
                         </div>
 
                     </div>
@@ -95,6 +104,7 @@ export default {
     data(){
         return{
             show:'',
+            maskCnpj: "##.###.###/####-##",
             odchecked:undefined,
             approvedChecked:undefined,
             viewAgency:undefined,
@@ -106,17 +116,72 @@ export default {
          this.viewAgency = this.currentObject || {name:''};
     },
     methods:{
+
+        
         saveAgency(){
+            
+
             let promise = [];
 
             this.$validator.reset();
            
+           
+
+            if(!this.viewAgency.name || this.viewAgency.name.lenght == 0 ){
+                Modal.show({title:"Erro", message:"Campo Agência obrigatório"});
+                return;
+            } 
+
+            if(!this.viewAgency.cnpj || this.viewAgency.cnpj.lenght == 0 ){
+                Modal.show({title:"Erro", message:"Campo CNPJ obrigatório"});
+                return;
+            } 
+            
+            if(!this.viewAgency.inputPath || this.viewAgency.inputPath.lenght == 0 ){
+                Modal.show({title:"Erro", message:"Campo Entrada obrigatório"});
+                return;
+            } 
+
+             if(!this.viewAgency.processedPath || this.viewAgency.processedPath.lenght == 0 ){
+                Modal.show({title:"Erro", message:"Campo Processando obrigatório"});
+                return;
+            } 
+
+             if(!this.viewAgency.localFilePath || this.viewAgency.localFilePath.lenght == 0 ){
+                Modal.show({title:"Erro", message:"Campo Local obrigatório"});
+                return;
+            } 
+
+             if(!this.viewAgency.agencyCode || this.viewAgency.agencyCode.lenght == 0 ){
+                Modal.show({title:"Erro", message:"Campo Código obrigatório"});
+                return;
+            } 
+            
             if(!this.viewAgency.s3Path || this.viewAgency.s3Path.lenght == 0 ){
                 Modal.show({title:"Erro", message:"Campo S3 obrigatório"});
                 return;
+            } 
+            
+            if(!document.getElementById('m').checked && !document.getElementById('s').checked && !document.getElementById('d').checked ){
+                Modal.show({title:"Erro", message:"Selecione frêquencia"});
+                return;
             }    
+            
+            
 
-            if(this.typeAction == 'new'){                
+
+
+
+
+
+
+
+
+            if(this.typeAction == 'new'){ 
+                
+                
+
+
                 AgenciaService.save(this.viewAgency).then(()=>{
                       this.savedSuccess();
                   })
