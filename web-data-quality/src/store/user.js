@@ -2,6 +2,9 @@ import AuthService from '../services/auth';
 import { instance } from '../main';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
+import AbilityFactory from '../security/ability-factory';
+import Vue from 'vue';
+import { abilitiesPlugin } from '@casl/vue'
 
 const moment = extendMoment(Moment);
 
@@ -31,9 +34,12 @@ const userStore = {
         },
 
         getIsMaster: (state) => {
-
             if (!state.user) return false;
             return state.user.groups.some(g => g.id.includes('master'));
+        },
+        getAgencysFromUser: (state) => {
+            if (!state.user) return [];
+            return state.user.info.filter(e => e.key == 'agencia');
         },
         getCheckChangePassword: (state) => {
             if (!state.user) return -1;
@@ -52,6 +58,9 @@ const userStore = {
                 commit(MAIN_LOGIN, response);
                 instance.$session.set('user', response);
                 console.log('session-id', instance.$session.id());
+                Vue.use(abilitiesPlugin, AbilityFactory.build(response));
+                instance.$forceUpdate();
+                console.log('rules', AbilityFactory.getAbilities().rules);
                 return response;
             });
         },
@@ -60,6 +69,7 @@ const userStore = {
             instance.$session.destroy();
             instance.$router.push({ name: 'login' });
             commit(MAIN_LOGIN, undefined);
+            instance.$forceUpdate();
         },
     }
 

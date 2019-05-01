@@ -104,7 +104,7 @@ import AuthenticationService from "../services/auth.js";
 import Loading from '../components/loading/loading.vue';
 import * as _ from 'lodash';
 import {mapActions, mapGetters } from 'vuex';
-import Modal from "../components/modal/message-dialog.vue";
+
 export default {
   data() {
     return {
@@ -119,13 +119,7 @@ export default {
       loading: undefined
     };
   },
-  mounted(){
-
-   // console.log('URL_BASE',process.env.VUE_APP_BASE_PATH);
-    //this.request.login =`thiago@thiago.com`;
-    //this.request.password =`123456`;
-   // this.login();
-  },
+  mounted(){ },
   computed:{
     ...mapGetters(['getIsFirstAccess'])
   },
@@ -166,6 +160,7 @@ export default {
             if(this.getIsFirstAccess == true){
               this.$router.push({ name: "change-pass" });
             }else{
+              this.loadAbilities();
               this.$router.push({ name: "home" });
             }            
             return Promise.resolve();
@@ -174,6 +169,9 @@ export default {
       }).catch((erro)=>{        
          this.mxShowModalError(erro);
       });
+    },
+    loadAbilities(){
+
     }
   },
   components: {

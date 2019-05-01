@@ -2,7 +2,6 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './route/routes';
 import 'bootstrap';
-import $ from 'jquery'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/assets/css/styles-global.css';
 import VueI18n from 'vue-i18n';
@@ -13,15 +12,19 @@ import store from './store/index';
 import filter from './filter/index';
 import VueSession from 'vue-session';
 import MiximModal from './mixins/modal';
+import { VueMaskDirective } from "v-mask";
+import { abilitiesPlugin } from '@casl/vue'
+import abilitiesFactory from './security/ability-factory'
+
+
+// CASL
+//Vue.use(abilitiesPlugin, abilitiesFactory.build(null));
 
 //Mask
-import { VueMaskDirective } from "v-mask";
 Vue.directive("mask", VueMaskDirective);
-
 
 //Mixins
 Vue.mixin(MiximModal);
-
 
 Vue.use(VueSession);
 Vue.use(filter);
@@ -48,6 +51,8 @@ const instance = new Vue({
 
     render: h => h(App),
 }).$mount('#app');
+
+console.log('instance', instance);
 
 export {
     i18n,

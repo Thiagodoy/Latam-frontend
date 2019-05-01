@@ -9,28 +9,25 @@
                     <router-link class="x-btn" tag="a" to="/home"><i class="fas fa-home "></i>&nbsp;{{$t('lang.home')}}</router-link>
                     
                 </li>    
-                <li v-if="!isAgencia" class="x-item" id="cadastro">
+                <li  class="x-item" id="cadastro">
                     <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                     <div class="x-smenu">
-                        <router-link class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
-                        <router-link class="pl-5" tag="a" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
-                        <router-link class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
-                         <router-link class="pl-5" tag="a" to="/user-agency"><i class="far fa-edit"></i>&nbsp;{{$t('lang.associate_agency')}}</router-link>
-                    
-                                        
+                        <router-link v-if="$can('manage', 'User')"  class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
+                        <router-link v-if="$can('manage', 'Agency')" class="pl-5" tag="a" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
+                        <router-link v-if="$can('manage', 'Profile')" class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
                     </div>
                 </li>
                 <li class="x-item" id="mensagem">
                     <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
                         <div class="x-smenu">
-                            <router-link class="pl-5" tag="a" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;{{$t('lang.save_file')}}</router-link>    
+                            <router-link  v-if="$can('manage', 'Upload')" class="pl-5" tag="a" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;{{$t('lang.save_file')}}</router-link>    
                             <!-- <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                            -->
                         </div>
                 </li>
-                <li class="x-item" id="senha">
+                <li class="x-item" id="senha" v-if="$can('manage', 'Opcao')">
                     <a href="#senha" class="x-btn"><i class="fas fa-cog"></i>&nbsp;{{$t('lang.options')}} &nbsp; <i class="fas fa-caret-down "></i></a>
                         <div class="x-smenu">
-                            <router-link class="pl-5" tag="a" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>                        
+                            <router-link   class="pl-5" tag="a" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>                        
                         </div>
                 </li>
             </div>

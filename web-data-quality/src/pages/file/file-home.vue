@@ -64,6 +64,7 @@ import DataTable from '../../components/data-table/data-table.vue';
 import DataTableFactory from '../../components/data-table/data-config-factory';
 import FileService from '../../services/file';
 import FileDetailStatus from './file-status-detail.vue';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
     data(){
@@ -73,13 +74,7 @@ export default {
             configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
             configDataTable: DataTableFactory.build('DATA-TABLE-FILE-VISUALIZATION'),
             data:{
-                conteudo:[
-                    // {company:'Gol',name:'file_22012019.csv', date: '10/10/2019', status:'NEW'},
-                    // {company:'Latam',name:'file_22012019.csv', date: '10/09/2019', status:'UPLOADED'},
-                    // {company:'Emirates',name:'file_22012019.csv', date: '21/10/2019',status:'PROCESSING'},
-                    // {company:'Tam',name:'file_22012019.csv', date: '10/02/2019', status:'ERROR'},                 
-                    
-                ],
+                conteudo:[],
                 pagination:{pageable:{}},
             },
             filesUploads:[],
@@ -90,6 +85,9 @@ export default {
     },
     mounted(){
         this.listFiles();
+    },
+    computed:{
+        ...mapGetters(['getAgencysFromUser'])
     },
     methods:{
         showDetail(data){
@@ -113,7 +111,7 @@ export default {
                this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch((erro)=>{
-                console.log("erro");
+                this.mxShowModalError(erro);
             });
         },
         hideProgress(index){
@@ -125,15 +123,23 @@ export default {
         }, 1000),
          openUpload(){          
             let inputFile = document.getElementById('file-upload');
-            inputFile.onchange = (e)=>{
-                let formData =  new FormData();
-                for(let i = 0; i < e.target.files.length; i++){                   
-                    this.filesUploads.push(e.target.files[i]);
+            inputFile.onchange = (e)=>{                            
+                if(this.getAgencysFromUser.length > 1){
+                    this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencysFromUser }).then((response)=>{
+                        this.processFile(e);
+                    });
+                }else{
+                    this.processFile(e);
                 }
-                inputFile.value = "";
             };
             inputFile.click();   
         },
+        processFile(e){                           
+            for(let i = 0; i < e.target.files.length; i++){                   
+                this.filesUploads.push(e.target.files[i]);
+            }
+            inputFile.value = "";
+        }
     },
     watch:{
         show(newValue,oldValue){

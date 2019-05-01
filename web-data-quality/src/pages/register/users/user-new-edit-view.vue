@@ -1,6 +1,6 @@
 <template>
 
-    <div class="all-user-new">
+    <div  v-async="loading" class="all-user-new">
         <div v-if="show == 'SAVED'"  class="alert alert-success text-center" role="alert">
            {{$t('lang.msg_success_user')}}
         </div>
@@ -101,6 +101,16 @@
                                 <div class="help-block">{{errors.first('linkedin')}}</div>
                             </div>
                          </div>
+                        <div class="col-md-12">
+                            <div  class="form-group" :class="{'has-error':errors.has('profile')}">
+                                <label for="profile">{{$t('lang.table_view_file_company_name')}}</label>
+                                <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="agency" name="profile" id="profile" multiple style="height:200px;">
+                                    <option class="campos "  v-for="(v,i) in agencys" :value="v.id" :key="i">{{`${v.code} - ${v.name}`}}</option>
+                                </select>
+                                <div class="help-block">{{errors.first('profile')}}</div>
+                            </div>                        
+                        </div>
+
                          <div class="col-md-12">
                              <div class="form-group">
                                 <button v-if="typeAction == 'VIEW'" style="color:#fff" @click="resendEmail" class="btn btn-default">Reenviar email de acesso</button>                       
@@ -133,6 +143,7 @@
 import UserService from '../../../services/user';
 import GroupService from '../../../services/group';
 import AgencyService from '../../../services/agency';
+import AbilityFactory from '../../../security/ability-factory';
 import moment from 'moment';
 
 export default {
@@ -140,9 +151,9 @@ export default {
     data(){
         return {
 
-             maskPhone: "(##) #########",
-             maskCpf: "###.###.###-##",
-
+            maskPhone: "(##) #########",
+            maskCpf: "###.###.###-##",
+            loading:undefined,
             show:'',
             userPhoto:undefined,
             request:{
@@ -160,17 +171,18 @@ export default {
         promises.push(GroupService.getGroups({page:0, size:100}));
         promises.push(AgencyService.list({page:0,size:1000}));
 
-        Promise.all(promises).then(responses=>{
+        this.loading = Promise.all(promises).then(responses=>{
             
             this.agencys = responses[1].content.map(e=>{
                 let ne = {};
                 ne.id = e.id;
-                ne.name = e.name
+                ne.name = e.name;
+                ne.code = e.agencyCode;
                 return ne;
             });
 
             this.groups = responses[0].content;
-            
+            this.checkConditions();
         }).catch(erro=>{            
             this.mxShowModalError(erro)
         })
@@ -188,6 +200,21 @@ export default {
             }
     },
     computed:{
+        agency:{
+            set:function(newValue){       
+
+                this.request.info =  this.request.info.filter(e => e.key != 'agencia' );                
+                newValue.forEach(e=>{
+                    this.request.info.push({key:'agencia',value:e});
+                });                          
+                
+            },
+            get:function(){                   
+               return this.request.info.filter(e=> e.key == 'agencia').map(ee=>{
+                   return ee.value;
+               })
+            }
+        },
         telefone:{
             set:function(newValue){
                 if(this.request.info.some(e => e.key == 'telefone')){
@@ -243,6 +270,34 @@ export default {
     },
     methods:{
 
+        checkConditions(){
+            debugger;
+            let conditions = AbilityFactory.getRule()[0].conditions;
+
+            if(conditions && conditions.agencys && conditions.agencys.length > 0){
+                let tempAgency = [];
+                
+                conditions.agencys.forEach(a=>{
+                    let agency = this.agencys.find(e=>e.id == a.id);
+                    tempAgency.push(agency);
+                });
+
+                this.agencys = tempAgency;
+            } 
+            
+            if(conditions && conditions.profile && conditions.profile.length > 0){
+                let tempProfile = [];
+                
+                conditions.profile.forEach(a=>{
+                    let profile = this.groups.find(e=>e.id == a);
+                    tempProfile.push(profile);
+                });
+
+                this.groups = tempProfile;
+            } 
+
+
+        },
         resendEmail(){
            UserService.resendAcces(this.userEdit.email).then(response=>{
                Modal.show({title:'Informação', message:'Email enviado do acesso'}); 

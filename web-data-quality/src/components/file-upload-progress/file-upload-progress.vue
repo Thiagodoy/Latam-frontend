@@ -32,13 +32,13 @@ export default {
         }
     },
     mounted(){
-        this.file = this.fileInput;
+        this.file = this.fileInput.file;
         let formData =  new FormData();
         formData.append('file',this.file);
 
 
         let email = this.getUser.email;
-        let agencia = this.getUser.info.find(e=>e.key == 'agencia').value;
+        let agencia = this.fileInput.agency;
         var lo = this.getUser.info;
        
         axios.post(`${process.env.VUE_APP_BASE_PATH}/file/${agencia}/${email}/${this.uploadAws}/${this.uploadFtp}/${this.processFile}`, formData, {

@@ -4,7 +4,7 @@
             <div class="toolbar-item ">
                
                 <span v-for="(v,i) in config.buttons" :key="i + 2" @click="$emit(v.emit)" :class="v.class">
-                    <i  v-if="v.icon" :class="v.icon"></i>&nbsp;{{$t(`lang.${v.label}`)}}&nbsp;
+                    <i  v-if="v.icon"  :class="v.icon"></i>&nbsp;{{$t(`lang.${v.label}`)}}&nbsp;
                 </span>
                
                

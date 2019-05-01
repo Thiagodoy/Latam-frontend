@@ -10,8 +10,8 @@
 
         <nav mt-5>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab" role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
-                <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
+                <a v-if="$can('upload', 'File')"  class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab" role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
+                <a  v-if="$can('report', 'File')" class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -103,7 +103,6 @@ import FileService from '../../services/file';
 import FileDetailStatus from './file-status-detail.vue';
 import AgencyService from '../../services/agency'; 
 import { mapGetters } from 'vuex';
-import Modal from '../../components/modal/message-dialog.vue'
 
 export default {
     data(){
@@ -123,11 +122,12 @@ export default {
             showOp:'list',
             fileCurrent:undefined,
             agencys:[],
-            filter:{}
+            filter:{},
+            
         }
     },
     mounted(){
-        AgencyService.list({page:0,size:1000}).then(response=>{            
+       this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
             this.agencys = response.content;
             this.listFiles();
         }).catch(erro=>{
@@ -135,7 +135,7 @@ export default {
         })
     },
      computed:{
-    ...mapGetters(['getUser'])
+    ...mapGetters(['getUser','getAgencysFromUser'])
     },
     methods:{
         getNameAgency(id){
@@ -172,6 +172,7 @@ export default {
 
             let request = { status:'UPLOADED', page:0,size:10};
 
+            //FIXME:Remover isso depois de aplicado a gestão de perfis        
             if(agency != 142 && agency != 143 ){
                 request.company = agency;
             }
@@ -192,19 +193,33 @@ export default {
         }, 1000),
         openUpload(){          
             let inputFile = document.getElementById('file-upload');
-            inputFile.onchange = (e)=>{
-                let formData =  new FormData();
-                for(let i = 0; i < e.target.files.length; i++){                   
-                    this.filesUploads.push(e.target.files[i]);
+            inputFile.onchange = (e)=>{                
+               if(this.getAgencysFromUser.length > 1){
+                    this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencys(this.getAgencysFromUser) }).then((response)=>{                        
+                        this.processFile(e, response);
+                    });
+                }else{
+                    this.processFile(e,this.getAgencysFromUser[0].value);
                 }
-                inputFile.value = "";
             };
             inputFile.click();   
         },
+        processFile(e, agencia){                           
+            for(let i = 0; i < e.target.files.length; i++){                   
+                this.filesUploads.push({file:e.target.files[i],agency:agencia});
+            }
+            document.getElementById('file-upload').value = "";
+        },
+        getAgencys(data){
+            let a = new Array();
+            data.forEach(e=>{
+                a.push(this.agencys.find(a=> a.id == e.value));                
+            });
+
+            return a;
+        },
         showError(erro){
-          console.info(erro);
-          let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
-          Modal.show({title:"Erro", message:message});
+          this.mxShowModalError(erro);
         }
     },
     watch:{

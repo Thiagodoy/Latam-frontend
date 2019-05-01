@@ -12,7 +12,13 @@
               <span style="color:#fff;font-size:22px;" aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" v-html="message"></div>
+          <div v-if="type == 'AGENCIA'" class="modal-body" >
+            <div v-html="message"></div>
+            <div v-for="(v,i) in agencys" :key="i"> 
+              <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" /><label>{{v.name}}</label>&nbsp;&nbsp;
+            </div>
+          </div>
+          <div v-else class="modal-body" v-html="message"></div>
           <div class="modal-footer">
             <template v-if="type == 'YES-NO'">
                 <button type="button" class="btn" data-dismiss="modal" @click="result('NO')">
@@ -25,6 +31,11 @@
               <template v-else-if="type == 'TEMPLATE'">            
                 <button type="button" class="btn" data-dismiss="modal" @click="result('YES')">
                   Sim
+                </button>
+              </template>
+              <template v-else-if="type == 'AGENCIA'">            
+                <button :disabled="!agencySelected" type="button" class="btn" data-dismiss="modal" @click="result(agencySelected)">
+                  OK
                 </button>
               </template>
               <template v-else>            

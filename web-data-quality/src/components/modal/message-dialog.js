@@ -21,7 +21,9 @@ export default {
             resultCallback: undefined,
             reason: undefined,
             disabled: undefined,
-            resultResponse: undefined
+            resultResponse: undefined,
+            agencys: undefined,
+            agencySelected: undefined
 
         }
     },
@@ -76,6 +78,7 @@ export default {
             store.dialog.resultCallback = resolve;
             store.dialog.reason = options.reason || '';
             store.dialog.disabled = options.disabled || false;
+            store.dialog.agencys = options.agencys;
             $("#btn-open-modal").click();
         });
     }
