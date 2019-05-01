@@ -1,11 +1,14 @@
 <template>
     <div v-async="loading" class="all-user-home">
         <div v-if="show =='home'">
+
+            
            
            
             <!-- Conponente Toolbar -->
             <toolbar 
                 :config="configToolbar" 
+                @filter="setFilter"
                 @new="show = 'new';typeAction = 'new'">
             </toolbar>          
            
@@ -70,12 +73,15 @@ export default {
          del(data){
             Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
                  if(response == 'YES'){
-                    //Corrigir o loading
-                  // AgencyService.delete({id:data.id}).then(response=>{
-                     //  this.getAgency()
-                    //   }).catch(erro=>{
-                     //   Modal.show({title:"Erro", message:erro.message, type:'OK'})
-                   //}) 
+                    
+                   this.loading=AgencyService.deleteCompany({id:data.id}).then(response=>{
+                       
+                       this.getAgency()
+     
+                       }).catch(erro=>{
+                        Modal.show({title:"Erro", message:erro.message, type:'OK'})
+                   }) 
+                   
                 }
             })
         },
