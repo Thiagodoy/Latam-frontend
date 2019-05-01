@@ -1,6 +1,7 @@
 
 <template>  
-    <div v-async="loading">
+    <div >
+        <div  v-async="loading"> </div>
         
          <div v-if="show == 'SAVED'"  class="alert alert-success text-center" role="alert">
            {{$t('lang.msg_success_agency')}}

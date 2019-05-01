@@ -1,5 +1,5 @@
 <template>
-    <div class="all-user-home">
+    <div v-async="loading" class="all-user-home">
         <div v-if="show =='home'">
            
            
@@ -18,6 +18,13 @@
                  @delete="del"
                  @page="setPage">
             </data-table>
+
+
+           
+
+
+
+
         </div>
         <!--Componentes Options --> 
         <agency-view-edit v-else-if="show=='view' || show=='new' || show=='edit'" :typeAction="typeAction" :currentObject="currentObject" @back="show = 'home'"></agency-view-edit>
@@ -98,7 +105,8 @@ export default {
         },
 
         getAgency(){
-              AgencyService.getAgency(this.filter).then((response)=>{                
+             this.loading = AgencyService.getAgency(this.filter).then((response)=>{
+                           
                 this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch(erro=>{
@@ -113,6 +121,13 @@ export default {
     },
     mounted(){
         this.getAgency();
+
+      
+
+      
+
+       
+
     },
 
      watch:{
@@ -149,6 +164,16 @@ export default {
 
 </script>
 <style <style lang="scss" scoped>
+
+.teste{
+   width: 100%;
+    height: 100vh;
+    background: #ff0;
+    position:fixed;
+    top:0px;
+    left:0px;
+    opacity: .5;
+}
 
 </style>
 
