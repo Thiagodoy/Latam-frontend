@@ -65,7 +65,7 @@
                         </tr>                       
                     </tbody>
                 </table>
-                <input type="file" id="file-upload" style="display:none;" multiple>
+                <input type="file" id="file-upload" style="display:none;" accept=".xls,.csv" multiple>
             </div>
             <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <br>

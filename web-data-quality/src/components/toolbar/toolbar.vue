@@ -37,16 +37,6 @@ export default {
     },
     mounted(){        
     },
-    computed:{
-        // labelFilter:{
-        //     get:function(){
-        //         return this.label;
-        //     },
-        //     set:function(data){
-        //         this.label = data;
-        //     }
-        // }
-    },
     methods:{
         search:_.debounce(function(){
              if(!!this.filterSelected ){

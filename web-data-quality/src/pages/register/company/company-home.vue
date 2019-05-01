@@ -21,13 +21,6 @@
                  @delete="del"
                  @page="setPage">
             </data-table>
-
-
-           
-
-
-
-
         </div>
         <!--Componentes Options --> 
         <agency-view-edit v-else-if="show=='view' || show=='new' || show=='edit'" :typeAction="typeAction" :currentObject="currentObject" @back="show = 'home'"></agency-view-edit>
@@ -62,8 +55,7 @@ export default {
                 conteudo:[],
                 pagination:undefined
             },
-             filter:{page:0,size:10}
-           
+             filter:{page:0,size:10}           
         }
     },
 
@@ -74,12 +66,12 @@ export default {
             Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
                  if(response == 'YES'){
                     
-                   this.loading=AgencyService.deleteCompany({id:data.id}).then(response=>{
+                   this.loading = AgencyService.deleteCompany({id:data.id}).then(response=>{
                        
-                       this.getAgency()
+                       this.getAgency();
      
                        }).catch(erro=>{
-                        Modal.show({title:"Erro", message:erro.message, type:'OK'})
+                           this.mxShowModalError(erro);                        
                    }) 
                    
                 }
@@ -111,14 +103,11 @@ export default {
         },
 
         getAgency(){
-             this.loading = AgencyService.getAgency(this.filter).then((response)=>{
-                           
+             this.loading = AgencyService.getAgency(this.filter).then((response)=>{                           
                 this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch(erro=>{
-                console.info(erro);
-                let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
-                Modal.show({title:"Erro", message:message});
+               this.mxShowModalError(erro);
             }); 
         }
 
@@ -127,13 +116,6 @@ export default {
     },
     mounted(){
         this.getAgency();
-
-      
-
-      
-
-       
-
     },
 
      watch:{

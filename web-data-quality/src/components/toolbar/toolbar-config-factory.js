@@ -6,7 +6,7 @@ class ToolbarConfigFactory {
             case 'TOOLBAR-USER-VISUALIZATION':
                 return this.configToolbarUserVisualization();
             case 'TOOLBAR-COMPANY-VISUALIZATION':
-                return this.configToolbarCompanyVisualization();    
+                return this.configToolbarCompanyVisualization();
             case 'TOOLBAR-USER-VIEW-VISUALIZATION':
                 return this.configToolbarUserViewVisualization();
             case 'TOOLBAR-FILE-VISUALIZATION':
@@ -68,7 +68,8 @@ class ToolbarConfigFactory {
             ],
             filter: [
                 { label: 'table_view_file_company_name', attribute: 'name' },
-                
+                { label: 'table_view_file_company_code', attribute: 'code' },
+
             ]
 
         };
