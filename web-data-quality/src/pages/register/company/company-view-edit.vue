@@ -22,6 +22,14 @@
                             <input :disabled="typeAction=='view'" v-model="viewAgency.name" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_name')"  >
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group" >
+                            <label class="" >CNPJ</label>
+                            <input v-mask="maskCnpj" :disabled="typeAction=='view'" v-model="viewAgency.cnpj" type="text" class="form-control campos" placeholder="CNPJ"  >
+                        </div>
+                    </div>
+
                     <div class="col-md-12">
                         <div class="form-group" >
                             <label >{{$t('lang.table_agency_input_path')}}</label>
@@ -95,6 +103,7 @@ export default {
     data(){
         return{
             show:'',
+            maskCnpj: "##.###.###/####-##",
             odchecked:undefined,
             approvedChecked:undefined,
             viewAgency:undefined,
@@ -106,7 +115,11 @@ export default {
          this.viewAgency = this.currentObject || {name:''};
     },
     methods:{
+
+        
         saveAgency(){
+            
+
             let promise = [];
 
             this.$validator.reset();

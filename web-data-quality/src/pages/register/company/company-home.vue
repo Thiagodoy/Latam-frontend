@@ -17,7 +17,7 @@
                  @edit="edit"
                  @delete="del"
                  @page="setPage">
-            </data-table> 
+            </data-table>
         </div>
         <!--Componentes Options --> 
         <agency-view-edit v-else-if="show=='view' || show=='new' || show=='edit'" :typeAction="typeAction" :currentObject="currentObject" @back="show = 'home'"></agency-view-edit>
