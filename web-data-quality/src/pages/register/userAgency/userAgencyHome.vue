@@ -3,6 +3,9 @@
      <div >
         <div v-if="show =='home'">
 
+
+
+
             <!-- Conponente Toolbar -->
             <toolbar 
                 :config="configToolbar" 
@@ -14,7 +17,9 @@
                 :config="configTable"
                 :data="data"
                 >
-            </data-table>      
+            </data-table>  
+
+            <new-edit-view></new-edit-view>    
         
       
         </div>
@@ -32,6 +37,7 @@ import Toolbar from '../../../components/toolbar/toolbar.vue';
 import ToolbarConfigFactory from '../../../components/toolbar/toolbar-config-factory';
 import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
+import NewEditView from './userAgency-view-edit-new.vue';
 
 export default {
 
@@ -60,6 +66,7 @@ export default {
     components:{
         Toolbar,
         DataTable,
+        NewEditView,
     }
 
 }
