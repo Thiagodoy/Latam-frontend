@@ -49,7 +49,7 @@
                         </div>
                      </div>
                      <div class="col-md-1" style="margin-top: auto;margin-bottom: auto;">
-                        <span v-if="type1=='password'" @click="type1='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
+                        <span v-if="type=='password'" @click="type='text'"><i class=" btn-option  fas fa-eye-slash  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
                         <span v-else @click="type1='password'"><i class=" btn-option  fas fa-eye  mr-5" style="font-size: 20px;position: relative;left: -13px;top: 7px;"></i></span>
                      </div>
                   </div>

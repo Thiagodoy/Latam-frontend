@@ -1,5 +1,5 @@
 <template>
-  <div class="pai">
+  <div v-async="loading" class="pai">
     <!-- <loading></loading>  -->
    
     <div class="login">

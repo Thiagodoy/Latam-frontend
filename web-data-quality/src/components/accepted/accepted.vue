@@ -67,8 +67,7 @@ import $ from 'jquery';
  export default {
 
    props:['show'],
-   mounted(){
-     debugger;
+   mounted(){     
      if(this.show){
        $('#btn-show-accepted').click();
      }
