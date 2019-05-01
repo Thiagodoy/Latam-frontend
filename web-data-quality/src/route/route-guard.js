@@ -26,7 +26,7 @@ class RouterGuard extends Vue {
         }
     }
     isLogged() {
-        return instance.$session.exists();
+        return instance && instance.$session.exists();
     }
 }
 

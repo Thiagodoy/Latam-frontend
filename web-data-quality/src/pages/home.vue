@@ -2,7 +2,7 @@
     <div> 
         <nav class="header">
             <navbar 
-            v-on:OpenMenu="OpenMenu"
+            v-on:OpenMenu="openMenu"
             ></navbar>
         </nav>
         <section>
@@ -26,8 +26,10 @@
 
 <script>
 
-import Navbar from '../components/navbar/navbar.vue'
-import Sidebar from '../components/sidebar/sidebar.vue'
+import Navbar from '../components/navbar/navbar.vue';
+import Sidebar from '../components/sidebar/sidebar.vue';
+import {mapGetters} from 'vuex';
+import AuthService from '../services/auth';
 
 
 export default { 
@@ -41,13 +43,35 @@ export default {
         }
     },
 
+    computed:{
+        ...mapGetters(['getCheckChangePassword','getUser','getIsMaster'])
+    },
+    mounted(){
+
+        let value = Math.sign(this.getCheckChangePassword) < 0 ? 0 : this.getCheckChangePassword;
+        
+        if(!(this.getIsMaster) && value >= 1 && value <= 3){
+            
+            this.mxShowModal({title:'Informação', message:`Sua senha expira em ${value} dias`});
+        }else if(!(this.getIsMaster) && value <= 0){
+            this.mxShowModal({title:'Informação', message:this.$t('lang.msg_error_3')}).then(()=>{
+                return AuthService.expired(this.getUser.email).then(()=>{
+                    this.$router.push({name:'login'});
+                });
+            }).catch((erro)=>{
+                this.$router.push({name:'login'});
+                this.mxShowModalError(erro);
+            });
+        }
+
+        
+    },
+
     methods:{
-        OpenMenu(){
+        openMenu(){
            if(this.menuStatus==true){this.menuStatus=false}else{this.menuStatus=true}
            this.isActive = this.menuStatus; 
-
-           var windowWidth = window.innerWidth;
-           
+           var windowWidth = window.innerWidth;           
         }
     },
 

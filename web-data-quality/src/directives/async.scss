@@ -9,15 +9,14 @@
     display: none;
     z-index: 9999;
     .spinner {
-        background: rgba(0, 0, 0, 0) url("../assets/images/loading/three-dots.svg") no-repeat scroll center center;
-        height: 110px;
-        left: 50%;
+        background: rgba(0, 0, 0, 0) url("../assets/images/loading/Loading1.gif") no-repeat scroll center center;
+        height: 100%;
         padding: 100px 20px 10px;
         position: absolute;
         text-align: center;
-        top: 50%;
+        top: 75%;
         transform: translate(-50%, -50%);
-        width: 110px;
+        width: 100%;
         z-index: 99999;
     }
 }
