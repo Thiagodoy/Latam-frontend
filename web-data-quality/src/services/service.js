@@ -26,6 +26,14 @@ export default class Service {
             if (request[key] == null || request[key] === undefined || request[key] === 'undefined') {
                 continue;
             }
+
+            if (Array.isArray(request[key])) {
+
+                this._url += (count > 0 ? '&' : '') + request[key].map(e => `${key}${encodeURIComponent('[]')}=${e}`).join('&');
+                count++;
+                continue;
+            }
+
             this._url += `${((count > 0) ? '&' : '')}${key}=${request[key]}`;
             count++;
         }
