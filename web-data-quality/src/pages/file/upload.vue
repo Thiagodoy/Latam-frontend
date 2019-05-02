@@ -20,19 +20,19 @@
                     <tr style="width:10%;">
                         <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
                         <th>
-                            <input  v-model="filter.company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" />
+                            <input  v-model="company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" />
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
                         <td>
-                            <input v-model="filter.timeStart" style="color:#ccc" class="form-control mx-auto ml-2" type="date" />
+                            <input v-model="timeStart" style="color:#ccc" class="form-control mx-auto ml-2" type="date" />
                         </td>
                         <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
                         <td>
-                            <input v-model="filter.timeEnd" style="color:#ccc;" class="form-control mx-auto" type="date" />
+                            <input v-model="timeEnd" style="color:#ccc;" class="form-control mx-auto" type="date" />
                         </td>
                         <td class="text-right"></td>
                         <td>
-                            <button style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                            <button  @click="filtrar" style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
                         </td>
                     </tr>
                     <tr>
@@ -123,6 +123,10 @@ export default {
             fileCurrent:undefined,
             agencys:[],
             filter:{},
+
+            company:undefined,
+            timeStart:undefined,
+            timeEnd:undefined,
             
         }
     },
@@ -133,11 +137,47 @@ export default {
         }).catch(erro=>{
             this.showError(erro);
         })
+
+
+       
     },
      computed:{
     ...mapGetters(['getUser','getAgencysFromUser'])
     },
     methods:{
+
+
+        listAgency(){
+             AgencyService.getAgency(this.filter).then((response)=>{                           
+                this.data.conteudo = response.content;
+                this.data.pagination = response
+            }).catch(erro=>{
+               this.mxShowModalError(erro);
+            }); 
+
+        },
+
+
+       filtrar(){
+           let agency = this.getUser.info.find(e=>e.key == 'agencia').value; 
+
+            let request = { status:'UPLOADED', page:0,size:10};
+
+            //FIXME:Remover isso depois de aplicado a gestão de perfis        
+            if(agency != 142 && agency != 143 ){
+                request.company = agency;
+            }
+
+            FileService.listFile(request).then((response)=>{
+               this.data.conteudo = response.content;
+                this.data.pagination = response
+            }).catch((erro)=>{
+               this.showError(erro);
+            });
+      },
+
+
+
         getNameAgency(id){
 
                 if(this.agencys.length == 0){

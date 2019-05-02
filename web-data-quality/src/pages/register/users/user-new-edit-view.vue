@@ -271,7 +271,7 @@ export default {
     methods:{
 
         checkConditions(){
-            debugger;
+           
             let conditions = AbilityFactory.getRule()[0].conditions;
 
             if(conditions && conditions.agencys && conditions.agencys.length > 0){
