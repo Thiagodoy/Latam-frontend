@@ -125,7 +125,7 @@ export default {
 
             filter:{},
 
-            company:undefined,
+            company:[],
             timeStart:undefined,
             timeEnd:undefined,
 
