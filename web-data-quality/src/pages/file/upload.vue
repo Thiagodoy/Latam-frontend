@@ -264,6 +264,8 @@ export default {
 
             let request = { status:'UPLOADED', page:0,size:10};
 
+            debugger;
+            
             request.company = this.getIsMaster ? undefined : this.getAgencysFromUser.map(a=>a.value);
             
 
