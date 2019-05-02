@@ -21,6 +21,7 @@
                         <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
                         <th >
                           <!--  <input  v-model="company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" /> -->
+
                             <multiselect
                                v-model="selected"
                                 :options="options"
@@ -28,6 +29,7 @@
                                 >
                                 
                              </multiselect>
+
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
                         <td style="max-width:145px;">
@@ -149,6 +151,7 @@ export default {
             idAgencyFilter:undefined,
             listAgencia:undefined,
 
+
             
     
 
@@ -160,50 +163,48 @@ export default {
         }
     },
     mounted(){
+
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
             this.agencys = response.content;
               this.options = response.content.map((g)=> g.name);
               this.countries
+
+    //    this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
+    //         this.agencys = response.content;
+    //           this.options = response.content.map((g)=> g.name);
+
             
-            this.listFiles();
+    //         this.listFiles();
           
-        }).catch(erro=>{
-            this.showError(erro);
-        })
+    //     }).catch(erro=>{
+    //         this.showError(erro);
+    //     })
 
 
-         this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
-           
+        //  this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{                    
           
             
-            console.log("TESTE",this.teste);
+            
           
           
-        }).catch(erro=>{
-            this.showError(erro);
-        })
+        // }).catch(erro=>{
+        //     this.showError(erro);
+        // })
 
 
 
 
        
-
-
+    this.listFiles();
+       })
        
     },
      computed:{
-    ...mapGetters(['getUser','getAgencysFromUser'])
-    },
-    methods:{
-
-        limitText(count) {
-      return `and ${count} other countries`
+    ...mapGetters(['getUser','getAgencysFromUser','getIsMaster'])
     },
 
-       
+    methods:{      
 
-
-       
 
 
         listAgency(){
@@ -280,7 +281,7 @@ export default {
 
             let request = { status:'UPLOADED', page:0,size:10};
 
-            request.company = [1,2,4];
+            request.company = this.getIsMaster ? undefined : this.getAgencysFromUser.map(a=>a.value);
             
 
             this.loading = FileService.listFile(request).then((response)=>{
