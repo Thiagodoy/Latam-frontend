@@ -64,7 +64,7 @@ class AbilityFactory {
     }
 
     getRule() {
-        
+
         return this.abilities.rules;
     }
 }
