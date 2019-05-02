@@ -122,11 +122,15 @@ export default {
             showOp:'list',
             fileCurrent:undefined,
             agencys:[],
+
             filter:{},
 
             company:undefined,
             timeStart:undefined,
             timeEnd:undefined,
+
+                     
+
             
         }
     },
@@ -180,11 +184,11 @@ export default {
 
         getNameAgency(id){
 
-                if(this.agencys.length == 0){
-                    return ""
-                }
+            if(this.agencys.length == 0){
+                return ""
+            }
 
-                return this.agencys.find(e=>e.id == id).name;
+            return this.agencys.find(e=>e.id == id).name;
 
         },
         showDetail(data){
@@ -212,12 +216,10 @@ export default {
 
             let request = { status:'UPLOADED', page:0,size:10};
 
-            //FIXME:Remover isso depois de aplicado a gestão de perfis        
-            if(agency != 142 && agency != 143 ){
-                request.company = agency;
-            }
+            request.company = [1,2,4];
+            
 
-            FileService.listFile(request).then((response)=>{
+            this.loading = FileService.listFile(request).then((response)=>{
                this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch((erro)=>{

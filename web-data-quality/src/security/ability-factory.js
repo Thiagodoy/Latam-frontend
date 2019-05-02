@@ -18,8 +18,9 @@ class AbilityFactory {
             abilities.push({ subject: ['File'], actions: 'report' });
         } else if (this.isExecutivoPlanejamento(user)) {
             abilities.push({ subject: ['Upload', 'Opcao', 'User'], actions: 'manage', conditions: { agencys, profile: ['master agência', 'agência'] } });
+            abilities.push({ subject: ['File'], actions: 'upload' });
         } else if (this.isMasterAgencia(user)) {
-            abilities.push({ subject: ['Upload', 'Opcao'], actions: 'manage', conditions: { agencys, profile: ['agência'] } });
+            abilities.push({ subject: ['Upload', 'Opcao', 'User'], actions: 'manage', conditions: { agencys, profile: ['agência'] } });
         } else if (this.isAgencia(user)) {
             abilities.push({ subject: ['Upload', 'Opcao'], actions: 'manage', });
             abilities.push({ subject: ['File'], actions: 'upload' });
@@ -29,27 +30,27 @@ class AbilityFactory {
     }
 
     isAgencia(user) {
-        return user.groups.some(g => g.id.includes('agência'));
+        return user.groups.some(g => g.id == 'agência');
     }
 
     isMasterAgencia(user) {
-        return user.groups.some(g => g.id.includes('master agência'));
+        return user.groups.some(g => g.id == 'master agência');
     }
 
     isMaster(user) {
-        return user.groups.some(g => g.id.includes('master') || g.id.includes('suporte behavior'));
+        return user.groups.some(g => g.id == 'master latam' || g.id == 'suporte behavior');
     }
 
     isCoordenador(user) {
-        return user.groups.some(g => g.id.includes('coordenador'));
+        return user.groups.some(g => g.id == 'coordenador');
     }
 
     isExecutivoVenda(user) {
-        return user.groups.some(g => g.id.includes('executivo de vendas'));
+        return user.groups.some(g => g.id == 'executivo de vendas');
     }
 
     isExecutivoPlanejamento(user) {
-        return user.groups.some(g => g.id.includes('executivo de planejamento'));
+        return user.groups.some(g => g.id == 'executivo de planejamento');
     }
 
     getAbilities() {

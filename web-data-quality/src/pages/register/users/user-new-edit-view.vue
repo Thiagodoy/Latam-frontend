@@ -104,8 +104,8 @@
                         <div class="col-md-12">
                             <div  class="form-group" :class="{'has-error':errors.has('profile')}">
                                 <label for="profile">{{$t('lang.table_view_file_company_name')}}</label>
-                                <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="agency" name="profile" id="profile" multiple style="height:200px;">
-                                    <option class="campos "  v-for="(v,i) in agencys" :value="v.id" :key="i">{{`${v.code} - ${v.name}`}}</option>
+                                <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="''" v-model="agency" name="profile" id="profile" multiple style="height:200px;">
+                                    <option class="campos "  v-for="(v,i) in agencys" :value="v.id" :key="i">{{`${v.name}`}}</option>
                                 </select>
                                 <div class="help-block">{{errors.first('profile')}}</div>
                             </div>                        
@@ -145,6 +145,7 @@ import GroupService from '../../../services/group';
 import AgencyService from '../../../services/agency';
 import AbilityFactory from '../../../security/ability-factory';
 import moment from 'moment';
+import {mapGetters} from 'vuex';
 
 export default {
     props:['userEdit','typeAction'],
@@ -164,8 +165,7 @@ export default {
             agencys:[]
         }
     },    
-    mounted(){
-        
+    mounted(){        
 
         let promises = new Array();
         promises.push(GroupService.getGroups({page:0, size:100}));
@@ -200,6 +200,7 @@ export default {
             }
     },
     computed:{
+        ...mapGetters(['getUser']),
         agency:{
             set:function(newValue){       
 
@@ -271,7 +272,7 @@ export default {
     methods:{
 
         checkConditions(){
-           
+
             let conditions = AbilityFactory.getRule()[0].conditions;
 
             if(conditions && conditions.agencys && conditions.agencys.length > 0){
@@ -333,7 +334,7 @@ export default {
 
         saveUser(){
             //FIXME: Colocar o loading 
-            this.$validator.validateAll().then((valid)=>{
+            this.loading = this.$validator.validateAll().then((valid)=>{
                                     
                 this.request.id = this.request.email;
                 this.request.photo = this.userPhoto;                
@@ -343,6 +344,7 @@ export default {
                     this.request.info.push({key:'primeiro_acesso', userId: this.request.id, value:'true'});
                     this.request.info.push({key:'ultimo_acesso', userId: this.request.id, value: dateString});
                     this.request.info.push({key:'trocar_senha', userId: this.request.id, value: dateString});
+                    this.request.userMaster = this.getUser.email;
                     return UserService.saveUser(this.request).then((response)=>{
                       this.savedSuccess();
                     });

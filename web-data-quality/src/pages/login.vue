@@ -140,8 +140,8 @@ export default {
       this.loading = Promise.all([this.$validator.validate('forgot-password-email')]).then(response=>{       
        if(response[0]){
           return AuthenticationService.forgot(this.forgotRequest).then(()=>{
-                  return this.mxShowModal({title:'Informação', message:'Email enviado com sucesso!'}).then(response=>{                    
-                    this.tipoLogin=='login';
+                   this.mxShowModal({title:'Informação', message:'Email enviado com sucesso!'}).then(response=>{                    
+                     this.tipoLogin = 'login';
                   });
                 });
        }

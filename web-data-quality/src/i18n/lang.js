@@ -91,7 +91,7 @@ module.exports = {
             label_input_search_date_To: 'To:',
             Forgot_password: 'Forgot password',
             msg_error_1987: 'File repeated!',
-            msg_error_500: 'File repeated!',
+            msg_error_500: 'Server error!',
             msg_error_1: 'Not found the user!',
             msg_error_2: 'No match password',
             msg_error_3: 'Expired password',
@@ -201,7 +201,7 @@ module.exports = {
             Forgot_password: 'Esqueceu a senha ?',
 
             msg_error_1987: 'Arquivo repetido!',
-            msg_error_500: 'Arquivo repetido!',
+            msg_error_500: 'Erro no servidor!',
             msg_error_1: 'Usuário não cadastrado!',
             msg_error_2: 'Password não confere!',
             msg_error_3: 'Senha expirada!',
@@ -313,7 +313,7 @@ module.exports = {
             Forgot_password: 'Olvido la contraseña',
 
             msg_error_1987: 'File repeated!',
-            msg_error_500: 'File repeated!',
+            msg_error_500: 'Erro no servidor!',
             msg_error_1: 'Not found the user!',
             msg_error_2: 'No match password',
             msg_error_3: 'Expired password',
