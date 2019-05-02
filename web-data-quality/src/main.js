@@ -17,7 +17,7 @@ import { abilitiesPlugin } from '@casl/vue'
 import abilitiesFactory from './security/ability-factory'
 import Autocomplete from 'v-autocomplete'
 import 'v-autocomplete/dist/v-autocomplete.css'
-import "vue-multiselect/dist/vue-multiselect.min.css";
+import "./assets/css/multselect.css";
 
 
 // CASL

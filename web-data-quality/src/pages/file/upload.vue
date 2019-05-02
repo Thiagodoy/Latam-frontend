@@ -23,7 +23,10 @@
                           <!--  <input  v-model="company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" /> -->
                             <multiselect
                                v-model="selected"
-                                :options="options">
+                                :options="options"
+                                :multiple="true"
+                                >
+                                
                              </multiselect>
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
@@ -136,6 +139,11 @@ export default {
             timeStart:undefined,
             timeEnd:undefined,
 
+
+            selectedCountries: [],
+            countries: [],
+            isLoading: false,
+
             selected: null,
             options: [],
             idAgencyFilter:undefined,
@@ -155,6 +163,7 @@ export default {
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
             this.agencys = response.content;
               this.options = response.content.map((g)=> g.name);
+              this.countries
             
             this.listFiles();
           
@@ -186,6 +195,10 @@ export default {
     ...mapGetters(['getUser','getAgencysFromUser'])
     },
     methods:{
+
+        limitText(count) {
+      return `and ${count} other countries`
+    },
 
        
 
@@ -384,6 +397,11 @@ table{
     }
 
 
+}
+
+
+.multselect{
+    background: #ff0;
 }
 
 
