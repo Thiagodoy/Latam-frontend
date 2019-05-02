@@ -35,7 +35,7 @@ const userStore = {
 
         getIsMaster: (state) => {
             if (!state.user) return false;
-            return state.user.groups.some(g => g.id.includes('master'));
+            return state.user.groups.some(g => g.id == 'master latam' || g.id == 'suporte behavior');
         },
         getAgencysFromUser: (state) => {
             if (!state.user) return [];
