@@ -42,9 +42,7 @@ import DataTableConfigFactory from '../../../components/data-table/data-config-f
 import UserService from '../../../services/user';
 import MockFactory from '../../../utils/mock-factory';
 import _ from 'lodash';
-import Modal from '../../../components/modal/message-dialog.vue';
-
-
+import {mapGetters} from 'vuex';
 
 export default {
 
@@ -53,7 +51,7 @@ export default {
             currentObject:undefined,
             configTable: DataTableConfigFactory.build('DATA-TABLE-USER-VISUALIZATION'),
             configToolbar: ToolbarConfigFactory.build('TOOLBAR-USER-VISUALIZATION'),
-            loading:undefined,
+            c:undefined,
             show:'home',
             typeAction:undefined,
             data:{
@@ -69,13 +67,16 @@ export default {
     mounted(){         
       this.getUsers();
     },
+    computed:{
+        ...mapGetters(['getUser','getIsMaster']),
+    },
     methods:{
         deleteUser(data){
-            Modal.show({title:"Informação", message:`Deseja deletar esse usuário ${data.email}`, type:'YES-NO'}).then(response =>{
+            this.mxShowModal.show({title:"Informação", message:`Deseja deletar esse usuário ${data.email}`, type:'YES-NO'}).then(response =>{
                 if(response == 'YES'){
                     //Corrigir o loading
-                   UserService.deleteUser({id:data.id}).then(response=>{this.getUsers()}).catch(erro=>{
-                        Modal.show({title:"Erro", message:erro.message, type:'OK'})
+               this.loading = UserService.deleteUser({id:data.id}).then(response=>{this.getUsers()}).catch(erro=>{
+                        this.mxShowModalError.show(erro);
                    }) 
                 }
             })
@@ -90,12 +91,10 @@ export default {
             this.show = 'new';
             this.typeAction = 'VIEW';
         },     
-        setPage(page){
-            
+        setPage(page){            
             let temp = {...this.filter};
             temp.page = page;
-            this.filter = temp;
-            // this.getUsers();
+            this.filter = temp;            
         },
         setFilter(filter){    
             
@@ -105,10 +104,9 @@ export default {
             })
             
         },
-        getUsers(){
-            //FIXME: Implementar o loading
-            
-            UserService.getUsers(this.filter).then((response)=>{
+        getUsers(){                        
+           this.filter.userMaster = this.getIsMaster ? undefined : this.getUser.email; 
+           this.loading = UserService.getUsers(this.filter).then((response)=>{
              
                 response.content.forEach((e)=>{                     
                     e.picture = e.picture ? MockFactory.build('MAKE_IMAGE_PROFILE',e.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
@@ -138,8 +136,6 @@ export default {
         Toolbar,
         DataTable,        
         UserNewEditView,
-      
-       
     }
     
 }

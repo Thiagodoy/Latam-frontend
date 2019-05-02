@@ -8,6 +8,7 @@ const mixin = {
             console.info(erro);
 
             let message = erro.stack ? erro.message : this.$t(`lang.msg_error_${erro.codeMessage}`)
+            message += erro.result && erro.result.length > 0 ? '\n' + erro.result : '';
             Modal.show({ title: "Erro", message: message });
         }
     }
