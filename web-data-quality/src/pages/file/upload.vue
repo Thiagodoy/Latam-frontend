@@ -21,7 +21,7 @@
                         <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
                         <th >
                           <!--  <input  v-model="company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" /> -->
-                            <v-autocomplete style="max-width:145px;" :items="items" v-model="item" :get-label="getLabel" :component-item='template' @update-items="updateItems">
+                            <v-autocomplete style="max-width:145px;" :items="items" v-model="item" :get-label="getLabel($event)"  :component-item='template' @update-items="updateItems">
                             </v-autocomplete>
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
@@ -133,7 +133,7 @@ export default {
             timeEnd:undefined,
 
             
-      item: undefined,
+      item: {id: 9, name: 'Lion', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'},
       items: [
 
           ],
@@ -165,13 +165,15 @@ export default {
     },
     methods:{
 
-        getLabel (item) {
+        getLabel:function (item) {
+
+            console.log('item', item, 'this.item', this.item);
                 return item.name
         },
         
         updateItems (text) {
            AgencyService.list({page:0,size:1000}).then((response)=>{  
-            this.items =  response;  
+            this.items =  response.content;  
              })
         },
 		
