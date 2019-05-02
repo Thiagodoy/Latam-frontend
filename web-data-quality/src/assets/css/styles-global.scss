@@ -162,3 +162,76 @@ button:disabled {
     cursor: not-allowed;
     pointer-events: all !important;
 }
+
+
+
+  
+  
+.v-autocomplete{
+    .v-autocomplete-input-group{
+      .v-autocomplete-input{
+        font-size : 16px;
+        padding : 10px 15px;
+        box-shadow : none;
+        border : none;
+        width : 18vw;
+        height:34px;
+        outline : none;
+       background-color:rgba(0,0,0,0.3);
+        color:#fff;
+          &:focus{ border : 1px solid #157977;}
+          &.v-autocomplete-selected{
+           .v-autocomplete-input{
+          color : green;
+          background-color : #f2fff2;
+           }
+          }
+      }
+    }
+    .v-autocomplete-list {
+        width : 18vw;
+      text-align :left;
+      border : none;
+      border-top : none;
+      max-height : 400px;
+      overflow-y : auto;
+      border-bottom : 1px solid #157977;
+      color:#222;
+  
+    }
+      .v-autocomplete-list-item {
+        cursor :pointer;
+        background-color : #fff;
+        color:#222;
+        padding : 10px;
+        border-bottom : 1px solid #fff;
+        border-left : 1px solid #fff;
+        border-right : 1px solid #fff;
+        &:last-child{
+          border-bottom : none;
+        }
+        &:hover {
+          background-color : #eee;
+        }
+        abbr {
+          opacity : 0.8;
+          font-size : 0.8em;
+          display : block;
+          font-family : sans-serif;
+          }
+      }
+  }
+
+
+  /*    ::-webkit-scrollbar-track {
+      background-color: #F4F4F4;
+  }
+  ::-webkit-scrollbar {
+      width: 6px;
+      background: #F4F4F4;
+  }
+  ::-webkit-scrollbar-thumb {
+      background: #dad7d7;
+  }
+  
+  */
