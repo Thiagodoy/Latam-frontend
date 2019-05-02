@@ -64,7 +64,7 @@ class AbilityFactory {
     }
 
     getRule() {
-        debugger;
+        
         return this.abilities.rules;
     }
 }
