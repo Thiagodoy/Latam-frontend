@@ -21,8 +21,10 @@
                         <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
                         <th >
                           <!--  <input  v-model="company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" /> -->
-                            <v-autocomplete style="max-width:145px;" :items="items" v-model="item" :get-label="getLabel" :component-item='template' @update-items="updateItems">
-                            </v-autocomplete>
+                            <multiselect
+                               v-model="selected"
+                                :options="options">
+                             </multiselect>
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
                         <td style="max-width:145px;">
@@ -105,9 +107,11 @@ import FileService from '../../services/file';
 import FileDetailStatus from './file-status-detail.vue';
 import AgencyService from '../../services/agency'; 
 import { mapGetters } from 'vuex';
-import ItemTemplate from './ItemTemplate.vue';
+import Multiselect from 'vue-multiselect';
+
 
 export default {
+    
     data(){
         return {
             show:'upload',
@@ -132,13 +136,13 @@ export default {
             timeStart:undefined,
             timeEnd:undefined,
 
-            
-      item: undefined,
-      items: [
+            selected: null,
+            options: [],
+            idAgencyFilter:undefined,
+            listAgencia:undefined,
 
-          ],
-      template: ItemTemplate
             
+    
 
 
            
@@ -150,10 +154,28 @@ export default {
     mounted(){
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
             this.agencys = response.content;
+              this.options = response.content.map((g)=> g.name);
+            
             this.listFiles();
+          
         }).catch(erro=>{
             this.showError(erro);
         })
+
+
+         this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
+           
+          
+            
+            console.log("TESTE",this.teste);
+          
+          
+        }).catch(erro=>{
+            this.showError(erro);
+        })
+
+
+
 
        
 
@@ -165,16 +187,7 @@ export default {
     },
     methods:{
 
-        getLabel (item) {
-                return item.name
-        },
-        
-        updateItems (text) {
-           AgencyService.list({page:0,size:1000}).then((response)=>{  
-            this.items =  response;  
-             })
-        },
-		
+       
 
 
        
@@ -192,14 +205,21 @@ export default {
 
 
        filtrar(){
-           let agency = this.getUser.info.find(e=>e.key == 'agencia').value; 
 
-            let request = { status:'UPLOADED', page:0,size:10};
+           if(this.selected == null){
 
-            //FIXME:Remover isso depois de aplicado a gestão de perfis        
-            if(agency != 142 && agency != 143 ){
-                request.company = agency;
-            }
+               alert("Selecione uma agência");
+
+           }else{
+
+            let ageciaSelecionada = this.agencys.filter((g)=> g.name == this.selected);
+            let id = ageciaSelecionada.map((g)=> g.id);
+ 
+          
+
+            id=parseInt(id);
+
+            let request = { status:'UPLOADED', page:0,size:10,company:id,timeStart:"" , timeEnd:"" };
 
             FileService.listFile(request).then((response)=>{
                this.data.conteudo = response.content;
@@ -207,6 +227,8 @@ export default {
             }).catch((erro)=>{
                this.showError(erro);
             });
+
+           }
       },
 
 
@@ -304,7 +326,9 @@ export default {
         Toolbar,
         DataTable,
         FileUploadProgress,
-        FileDetailStatus
+        FileDetailStatus,
+        Multiselect
+      
     }
 }
 </script>
