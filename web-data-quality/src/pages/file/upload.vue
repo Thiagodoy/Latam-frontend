@@ -185,7 +185,7 @@ export default {
        
     },
      computed:{
-    ...mapGetters(['getUser','getAgencysFromUser'])
+    ...mapGetters(['getUser','getAgencysFromUser','getIsMaster'])
     },
     methods:{      
 
@@ -264,7 +264,7 @@ export default {
 
             let request = { status:'UPLOADED', page:0,size:10};
 
-            request.company = this.getAgencysFromUser.map(a=>a.value);
+            request.company = this.getIsMaster ? undefined : this.getAgencysFromUser.map(a=>a.value);
             
 
             this.loading = FileService.listFile(request).then((response)=>{
