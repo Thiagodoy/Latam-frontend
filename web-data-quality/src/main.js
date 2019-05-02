@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './route/routes';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../src/assets/css/styles-global.css';
+import '../src/assets/css/styles-global.scss';
 import VueI18n from 'vue-i18n';
 import VeeValidate from 'vee-validate';
 import Diretivas from './directives/index';
@@ -15,10 +15,15 @@ import MiximModal from './mixins/modal';
 import { VueMaskDirective } from "v-mask";
 import { abilitiesPlugin } from '@casl/vue'
 import abilitiesFactory from './security/ability-factory'
+import Autocomplete from 'v-autocomplete'
+import 'v-autocomplete/dist/v-autocomplete.css'
 
 
 // CASL
 //Vue.use(abilitiesPlugin, abilitiesFactory.build(null));
+
+//auto complete
+Vue.use(Autocomplete)
 
 //Mask
 Vue.directive("mask", VueMaskDirective);

@@ -19,15 +19,17 @@
                 <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="">
                     <tr style="width:10%;">
                         <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
-                        <th>
-                            <input  v-model="company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" />
+                        <th >
+                          <!--  <input  v-model="company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" /> -->
+                            <v-autocomplete style="max-width:145px;" :items="items" v-model="item" :get-label="getLabel" :component-item='template' @update-items="updateItems">
+                            </v-autocomplete>
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
-                        <td>
-                            <input v-model="timeStart" style="color:#ccc" class="form-control mx-auto ml-2" type="date" />
+                        <td style="max-width:145px;">
+                            <input  v-model="timeStart" style="color:#ccc;" class="form-control mx-auto ml-2" type="date" />
                         </td>
                         <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
-                        <td>
+                        <td style="max-width:145px;">
                             <input v-model="timeEnd" style="color:#ccc;" class="form-control mx-auto" type="date" />
                         </td>
                         <td class="text-right"></td>
@@ -103,6 +105,7 @@ import FileService from '../../services/file';
 import FileDetailStatus from './file-status-detail.vue';
 import AgencyService from '../../services/agency'; 
 import { mapGetters } from 'vuex';
+import ItemTemplate from './ItemTemplate.vue';
 
 export default {
     data(){
@@ -129,9 +132,19 @@ export default {
             timeStart:undefined,
             timeEnd:undefined,
 
-                     
-
             
+      item: undefined,
+      items: [
+
+          ],
+      template: ItemTemplate
+            
+
+
+           
+
+           
+   
         }
     },
     mounted(){
@@ -142,6 +155,8 @@ export default {
             this.showError(erro);
         })
 
+       
+
 
        
     },
@@ -149,6 +164,20 @@ export default {
     ...mapGetters(['getUser','getAgencysFromUser'])
     },
     methods:{
+
+        getLabel (item) {
+                return item.name
+        },
+        
+        updateItems (text) {
+           AgencyService.list({page:0,size:1000}).then((response)=>{  
+            this.items =  response;  
+             })
+        },
+		
+
+
+       
 
 
         listAgency(){
@@ -332,8 +361,6 @@ table{
 
 
 }
-
-
 
 
 
