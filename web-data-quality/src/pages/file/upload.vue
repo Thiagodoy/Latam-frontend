@@ -24,7 +24,10 @@
 
                             <multiselect
                                v-model="selected"
-                                :options="options">
+                                :options="options"
+                                :multiple="true"
+                                >
+                                
                              </multiselect>
 
                         </th>
@@ -138,6 +141,11 @@ export default {
             timeStart:undefined,
             timeEnd:undefined,
 
+
+            selectedCountries: [],
+            countries: [],
+            isLoading: false,
+
             selected: null,
             options: [],
             idAgencyFilter:undefined,
@@ -155,9 +163,16 @@ export default {
         }
     },
     mounted(){
+
+       this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
+            this.agencys = response.content;
+              this.options = response.content.map((g)=> g.name);
+              this.countries
+
     //    this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
     //         this.agencys = response.content;
     //           this.options = response.content.map((g)=> g.name);
+
             
     //         this.listFiles();
           
@@ -181,13 +196,15 @@ export default {
 
        
     this.listFiles();
-
+       })
        
     },
      computed:{
     ...mapGetters(['getUser','getAgencysFromUser','getIsMaster'])
     },
+
     methods:{      
+
 
 
         listAgency(){
@@ -383,6 +400,11 @@ table{
     }
 
 
+}
+
+
+.multselect{
+    background: #ff0;
 }
 
 
