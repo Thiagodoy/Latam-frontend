@@ -76,11 +76,11 @@ export default {
     },
     methods:{
         deleteUser(data){
-            this.mxShowModal.show({title:"Informação", message:`Deseja deletar esse usuário ${data.email}`, type:'YES-NO'}).then(response =>{
+            this.mxShowModal({title:"Informação", message:`Deseja deletar esse usuário ${data.email}`, type:'YES-NO'}).then(response =>{
                 if(response == 'YES'){
                     //Corrigir o loading
                this.loading = UserService.deleteUser({id:data.id}).then(response=>{this.getUsers()}).catch(erro=>{
-                        this.mxShowModalError.show(erro);
+                        this.mxShowModalError(erro);
                    }) 
                 }
             })
