@@ -3,11 +3,10 @@
 
     <div v-if="showOp== 'list'">
 
-        <toolbar 
-            :config="configToolbar" 
-            @upload="openUpload">
+        <toolbar :config="configToolbar" @upload="openUpload">
         </toolbar>
 
+<<<<<<< HEAD
        <div   @mouseover="help=true" @mouseleave="help=false" class="help"><i class="far fa-question-circle"></i></div>
 
        <div v-if="help" class="box-help">
@@ -21,6 +20,8 @@
 
        </div>
 
+=======
+>>>>>>> fc3a751d39cf074b793027651d39d4d2607078b4
         <br>
 
         <nav mt-5>
@@ -35,32 +36,28 @@
                     <tr style="width:10%;">
                         <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
                         <th >
+                          <!--  <input  v-model="company" class="input-search form-control " type="text" :placeholder="$t('lang.table_view_file_company_name')" /> -->
+
                             <multiselect
-                                v-model="company"
+                               v-model="selected"
                                 :options="options"
-                                :label="'name'"                                
-                                :track-by="'id'"
-                                tag-placeholder="Add this as new tag"                                
-                                :selectLabel="'Pressione enter para selecionar'"
-                                :selectedLabel="'Selecionado'"
-                                :deselectLabel="'Pressione enter para remover'"
-                                :placeholder="'Selecione a agencia'"                                                               
-                                :multiple="true">                                
-                            </multiselect>
+                                :multiple="true"
+                                >
+                                
+                             </multiselect>
+
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
                         <td style="max-width:145px;">
-                            <input  v-model="timeInit"  name="date-init" style="color:#ccc;" class="form-control mx-auto ml-2" type="date" />                            
+                            <input  v-model="timeStart" style="color:#ccc;" class="form-control mx-auto ml-2" type="date" />
                         </td>
                         <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
                         <td style="max-width:145px;">
-                            <div>
-                                <input v-model="timeEnd" style="color:#ccc;" v-validate="'after:date-init'" name="date-end" class="form-control mx-auto" type="date" />                                
-                            </div>
+                            <input v-model="timeEnd" style="color:#ccc;" class="form-control mx-auto" type="date" />
                         </td>
                         <td class="text-right"></td>
                         <td>
-                            <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                            <button  @click="filtrar" style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
                         </td>
                     </tr>
                     <tr>
@@ -77,7 +74,7 @@
                             <th scope="col">{{$t('lang.file')}}</th>
                             <th scope="col">{{$t('lang.table_created_date')}}</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Download</th>
+                            <th scope="col">Dowload</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,16 +103,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <file-upload-progress 
-                                v-for="(v,i) in filesUploads" 
-                                :processFile="false" 
-                                :uploadAws="true" 
-                                :uploadFtp="false" 
-                                :key="i" 
-                                :fileInput="v" 
-                                :index="i" 
-                                @finished="hideProgress">
-                            </file-upload-progress>
+                            <file-upload-progress v-for="(v,i) in filesUploads" :processFile="false" :uploadAws="true" :uploadFtp="false" :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
                         </tbody>
                     </table>
                 </div>
@@ -127,10 +115,9 @@
         <file-detail-status @back="showOp = 'list'" :file="fileCurrent"></file-detail-status>
     </div>
 
-</div>     
+</div>
+     
 </template>
-
-
 <script>
 import Toolbar from '../../components/toolbar/toolbar.vue';
 import FileUploadProgress from '../../components/file-upload-progress/file-upload-progress.vue'
@@ -142,7 +129,6 @@ import FileDetailStatus from './file-status-detail.vue';
 import AgencyService from '../../services/agency'; 
 import { mapGetters } from 'vuex';
 import Multiselect from 'vue-multiselect';
-import moment from 'moment';
 
 
 export default {
@@ -154,7 +140,9 @@ export default {
             configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
             configDataTable: DataTableFactory.build('DATA-TABLE-RELATORIO-VISUALIZATION'),
             data:{
-                conteudo:[],
+                conteudo:[                          
+                    
+                ],
                 pagination:{pageable:{}},
             },
             filesUploads:[],
@@ -162,88 +150,86 @@ export default {
             showOp:'list',
             fileCurrent:undefined,
             agencys:[],
+
+            filter:{},
+
+            company:[],
+            timeStart:undefined,
+            timeEnd:undefined,
+
+
+            selectedCountries: [],
+            countries: [],
+            isLoading: false,
+
+            selected: null,
             options: [],
             idAgencyFilter:undefined,
             listAgencia:undefined,
-            request:{
-                page:0,
-                size:10,
-                company:[],
-                timeStart:undefined,
-                timeEnd:undefined,
-                status:'UPLOADED'
-            },
 
-            help:false,
+
+            
+    
+
+
+           
+
+           
    
         }
     },
     mounted(){
 
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
+            this.agencys = response.content;
+              this.options = response.content.map((g)=> g.name);
+              this.countries
 
-               let temp = undefined; 
-              if(!this.getIsMaster){
-                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));  
-              }else{
-                  temp = response.content;
-              }  
+    //    this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
+    //         this.agencys = response.content;
+    //           this.options = response.content.map((g)=> g.name);
 
-              this.agencys = temp;
-              this.options = temp;              
-              //this.company = temp;  
+            
+    //         this.listFiles();
+          
+    //     }).catch(erro=>{
+    //         this.showError(erro);
+    //     })
 
-              this.listFiles();
-       }).catch(erro=>{
-           this.mxShowModalError(erro);
-       });
+
+        //  this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{                    
+          
+            
+            
+          
+          
+        // }).catch(erro=>{
+        //     this.showError(erro);
+        // })
+
+
+
+
+       
+    this.listFiles();
+       })
        
     },
      computed:{
-        ...mapGetters(['getUser','getAgencysFromUser','getIsMaster']),
-        timeInit:{
-            get:function(){
-                if(!this.request.timeStart){
-                    return '';//moment().format('YYYY-MM-DD');
-                }else{
-                    return moment(new Date(this.request.timeStart)).format('YYYY-MM-DD');
-                }
-            },
-            set:function(data){
-                this.request.timeStart = new Date(data).getTime();
-            }
-        },
-        timeEnd:{
-            get:function(){
-                if(!this.request.timeEnd){
-                    return ''//moment().format('YYYY-MM-DD');
-                }else{
-                    return moment(new Date(this.request.timeEnd)).format('YYYY-MM-DD');
-                }
-            },
-            set:function(data){
-                this.request.timeEnd = new Date(data).getTime();
-            }
-        },
-        company:{
-            set:function(newValue, oldValue){                
-                this.request.company = newValue.map(e=>e.id);
-            },
-            get:function(){
-                let data = new Array();                
-                this.request.company.forEach(e=>{
-                    data.push(this.agencys.find(a=>a.id == e));
-                });
-                return data;
-            }
-        }
+    ...mapGetters(['getUser','getAgencysFromUser','getIsMaster'])
     },
 
-    methods:{
+    methods:{      
+
 
         getNameAgency(id){
-            if(this.agencys.length == 0)return "";
+
+            if(this.agencys.length == 0){
+                return ""
+            }
+
             return this.agencys.find(e=>e.id == id).name;
+
         },
         showDetail(data){
             this.showOp = 'detail';
@@ -264,9 +250,17 @@ export default {
             aTag.setAttribute('download', 'erros.txt');      
             aTag.click();
         },
-        listFiles(){          
-            this.loading = FileService.listFile(this.request).then((response)=>{
-                this.data.conteudo = response.content;
+        listFiles(){
+           
+            let agency = this.getUser.info.find(e=>e.key == 'agencia').value; 
+
+            let request = { status:'UPLOADED', page:0,size:10};
+
+            request.company = this.getIsMaster ? undefined : this.getAgencysFromUser.map(a=>a.value);
+            
+
+            this.loading = FileService.listFile(request).then((response)=>{
+               this.data.conteudo = response.content;
                 this.data.pagination = response
             }).catch((erro)=>{
                this.showError(erro);
@@ -314,10 +308,6 @@ export default {
         show(newValue,oldValue){
             if(this.show == 'file'){
                 this.listFiles();
-            }
-            if(this.show == 'upload'){
-                this.request.timeStart = undefined;
-                this.request.timeEnd = undefined;                
             }
         }
     },
@@ -391,31 +381,22 @@ table{
 }
 
 
-.help{
-    position:absolute;
-    right:50px;
-    top:133px;
-    font-size:30px;
-    cursor:pointer;
-    &:hover{
-        color: #ffed69;
-    }
-}
-
-.box-help{
-    top:130px;
-    width: 250px;
-  padding: 20px;
-     background-color: rgba(255,255,255,0.9);
-    position: absolute;
-    right: 110px;
-    border-radius: 10px;
-    color:#111;
-}
-
 
 
 
 </style>
+
+
+
+
+ var users = response.content;
+            users.forEach(user => {
+                user.group =  user.groups[0].groupId;
+            });
+
+            this.data.pagination = response
+            this.data.conteudo = users;
+
+            }); 
 
 

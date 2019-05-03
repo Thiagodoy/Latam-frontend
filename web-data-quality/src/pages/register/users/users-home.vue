@@ -112,19 +112,24 @@ export default {
            this.filter.userMaster = this.getIsMaster ? undefined : this.getUser.email; 
            this.loading = UserService.getUsers(this.filter).then((response)=>{
              
-               
-                  this.data.conteudo =response.content;
+                response.content.forEach((e)=>{                     
+                    e.picture = e.picture ? MockFactory.build('MAKE_IMAGE_PROFILE',e.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
+                });
+                
+                var users = response.content;
                 this.data.pagination = response
 
-            }); 
+                 users.forEach(user => {
+                user.group =  user.groups[0].groupId;
+                });
+
+                this.data.pagination = response
+                this.data.conteudo = users;
+                }); 
         }, 
         getGroups(){
             this.loading = GroupService.getGroups({page:0,size:1000}).then((response)=>{
                this.groups = response;
-
-              
-
-
             });
         }              
     },
