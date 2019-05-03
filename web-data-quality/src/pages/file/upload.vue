@@ -8,9 +8,9 @@
             @upload="openUpload">
         </toolbar>
 
-       <div   @mouseover="showHelp" @mouseleave="closeHelp" class="help"><i class="far fa-question-circle"></i></div>
+       <div   @mouseover="help=true" @mouseleave="help=false" class="help"><i class="far fa-question-circle"></i></div>
 
-       <div v-if="help == true" class="box-help">
+       <div v-if="help" class="box-help">
            Para gravar um arquivo, selecione a opção Upload no menu.
             Na próxima página, clique em Upload na parte superior
              da tela e escolha o arquivo em uma pasta local.
@@ -241,17 +241,6 @@ export default {
 
     methods:{
 
-        closeHelp(){
-
-            this.help = false;
-
-        },
-        
-        showHelp(){
-
-           this.help = true;
-
-        },
         getNameAgency(id){
             if(this.agencys.length == 0)return "";
             return this.agencys.find(e=>e.id == id).name;
