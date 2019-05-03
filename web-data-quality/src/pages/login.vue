@@ -52,9 +52,11 @@
                               <button  @click="login" :disabled="(errors.items.length > 0)"  class="btn btn-default btn-sm btn-auth mr-1" >{{$t('lang.button_sign_in')}}</button>                            
                             </div>
                             <div @click="logarCadastrar" class="link-pass"> {{$t('lang.Forgot_password')}} </div>   
-                            <div><localization></localization></div>                     
+                            <div><localization></localization></div>   
                           </div>
+                                       
                       </div>
+                     
                     </div>
 
                     <div v-if="tipoLogin=='cadastro'" class="campos-cadastro">
@@ -86,16 +88,28 @@
                               <button @click="sendEmailForgotPassword"  class="btn btn-default btn-sm btn-auth mr-1">{{$t('lang.button_send_email')}}</button>
                             </div>
                             <div @click="logarCadastrar" class="link-pass"> {{$t('lang.go_to_login')}} </div>
-                            <div><localization></localization></div>
+                            <div><localization></localization></div>                            
                         </div>                        
-                    </div>
+                    </div>                    
                 </div>
+                
+                
+              </div> 
+              </div> 
+
+
+               <div class="row">
+                <div class="col-md-11"></div>
+                <div class="col-md-1" style="position: relative;right: 40px;top: 15px;font-size: small;">{{`v${version}`}}</div>
               </div>
+
+
             </div>
           </div>
         </div>
       </div>
     </div>
+      
   </div>
 </template>
 <script>
@@ -104,6 +118,7 @@ import AuthenticationService from "../services/auth.js";
 import Loading from '../components/loading/loading.vue';
 import * as _ from 'lodash';
 import {mapActions, mapGetters } from 'vuex';
+import Package from '../../package.json';
 
 export default {
   data() {
@@ -115,11 +130,16 @@ export default {
         email: undefined,
         password: undefined
       },
+      version:undefined,
       forgotRequest:{},
       loading: undefined
     };
   },
-  mounted(){ },
+  mounted(){
+    console.log(Package);
+    this.version = Package.version;
+
+   },
   computed:{
     ...mapGetters(['getIsFirstAccess'])
   },
