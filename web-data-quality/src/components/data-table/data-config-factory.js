@@ -179,7 +179,7 @@ class DataTableConfigFactory {
                 { name: "firstName", title: "table_view_user_firstname", formatter: undefined },
                 { name: "lastName", title: "table_view_user_lastname", formatter: undefined },
                 { name: "email", title: "table_view_user_email", formatter: undefined },
-                { name: "group", title: "profile", formatter: undefined },
+                { name: "group", title: "profile", formatter: (value) => { return value.toUpperCase() }},
 
             ]
         };
@@ -222,7 +222,11 @@ class DataTableConfigFactory {
             searchBy: "",
             columns: [
                 
-                { name: "user", title: "table_user", formatter: undefined },
+                { name: "firstName", title: "table_view_user_firstname", formatter: undefined },
+                { name: "lastName", title: "table_view_user_lastname", formatter: undefined },
+                { name: "email", title: "table_view_user_email", formatter: undefined },
+                { name: "group", title: "profile", formatter:undefined },
+
             ]
         };
     }

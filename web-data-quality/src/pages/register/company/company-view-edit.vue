@@ -91,24 +91,54 @@
                     </div>
             </div>
         </div>
+
+      <!--  <div v-if="typeAction=='view'" class="wrapper-users mt-4">
+            
+            <data-table
+                :config="configTable"
+                :data="data"
+                @page="setPage"
+               
+            ></data-table>   
+
+        </div> -->
+
+
+
     </div>
 </template>
 <script>
 
 import AgenciaService from '../../../services/agency';
 import Modal from '../../../components/modal/message-dialog.vue';
+import DataTable from '../../../components/data-table/data-table.vue';
+import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 export default {
 
     props:['currentObject','typeAction'],
 
     data(){
         return{
+
             show:'',
             maskCnpj: "##.###.###/####-##",
             odchecked:undefined,
             approvedChecked:undefined,
             viewAgency:undefined,
             loading:undefined,
+
+            configTable: DataTableConfigFactory.build('DATA-TABLE-USER-AGENCY'),
+         
+            data:{
+                conteudo:[],
+                pagination:undefined
+            },
+            filter:{
+                page:0,
+                size:10
+            },
+
+
         }
     },
 
@@ -211,6 +241,12 @@ export default {
             this.show='SAVED';
             setInterval(()=>{this.$emit('back')},1500);
         }, 
+    },
+
+    components:{
+
+        DataTable,
+
     }
 }
 
