@@ -196,6 +196,7 @@ export default {
                 this.request.photo = this.userPhoto === '../../../assets/images/avatar-null.jpg' ? '' :this.userPhoto;
                 this.request.groups = this.userEdit.groups.map((g)=>g.groupId);
                 this.request.info = this.userEdit.info;
+                this.request.password = this.userEdit.password;
                 this.$forceUpdate();   
             }
     },

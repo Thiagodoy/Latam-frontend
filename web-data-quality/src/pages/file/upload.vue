@@ -183,7 +183,7 @@ export default {
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
 
                let temp = undefined; 
-              if(this.getIsMaster){
+              if(!this.getIsMaster){
                   temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));  
               }else{
                   temp = response.content;
@@ -191,7 +191,7 @@ export default {
 
               this.agencys = temp;
               this.options = temp;              
-              this.company = temp;  
+              //this.company = temp;  
 
               this.listFiles();
        }).catch(erro=>{
