@@ -40,6 +40,7 @@ import ToolbarConfigFactory from '../../../components/toolbar/toolbar-config-fac
 import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import UserService from '../../../services/user';
+import GroupService from '../../../services/group'
 import MockFactory from '../../../utils/mock-factory';
 import _ from 'lodash';
 import {mapGetters} from 'vuex';
@@ -48,6 +49,7 @@ export default {
 
     data(){
         return{
+            perfil:undefined,
             currentObject:undefined,
             configTable: DataTableConfigFactory.build('DATA-TABLE-USER-VISUALIZATION'),
             configToolbar: ToolbarConfigFactory.build('TOOLBAR-USER-VISUALIZATION'),
@@ -61,11 +63,13 @@ export default {
             filter:{
                 page:0,
                 size:10
-            }
+            },
+            groups:[],
         }
     },  
     mounted(){         
       this.getUsers();
+      this.getGroups();
     },
     computed:{
         ...mapGetters(['getUser','getIsMaster']),
@@ -108,14 +112,21 @@ export default {
            this.filter.userMaster = this.getIsMaster ? undefined : this.getUser.email; 
            this.loading = UserService.getUsers(this.filter).then((response)=>{
              
-                response.content.forEach((e)=>{                     
-                    e.picture = e.picture ? MockFactory.build('MAKE_IMAGE_PROFILE',e.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
-                });
-                
-                this.data.conteudo = response.content;
+               
+                  this.data.conteudo =response.content;
                 this.data.pagination = response
+
             }); 
-        },               
+        }, 
+        getGroups(){
+            this.loading = GroupService.getGroups({page:0,size:1000}).then((response)=>{
+               this.groups = response;
+
+              
+
+
+            });
+        }              
     },
     watch:{
         filter:{

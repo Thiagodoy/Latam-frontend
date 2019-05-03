@@ -8,6 +8,19 @@
             @upload="openUpload">
         </toolbar>
 
+       <div   @mouseover="showHelp" @mouseleave="closeHelp" class="help"><i class="far fa-question-circle"></i></div>
+
+       <div v-if="help == true" class="box-help">
+           Para gravar um arquivo, selecione a opção Upload no menu.
+            Na próxima página, clique em Upload na parte superior
+             da tela e escolha o arquivo em uma pasta local.
+            Pronto, visualize a gravação do arquivo na tela.
+             Uma mensagem de carregamento com sucesso
+              será exibida na tela
+
+
+       </div>
+
         <br>
 
         <nav mt-5>
@@ -159,7 +172,9 @@ export default {
                 timeStart:undefined,
                 timeEnd:undefined,
                 status:'UPLOADED'
-            }
+            },
+
+            help:false,
    
         }
     },
@@ -224,7 +239,19 @@ export default {
         }
     },
 
-    methods:{          
+    methods:{
+
+        closeHelp(){
+
+            this.help = false;
+
+        },
+        
+        showHelp(){
+
+           this.help = true;
+
+        },
         getNameAgency(id){
             if(this.agencys.length == 0)return "";
             return this.agencys.find(e=>e.id == id).name;
@@ -374,6 +401,28 @@ table{
     background: #ff0;
 }
 
+
+.help{
+    position:absolute;
+    right:50px;
+    top:133px;
+    font-size:30px;
+    cursor:pointer;
+    &:hover{
+        color: #ffed69;
+    }
+}
+
+.box-help{
+    top:130px;
+    width: 250px;
+  padding: 20px;
+     background-color: rgba(255,255,255,0.9);
+    position: absolute;
+    right: 110px;
+    border-radius: 10px;
+    color:#111;
+}
 
 
 
