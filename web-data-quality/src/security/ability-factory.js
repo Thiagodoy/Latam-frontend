@@ -24,6 +24,7 @@ class AbilityFactory {
         } else if (this.isAgencia(user)) {
             abilities.push({ subject: ['Upload', 'Opcao'], actions: 'manage', });
             abilities.push({ subject: ['File'], actions: 'upload' });
+            abilities.push({ subject: ['File'], actions: 'report' });
         }
         this.abilities = new Ability(abilities);
         return this.abilities;

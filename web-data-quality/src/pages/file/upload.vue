@@ -182,9 +182,11 @@ export default {
 
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
 
-               let temp = undefined; 
+              let temp = undefined; 
+              debugger;
               if(!this.getIsMaster){
-                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));  
+                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
+                  this.request.company = temp.map(e=>e.id)  
               }else{
                   temp = response.content;
               }  
