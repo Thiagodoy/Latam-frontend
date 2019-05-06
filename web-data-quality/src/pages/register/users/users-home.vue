@@ -120,7 +120,13 @@ export default {
                 this.data.pagination = response
 
                  users.forEach(user => {
-                user.group =  user.groups[0].groupId;
+
+                     if(user.groups[0]){
+                         user.group =  user.groups[0].groupId;
+                     }else{
+                         user.group = 'Usuário sem perfil cadastrado!';
+                     }
+
                 });
 
                 this.data.pagination = response

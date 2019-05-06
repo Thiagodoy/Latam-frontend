@@ -92,16 +92,14 @@
             </div>
         </div>
 
-      <!--  <div v-if="typeAction=='view'" class="wrapper-users mt-4">
+      <div v-if="typeAction=='view' && currentObject.users" class="wrapper-users mt-4">
             
             <data-table
                 :config="configTable"
                 :data="data"
-                @page="setPage"
-               
             ></data-table>   
 
-        </div> -->
+        </div>
 
 
 
@@ -144,6 +142,10 @@ export default {
 
     mounted(){
          this.viewAgency = this.currentObject || {name:''};
+          this.currentObject.users.forEach(user => {
+                    user.group =  user.groups[0].id;
+                });
+         this.data.conteudo = this.currentObject.users;
     },
     methods:{
 
@@ -195,17 +197,7 @@ export default {
             if(!document.getElementById('m').checked && !document.getElementById('s').checked && !document.getElementById('d').checked ){
                 Modal.show({title:"Erro", message:"Selecione frêquencia"});
                 return;
-            }    
-            
-            
-
-
-
-
-
-
-
-
+            } 
 
             if(this.typeAction == 'new'){ 
                 
