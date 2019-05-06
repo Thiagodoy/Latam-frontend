@@ -45,6 +45,7 @@ import MockFactory from '../../../utils/mock-factory';
 import _ from 'lodash';
 import {mapGetters} from 'vuex';
 
+
 export default {
 
     data(){
@@ -65,16 +66,36 @@ export default {
                 size:10
             },
             groups:[],
+
+            meuPerfilLogin: this.$route.params.logi,
+            meuPerfilShow: this.$route.params.show,
         }
     },  
     mounted(){         
       this.getUsers();
       this.getGroups();
+
+      if(this.meuPerfilShow == 'view'){
+       this. meuPerfilView()
+      }
+
+
+
+ 
+
     },
     computed:{
         ...mapGetters(['getUser','getIsMaster']),
     },
     methods:{
+
+        meuPerfilView(){
+                this.show = 'new';
+                this.typeAction = 'VIEW';
+                this.currentObject = this.getUser;   
+        },
+
+
         deleteUser(data){
             this.mxShowModal({title:"Informação", message:`Deseja deletar esse usuário ${data.email}`, type:'YES-NO'}).then(response =>{
                 if(response == 'YES'){

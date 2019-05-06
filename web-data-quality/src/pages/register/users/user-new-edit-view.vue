@@ -4,7 +4,7 @@
         <div v-if="show == 'SAVED'"  class="alert alert-success text-center" role="alert">
            {{$t('lang.msg_success_user')}}
         </div>
-        <div class="tool-edit mb-2">
+        <div  class="tool-edit mb-2">
             <div   @click="$emit('back')" class="tool-view-item"><i class="fas fa-arrow-circle-left"></i>&nbsp;{{$t('lang.button_back')}}</div> &nbsp; &nbsp;&nbsp;
           
         </div>

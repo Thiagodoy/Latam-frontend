@@ -29,7 +29,7 @@ export default new Router({
             children: [
                 { name: 'change-pass', path: '/change-pass', component: ChangePass },
                 { name: 'users-register', path: '/users-register/', component: UserHome },
-                { name: 'meu-perfil', path: '/meu-perfil/:login', component: MeuPerfil },
+                { name: 'meu-perfil', path: '/meu-perfil/:login/:show', component: MeuPerfil },
                 { name: 'file', path: '/file', component: FileHome },
                 { name: 'users-profile', path: '/users-profile', component: ProfileHome },
                 { name: 'upload', path: '/upload', component: Upload },
