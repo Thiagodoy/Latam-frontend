@@ -6,7 +6,7 @@
         <toolbar :config="configToolbar" @upload="openUpload">
         </toolbar>
 
-<<<<<<< HEAD
+
        <div   @mouseover="help=true" @mouseleave="help=false" class="help"><i class="far fa-question-circle"></i></div>
 
        <div v-if="help" class="box-help">
@@ -20,8 +20,7 @@
 
        </div>
 
-=======
->>>>>>> fc3a751d39cf074b793027651d39d4d2607078b4
+
         <br>
 
         <nav mt-5>
