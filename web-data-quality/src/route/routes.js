@@ -10,6 +10,7 @@ import ChangePass from '../pages/register/change-pass/change-pass.vue'
 import Upload from '../pages/file/upload.vue'
 import CompanyHome from '../pages/register/company/company-home.vue'
 import RouterGuard from './route-guard';
+import MeuPerfil from '../pages/register/users/users-home.vue';
 
 
 
@@ -27,7 +28,8 @@ export default new Router({
             beforeEnter: RouterGuard.checkUserIsLogged.bind(RouterGuard),
             children: [
                 { name: 'change-pass', path: '/change-pass', component: ChangePass },
-                { name: 'users-register', path: '/users-register', component: UserHome },
+                { name: 'users-register', path: '/users-register/', component: UserHome },
+                { name: 'meu-perfil', path: '/meu-perfil/:login', component: MeuPerfil },
                 { name: 'file', path: '/file', component: FileHome },
                 { name: 'users-profile', path: '/users-profile', component: ProfileHome },
                 { name: 'upload', path: '/upload', component: Upload },

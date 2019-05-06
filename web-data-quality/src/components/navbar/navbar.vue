@@ -2,8 +2,9 @@
     <div >
         <div class="x-navbar">
          
-           <div @click="show==false ? show=true:show=false" class="avatar"><img :src="avatar"/></div>
-          
+
+           <div v-html="getUser.picture"  @click="show==false ? show=true:show=false" class="avatar text-left"></div>
+       
           <transition name="fade">
             <div @mouseleave="show=false" v-if="show" class="box-menu-list"> 
                <div style="" class="row mb-2">
@@ -13,12 +14,11 @@
 
                </div>
                 <ul>
-                    <li><i class="fas fa-user"></i>&nbsp;{{$t('lang.profile')}}</li>
+                 <!--   <router-link   tag="li" to="{ name: 'meu-perfil', params: {login: 'true' } }"><i class="fas fa-user"></i>&nbsp;{{$t('lang.profile')}}</router-link> -->
                     <li @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</li>
                 </ul>
             </div>      
           </transition> 
-
 
 
             <div class="logo-box text-center">
@@ -42,9 +42,9 @@
             </div>           
         </div>
 
+   
 
-
-        
+       <div v-html="getUser.picutere"></div>
 
 
 
@@ -55,31 +55,36 @@
 </template>
 <script>
 import {mapGetters, mapActions} from 'vuex';
+import MockFactory from '../../utils/mock-factory';
 
 export default {
     data(){
         return{
-
+            showAvatar:true,
             show:false,
             userLogado:undefined,
             avatar:undefined,
-       
        }
     },
     computed:{
         ...mapGetters(['getIsFirstAccess']),
         ...mapGetters(['getUser'])
+        
     },
     methods:{  
         ...mapActions(['logout']),       
        
     },  
+    created(){
+           this.getUser.picture = this.getUser.picture ? MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ; 
+    },
     mounted(){
 
       
 
-       console.log("TESTE",this.getUser);
-
+     
+       
+      
     }  
 }
 </script>
@@ -142,14 +147,15 @@ export default {
     }
 
     .avatar{
-        width: 35px;
-        height: 35px;
-        border: #fff 2px solid;
+      max-height: 40px;
+      max-width: 130px;
+     
         border-radius: 25px;
         position: absolute;
         top:10px;
-        right: 30px;
+        right: -80px;
         cursor: pointer;
+        
     }
 
     .box-menu-list{
@@ -159,7 +165,7 @@ export default {
       width: 400px;
       top:60px;
       z-index: 1000;
-      font-size: 20px;
+      font-size: 18px;
       color:#222;
       border-radius: 5px;
 
@@ -191,6 +197,10 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
   opacity: 0;
    
+}
+
+.avatar-view{
+    max-width: 50%;
 }
        
 </style>

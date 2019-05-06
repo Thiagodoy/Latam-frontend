@@ -14,9 +14,20 @@
           </div>
           <div v-if="type == 'AGENCIA'" class="modal-body" >
             <div v-html="message"></div>
+
+            <input  class="input form-control mt-1 mb-1" type="text" placeholder="pesquisar..."/>
+            <div class="box-agency">
+                <div v-for="(v,i) in agencys" :key="i"> 
+                  <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" />&nbsp;&nbsp;<label>{{v.name}}</label>&nbsp;&nbsp;
+                </div>
+            </div>
+           <!--
             <div v-for="(v,i) in agencys" :key="i"> 
               <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" /><label>{{v.name}}</label>&nbsp;&nbsp;
             </div>
+         -->
+         
+         
           </div>
           <div v-else class="modal-body" v-html="message"></div>
           <div class="modal-footer">
@@ -99,5 +110,41 @@ button{border: solid 1px #333}
 h5{
   color: aliceblue;
 }
+
+.box-agency{
+ margin-top: 15px;
+  border:#ccc solid 1px;
+ height: 150px;
+ padding:15px;
+
+ overflow: auto;
+}
+
+.input::placeholder{
+color:#222;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+    width: 6px;
+    background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+    background: #dad7d7;
+}
+
+input[type=radio]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2.2); /* IE */
+  -moz-transform: scale(2.2); /* FF */
+  -webkit-transform: scale(2.2); /* Safari and Chrome */
+  -o-transform: scale(2.2); /* Opera */
+  padding: 8px;
+  margin-right: 8px;
+}
+
 </style>
 
