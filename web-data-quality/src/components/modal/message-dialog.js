@@ -10,6 +10,7 @@ let store = {
     dialog: undefined
 };
 import $ from 'jquery';
+import _ from 'lodash';
 export default {
 
     data() {
@@ -23,7 +24,9 @@ export default {
             disabled: undefined,
             resultResponse: undefined,
             agencys: undefined,
-            agencySelected: undefined
+            agencySelected: undefined,
+            agencysFiltered:undefined,
+            searchInput:'',            
 
         }
     },
@@ -47,7 +50,17 @@ export default {
                 this.resultResponse = '';
             }
             this.resultCallback(res);
-        }
+        },
+        search:_.debounce(function(){
+               
+               if(this.searchInput.length == 0){
+                this.agencysFiltered = this.agencys;
+               } else{
+                this.agencysFiltered = this.agencys.filter(a=>a.name.toUpperCase().includes(this.searchInput.toUpperCase()));
+               }
+
+        }, 400)
+        
     },
 
     /**
@@ -79,6 +92,7 @@ export default {
             store.dialog.reason = options.reason || '';
             store.dialog.disabled = options.disabled || false;
             store.dialog.agencys = options.agencys;
+            store.dialog.agencysFiltered = options.agencys;
             $("#btn-open-modal").click();
         });
     }

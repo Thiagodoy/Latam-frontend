@@ -17,9 +17,9 @@
             <div v-html="message"></div>
 
 
-            <input  class="input form-control mt-1 mb-1" type="text" placeholder="pesquisar..."/>
+            <input  class="input form-control mt-1 mb-1" v-model="searchInput" @keyup="search" type="text" placeholder="pesquisar..."/>
             <div class="box-agency">
-                <div v-for="(v,i) in agencys" :key="i"> 
+                <div v-for="(v,i) in agencysFiltered" :key="i"> 
                   <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" />&nbsp;&nbsp;<label>{{v.name}}</label>&nbsp;&nbsp;
                 </div>
             </div>
