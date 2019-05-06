@@ -3,7 +3,7 @@
 
     <div v-if="showOp== 'list'">
 
-        <toolbar 
+        <toolbar  
             :config="configToolbar" 
             @upload="openUpload">
         </toolbar>

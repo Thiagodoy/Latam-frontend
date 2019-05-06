@@ -42,7 +42,7 @@ class ToolbarConfigFactory {
     configToolbarFileVisualization() {
         return {
             buttons: [
-                { emit: 'upload', class: 'btn-add-user', icon: 'fas fa-file-import', label: 'button_upload' ,ability:{action:'upload', subject:'File'} }
+                { emit: 'upload', class: 'btn-add-user', icon: 'fas fa-file-import', label: 'button_upload' , ability:{action:'upload', subject:'File'} }
             ],
             filter: []
         }
