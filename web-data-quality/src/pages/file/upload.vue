@@ -3,7 +3,7 @@
 
     <div v-if="showOp== 'list'">
 
-        <toolbar  
+        <toolbar v-if="$can('upload', 'File')" 
             :config="configToolbar" 
             @upload="openUpload">
         </toolbar>

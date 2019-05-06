@@ -3,14 +3,10 @@
         <div class="wrapper-toolbar  ">
             <div class="toolbar-item ">
                
-               <template v-for="(v,i) in config.buttons">
-                    <span v-if="v.ability && $can(v.ability.action, v.ability.subject)"  :key="i + 2" @click="$emit(v.emit)" :class="v.class">
+               <template v-for="(v,i) in config.buttons">                    
+                    <span   :key="i + 2" @click="$emit(v.emit)" :class="v.class">
                         <i  v-if="v.icon"  :class="v.icon"></i>&nbsp;{{$t(`lang.${v.label}`)}}&nbsp;
                         
-                    </span>
-                    <span v-else-if="!v.ability"  :key="i + 2" @click="$emit(v.emit)" :class="v.class">
-                        <i  v-if="v.icon"  :class="v.icon"></i>&nbsp;{{$t(`lang.${v.label}`)}}&nbsp;
-                        else
                     </span>
                </template>
                
