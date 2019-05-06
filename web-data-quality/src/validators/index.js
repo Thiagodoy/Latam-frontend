@@ -1,5 +1,5 @@
 import { Validator } from 'vee-validate';
-import { accountExists } from './user'
+import { accountExists,validaNroMaxAgencia,validaNroMaxPerfil } from './user'
 import { caracterEspecial, passwordLength, passwordLowerCase, passwordUpperCase,caracterRepeated } from './password'
 
 
@@ -19,7 +19,9 @@ const dictionary = {
             passwordLength: () => 'Senha tem que ter pelo menos 8 caracteres!',
             passwordLowerCase: () => 'Senha tem quem ter pelo menos 1 letra em minuscula!',
             passwordUpperCase: () => 'Senha tem quem ter pelo menos 1 letra em maiscula!',
-            passwordCaracterRepeated:()=> 'Senha com pelo menos 3 caracteres repetidos em sequencia!'
+            passwordCaracterRepeated:()=> 'Senha com pelo menos 3 caracteres repetidos em sequencia!',
+            validaNroMaxAgencia:()=> 'Numero máximo para o perfil selecionado é uma agencia',
+            validaNroMaxPerfil:()=> 'É permitido selecionar apenas um perfil!'
         }
     },
     en: {
@@ -37,7 +39,9 @@ const dictionary = {
             passwordLength: () => 'Password must be at least 8 characters!',
             passwordLowerCase: () => 'Password must be at least 1 lowercase letter!',
             passwordUpperCase: () => 'Password must be at least 1 uppercase letter!',
-            passwordCaracterRepeated:()=> 'Password with at least 3 characters repeated in sequence!'
+            passwordCaracterRepeated:()=> 'Password with at least 3 characters repeated in sequence!',
+            validaNroMaxAgencia:()=> 'Maximum number for the selected profile is an agency!',
+            validaNroMaxPerfil:()=> 'Maximum number for the selected profile is an profile!'
         }
     }
 };
@@ -53,6 +57,9 @@ plugin.install = function(Vue, options) {
     Validator.extend('passwordLowerCase', passwordLowerCase);
     Validator.extend('passwordUpperCase', passwordUpperCase);
     Validator.extend('passwordCaracterRepeated', caracterRepeated);
+    Validator.extend('validaNroMaxAgencia', validaNroMaxAgencia,{ hasTarget: true });
+    Validator.extend('validaNroMaxPerfil', validaNroMaxPerfil);
+    
     
 };
 

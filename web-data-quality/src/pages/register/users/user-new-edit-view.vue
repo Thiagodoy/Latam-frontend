@@ -69,7 +69,7 @@
                          <div class="col-md-12">
                         <div  class="form-group" :class="{'has-error':errors.has('profile')}">
                             <label for="profile">{{$t('lang.profile')}}</label>
-                            <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required'" v-model="request.groups" name="profile" id="profile" multiple style="height:200px;">
+                            <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required|validaNroMaxPerfil'" :ref="'g'" v-model="request.groups" name="profile" id="profile" multiple style="height:200px;">
                                 <option class="campos "  v-for="(v,i) in groups" :value="v.id" :key="i">{{v.name}}</option>
                             </select>
                             <div class="help-block">{{errors.first('profile')}}</div>
@@ -102,12 +102,12 @@
                             </div>
                          </div>
                         <div class="col-md-12">
-                            <div  class="form-group" :class="{'has-error':errors.has('profile')}">
+                            <div  class="form-group" :class="{'has-error':errors.has('agency')}">
                                 <label for="profile">{{$t('lang.table_view_file_company_name')}}</label>
-                                <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="''" v-model="agency" name="profile" id="profile" multiple style="height:200px;">
+                                <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'validaNroMaxAgencia:g'" v-model="agency" name="agency" id="agency" multiple style="height:200px;">
                                     <option class="campos "  v-for="(v,i) in agencys" :value="v.id" :key="i">{{`${v.name}`}}</option>
                                 </select>
-                                <div class="help-block">{{errors.first('profile')}}</div>
+                                <div class="help-block">{{errors.first('agency')}}</div>
                             </div>                        
                         </div>
 
