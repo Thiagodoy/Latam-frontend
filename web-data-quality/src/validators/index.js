@@ -1,6 +1,6 @@
 import { Validator } from 'vee-validate';
 import { accountExists } from './user'
-import { caracterEspecial, passwordLength, passwordLowerCase, passwordUpperCase } from './password'
+import { caracterEspecial, passwordLength, passwordLowerCase, passwordUpperCase,caracterRepeated } from './password'
 
 
 const dictionary = {
@@ -18,7 +18,8 @@ const dictionary = {
             caracterEspecial: () => 'Senha tem que ter pelo menos 1 caracter especial[ @#$%&*()_+=§ª ]',
             passwordLength: () => 'Senha tem que ter pelo menos 8 caracteres!',
             passwordLowerCase: () => 'Senha tem quem ter pelo menos 1 letra em minuscula!',
-            passwordUpperCase: () => 'Senha tem quem ter pelo menos 1 letra em maiscula!'
+            passwordUpperCase: () => 'Senha tem quem ter pelo menos 1 letra em maiscula!',
+            passwordCaracterRepeated:()=> 'Senha com pelo menos 3 caracteres repetidos em sequencia!'
         }
     },
     en: {
@@ -35,7 +36,8 @@ const dictionary = {
             caracterEspecial: () => 'Password must be at least 1 special character!',
             passwordLength: () => 'Password must be at least 8 characters!',
             passwordLowerCase: () => 'Password must be at least 1 lowercase letter!',
-            passwordUpperCase: () => 'Password must be at least 1 uppercase letter!'
+            passwordUpperCase: () => 'Password must be at least 1 uppercase letter!',
+            passwordCaracterRepeated:()=> 'Password with at least 3 characters repeated in sequence!'
         }
     }
 };
@@ -50,6 +52,8 @@ plugin.install = function(Vue, options) {
     Validator.extend('passwordLength', passwordLength);
     Validator.extend('passwordLowerCase', passwordLowerCase);
     Validator.extend('passwordUpperCase', passwordUpperCase);
+    Validator.extend('passwordCaracterRepeated', caracterRepeated);
+    
 };
 
 export { dictionary, plugin }

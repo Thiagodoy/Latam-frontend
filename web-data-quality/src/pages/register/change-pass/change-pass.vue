@@ -27,7 +27,7 @@
                      <div class="col-md-11">
                         <div class="form-group" :class="{'has-error':errors.has('password')}" >
                            <label for="password">{{$t('lang.label_imput_newpass')}}</label>
-                           <input v-validate="'required|caracterEspecial|passwordLength|passwordLowerCase|passwordUpperCase'"  name="password" v-model="request.newPassword" ref="password"  :type="type1" class="form-control campos"  :placeholder="$t('lang.label_imput_newpass')" >
+                           <input v-validate="'required|caracterEspecial|passwordLength|passwordLowerCase|passwordUpperCase|passwordCaracterRepeated'"  name="password" v-model="request.newPassword" ref="password"  :type="type1" class="form-control campos"  :placeholder="$t('lang.label_imput_newpass')" >
                            <div class="help-block">{{errors.first('password')}}</div>
                         </div>
                      </div>
@@ -44,7 +44,7 @@
                      <div class="col-md-11">
                         <div class="form-group" :class="{'has-error':errors.has('newPassword')}" >
                            <label for="password">{{$t('lang.confirm_pass')}}</label>                           
-                           <input   :type="type" name="newPassword" v-validate="'required|confirmed:password|caracterEspecial|passwordLength|passwordLowerCase|passwordUpperCase'"  class="form-control campos"  :placeholder="$t('lang.confirm_pass')" >                                                                           
+                           <input   :type="type" name="newPassword" v-validate="'required|confirmed:password|caracterEspecial|passwordLength|passwordLowerCase|passwordUpperCase|passwordCaracterRepeated'"  class="form-control campos"  :placeholder="$t('lang.confirm_pass')" >                                                                           
                            <div class="help-block">{{errors.first('newPassword')}}</div>
                         </div>
                      </div>

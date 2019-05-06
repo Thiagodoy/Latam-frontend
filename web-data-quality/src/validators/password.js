@@ -6,6 +6,11 @@ function validaLowerCase(value, args) {
     return { valid: /[a-z]+/.test(value) };
 }
 
+function caracterRepetido(value, args) {
+    console.log('caracterRepetido',/([a-z])\1{2}/ig.test(value))
+    return { valid: !(/([a-z])\1{2}/ig.test(value)) };
+}
+
 function validaCaracterEspecial(value, args) {
     console.log('validaCaracterEspecial', (/[!@#$%&*()_+=§ª]+/.test(value)), 'value', value)
     return { valid: (/[!@#$%&*()_+=§ª]+/.test(value)) };
@@ -68,5 +73,19 @@ export const passwordLength = {
     },
     validate(value, args) {
         return validaLength(value, args);
+    }
+};
+
+export const caracterRepeated = {
+    messages: {
+        en: (field, args) => {
+            return "Password with at least 3 characters repeated in sequence!";
+        },
+        'pt_BR': (field, args) => {
+            return "Senha com pelo menos 3 caracteres repetidos em sequencia!";
+        }
+    },
+    validate(value, args) {
+        return caracterRepetido(value, args);
     }
 };
