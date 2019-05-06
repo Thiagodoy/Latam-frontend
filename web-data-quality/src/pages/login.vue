@@ -110,7 +110,7 @@
       </div>
     </div>
       
-  </div>
+ 
 </template>
 <script>
 import Localization from "../components/local/localization.vue";
@@ -187,7 +187,7 @@ export default {
           });
         }
       }).catch((erro)=>{        
-         this.mxShowModalError(erro);
+         this.mxShowModalAlerta(erro);
       });
     },
     loadAbilities(){

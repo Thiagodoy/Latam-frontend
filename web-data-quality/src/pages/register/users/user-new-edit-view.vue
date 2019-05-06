@@ -9,7 +9,7 @@
           
         </div>
         
-         <div class="row mt-3 wrapper-view-edit">
+         <div  class="row mt-3 wrapper-view-edit">
             <div class="picture-box col-md-2 text-center">
                 
                 <img v-if="!userPhoto"  class="img-fluid rounded-circle avatar-view mb-2"  src="../../../assets/images/avatar-null.jpg"/><br>
@@ -81,7 +81,7 @@
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error': errors.has('cpf')}">
                                 <label for="exampleInputEmail1">CPF</label>
-                                <input v-mask="maskCpf"  :disabled="typeAction == 'VIEW' || typeAction == 'EDIT'"  v-validate="'required|userExists|'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF"  >
+                                <input style="z-index:-1" v-mask="maskCpf"  :disabled="typeAction == 'VIEW' || typeAction == 'EDIT'"  v-validate="'required|userExists|'" data-vv-validate-on="blur" name="cpf" v-model="cpf"   type="text" class="form-control campos"  placeholder="CPF"  >
                                 <div class="help-block">{{errors.first('cpf')}}</div>
                             </div>
                          </div>
@@ -382,6 +382,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+input{
+    z-index: 10;
+}
 
 #company option{
 

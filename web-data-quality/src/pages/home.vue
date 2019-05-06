@@ -1,6 +1,6 @@
 <template>
     <div> 
-        <nav class="header">
+        <nav style="z-index:10" class="header">
             <navbar 
             v-on:OpenMenu="openMenu"
             ></navbar>

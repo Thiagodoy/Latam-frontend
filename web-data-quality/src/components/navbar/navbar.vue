@@ -1,6 +1,26 @@
 <template>
-    <div>
+    <div >
         <div class="x-navbar">
+         
+           <div @click="show==false ? show=true:show=false" class="avatar"><img :src="avatar"/></div>
+          
+          <transition name="fade">
+            <div @mouseleave="show=false" v-if="show" class="box-menu-list"> 
+               <div style="" class="row mb-2">
+           
+                   <div class="col-md-9 pl-4 pt-1" style="font-size:16px"> <b><span style="font-size:18px;">{{getUser.firstName}}</span></b>&nbsp;&nbsp;<span style="font-size:16px;">({{getUser.email}})</span></div>
+                   <div @click="show=false" style="cursor:pointer" class="col-md-3 text-right pr-4" ><i class="far fa-times-circle"></i></div>
+
+               </div>
+                <ul>
+                    <li><i class="fas fa-user"></i>&nbsp;{{$t('lang.profile')}}</li>
+                    <li @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</li>
+                </ul>
+            </div>      
+          </transition> 
+
+
+
             <div class="logo-box text-center">
                 <img id="logo" class="img-fluid" src="../../assets/images/headerbar.png"/>
             </div>
@@ -13,31 +33,59 @@
             </div>           
             <div class="bar-options container-fluid">
                 <div class="row" v-if="!(getIsFirstAccess == true)">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-6 text-right logaut" @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div>
+                   
+                
+                  
+                   <!-- <div class="col-md-12 text-right logaut " @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div> -->
+               
                 </div>
             </div>           
         </div>
+
+
+
+        
+
+
+
+
+
+
     </div>     
 </template>
 <script>
 import {mapGetters, mapActions} from 'vuex';
+
 export default {
     data(){
         return{
+
+            show:false,
+            userLogado:undefined,
+            avatar:undefined,
        
        }
     },
     computed:{
-        ...mapGetters(['getIsFirstAccess'])
+        ...mapGetters(['getIsFirstAccess']),
+        ...mapGetters(['getUser'])
     },
     methods:{  
         ...mapActions(['logout']),       
        
-    },    
+    },  
+    mounted(){
+
+      
+
+       console.log("TESTE",this.getUser);
+
+    }  
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+
+
     .x-navbar{
         background-color: rgba(0, 0, 0, .5);
         position: fixed;
@@ -88,9 +136,61 @@ export default {
     }
     .logaut{
         padding-top: 15px;
-        padding-right: 40px;
+        padding-right: 80px;
         color: #fff;
         cursor: pointer;
     }
+
+    .avatar{
+        width: 35px;
+        height: 35px;
+        border: #fff 2px solid;
+        border-radius: 25px;
+        position: absolute;
+        top:10px;
+        right: 30px;
+        cursor: pointer;
+    }
+
+    .box-menu-list{
+      background-color: rgba(255, 255, 255, 1); 
+      position: absolute;
+      right: 5px;
+      width: 400px;
+      top:60px;
+      z-index: 1000;
+      font-size: 20px;
+      color:#222;
+      border-radius: 5px;
+
+      ul{
+
+
+          li{
+              list-style-type:none;
+              padding: 15px 0px 15px 10px;
+              &:hover{
+                
+                  cursor: pointer;
+                  background: #eee;
+              }
+             
+          }
+      }
+
+     
+
+
+    }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+ 
+   top:60px;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
+  opacity: 0;
+   
+}
        
 </style>
