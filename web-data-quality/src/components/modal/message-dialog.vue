@@ -12,8 +12,10 @@
               <span style="color:#fff;font-size:22px;" aria-hidden="true">&times;</span>
             </button>
           </div>
+          <!-- TYPE AGENCIA -->
           <div v-if="type == 'AGENCIA'" class="modal-body" >
             <div v-html="message"></div>
+
 
             <input  class="input form-control mt-1 mb-1" type="text" placeholder="pesquisar..."/>
             <div class="box-agency">
@@ -28,6 +30,7 @@
          -->
          
          
+
           </div>
           <div v-else class="modal-body" v-html="message"></div>
           <div class="modal-footer">

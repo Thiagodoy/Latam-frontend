@@ -19,11 +19,13 @@ class AbilityFactory {
         } else if (this.isExecutivoPlanejamento(user)) {
             abilities.push({ subject: ['Upload', 'Opcao', 'User'], actions: 'manage', conditions: { agencys, profile: ['master agência', 'agência'] } });
             abilities.push({ subject: ['File'], actions: 'upload' });
+            abilities.push({ subject: ['File'], actions: 'report' });
         } else if (this.isMasterAgencia(user)) {
             abilities.push({ subject: ['Upload', 'Opcao', 'User'], actions: 'manage', conditions: { agencys, profile: ['agência'] } });
         } else if (this.isAgencia(user)) {
             abilities.push({ subject: ['Upload', 'Opcao'], actions: 'manage', });
             abilities.push({ subject: ['File'], actions: 'upload' });
+            abilities.push({ subject: ['File'], actions: 'report' });
         }
         this.abilities = new Ability(abilities);
         return this.abilities;

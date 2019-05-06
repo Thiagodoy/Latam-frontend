@@ -3,9 +3,14 @@
         <div class="wrapper-toolbar  ">
             <div class="toolbar-item ">
                
-                <span v-for="(v,i) in config.buttons" :key="i + 2" @click="$emit(v.emit)" :class="v.class">
-                    <i  v-if="v.icon"  :class="v.icon"></i>&nbsp;{{$t(`lang.${v.label}`)}}&nbsp;
-                </span>
+               <template v-for="(v,i) in config.buttons">
+                    <span v-if="v.ability && $can(v.ability.action, v.ability.subject)"  :key="i + 2" @click="$emit(v.emit)" :class="v.class">
+                        <i  v-if="v.icon"  :class="v.icon"></i>&nbsp;{{$t(`lang.${v.label}`)}}&nbsp;
+                    </span>
+                    <span v-else  :key="i + 2" @click="$emit(v.emit)" :class="v.class">
+                        <i  v-if="v.icon"  :class="v.icon"></i>&nbsp;{{$t(`lang.${v.label}`)}}&nbsp;
+                    </span>
+               </template>
                
                
                 <span v-if="config.filter.length > 0" class=" dropdown-toggle btn-search"   data-toggle="dropdown" aria-haspopup="true" >
