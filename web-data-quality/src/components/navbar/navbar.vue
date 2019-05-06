@@ -14,7 +14,7 @@
 
                </div>
                 <ul>
-                 <!--   <router-link   tag="li" to="{ name: 'meu-perfil', params: {login: 'true' } }"><i class="fas fa-user"></i>&nbsp;{{$t('lang.profile')}}</router-link> -->
+                    <router-link   tag="li" :to="{ name: 'meu-perfil', params: {login:'logado',show:'view' } }"><i class="fas fa-user"></i>&nbsp;{{$t('lang.profile')}}</router-link> 
                     <li @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</li>
                 </ul>
             </div>      
@@ -152,8 +152,8 @@ export default {
      
         border-radius: 25px;
         position: absolute;
-        top:10px;
-        right: -80px;
+        top:8px;
+        right: -60px;
         cursor: pointer;
         
     }
