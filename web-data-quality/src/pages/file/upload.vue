@@ -8,16 +8,17 @@
             @upload="openUpload">
         </toolbar>
 
-
        <div   @mouseover="help=true" @mouseleave="help=false" class="help"><i class="far fa-question-circle"></i></div>
 
        <div v-if="help" class="box-help">
-            Para gravar um arquivo, selecione a opção Upload no menu.
+           Para gravar um arquivo, selecione a opção Upload no menu.
             Na próxima página, clique em Upload na parte superior
-            da tela e escolha o arquivo em uma pasta local.
+             da tela e escolha o arquivo em uma pasta local.
             Pronto, visualize a gravação do arquivo na tela.
-            Uma mensagem de carregamento com sucesso
-            será exibida na tela
+             Uma mensagem de carregamento com sucesso
+              será exibida na tela
+
+
        </div>
 
         <br>
@@ -412,22 +413,8 @@ table{
     color:#111;
 }
 
-::-webkit-scrollbar-track {
-    background-color: #F4F4F4;
-}
-
-::-webkit-scrollbar {
-    width: 6px;
-    background: #F4F4F4;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #dad7d7;
-}
-
 
 
 
 </style>
-
 
