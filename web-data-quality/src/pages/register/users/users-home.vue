@@ -21,7 +21,7 @@
         </div>
 
         <!--Componentes Options -->             
-        <user-new-edit-view :userEdit="currentObject" :typeAction="typeAction"  @back="show = 'home'" v-if="show=='new'"></user-new-edit-view>    
+        <user-new-edit-view :userEdit="currentObject" :typeAction="typeAction" :filter="f"  @back="show = 'home'" v-if="show=='new'"></user-new-edit-view>    
 
            
     
@@ -66,6 +66,7 @@ export default {
                 size:10
             },
             groups:[],
+            f:false,
 
             meuPerfilLogin: this.$route.params.logi,
             meuPerfilShow: this.$route.params.show,

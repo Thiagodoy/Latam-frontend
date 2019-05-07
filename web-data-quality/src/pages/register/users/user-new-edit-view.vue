@@ -148,7 +148,7 @@ import moment from 'moment';
 import {mapGetters} from 'vuex';
 
 export default {
-    props:['userEdit','typeAction'],
+    props:['userEdit','typeAction', 'filter'],
     data(){
         return {
 
@@ -183,6 +183,15 @@ export default {
 
             this.groups = responses[0].content;
             this.checkConditions();
+
+            if(filter){
+                this.groups = this.groups.filter(g=>g.groupId = this.userEdit.groups[0].groupId);
+                this.userEdit.info.filter(e=> e.key == 'agencia').forEach(ee=>{
+                    
+                });
+            }    
+
+
         }).catch(erro=>{            
             this.mxShowModalError(erro)
         })
