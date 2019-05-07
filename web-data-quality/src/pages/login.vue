@@ -7,7 +7,7 @@
         <div class="wrapper">
           <div class="auth-block">
             
-            <img class="img-fluid mx-auto d-block" src="../assets/images/Login_Logo.png">
+            <img class="img-fluid mx-auto d-block" src="../assets/images/Login_Logo_Latam.png">
             <div class="row">
               <div class="col-12">
                 
@@ -98,9 +98,11 @@
               </div> 
 
 
-               <div class="row">
-                <div class="col-md-11"></div>
-                <div class="col-md-1" style="position: relative;right: 40px;top: 15px;font-size: small;">{{`v${version}`}}</div>
+               <div style="displat:flex; justify-content: space-between;" class="row mt-3">
+                <div  class="pl-4"><img style="max-width:60px;" class="img-fluid mx-auto d-block" src="../assets/images/Login_Logo.png"></div>
+                <div  class="pr-3">  {{`v${version}`}}</div>
+                
+            
               </div>
 
 
