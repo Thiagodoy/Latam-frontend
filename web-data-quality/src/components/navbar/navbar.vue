@@ -1,6 +1,8 @@
 <template>
     <div >
         <div class="x-navbar">
+
+            
          
 
            <div v-html="getUser.picture"  @click="show==false ? show=true:show=false" class="avatar text-left"></div>
@@ -20,36 +22,33 @@
             </div>      
           </transition> 
 
+          
 
-            <div class="logo-box text-center">
-                <img id="logo" class="img-fluid" src="../../assets/images/headerbar.png"/>
-            </div>
-            <div class="menu-box" >
-                <div @click="$emit('OpenMenu')" class="menu-ham">
-                    <div class="menu-bar"></div>
-                    <div class="menu-bar"></div>
-                    <div class="menu-bar"></div>
+       
+                <div class="logo-box text-center">
+                    <img id="logo" class="img-fluid" src="../../assets/images/headerbar.png"/>
                 </div>
-            </div>           
-            <div class="bar-options container-fluid">
-                <div class="row" v-if="!(getIsFirstAccess == true)">
-                   
-                
-                  
-                   <!-- <div class="col-md-12 text-right logaut " @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div> -->
-               
+            
+                <div class="menu-box" >
+                    <div @click="$emit('OpenMenu')" class="menu-ham">
+                        <div class="menu-bar"></div>
+                        <div class="menu-bar"></div>
+                        <div class="menu-bar"></div>
+                    </div>
                 </div>
-            </div>           
+
+              
+                 <div class="latam">
+                     <img style="width:120px;"  class=" mx-auto d-block" src="../../assets/images/Login_Logo_Latam.png">
+                </div>
+           
+           
+          
+           
+           
         </div>
 
-   
-
-       <div v-html="getUser.picutere"></div>
-
-
-
-
-
+          
 
     </div>     
 </template>
@@ -90,6 +89,32 @@ export default {
 </script>
 <style lang="scss" scoped>
 
+    .latam{
+       // background: #ff0;
+        align-self: center;
+        width: 100%;
+       
+       
+        padding-right:210px;
+       
+    }
+
+  
+
+ @media screen and (max-width: 1000px) {
+  .latam{
+         padding-right: 80px;      
+  }
+}
+
+  @media screen and (max-width: 600px) {
+  .latam{
+         padding-right: 70px;      
+  }
+}
+
+ 
+  
 
     .x-navbar{
         background-color: rgba(0, 0, 0, .5);
@@ -100,7 +125,8 @@ export default {
         height: 53px;
         width: 100%;
         min-width: 320px;
-        padding: 0 0 0 0
+        padding: 0 0 0 0;
+      //  justify-content: space-between;
     }
     .logo-box{
         width: 180px;
@@ -202,5 +228,7 @@ export default {
 .avatar-view{
     max-width: 50%;
 }
+
+
        
 </style>
