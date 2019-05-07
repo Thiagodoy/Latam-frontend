@@ -301,8 +301,8 @@ export default {
 
         },
         resendEmail(){
-           UserService.resendAcces(this.userEdit.email).then(response=>{
-               Modal.show({title:'Informação', message:'Email enviado do acesso'}); 
+           this.loading = UserService.resendAcces(this.userEdit.email).then(response=>{
+               this.mxShowModal({title:'Informação', message:' E-mail enviado com sucesso!'}); 
            }).catch(erro=>{
                this.mxShowModalError(erro);
            });  
