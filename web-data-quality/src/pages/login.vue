@@ -189,7 +189,7 @@ export default {
           });
         }
       }).catch((erro)=>{        
-         this.mxShowModalAlerta(erro);
+         this.mxShowModalError(erro);
       });
     },
     loadAbilities(){
