@@ -110,7 +110,7 @@
                                 v-for="(v,i) in filesUploads" 
                                 :processFile="false" 
                                 :uploadAws="true" 
-                                :uploadFtp="false" 
+                                :uploadFtp="true" 
                                 :key="i" 
                                 :fileInput="v" 
                                 :index="i" 
