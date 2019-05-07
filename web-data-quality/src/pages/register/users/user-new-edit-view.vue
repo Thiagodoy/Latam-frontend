@@ -124,7 +124,8 @@
                 <div class="row mt-1">
                     <div class="col-md-6">                        
                         <button v-if="!(typeAction == 'VIEW')"  style="color:#fff" @click="saveUser()" class="btn btn-default btn-large" :disabled="(errors.items.length > 0)">{{$t('lang.button_save')}}</button>
-                        <button  style="color:#fff" @click="$emit('back')" class="btn btn-default btn-large ml-3 ">{{$t('lang.button_cancel')}}</button>                       
+                        <router-link  v-if="showMineProfile" style="color:#fff" tag="button" class="btn btn-default btn-large ml-3 " :to="{ name: 'home' }">{{$t('lang.button_cancel')}}</router-link> 
+                        <button v-else  style="color:#fff" @click="$emit('back')" class="btn btn-default btn-large ml-3 ">{{$t('lang.button_cancel')}}</button>                       
                     </div>
                      <div class="col-md-4">
                         
@@ -148,7 +149,7 @@ import moment from 'moment';
 import {mapGetters} from 'vuex';
 
 export default {
-    props:['userEdit','typeAction', 'filter'],
+    props:['userEdit','typeAction', 'showMineProfile'],
     data(){
         return {
 
@@ -184,11 +185,15 @@ export default {
             this.groups = responses[0].content;
             this.checkConditions();
 
-            if(filter){
-                this.groups = this.groups.filter(g=>g.groupId = this.userEdit.groups[0].groupId);
+            if(this.showMineProfile){
+                
+                this.groups = this.groups.filter(g=>g.id == this.userEdit.groups[0].id);
+                let temp = new Array();
                 this.userEdit.info.filter(e=> e.key == 'agencia').forEach(ee=>{
-                    
+                    temp.push(this.agencys.find(a=> a.id == ee.value));
                 });
+
+                this.agencys = temp;
             }    
 
 
@@ -208,7 +213,7 @@ export default {
                 this.request.password = this.userEdit.password;
                 this.$forceUpdate();   
             }
-    },
+    },    
     computed:{
         ...mapGetters(['getUser']),
         agency:{
@@ -356,12 +361,12 @@ export default {
                     this.request.info.push({key:'trocar_senha', userId: this.request.id, value: dateString});
                     this.request.userMaster = this.getUser.email;
                     return UserService.saveUser(this.request).then((response)=>{
-                      this.savedSuccess();
+                      this.savedSuccess('Usuário criado com sucesso!');
                     });
                 }else if(valid && this.userEdit){
 
                   return UserService.updateUser(this.request).then(()=>{
-                      this.savedSuccess();
+                      this.savedSuccess('Usuário atualizado com sucesso!');
                   })
                 }
 
@@ -369,10 +374,13 @@ export default {
                 this.mxShowModalError(erro);
             });
         },
-        savedSuccess(){
-            this.request = {groups:[], info:[]};
-            this.show='SAVED';
-            setInterval(()=>{this.$emit('back')},1500);
+        savedSuccess(msg){
+
+            this.mxShowModal({title:'Informação', message:msg}).then(()=>{
+                this.$emit('back');
+                this.request = {groups:[], info:[]};
+            })
+            
         },       
     },
     watch:{

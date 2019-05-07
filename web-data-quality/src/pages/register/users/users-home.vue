@@ -21,7 +21,7 @@
         </div>
 
         <!--Componentes Options -->             
-        <user-new-edit-view :userEdit="currentObject" :typeAction="typeAction" :filter="f"  @back="show = 'home'" v-if="show=='new'"></user-new-edit-view>    
+        <user-new-edit-view :userEdit="currentObject" :typeAction="typeAction" :showMineProfile="showMineProfile"  @back="show = 'home';f=false" v-if="show=='new'"></user-new-edit-view>    
 
            
     
@@ -66,37 +66,27 @@ export default {
                 size:10
             },
             groups:[],
-            f:false,
-
-            meuPerfilLogin: this.$route.params.logi,
-            meuPerfilShow: this.$route.params.show,
+            showMineProfile:false,                        
         }
     },  
-    mounted(){         
-      this.getUsers();
-      this.getGroups();
+    mounted(){  
 
-      if(this.meuPerfilShow == 'view'){
-       this. meuPerfilView()
-      }
+      if(this.$route.params.show == 'view'){       
+         this.viewUser(this.getUser);
+         this.showMineProfile = true;
+      }else{
+        this.loading =  Promise.all([this.getUsers(), this.getGroups()]);
+      } 
 
-
-
- 
-
+    },
+    beforeDestroy(){
+        this.showMineProfile = false;
+        console.log('beforeDestroy');
     },
     computed:{
         ...mapGetters(['getUser','getIsMaster']),
     },
     methods:{
-
-        meuPerfilView(){
-                this.f = true;
-                this.show = 'new';
-                this.typeAction = 'VIEW';
-                this.currentObject = this.getUser;   
-        },
-
 
         deleteUser(data){
             this.mxShowModal({title:"Informação", message:`Deseja deletar esse usuário ${data.email}`, type:'YES-NO'}).then(response =>{
@@ -133,7 +123,7 @@ export default {
         },
         getUsers(){                        
            this.filter.userMaster = this.getIsMaster ? undefined : this.getUser.email; 
-           this.loading = UserService.getUsers(this.filter).then((response)=>{
+           return UserService.getUsers(this.filter).then((response)=>{
              
                 response.content.forEach((e)=>{                     
                     e.picture = e.picture ? MockFactory.build('MAKE_IMAGE_PROFILE',e.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
@@ -157,7 +147,7 @@ export default {
                 }); 
         }, 
         getGroups(){
-            this.loading = GroupService.getGroups({page:0,size:1000}).then((response)=>{
+            return GroupService.getGroups({page:0,size:1000}).then((response)=>{
                this.groups = response;
             });
         }              
