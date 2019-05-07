@@ -91,6 +91,7 @@ export default {
     methods:{
 
         meuPerfilView(){
+                this.f = true;
                 this.show = 'new';
                 this.typeAction = 'VIEW';
                 this.currentObject = this.getUser;   
