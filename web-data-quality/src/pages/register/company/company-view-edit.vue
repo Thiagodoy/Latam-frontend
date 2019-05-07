@@ -142,16 +142,23 @@ export default {
 
     mounted(){
          this.viewAgency = this.currentObject || {name:''};
-          this.currentObject.users.forEach(user => {
-                    user.group =  user.groups[0].id;
-                });
-         this.data.conteudo = this.currentObject.users;
+
+          
+          this.loading = AgenciaService.listUserByAgency({id:this.currentObject.id}).then(response=>{
+
+              this.currentObject.users = response.map(a=>{
+                    a.group =  a.groups[0].id;
+                    return a;
+              });
+
+              this.data.conteudo = this.currentObject.users;
+          }).catch(erro=>{
+              this.mxShowModalError(erro);
+          });
     },
     methods:{
-
         
-        saveAgency(){
-            
+        saveAgency(){            
 
             let promise = [];
 

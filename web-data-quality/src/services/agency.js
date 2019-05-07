@@ -47,6 +47,11 @@ class AgencyService extends Service {
         this._url = '';
         return this.put(request);
     }
+
+    listUserByAgency(request){
+        this._url = `/users/${request.id}`;
+        return this.get(request, true);
+    }
 }
 
 
