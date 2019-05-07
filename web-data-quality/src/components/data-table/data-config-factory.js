@@ -9,7 +9,7 @@ class DataTableConfigFactory {
             case 'DATA-TABLE-USER-VISUALIZATION':
                 return this.configTableUserVisualisation();
             case 'DATA-TABLE-COMPANY-VISUALIZATION':
-                return this.configTableCompanyVisualisation();    
+                return this.configTableCompanyVisualisation();
             case 'DATA-TABLE-FILE-VISUALIZATION':
                 return this.configTableFileVisualisation();
             case 'DATA-TABLE-GROUP-VISUALIZATION':
@@ -19,16 +19,40 @@ class DataTableConfigFactory {
             case 'DATA-TABLE-FILE-INFORMATION-VISUALIZATION':
                 return this.configTableFileInformationVisualization();
             case 'DATA-TABLE-RELATORIO-VISUALIZATION':
-            return this.configTableRelatorioVisualisation();
+                return this.configTableRelatorioVisualisation();
+            case 'DATA-TABLE-UPLOAD-RELATORIO-VISUALIZATION':
+                return this.configTableFileUploadInformationVisualization();
             case 'DATA-TABLE-USER-AGENCY':
-            return this.configTableUserAgencyVisualisation();
-           
-           
-                default:
+                return this.configTableUserAgencyVisualisation();
+            default:
                 throw new Error('Configuration not exists!');
 
         }
     }
+
+    configTableFileUploadInformationVisualization() {
+
+
+        return {
+            showCount: true,
+            showOptions: true,
+            showOptionsTYPE: 'LIST-FILE-UPLOAD',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: true,
+            searchBy: "",
+            columns: [
+                { name: "companyName", title: "table_view_file_company_name", formatter: undefined },
+                { name: "name", title: "file", formatter: undefined },
+                { name: "createdDate", title: "table_created_date", formatter: (value) => { return dateTime(value) } },
+                { name: "status", title: "table_view_file_company_status", formatter: undefined },
+            ]
+        };
+
+    }
+
+
 
     configTableFileInformationVisualization() {
         return {
@@ -115,7 +139,7 @@ class DataTableConfigFactory {
             showSearch: false,
             showHeaderOptions: false,
             showRowPerPage: false,
-            showPagination: false,
+            showPagination: true,
             searchBy: "",
             columns: [
                 { name: "company", title: "table_view_file_company_name" },
@@ -179,7 +203,7 @@ class DataTableConfigFactory {
                 { name: "firstName", title: "table_view_user_firstname", formatter: undefined },
                 { name: "lastName", title: "table_view_user_lastname", formatter: undefined },
                 { name: "email", title: "table_view_user_email", formatter: undefined },
-                { name: "group", title: "profile", formatter: (value) => { return value.toUpperCase() }},
+                { name: "group", title: "profile", formatter: (value) => { return value.toUpperCase() } },
 
             ]
         };
@@ -197,14 +221,14 @@ class DataTableConfigFactory {
             searchBy: "",
             columns: [
                 { name: "name", title: "table_agency_name", width: "10%" },
-              
-             
+
+
                 { name: "localFilePath", title: "table_agency_local_file_path", formatter: undefined },
                 { name: "agencyCode", title: "table_agency_code", formatter: undefined },
-                { name:  "S3_PATH", title: "table_agency_s3", formatter: undefined },
-                { name:  "odFlag", title: "table_Agency_od_flag", formatter: undefined },
+                { name: "S3_PATH", title: "table_agency_s3", formatter: undefined },
+                { name: "odFlag", title: "table_Agency_od_flag", formatter: undefined },
                 { name: "flagMonthly", title: "table_agency_flag_monthly", formatter: undefined },
-                { name:  "flagApproved", title: "table_agency_flag_approved", formatter: undefined },
+                { name: "flagApproved", title: "table_agency_flag_approved", formatter: undefined },
 
             ]
         };
@@ -221,11 +245,11 @@ class DataTableConfigFactory {
             showPagination: false,
             searchBy: "",
             columns: [
-                
+
                 { name: "firstName", title: "table_view_user_firstname", formatter: undefined },
                 { name: "lastName", title: "table_view_user_lastname", formatter: undefined },
                 { name: "email", title: "table_view_user_email", formatter: undefined },
-                { name: "group", title: "profile", formatter:(value) => {return value.toUpperCase() } },
+                { name: "group", title: "profile", formatter: (value) => { return value.toUpperCase() } },
 
             ]
         };

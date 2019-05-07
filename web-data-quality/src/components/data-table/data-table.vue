@@ -29,9 +29,13 @@
                                     <span v-if="v.status == 'ERROR'" @click="buttonClick('delete',v)"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
                                     <!-- <span v-if="v.status == 'ERROR'" ><i style="color:red;margin-left:10px;" class=" btn-option fas fa-exclamation-circle" title="Erro"></i></span> -->
                                      <span @click="buttonClick('info',v)" ><i style="color:blue;margin-left:10px;" class=" btn-option fas fa-chart-pie" title="Informação"></i></span>
-                                </template>
+                                </template>                                
                                 <template v-else-if="config.showOptionsTYPE == 'FILE-DETAIL'">                                   
                                     <span><i class=" btn-option  fas  mr-3" :style="{color:(v.qtdErrors == 0 ? 'green':'red')}" :class="{'fa-check-circle':v.qtdErrors == 0,'fa-exclamation-circle':v.qtdErrors > 0 }"></i></span>                                    
+                                </template>
+
+                                <template v-if="config.showOptionsTYPE == 'LIST-FILE-UPLOAD'">
+                                    <i @click="buttonClick('download',v)" class="fas fa-download"></i>
                                 </template>   
                                                         
                                 <template v-else>

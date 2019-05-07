@@ -50,13 +50,13 @@
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
                         <td style="max-width:145px;">
-                            <input  v-model="timeInit"  name="date-init" style="color:#ccc;" class="form-control mx-auto ml-2" type="date" />                            
+                            <datepicker  v-model="timeInit"  name="date-init" style="color:#ccc;" class="form-control mx-auto ml-2"  placeholder="dd/MM/yyyy" format="dd/MM/yyyy"></datepicker>                           
                         </td>
                         <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
                         <td style="max-width:145px;">
                             <div>
-                                <input v-model="timeEnd" style="color:#ccc;" v-validate="'after:date-init'" name="date-end" class="form-control mx-auto" type="date" />                                
-                            </div>
+                                <datepicker v-model="timeEnd" style="color:#ccc;" v-validate="'after:date-init'" name="date-end" class="form-control mx-auto"  placeholder="dd/MM/yyyy" format="dd/MM/yyyy"></datepicker>                                
+                            </div>                            
                         </td>
                         <td class="text-right"></td>
                         <td>
@@ -69,30 +69,15 @@
                     </tr>
                 </table>
                 <br>
-                <table id="table-mock" class="table table-striped table-dark  tabela">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">{{$t('lang.table_view_file_company_name')}}</th>
-                            <th scope="col">{{$t('lang.file')}}</th>
-                            <th scope="col">{{$t('lang.table_created_date')}}</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Download</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(v,i) in data.conteudo" :key="i">
-                            <th scope="row">{{i + 1}}</th>
-                            <td>{{getNameAgency(v.company)}}</td>
-                            <td>{{v.name}}</td>
-                            <td>{{v.createdDate|dateTime}}</td>
-                            <td>
-                                <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />
-                            </td>
-                            <td @click="download(v.name)"><i class="fas fa-download"></i></td>
-                        </tr>                       
-                    </tbody>
-                </table>
+
+
+                <data-table 
+                    :config="configDataTable" 
+                    :data="data"
+                    @page="setPage"
+                    @download="download">
+                </data-table>
+
                 <input type="file" id="file-upload" style="display:none;" accept=".xls,.csv" multiple>
             </div>
             <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -152,7 +137,7 @@ export default {
             show:'upload',
             loading:undefined,
             configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
-            configDataTable: DataTableFactory.build('DATA-TABLE-RELATORIO-VISUALIZATION'),
+            configDataTable: DataTableFactory.build('DATA-TABLE-UPLOAD-RELATORIO-VISUALIZATION'),
             data:{
                 conteudo:[],
                 pagination:{pageable:{}},
@@ -207,11 +192,13 @@ export default {
                 if(!this.request.timeStart){
                     return '';//moment().format('YYYY-MM-DD');
                 }else{
-                    return moment(new Date(this.request.timeStart)).format('YYYY-MM-DD');
+                    return new Date(this.request.timeStart);
                 }
             },
             set:function(data){
-                this.request.timeStart = new Date(data).getTime();
+                data.setHours(0,0,1);
+                console.log(data)
+                this.request.timeStart = data.getTime();
             }
         },
         timeEnd:{
@@ -219,11 +206,13 @@ export default {
                 if(!this.request.timeEnd){
                     return ''//moment().format('YYYY-MM-DD');
                 }else{
-                    return moment(new Date(this.request.timeEnd)).format('YYYY-MM-DD');
+                   return new Date(this.request.timeEnd);
                 }
             },
-            set:function(data){
-                this.request.timeEnd = new Date(data).getTime();
+            set:function(data){                
+                data.setHours(23,59,59);
+                console.log(data);
+                this.request.timeEnd = data.getTime();
             }
         },
         company:{
@@ -242,8 +231,11 @@ export default {
 
     methods:{
 
-        getNameAgency(id){
-            if(this.agencys.length == 0)return "";
+        setPage(page){            
+            this.request.page = page;
+            this.listFiles();
+        },
+        getNameAgency(id){            
             return this.agencys.find(e=>e.id == id).name;
         },
         showDetail(data){
@@ -257,9 +249,8 @@ export default {
                this.showError(erro);
             });
         },
-        download(data){
-            let agency = this.getUser.info.find(e=>e.key == 'agencia').value;
-            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download?fileName=${data}&company=${agency}`;       
+        download(data){            
+            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download?fileName=${data.name}&company=${data.company}`;       
             var aTag = window.document.getElementById('mobi');
             aTag.setAttribute('href', this.downloadStatementUrl);
             aTag.setAttribute('download', 'erros.txt');      
@@ -267,7 +258,14 @@ export default {
         },
         listFiles(){          
             this.loading = FileService.listFile(this.request).then((response)=>{
-                this.data.conteudo = response.content;
+                
+                this.data.conteudo = response.content.map(f=>{
+                    
+                    f.companyName = this.getNameAgency(f.company);
+                    f.status = '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />';                    
+                    return f;
+                });
+
                 this.data.pagination = response
             }).catch((erro)=>{
                this.showError(erro);
@@ -321,6 +319,7 @@ export default {
                 this.request.timeEnd = undefined;                
             }
         }
+       
     },
     components:{
         Toolbar,

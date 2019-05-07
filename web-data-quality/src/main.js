@@ -13,19 +13,22 @@ import filter from './filter/index';
 import VueSession from 'vue-session';
 import MiximModal from './mixins/modal';
 import { VueMaskDirective } from "v-mask";
-import { abilitiesPlugin } from '@casl/vue'
-import abilitiesFactory from './security/ability-factory'
+
 import Autocomplete from 'v-autocomplete'
 import 'v-autocomplete/dist/v-autocomplete.css'
 import "./assets/css/multselect.css";
 import 'jquery';
+import ComponentsPlugin from './components/index';
 
+Vue.use(ComponentsPlugin);
 
 // CASL
 //Vue.use(abilitiesPlugin, abilitiesFactory.build(null));
 
 //auto complete
 Vue.use(Autocomplete)
+
+Vue.com
 
 //Mask
 Vue.directive("mask", VueMaskDirective);
