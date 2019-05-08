@@ -122,6 +122,7 @@ export default {
     width: 100%;
     overflow: auto;
     padding: 20px; 
+    min-height: 600px;
 }
 .active{
     margin-left: 210px;

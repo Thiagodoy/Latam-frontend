@@ -31,44 +31,90 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}" role="tabpanel" aria-labelledby="nav-home-tab">
-                <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="">
-                    <tr style="width:10%;">
-                        <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
-                        <th >
+                   
+                   
+               <center>   <div class="filtros">
+                       <div class="filter-select">
+                           <div>{{$t('lang.table_view_file_company_name')}}:&nbsp;</div> 
                             <multiselect
-                                v-model="company"
-                                :options="options"
-                                :label="'name'"                                
-                                :track-by="'id'"
-                                tag-placeholder="Add this as new tag"                                
-                                :selectLabel="'Pressione enter para selecionar'"
-                                :selectedLabel="'Selecionado'"
-                                :deselectLabel="'Pressione enter para remover'"
-                                :placeholder="'Selecione a agencia'"                                                               
-                                :multiple="true">                                
-                            </multiselect>
-                        </th>
-                        <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
-                        <td style="max-width:145px;">
-                            <datepicker input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>                           
-                        </td>
-                        <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
-                        <td style="max-width:145px;">
-                            <div>
-                                <datepicker input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>                                
-                            </div>                            
-                        </td>
-                        <td class="text-right"></td>
-                        <td>
+                                        v-model="company"
+                                        :options="options"
+                                        :label="'name'"                                
+                                        :track-by="'id'"
+                                        tag-placeholder="Add this as new tag"                                
+                                        :selectLabel="'Pressione para selecionar'"
+                                        :selectedLabel="'Selecionado'"
+                                        :deselectLabel="'Pressione para Deselecionar'"
+                                        :placeholder="'Selecione a agencia'" 
+                                        :limit="2"
+                                        :max-width="150"                                                                  
+                                        :multiple="true"> 
+                                                                
+                                    </multiselect>
+                       </div>
+                       <div class="filter-date">
+                           <div class="date-init">
+                            <div class="filterlabel">{{$t('lang.label_input_search_date_From')}}&nbsp;</div>   
+                            <datepicker input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                           </div>
+                            <div class="date-end">
+                             <div>{{$t('lang.label_input_search_date_To')}}&nbsp;</div>
+                             <datepicker input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
+                            </div>
+                             <div class="filter-button">
                             <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
-                        </td>
-                    </tr>
-                    <tr>
-                    </tr>
-                    <tr>
-                    </tr>
-                </table>
+                       </div>
+                       </div>
+                      
+                   </div></center>
+                   
+                   
+                   
+                   
+            <!--  <div class="filter-scroll">
+                        <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="tab-filter">
+                            <tr style="width:10%;">
+                                <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
+                                <th >
+                                    <multiselect
+                                        v-model="company"
+                                        :options="options"
+                                        :label="'name'"                                
+                                        :track-by="'id'"
+                                        tag-placeholder="Add this as new tag"                                
+                                        :selectLabel="'Pressione para selecionar'"
+                                        :selectedLabel="'Selecionado'"
+                                        :deselectLabel="'Pressione para Deselecionar'"
+                                        :placeholder="'Selecione a agencia'" 
+                                        :limit="2"
+                                        :max-width="150"                                                                  
+                                        :multiple="true"> 
+                                                                
+                                    </multiselect>
+                                </th>
+                                <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
+                                <td style="max-width:145px; min-width:150px">
+                                    <datepicker input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>                           
+                                </td>
+                                <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
+                                <td style="max-width:150px;min-width:150px">
+                                    <div>
+                                        <datepicker input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>                                
+                                    </div>                            
+                                </td>
+                                <td class="text-right"></td>
+                                <td>
+                                    <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </table>
+                    </div> -->
                 <br>
+
 
 
                 <data-table 
@@ -392,9 +438,10 @@ table{
 
 
 .help{
-    position:absolute;
-    right:50px;
-    top:133px;
+    position:relative;
+    right:40px;
+    top: 10px;
+    float: right;
     font-size:30px;
     cursor:pointer;
     &:hover{
@@ -406,16 +453,112 @@ table{
     top:130px;
     width: 250px;
   padding: 20px;
-     background-color: rgba(255,255,255,0.9);
+     background-color: rgba(255,255,255,1);
     position: absolute;
-    right: 110px;
+    right: 100px;
     border-radius: 10px;
     color:#111;
+    z-index: 300;
 }
 
 
+.filtros{
+    display: flex;
+  justify-content: center;
+    margin-top:30px;
+    // flex-flow: row wrap;
+}
+
+.filter-select{
+  
+    display: flex;
+    justify-content: center;
+   margin-right: 10px;
+}
+
+.filter-date{
+    display: flex;
+  //background: #ff0;
+    min-width: 370px;
+    .date-init{
+        display: flex;
+          max-width: 200px;
+           margin-right: 10px;
+           margin-left: 10px;
+            min-width: 140px;
+    }
+    .date-end{
+        display: flex;
+       max-width: 200px;
+        min-width: 140px;
+    }
+}
 
 
+@media (max-width: 1150px) { 
+
+.filtros{
+  //  background: #ff0;
+    display: flex;
+ 
+    margin-top:30px;
+    flex-direction: column;
+    
+}
+
+.filter-select{
+  
+    display: flex;
+    justify-content: center;
+   margin-right: 10px;
+   margin-bottom: 10px;
+    flex-direction: column;
+   margin-bottom: 20px;
+   
+
+}
+
+.filter-date{
+    display: flex;
+    justify-content: center;
+    min-width: 310px;
+    margin-bottom: 10px;
+    .date-init{
+         flex-direction: column;
+        display: flex;
+          max-width: 200px;
+           margin-right: 10px;
+           margin-left: 10px;
+            min-width: 140px;
+    }
+    .date-end{
+        flex-direction: column;
+        display: flex;
+       max-width: 200px;
+        min-width: 140px;
+    }
+}
+
+.filter-button{
+   display: flex;
+   
+  padding: 25px 0 15px 0;
+}
+
+ }
+
+ @media (max-width: 850px) { 
+.filter-select{
+  
+   //  margin-bottom: 0px;
+}
+    
+  
+
+
+ }
+
+ 
 
 
 </style>
