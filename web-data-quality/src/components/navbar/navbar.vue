@@ -5,7 +5,7 @@
             
          
 
-           <div v-html="image"  @click="show==false ? show=true:show=false" class="avatar text-left"></div>
+           <div v-html="image"  @click="show=!show" class="avatar text-left"></div>
        
           <transition name="fade">
             <div @mouseleave="show=false" v-if="show" class="box-menu-list"> 

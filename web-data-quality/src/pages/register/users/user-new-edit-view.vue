@@ -196,8 +196,7 @@ export default {
                 this.agencys = temp;
             }   
             
-            if(this.userEdit){
-                debugger;
+            if(this.userEdit){                
                 this.request.id = this.userEdit.email;
                 this.request.firstName = this.userEdit.firstName;
                 this.request.lastName = this.userEdit.lastName;
