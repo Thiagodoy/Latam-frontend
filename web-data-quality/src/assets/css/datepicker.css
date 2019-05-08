@@ -17,3 +17,13 @@ box-shadow: none !important;
 input.input-date::placeholder {
     color: #eee;
 }
+
+
+.vdp-datepicker__clear-button{
+    color: #eee;
+    position: relative;
+    top: -22px;
+    right: -90px;
+}
+
+

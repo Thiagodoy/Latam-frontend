@@ -5,7 +5,7 @@
             
          
 
-           <div v-html="getUser.picture"  @click="show==false ? show=true:show=false" class="avatar text-left"></div>
+           <div v-html="image"  @click="show=!show" class="avatar text-left"></div>
        
           <transition name="fade">
             <div @mouseleave="show=false" v-if="show" class="box-menu-list"> 
@@ -37,6 +37,7 @@
                     </div>
                 </div>
 
+
               
                  <div class="latam">
                      <img style="width:120px;"  class=" mx-auto d-block" src="../../assets/images/Login_Logo_Latam.png">
@@ -58,32 +59,19 @@ import MockFactory from '../../utils/mock-factory';
 
 export default {
     data(){
-        return{
-            showAvatar:true,
+        return{           
             show:false,
-            userLogado:undefined,
-            avatar:undefined,
+            image:undefined    
        }
     },
     computed:{
-        ...mapGetters(['getIsFirstAccess']),
-        ...mapGetters(['getUser'])
-        
+        ...mapGetters(['getIsFirstAccess','getUser']),
     },
     methods:{  
-        ...mapActions(['logout']),       
-       
-    },  
-    created(){
-           this.getUser.picture = this.getUser.picture ? MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ; 
-    },
-    mounted(){
-
-      
-
-     
-       
-      
+        ...mapActions(['logout']),
+    },      
+    mounted(){ 
+        this.image = this.getUser.pictureUrl ?  MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.pictureUrl) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
     }  
 }
 </script>

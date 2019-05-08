@@ -100,9 +100,6 @@ export default {
     computed:{      
 
       de(){
-     
-        console.log(`pagina`, (this.data.pagination.pageable.pageNumber + 1),'numberOfElements', this.data.pagination.numberOfElements)
-
         return this.data.pagination ? ((this.data.pagination.pageable.pageNumber + 1) * this.data.pagination.size) - (this.data.pagination.size) + 1 : 0;
       },
       para(){        

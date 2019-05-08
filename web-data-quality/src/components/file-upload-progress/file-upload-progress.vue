@@ -66,7 +66,7 @@ export default {
            },2000) 
            
         }).catch((erro)=>{
-             console.log('erro',erro.message)
+             console.log('erro',erro.message);
              this.status = 'ERROR';
         });      
     },

@@ -13,7 +13,6 @@ import filter from './filter/index';
 import VueSession from 'vue-session';
 import MiximModal from './mixins/modal';
 import { VueMaskDirective } from "v-mask";
-
 import Autocomplete from 'v-autocomplete'
 import 'v-autocomplete/dist/v-autocomplete.css'
 import datepickercss from '../src/assets/css/datepicker.css';
@@ -22,6 +21,7 @@ import 'jquery';
 import ComponentsPlugin from './components/index';
 
 Vue.use(ComponentsPlugin);
+
 
 // CASL
 //Vue.use(abilitiesPlugin, abilitiesFactory.build(null));
@@ -62,8 +62,6 @@ const instance = new Vue({
 
     render: h => h(App),
 }).$mount('#app');
-
-console.log('instance', instance);
 
 export {
     i18n,

@@ -194,25 +194,28 @@ export default {
                 });
 
                 this.agencys = temp;
-            }    
-
-
-        }).catch(erro=>{            
-            this.mxShowModalError(erro)
-        })
-
-
-       if(this.userEdit){
+            }   
+            
+            if(this.userEdit){                
                 this.request.id = this.userEdit.email;
                 this.request.firstName = this.userEdit.firstName;
                 this.request.lastName = this.userEdit.lastName;
                 this.request.email = this.userEdit.email;
-                this.request.photo = this.userPhoto === '../../../assets/images/avatar-null.jpg' ? '' :this.userPhoto;
+                this.request.photo = this.userEdit.pictureUrl;
+                this.userPhoto  = this.userEdit.pictureUrl;
                 this.request.groups = this.userEdit.groups.map((g)=>g.groupId);
                 this.request.info = this.userEdit.info;
                 this.request.password = this.userEdit.password;
                 this.$forceUpdate();   
             }
+
+
+        }).catch(erro=>{            
+            this.mxShowModalError(erro)
+        });
+
+
+       
     },    
     computed:{
         ...mapGetters(['getUser']),
@@ -315,7 +318,7 @@ export default {
 
         },
         resendEmail(){
-           this.loading = UserService.resendAcces(this.userEdit.email).then(response=>{
+           this.loading = UserService.resendAcces(this.userEdit.email).then(()=>{
                this.mxShowModal({title:'Informação', message:' E-mail enviado com sucesso!'}); 
            }).catch(erro=>{
                this.mxShowModalError(erro);
@@ -339,8 +342,7 @@ export default {
 
                 let reader = new FileReader();
 
-                reader.onload = (re)=>{                    
-                   let image = document.getElementById('image-photo');              
+                reader.onload = (re)=>{                                       
                    this.userPhoto = re.target.result;
                 }
                 reader.readAsDataURL(e.target.files[0]); 
@@ -360,7 +362,7 @@ export default {
                     this.request.info.push({key:'ultimo_acesso', userId: this.request.id, value: dateString});
                     this.request.info.push({key:'trocar_senha', userId: this.request.id, value: dateString});
                     this.request.userMaster = this.getUser.email;
-                    return UserService.saveUser(this.request).then((response)=>{
+                    return UserService.saveUser(this.request).then(()=>{
                       this.savedSuccess('Usuário criado com sucesso!');
                     });
                 }else if(valid && this.userEdit){
@@ -384,14 +386,17 @@ export default {
         },       
     },
     watch:{
-        userEdit(newValue, oldValue){
+        userEdit(newValue){
           
             if(newValue){
-                request.id = newValue.email;
-                request.firstName = newValue.firstName;
-                request.lastName = newValue.lastName;
-                request.email = newValue.email;
-                request.groups = newValue.groups.map((g)=>g.id);
+                this.request.id = this.userEdit.email;
+                this.request.firstName = this.userEdit.firstName;
+                this.request.lastName = this.userEdit.lastName;
+                this.request.email = this.userEdit.email;
+                this.request.photo = this.userPhoto === '../../../assets/images/avatar-null.jpg' ? '' :this.userPhoto;
+                this.request.groups = this.userEdit.groups.map((g)=>g.groupId);
+                this.request.info = this.userEdit.info;
+                this.request.password = this.userEdit.password;
             }
         }
     }

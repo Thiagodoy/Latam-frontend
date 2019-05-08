@@ -80,8 +80,7 @@ export default {
 
     },
     beforeDestroy(){
-        this.showMineProfile = false;
-        console.log('beforeDestroy');
+        this.showMineProfile = false;        
     },
     computed:{
         ...mapGetters(['getUser','getIsMaster']),
@@ -125,7 +124,8 @@ export default {
            this.filter.userMaster = this.getIsMaster ? undefined : this.getUser.email; 
            return UserService.getUsers(this.filter).then((response)=>{
              
-                response.content.forEach((e)=>{                     
+                response.content.forEach((e)=>{ 
+                    e.pictureUrl = e.picture;
                     e.picture = e.picture ? MockFactory.build('MAKE_IMAGE_PROFILE',e.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
                 });
                 

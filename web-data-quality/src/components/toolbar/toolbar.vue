@@ -42,9 +42,8 @@ export default {
     },
     methods:{
         search:_.debounce(function(){
-             if(!!this.filterSelected ){
-                this.filter[this.filterSelected] = this.searchText.length > 0 ? this.searchText : undefined;
-                console.log('filter', this.filter); 
+             if(this.filterSelected ){
+                this.filter[this.filterSelected] = this.searchText.length > 0 ? this.searchText : undefined;                
                 this.$emit('filter',this.filter);                   
              }else{
                  this.mxShowModal({title:'Informação', message:'Selecione um filtro!'});

@@ -56,11 +56,9 @@ const userStore = {
         loginStore({ commit, getters }, payload) {
             return AuthService.login(payload).then(response => {
                 commit(MAIN_LOGIN, response);
-                instance.$session.set('user', response);
-                console.log('session-id', instance.$session.id());
+                instance.$session.set('user', response);                
                 Vue.use(abilitiesPlugin, AbilityFactory.build(response));
-                instance.$forceUpdate();
-                console.log('rules', AbilityFactory.getAbilities().rules);
+                instance.$forceUpdate();                
                 return response;
             });
         },
