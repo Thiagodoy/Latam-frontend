@@ -1,0 +1,19 @@
+input.input-date{
+
+    background: transparent;
+    color:#eee;
+    width: 100%;
+    border: none !important;
+     
+}
+
+input.input-date {
+
+outline: 0;
+-webkit-box-shadow: none !important;
+box-shadow: none !important;
+}
+
+input.input-date::placeholder {
+    color: #eee;
+}

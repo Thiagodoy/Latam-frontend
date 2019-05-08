@@ -124,7 +124,7 @@ export default {
     padding: 20px; 
 }
 .active{
-    margin-left: 200px;
+    margin-left: 210px;
 }
 ::-webkit-scrollbar {
     width: 6px;
@@ -144,7 +144,7 @@ export default {
 }
 .slide-enter, .slide-leave-to
 /* .slide-fade-leave-active em versões anteriores a 2.1.8 */ {
-  transform: translateX(-190px);
+  transform: translateX(-215px);
   
 }
 

@@ -62,7 +62,7 @@ export default {
 <style scoped>
 .all-sidebar{
    background-color: rgba(0, 0, 0, .5);
-    width: 200px;
+    width: 210px;
     height:calc(100vh - 53px);
     overflow: auto;
    
@@ -152,7 +152,7 @@ a:hover{text-decoration-line: none;}
 
 
 .x-menu{
-    width: 200px;
+    width: 210px;
 }
 
 

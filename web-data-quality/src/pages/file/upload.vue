@@ -50,12 +50,12 @@
                         </th>
                         <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
                         <td style="max-width:145px;">
-                            <datepicker  v-model="timeInit"  name="date-init" style="color:#ccc;" class="form-control mx-auto ml-2"  placeholder="dd/MM/yyyy" format="dd/MM/yyyy"></datepicker>                           
+                            <datepicker input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>                           
                         </td>
                         <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
                         <td style="max-width:145px;">
                             <div>
-                                <datepicker v-model="timeEnd" style="color:#ccc;" v-validate="'after:date-init'" name="date-end" class="form-control mx-auto"  placeholder="dd/MM/yyyy" format="dd/MM/yyyy"></datepicker>                                
+                                <datepicker input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>                                
                             </div>                            
                         </td>
                         <td class="text-right"></td>
@@ -409,6 +409,8 @@ table{
     border-radius: 10px;
     color:#111;
 }
+
+
 
 
 
