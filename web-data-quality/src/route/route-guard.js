@@ -11,11 +11,9 @@ class RouterGuard extends Vue {
 
         console.log('checkUserIsLogged', this.isLogged());
         if (to.name == 'login') {
-            if (!!this.isLogged()) {
-                next({ name: 'home' });
-                console.log('direcionando para home');
-            }
-            console.log('direcionando para o login');
+            if (this.isLogged()) {
+                next({ name: 'home' });                
+            }            
             next()
             return
         }

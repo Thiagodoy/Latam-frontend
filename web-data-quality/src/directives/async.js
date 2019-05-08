@@ -14,9 +14,7 @@ export default {
         let $el = $(el);
         let overlay = $el.data('overlay-div');
 
-        // $el.css('position', 'relative');
-        console.log(JSON.stringify(binding));
-        console.log($el);
+        // $el.css('position', 'relative');        
         if (binding.modifiers.opacity)
             overlay.addClass('opacity-loading');
         else

@@ -3,7 +3,7 @@
         <div class="x-navbar">
          
 
-           <div v-html="getUser.picture"  @click="show==false ? show=true:show=false" class="avatar text-left"></div>
+           <div v-html="image"  @click="show==false ? show=true:show=false" class="avatar text-left"></div>
        
           <transition name="fade">
             <div @mouseleave="show=false" v-if="show" class="box-menu-list"> 
@@ -33,18 +33,14 @@
             </div>           
             <div class="bar-options container-fluid">
                 <div class="row" v-if="!(getIsFirstAccess == true)">
-                   
-                
-                  
-                   <!-- <div class="col-md-12 text-right logaut " @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div> -->
-               
+                   <!-- <div class="col-md-12 text-right logaut " @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</div> -->               
                 </div>
             </div>           
         </div>
 
    
 
-       <div v-html="getUser.picutere"></div>
+       
 
 
 
@@ -59,32 +55,19 @@ import MockFactory from '../../utils/mock-factory';
 
 export default {
     data(){
-        return{
-            showAvatar:true,
+        return{           
             show:false,
-            userLogado:undefined,
-            avatar:undefined,
+            image:undefined    
        }
     },
     computed:{
-        ...mapGetters(['getIsFirstAccess']),
-        ...mapGetters(['getUser'])
-        
+        ...mapGetters(['getIsFirstAccess','getUser']),
     },
     methods:{  
-        ...mapActions(['logout']),       
-       
-    },  
-    created(){
-           this.getUser.picture = this.getUser.picture ? MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ; 
-    },
-    mounted(){
-
-      
-
-     
-       
-      
+        ...mapActions(['logout']),
+    },      
+    mounted(){ 
+        this.image = this.getUser.pictureUrl ?  MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.pictureUrl) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
     }  
 }
 </script>

@@ -60,7 +60,7 @@
                         </td>
                         <td class="text-right"></td>
                         <td>
-                            <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                            <button  @click="listFiles;this.request.page=0"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
                         </td>
                     </tr>
                     <tr>
@@ -127,8 +127,7 @@ import FileDetailStatus from './file-status-detail.vue';
 import AgencyService from '../../services/agency'; 
 import { mapGetters } from 'vuex';
 import Multiselect from 'vue-multiselect';
-import moment from 'moment';
-
+import * as _ from 'lodash';
 
 export default {
     
@@ -190,33 +189,31 @@ export default {
         timeInit:{
             get:function(){
                 if(!this.request.timeStart){
-                    return '';//moment().format('YYYY-MM-DD');
+                    return '';
                 }else{
                     return new Date(this.request.timeStart);
                 }
             },
             set:function(data){
-                data.setHours(0,0,1);
-                console.log(data)
+                data.setHours(0,0,1);                
                 this.request.timeStart = data.getTime();
             }
         },
         timeEnd:{
             get:function(){
                 if(!this.request.timeEnd){
-                    return ''//moment().format('YYYY-MM-DD');
+                    return '';
                 }else{
                    return new Date(this.request.timeEnd);
                 }
             },
             set:function(data){                
-                data.setHours(23,59,59);
-                console.log(data);
+                data.setHours(23,59,59);                
                 this.request.timeEnd = data.getTime();
             }
         },
         company:{
-            set:function(newValue, oldValue){                
+            set:function(newValue){                
                 this.request.company = newValue.map(e=>e.id);
             },
             get:function(){
@@ -243,7 +240,7 @@ export default {
             this.fileCurrent = data;
         },
         delete(data){
-            FileService.deleteFile({id:data.id}).then((response)=>{
+            FileService.deleteFile({id:data.id}).then(()=>{
                 this.listFiles();
             }).catch(erro=>{
                this.showError(erro);
@@ -310,7 +307,7 @@ export default {
         }
     },
     watch:{
-        show(newValue,oldValue){
+        show(){
             if(this.show == 'file'){
                 this.listFiles();
             }

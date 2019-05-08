@@ -7,12 +7,10 @@ function validaLowerCase(value, args) {
 }
 
 function caracterRepetido(value, args) {
-    console.log('caracterRepetido',/([a-z])\1{2}/ig.test(value))
     return { valid: !(/([a-z])\1{2}/ig.test(value)) };
 }
 
 function validaCaracterEspecial(value, args) {
-    console.log('validaCaracterEspecial', (/[!@#$%&*()_+=§ª]+/.test(value)), 'value', value)
     return { valid: (/[!@#$%&*()_+=§ª]+/.test(value)) };
 }
 

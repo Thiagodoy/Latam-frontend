@@ -117,8 +117,6 @@
 <script>
 import Localization from "../components/local/localization.vue";
 import AuthenticationService from "../services/auth.js";
-import Loading from '../components/loading/loading.vue';
-import * as _ from 'lodash';
 import {mapActions, mapGetters } from 'vuex';
 import Package from '../../package.json';
 
@@ -137,10 +135,8 @@ export default {
       loading: undefined
     };
   },
-  mounted(){
-    console.log(Package);
+  mounted(){    
     this.version = Package.version;
-
    },
   computed:{
     ...mapGetters(['getIsFirstAccess'])
@@ -162,7 +158,7 @@ export default {
       this.loading = Promise.all([this.$validator.validate('forgot-password-email')]).then(response=>{       
        if(response[0]){
           return AuthenticationService.forgot(this.forgotRequest).then(()=>{
-                   this.mxShowModal({title:'Informação', message:'Email enviado com sucesso!'}).then(response=>{                    
+                   this.mxShowModal({title:'Informação', message:'Email enviado com sucesso!'}).then(()=>{                    
                      this.tipoLogin = 'login';
                   });
                 });
@@ -197,8 +193,7 @@ export default {
     }
   },
   components: {
-    Localization,
-    Loading,
+    Localization,    
   }
 };
 </script>
