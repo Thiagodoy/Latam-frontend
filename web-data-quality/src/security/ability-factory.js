@@ -14,7 +14,8 @@ class AbilityFactory {
         } else if (this.isCoordenador(user)) {
             abilities.push({ subject: ['Upload', 'Opcao', 'User', 'File'], actions: 'manage', conditions: { agencys, profile: ['executivo de planejamento', 'executivo de vendas', 'master agência', 'agência'] } });
         } else if (this.isExecutivoVenda(user)) {
-            abilities.push({ subject: ['Upload', 'Opcao'], actions: 'manage' });
+            abilities.push({ subject: ['Upload', 'Opcao', 'User'], actions: 'manage', conditions: { agencys, profile: ['master agência', 'agência'] } });
+            abilities.push({ subject: ['File'], actions: 'upload' });
             abilities.push({ subject: ['File'], actions: 'report' });
         } else if (this.isExecutivoPlanejamento(user)) {
             abilities.push({ subject: ['Upload', 'Opcao', 'User'], actions: 'manage', conditions: { agencys, profile: ['master agência', 'agência'] } });
