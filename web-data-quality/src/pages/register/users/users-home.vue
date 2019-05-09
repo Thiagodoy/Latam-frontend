@@ -43,6 +43,7 @@ import UserService from '../../../services/user';
 import GroupService from '../../../services/group'
 import MockFactory from '../../../utils/mock-factory';
 import _ from 'lodash';
+import AbilityFactory from '../../../security/ability-factory';
 import {mapGetters} from 'vuex';
 
 
@@ -120,8 +121,15 @@ export default {
             })
             
         },
-        getUsers(){                        
-           this.filter.userMaster = this.getIsMaster ? undefined : this.getUser.email; 
+        getUsers(){                                  
+
+           if(!this.getIsMaster){
+               console.log('AbilityFactory',AbilityFactory.getRule())
+               this.filter.agencys = AbilityFactory.getRule()[0].conditions.agencys.map(a=>a.id);
+               this.filter.profile = AbilityFactory.getRule()[0].conditions.profile;               
+           }
+
+
            return UserService.getUsers(this.filter).then((response)=>{
              
                 response.content.forEach((e)=>{ 
