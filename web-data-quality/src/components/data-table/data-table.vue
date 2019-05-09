@@ -2,7 +2,7 @@
     <div>
         <div class="data-table mt-2">
             <div class="wrapper-table">     
-                <table class="table table-striped table-dark fluid">
+                <table v-if="data.conteudo && data.conteudo.length > 0" class="table table-striped table-dark fluid">
                     <thead>
                         <tr>
                             <!-- <th scope="col">#</th>
@@ -48,8 +48,14 @@
                         </tr>
                     </tbody>
                 </table>
+                <div v-else-if="data.conteudo && data.conteudo.length == 0" class="alert alert-warning" role="alert">
+                  Nenhum registro encontrado!
+                </div>
+                <div v-else class="alert alert-warning" role="alert">
+                  Carregando...
+                </div>
             </div>
-            <div v-if="config.showPagination" class="row">
+            <div v-if="config.showPagination && data.conteudo.length > 0" class="row">
                 <div class="col" v-if="data.pagination">
                     <p class="no-margin entries">{{`${$t('lang.table_pagination_show_info')} ${ de } ${$t('lang.table_pagination_show_to')} ${ para } ${$t('lang.table_pagination_show_of')} ${ totais } ${$t('lang.table_pagination_show_registers')}`}}</p>
                 </div>

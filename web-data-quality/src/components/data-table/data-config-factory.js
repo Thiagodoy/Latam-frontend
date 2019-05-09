@@ -225,7 +225,7 @@ class DataTableConfigFactory {
 
                 { name: "localFilePath", title: "table_agency_local_file_path", formatter: undefined },
                 { name: "agencyCode", title: "table_agency_code", formatter: undefined },
-                { name: "S3_PATH", title: "table_agency_s3", formatter: undefined },
+                { name: "s3Path", title: "table_agency_s3", formatter: undefined },
                 { name: "odFlag", title: "table_Agency_od_flag", formatter: undefined },
                 { name: "flagMonthly", title: "table_agency_flag_monthly", formatter: undefined },
                 { name: "flagApproved", title: "table_agency_flag_approved", formatter: undefined },

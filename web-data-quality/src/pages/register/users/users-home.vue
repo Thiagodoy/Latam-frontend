@@ -59,7 +59,7 @@ export default {
             show:'home',
             typeAction:undefined,
             data:{
-                conteudo:[],
+                conteudo:undefined,
                 pagination:undefined
             },
             filter:{
@@ -123,8 +123,7 @@ export default {
         },
         getUsers(){                                  
 
-           if(!this.getIsMaster){
-               console.log('AbilityFactory',AbilityFactory.getRule())
+           if(!this.getIsMaster){               
                this.filter.agencys = AbilityFactory.getRule()[0].conditions.agencys.map(a=>a.id);
                this.filter.profile = AbilityFactory.getRule()[0].conditions.profile;               
            }
