@@ -169,7 +169,9 @@ export default {
     mounted(){        
 
         let promises = new Array();
-        promises.push(GroupService.getGroups({page:0, size:100}));
+
+        //TODO: workaround alterar para listar apenas as agencias do usuario
+        promises.push(GroupService.getGroups({page:0, size:100}));        
         promises.push(AgencyService.list({page:0,size:1000}));
 
         this.loading = Promise.all(promises).then(responses=>{
@@ -187,13 +189,18 @@ export default {
 
             if(this.showMineProfile){
                 
-                this.groups = this.groups.filter(g=>g.id == this.userEdit.groups[0].id);
+                this.groups = this.groups.filter(g=>g.id == this.userEdit.groups[0].id);               
+                
                 let temp = new Array();
                 this.userEdit.info.filter(e=> e.key == 'agencia').forEach(ee=>{
                     temp.push(this.agencys.find(a=> a.id == ee.value));
-                });
-
+                });                
+                
                 this.agencys = temp;
+                this.userEdit.groups.forEach((g)=>{
+                    g.groupId = g.id;
+                });
+                this.$forceUpdate();  
             }   
             
             if(this.userEdit){                
@@ -350,7 +357,7 @@ export default {
         },
 
         saveUser(){
-            //FIXME: Colocar o loading 
+            
             this.loading = this.$validator.validateAll().then((valid)=>{
                                     
                 this.request.id = this.request.email;

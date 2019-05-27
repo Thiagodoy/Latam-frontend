@@ -38,7 +38,7 @@ export default {
             configToolBar:ToolbarFactory.build('TOOLBAR-GROUP-VISUALIZATION'),
             loading:undefined,
             data:{
-                conteudo:undefined,
+                conteudo:[],
                 pagination:undefined
             },
             currentGroup:undefined,

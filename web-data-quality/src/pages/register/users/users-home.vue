@@ -59,7 +59,7 @@ export default {
             show:'home',
             typeAction:undefined,
             data:{
-                conteudo:undefined,
+                conteudo:[],
                 pagination:undefined
             },
             filter:{
@@ -70,11 +70,13 @@ export default {
             showMineProfile:false,                        
         }
     },  
+   
     mounted(){  
 
       if(this.$route.params.show == 'view'){       
          this.viewUser(this.getUser);
          this.showMineProfile = true;
+         this.typeAction = 'EDIT';
       }else{
         this.loading =  Promise.all([this.getUsers(), this.getGroups()]);
       } 
