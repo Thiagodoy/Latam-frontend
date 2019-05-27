@@ -185,22 +185,28 @@ export default {
             });
 
             this.groups = responses[0].content;
-            this.checkConditions();
+            
+            if( !this.showMineProfile){                
+                this.checkConditions();
+            }
 
             if(this.showMineProfile){
                 
-                this.groups = this.groups.filter(g=>g.id == this.userEdit.groups[0].id);               
+                this.userEdit.groups.forEach((g)=>{
+                    g.groupId = g.id;
+                });
+
+                this.groups = this.groups.filter(gg=>{            
+                    return gg.id == this.userEdit.groups[0].id;
+                }); 
                 
+
                 let temp = new Array();
                 this.userEdit.info.filter(e=> e.key == 'agencia').forEach(ee=>{
                     temp.push(this.agencys.find(a=> a.id == ee.value));
                 });                
                 
                 this.agencys = temp;
-                this.userEdit.groups.forEach((g)=>{
-                    g.groupId = g.id;
-                });
-                this.$forceUpdate();  
             }   
             
             if(this.userEdit){                
@@ -298,8 +304,7 @@ export default {
 
         checkConditions(){
 
-            let conditions = AbilityFactory.getRule()[0].conditions;
-
+            let conditions = AbilityFactory.getRule()[0].conditions;               
             if(conditions && conditions.agencys && conditions.agencys.length > 0){
                 let tempAgency = [];
                 
@@ -319,7 +324,7 @@ export default {
                     tempProfile.push(profile);
                 });
 
-                this.groups = tempProfile;
+                this.groups = tempProfile;                
             } 
 
 
