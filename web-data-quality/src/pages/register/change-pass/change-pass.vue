@@ -7,7 +7,7 @@
          <div class="col-md-6 form">
 
             <div  class="alert" >
-            A nova senha deverá ter no mínimo 08 caracteres, sendo alfanumérico, mínimo de uma letra maiúscula,
+            A nova senha deverá ter no mínimo 8 caracteres, sendo alfanumérico, mínimo de uma letra maiúscula,
             no mínimo um caractere especial e repetir até dois
             caracteres seguidos são permitidos.
          </div>
