@@ -15,7 +15,7 @@ function validaCaracterEspecial(value, args) {
 }
 
 function validaLength(value, args) {
-    return { valid: (value.length > 8) };
+    return { valid: (value.length > 7) };
 }
 
 export const caracterEspecial = {

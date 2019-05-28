@@ -56,7 +56,7 @@ class UserService extends Service {
      */
     resendAcces(value) {
         this._url = `/resendPassword`;
-        return this.get({ email: value }, true);
+        return this.get({ email: value, master:'true' }, true);
     }
 }
 
