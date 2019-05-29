@@ -177,6 +177,7 @@ import AgencyService from '../../services/agency';
 import { mapGetters } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import * as _ from 'lodash';
+import Constantes from '../../utils/constantes';
 
 export default {
     
@@ -206,9 +207,7 @@ export default {
                 timeEnd:undefined,
                 status:'UPLOADED'
             },
-
-            help:false,
-            limitText:"teste",
+            help:false,            
    
         }
     },
@@ -338,11 +337,33 @@ export default {
             };
             inputFile.click();   
         },
-        processFile(e, agencia){                           
-            for(let i = 0; i < e.target.files.length; i++){                   
+        processFile(e, agencia){ 
+            
+            let someFileBigSize = this.checkFileSize(e.target.files);
+            
+            if(someFileBigSize){
+                setTimeout(()=>{
+                    let hasFiles = e.target.files.length > 1;
+                    this.mxShowModal({title:'Erro', message:`${hasFiles ? 'Existem':''} ${hasFiles ? 'arquivos':'Arquivo'} com tamanho superior a  <span style="color:red"><b>${Constantes.FILE_SIZE_UPLOAD/1000000} MB</span></b>.`})
+                    document.getElementById('file-upload').value = "";                
+                }, 500);
+
+                return;
+            }
+            
+            for(let i = 0; i < e.target.files.length; i++){                               
                 this.filesUploads.push({file:e.target.files[i],agency:agencia});
             }
+            
             document.getElementById('file-upload').value = "";
+        },
+        checkFileSize(fileList){            
+             for(let i = 0; i < fileList.length; i++){   
+               if(fileList[i].size > Constantes.FILE_SIZE_UPLOAD){
+                   return true
+               }
+            }
+            return false;
         },
         getAgencys(data){
             let a = new Array();
