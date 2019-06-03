@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-async="loading">
         <!-- toolbar -->
        <toolbar 
             v-if="show == 'HOME'" 
@@ -60,8 +60,6 @@ export default {
            this.filter =  _.merge({page:0,size:10},data);            
         },
         getGroups(){
-          
-        // FIXME: Put Loading
             this.loading = GroupService.getGroups(this.filter).then((response=>{
                 this.data.conteudo = response.content;
                 this.data.pagination = response;
