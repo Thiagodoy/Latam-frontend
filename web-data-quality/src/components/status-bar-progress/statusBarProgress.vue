@@ -3,35 +3,35 @@
     <div class="box text-center">
       <div class="box-status">
         <span id="upload" class="status-label">Upload</span>
-        <div class="status-circle um" :class="{ 'etapaOK':etapaUm}">1</div>
+        <div class="status-circle um" :class="{ 'etapaOK':etapaUm}"><i v-if="etapaUm" class="fas fa-check"></i><span v-if="!etapaUm">1</span></div>
       </div>
 
       <div class="status-line" :class="{ 'lineOk':lineUm}"></div>
 
       <div class="box-status">
         <span id="parse" class="status-label text-center">Parse</span>
-        <div class="status-circle" :class="{ 'etapaOK':etapaDois}">2</div>
+        <div class="status-circle" :class="{ 'etapaOK':etapaDois}"><i v-if="etapaDois" class="fas fa-check"></i><span v-if="!etapaDois">2</span></div>
       </div>
 
       <div class="status-line" :class="{ 'lineOk':lineDois}"></div>
 
       <div class="box-status">
         <span id="validacao" class="status-label">Validação</span>
-        <div class="status-circle" :class="{ 'etapaOK':etapaTres}">3</div>
+        <div class="status-circle" :class="{ 'etapaOK':etapaTres}"><i v-if="etapaTres" class="fas fa-check"></i><span v-if="!etapaTres">3</span></div>
       </div>
 
       <div class="status-line" :class="{ 'lineOk':lineTres}"></div>
 
       <div class="box-status">
         <span id="persistencia" class="status-label">Persistência</span>
-        <div class="status-circle" :class="{ 'etapaOK':etapaQuatro}">4</div>
+        <div class="status-circle" :class="{ 'etapaOK':etapaQuatro}"><i v-if="etapaQuatro" class="fas fa-check"></i><span v-if="!etapaQuatro">4</span></div>
       </div>
 
       <div class="status-line" :class="{ 'lineOk':lineQuatro}"></div>
 
       <div class="box-status">
         <span id="concluido">Concluido</span>
-        <div class="status-circle" :class="{ 'etapaOK':etapaCinco}">5</div>
+        <div class="status-circle" :class="{ 'etapaOK':etapaCinco}"><i v-if="etapaCinco" class="fas fa-check"></i><span v-if="!etapaCinco">5</span></div>
       </div>
 
       <br>
