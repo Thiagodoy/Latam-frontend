@@ -21,7 +21,7 @@
                     <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
                         <div class="x-smenu">
                             <router-link  v-if="$can('manage', 'Upload')" class="pl-5" tag="a" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;{{$t('lang.save_file')}}</router-link>    
-                            <!-- <router-link class="pl-5" tag="a" to="/file"><i class="fas fa-file-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                            -->
+                            <router-link v-if="$can('manage', 'Upload')" class="pl-5" tag="a" to="/file"><i class="fas fa-file-medical-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                           
                         </div>
                 </li>
                 <li class="x-item" id="senha" v-if="$can('manage', 'Opcao')">
