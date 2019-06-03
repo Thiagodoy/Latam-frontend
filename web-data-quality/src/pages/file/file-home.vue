@@ -35,7 +35,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}" role="tabpanel" aria-labelledby="nav-home-tab">
                    
-                   
+                  
                <center>   <div class="filtros">
                        <div class="filter-select">
                            <div>{{$t('lang.table_view_file_company_name')}}:&nbsp;</div> 
@@ -70,7 +70,7 @@
                             <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
                        </div>
                        </div>
-                      
+                     
                    </div></center>
                    
                    
@@ -130,6 +130,9 @@
                     @download="download">
                 </data-table>
 
+                <!-- Componente detalhes -->
+              <details-validar/>
+              
                 <input type="file" id="file-upload" style="display:none;" accept=".csv" multiple>
 
             </div>
@@ -182,6 +185,7 @@ import { mapGetters } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import * as _ from 'lodash';
 import Constantes from '../../utils/constantes';
+import DetailsValidar from './file-status-datail-validar'
 
 
 export default {
@@ -400,7 +404,7 @@ export default {
         DataTable,
         FileUploadProgress,
         FileDetailStatus,
-
+        DetailsValidar,
         Multiselect
       
     }
