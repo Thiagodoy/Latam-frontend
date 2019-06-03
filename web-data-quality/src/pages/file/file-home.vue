@@ -1,168 +1,174 @@
 <template>
-    <div v-async="loading" >
+<div v-async="loading">
+
+    <div v-if="showOp== 'list'">
 
 
-            <div v-if="showOp== 'list'">
-                    <!-- List File -->
-                    <!-- Toolbar  -->
-                    <toolbar :config="configToolbar" @upload="openUpload"></toolbar>
-                        <br>
-                    
-                    <nav mt-5>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab"  role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
-                            <a class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab"  role="tab" aria-controls="nav-home" aria-selected="true">Status</a>
-                        
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}"  role="tabpanel" aria-labelledby="nav-home-tab">
-                             <!-- Status Arquivos --> 
-                            
-                                    <!-- DataTable 
-                                    <data-table 
-                                        :data="data" 
-                                        @download="download" 
-                                        @info="showDetail"
-                                        :config="configDataTable">
-                                    </data-table>
-                                    <input type="file"  id="file-upload" style="display:none;" multiple>
-                                    -->
-
-                               
-                               <!-- componentes status : alterar :status="3", para mudar de etapa-->
-                                <div class="row">
-                                    <div class="col-md-12">
-                                       <status-bar :status ="3"></status-bar>
-                                    </div>
-                                </div>
-                               
-                             
-                                <div class="row mt-5">
-                                    <div class="col-md-6 scroll ">
-                                          <!--table mock -->
-                                         <table class="table table-striped table-dark">
-                                            <thead>
-                                                <tr>
-                                                <th scope="col">Field Name</th>
-                                                <th scope="col">Qtd errors</th>
-                                                <th scope="col">Qtd lines</th>
-                                                <th scope="col">Percent erros</th>
-                                                <th scope="col">Percent hit</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                <td>Campo</td>
-                                                <td>10</td>
-                                                <td>10</td>
-                                                <td>100%</td>
-                                                 <td>0%</td>
-                                                </tr>
-                                                <tr>
-                                                 <td>Campo</td>
-                                                 <td>10</td>
-                                                <td>10</td>
-                                                <td>100%</td>
-                                                 <td>0%</td>
-                                                </tr>
-                                                <tr>
-                                                 <td>Campo</td>
-                                                 <td>10</td>
-                                                <td>10</td>
-                                                <td>100%</td>
-                                                 <td>0%</td>
-                                                </tr>
-                                                 <tr>
-                                                 <td>Campo</td>
-                                                 <td>10</td>
-                                                <td>10</td>
-                                                <td>100%</td>
-                                                 <td>0%</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
 
 
-                                    <!-- grafico mock -->
-                                    </div>
-                                     <div class="col-md-6">Grafico pizza
-                                       <graph-pizza/>
-                                     </div>
-                                </div>
-                                <div class="row mt-5">
-                                      <div class="col-md-6 scroll">
-                                           <!--table mock -->
-                                         <table class="table table-striped table-dark">
-                                            <thead>
-                                                <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Primeiro</th>
-                                                <th scope="col">Último</th>
-                                                <th scope="col">Nickname</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                                </tr>
-                                                <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                                </tr>
-                                                <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+        <toolbar v-if="$can('upload', 'File')" 
+            :config="configToolbar" 
+            @upload="openUpload">
+        </toolbar>
 
-                                      </div>
-                                     <!-- grafico mock -->
-                                     <div class="col-md-6">grafico barras
-                                        <graph-bar/>
-                                     </div>
-                                </div>
+       <div   @mouseover="help=true" @mouseleave="help=false" class="help"><i class="far fa-question-circle"></i></div>
 
-                        </div>
-                        <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}"  role="tabpanel" aria-labelledby="nav-profile-tab"><br>
-                      
-                            <div class="wrapper-table">  
-                                <table class="table tabela table-striped table-dark">
-                                    <thead>
-                                        <tr>                                
-                                            <th scope="col" style="width:30%">{{$t('lang.file')}}</th>
-                                            <th scope="col">status</th>                                
-                                        </tr>
-                                    </thead>
-                                    <tbody> 
-                                    <file-upload-progress v-for="(v,i) in filesUploads" :processFile="true" :uploadAws="true" :uploadFtp="false"  :key="i" :fileInput="v" :index="i" @finished="hideProgress"></file-upload-progress>
-                                    </tbody>
-                                    </table>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    
+       <div v-if="help" class="box-help">
+           Para gravar um arquivo, selecione a opção Upload no menu.
+            Na próxima página, clique em Upload na parte superior
+             da tela e escolha o arquivo em uma pasta local.
+            Pronto, visualize a gravação do arquivo na tela.
+             Uma mensagem de carregamento com sucesso
+              será exibida na tela
+
+
+       </div>
+
+        <br>
+
+        <nav mt-5>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a v-if="$can('upload', 'File')"  class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab" role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
+                <a  v-if="$can('report', 'File')" class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
             </div>
-            <div v-else>
-                <!-- Detail file -->
-                
-                <file-detail-status @back="showOp = 'list'" :file="fileCurrent"></file-detail-status>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}" role="tabpanel" aria-labelledby="nav-home-tab">
                    
+                   
+               <center>   <div class="filtros">
+                       <div class="filter-select">
+                           <div>{{$t('lang.table_view_file_company_name')}}:&nbsp;</div> 
+                            <multiselect
+
+                                        v-model="company"
+                                        :options="options"
+                                        :label="'name'"                                
+                                        :track-by="'id'"
+                                        tag-placeholder="Add this as new tag"                                
+                                        :selectLabel="'Pressione para selecionar'"
+                                        :selectedLabel="'Selecionado'"
+                                        :deselectLabel="'Pressione para Deselecionar'"
+                                        :placeholder="'Selecione a agencia'" 
+                                        :limit="2"
+                                        :limit-text="(count)=>`Mais ${count}`"
+                                        :max-width="150"                                                              
+                                        :multiple="true"> 
+                                                                
+                                    </multiselect>
+                       </div>
+                       <div class="filter-date">
+                           <div class="date-init">
+                            <div class="filterlabel">{{$t('lang.label_input_search_date_From')}}&nbsp;</div>   
+                           <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                           </div>
+                            <div class="date-end">
+                             <div>{{$t('lang.label_input_search_date_To')}}&nbsp;</div>
+                             <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
+                            </div>
+                             <div class="filter-button">
+                            <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                       </div>
+                       </div>
+                      
+                   </div></center>
+                   
+                   
+                   
+                   
+            <!--  <div class="filter-scroll">
+                        <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="tab-filter">
+                            <tr style="width:10%;">
+                                <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
+                                <th >
+                                    <multiselect
+                                        v-model="company"
+                                        :options="options"
+                                        :label="'name'"                                
+                                        :track-by="'id'"
+                                        tag-placeholder="Add this as new tag"                                
+                                        :selectLabel="'Pressione para selecionar'"
+                                        :selectedLabel="'Selecionado'"
+                                        :deselectLabel="'Pressione para Deselecionar'"
+                                        :placeholder="'Selecione a agencia'" 
+                                        :limit="2"
+                                        :max-width="150"                                                                  
+                                        :multiple="true"> 
+                                                                
+                                    </multiselect>
+                                </th>
+                                <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
+                                <td style="max-width:145px; min-width:150px">
+                                    <datepicker input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>                           
+                                </td>
+                                <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
+                                <td style="max-width:150px;min-width:150px">
+                                    <div>
+                                        <datepicker input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>                                
+                                    </div>                            
+                                </td>
+                                <td class="text-right"></td>
+                                <td>
+                                    <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </table>
+                    </div> -->
+
+                <br>
+
+
+
+                <data-table 
+                    :config="configDataTable" 
+                    :data="data"
+                    @page="setPage"
+                    @download="download">
+                </data-table>
+
+                <input type="file" id="file-upload" style="display:none;" accept=".csv" multiple>
+
             </div>
-           
-            
+            <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <br>
+                <div class="wrapper-table">
+                    <table class="table tabela table-striped table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width:30%">{{$t('lang.file')}}</th>
+                                <th scope="col">status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <file-upload-progress 
+                                v-for="(v,i) in filesUploads" 
+                                :processFile="true" 
+                                :uploadAws="false" 
+                                :uploadFtp="false" 
+                                :key="i" 
+                                :fileInput="v" 
+                                :index="i" 
+                                @finished="hideProgress">
+                            </file-upload-progress>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-     
+    <div v-else>
+        <!-- Detail file -->
+        <file-detail-status @back="showOp = 'list'" :file="fileCurrent"></file-detail-status>
+    </div>
+
+</div>     
 </template>
+
+
 <script>
 import Toolbar from '../../components/toolbar/toolbar.vue';
 import FileUploadProgress from '../../components/file-upload-progress/file-upload-progress.vue'
@@ -171,22 +177,21 @@ import DataTable from '../../components/data-table/data-table.vue';
 import DataTableFactory from '../../components/data-table/data-config-factory';
 import FileService from '../../services/file';
 import FileDetailStatus from './file-status-detail.vue';
-import {mapActions, mapGetters} from 'vuex';
-import StatusBar from '../../components/status-bar-progress/statusBarProgress'
-import  GraphPizza from '../../components/graphics/graph-pizza'
-import  GraphBar from '../../components/graphics/graph-bar'
-
-
-
+import AgencyService from '../../services/agency'; 
+import { mapGetters } from 'vuex';
+import Multiselect from 'vue-multiselect';
+import * as _ from 'lodash';
+import Constantes from '../../utils/constantes';
 
 
 export default {
+    
     data(){
         return {
             show:'upload',
             loading:undefined,
             configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
-            configDataTable: DataTableFactory.build('DATA-TABLE-FILE-VISUALIZATION'),
+            configDataTable: DataTableFactory.build('DATA-TABLE-UPLOAD-RELATORIO-VISUALIZATION'),
             data:{
                 conteudo:[],
                 pagination:{pageable:{}},
@@ -194,39 +199,128 @@ export default {
             filesUploads:[],
             removeFileUploads:[],
             showOp:'list',
-            fileCurrent:undefined
+            fileCurrent:undefined,
+            agencys:[],
+            options: [],
+            idAgencyFilter:undefined,
+            listAgencia:undefined,
+            request:{
+                page:0,
+                size:10,
+                company:[],
+                timeStart:undefined,
+                timeEnd:undefined,                
+            },
+            help:false,            
+   
         }
     },
     mounted(){
-        this.listFiles();
-   
-   },
-    computed:{
-        ...mapGetters(['getAgencysFromUser'])
+
+
+       this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
+
+              let temp = undefined;               
+              if(!this.getIsMaster){
+                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
+                  this.request.company = temp.map(e=>e.id)  
+              }else{
+                  temp = response.content;
+              }  
+
+              this.agencys = temp;
+              this.options = temp;              
+              //this.company = temp;  
+
+              this.listFiles();
+       }).catch(erro=>{
+           this.mxShowModalError(erro);
+       });
+       
     },
+     computed:{
+        ...mapGetters(['getUser','getAgencysFromUser','getIsMaster']),
+        timeInit:{
+            get:function(){
+                if(!this.request.timeStart){
+                    return '';
+                }else{
+                    return new Date(this.request.timeStart);
+                }
+            },
+            set:function(data){
+                data.setHours(0,0,1);                
+                this.request.timeStart = data.getTime();
+            }
+        },
+        timeEnd:{
+            get:function(){
+                if(!this.request.timeEnd){
+                    return '';
+                }else{
+                   return new Date(this.request.timeEnd);
+                }
+            },
+            set:function(data){                
+                data.setHours(23,59,59);                
+                this.request.timeEnd = data.getTime();
+            }
+        },
+        company:{
+            set:function(newValue){                
+                this.request.company = newValue.map(e=>e.id);
+            },
+            get:function(){
+                let data = new Array();                
+                this.request.company.forEach(e=>{
+                    data.push(this.agencys.find(a=>a.id == e));
+                });
+                return data;
+            }
+        }
+
+    },
+
     methods:{
+
+        setPage(page){            
+            this.request.page = page;
+            this.listFiles();
+        },
+        getNameAgency(id){            
+            return this.agencys.find(e=>e.id == id).name;
+        },
         showDetail(data){
             this.showOp = 'detail';
             this.fileCurrent = data;
         },
         delete(data){
-            FileService.deleteFile({id:data.id}).then((response)=>{
+            FileService.deleteFile({id:data.id}).then(()=>{
                 this.listFiles();
+            }).catch(erro=>{
+               this.showError(erro);
             });
         },
-        download(data){
-            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/errors/${data.id}/2`;       
+        download(data){            
+            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download?fileName=${data.name}&company=${data.company}`;       
             var aTag = window.document.getElementById('mobi');
             aTag.setAttribute('href', this.downloadStatementUrl);
             aTag.setAttribute('download', 'erros.txt');      
             aTag.click();
         },
-        listFiles(){
-            FileService.listFile({page:0,size:10}).then((response)=>{
-               this.data.conteudo = response.content;
+        listFiles(){          
+            this.loading = FileService.listFile(this.request).then((response)=>{
+                
+                this.data.conteudo = response.content.map(f=>{
+                    
+                    f.companyName = this.getNameAgency(f.company);
+                    f.status = '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />';                    
+                    return f;
+                });
+
                 this.data.pagination = response
             }).catch((erro)=>{
-                this.mxShowModalError(erro);
+               this.showError(erro);
             });
         },
         hideProgress(index){
@@ -236,44 +330,83 @@ export default {
                 this.filesUploads.splice(arguments[0],1);
            
         }, 1000),
-         openUpload(){          
+        openUpload(){          
             let inputFile = document.getElementById('file-upload');
-            inputFile.onchange = (e)=>{                            
-                if(this.getAgencysFromUser.length > 1){
-                    this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencysFromUser }).then((response)=>{
-                        this.processFile(e);
+            inputFile.onchange = (e)=>{                
+               if(this.getAgencysFromUser.length > 1){
+                    this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencys(this.getAgencysFromUser) }).then((response)=>{                        
+                        this.processFile(e, response);
                     });
                 }else{
-                    this.processFile(e);
+                    this.processFile(e,this.getAgencysFromUser[0].value);
                 }
             };
             inputFile.click();   
         },
-        processFile(e){                           
-            for(let i = 0; i < e.target.files.length; i++){                   
-                this.filesUploads.push(e.target.files[i]);
+        processFile(e, agencia){ 
+            
+            let someFileBigSize = this.checkFileSize(e.target.files);
+            
+            if(someFileBigSize){
+                setTimeout(()=>{
+                    let hasFiles = e.target.files.length > 1;
+                    this.mxShowModal({title:'Erro', message:`${hasFiles ? 'Existem':''} ${hasFiles ? 'arquivos':'Arquivo'} com tamanho superior a  <span style="color:red"><b>${Constantes.FILE_SIZE_UPLOAD/1000000} MB</span></b>.`})
+                    document.getElementById('file-upload').value = "";                
+                }, 500);
+
+                return;
             }
-            inputFile.value = "";
+            
+            for(let i = 0; i < e.target.files.length; i++){                               
+                this.filesUploads.push({file:e.target.files[i],agency:agencia});
+            }
+            
+            document.getElementById('file-upload').value = "";
+        },
+        checkFileSize(fileList){            
+             for(let i = 0; i < fileList.length; i++){   
+               if(fileList[i].size > Constantes.FILE_SIZE_UPLOAD){
+                   return true
+               }
+            }
+            return false;
+        },
+        getAgencys(data){
+            let a = new Array();
+            data.forEach(e=>{
+                a.push(this.agencys.find(a=> a.id == e.value));                
+            });
+
+            return a;
+        },
+        showError(erro){
+          this.mxShowModalError(erro);
         }
     },
     watch:{
-        show(newValue,oldValue){
+        show(){
             if(this.show == 'file'){
                 this.listFiles();
             }
+            if(this.show == 'upload'){
+                this.request.timeStart = undefined;
+                this.request.timeEnd = undefined;                
+            }
         }
+       
     },
     components:{
         Toolbar,
         DataTable,
         FileUploadProgress,
         FileDetailStatus,
-        StatusBar,
-        GraphPizza,
-        GraphBar,
+
+        Multiselect
+      
     }
 }
 </script>
+
 <style lang="scss" scoped>
 
 .nav-item:active{
@@ -305,15 +438,28 @@ export default {
     
 }
 
-.wrapper-lista-erros{
-    
-    ul{
-         border:1px solid #fff;
-        text-decoration: none;
-        list-style-type: none;
-        border-radius: 15px;
-    }
 
+table{
+      background-color: rgba(0, 0, 0, .4);
+   
+    color: #a9a9a9;
+    margin: 15px auto;
+    &.table-striped tbody tr:nth-of-type(odd) {
+  
+    }
+  
+    & tbody tr:hover,
+    & tbody tr.active {
+         color:#ffed69;
+      -webkit-box-shadow:                     0 0 30px 0 rgba(0, 0, 0, 0.3);
+      -moz-box-shadow:                        0 0 30px 0 rgba(0, 0, 0, 0.3);
+      box-shadow:                             0 0 30px 0 rgba(0, 0, 0, 0.3);
+      &:nth-of-type(even) {
+      
+      }
+
+    }
+}
     ul li{
         display: flex;
         align-items: center;
@@ -321,13 +467,12 @@ export default {
         height: 40px;
         border-bottom: 1px solid #fff;
 
-        &:last-child {
-            border: none;
-        }
-    }
 
 }
 
+.multselect{
+    background: #ff0;
+}
 
 .scroll{
     overflow: auto
@@ -343,6 +488,129 @@ export default {
 }
 
 
-</style>
+.help{
+    position:relative;
+    right:40px;
+    top: 10px;
+    float: right;
+    font-size:30px;
+    cursor:pointer;
+    &:hover{
+        color: #ffed69;
+    }
+}
 
+.box-help{
+    top:130px;
+    width: 250px;
+  padding: 20px;
+     background-color: rgba(255,255,255,1);
+    position: absolute;
+    right: 100px;
+    border-radius: 10px;
+    color:#111;
+    z-index: 300;
+}
+
+
+.filtros{
+    display: flex;
+  justify-content: center;
+    margin-top:30px;
+    // flex-flow: row wrap;
+}
+
+.filter-select{
+  
+    display: flex;
+    justify-content: center;
+   margin-right: 10px;
+}
+
+.filter-date{
+    display: flex;
+  //background: #ff0;
+    min-width: 370px;
+    .date-init{
+        display: flex;
+          max-width: 200px;
+           margin-right: 10px;
+            max-width: 170px;
+        min-width: 160px;
+    }
+    .date-end{
+        display: flex;
+       max-width: 170px;
+        min-width: 160px;
+    }
+}
+
+
+@media (max-width: 1150px) { 
+
+.filtros{
+  //  background: #ff0;
+    display: flex;
+ 
+    margin-top:30px;
+    flex-direction: column;
+    
+}
+
+.filter-select{
+  
+    display: flex;
+    justify-content: center;
+   margin-right: 10px;
+   margin-bottom: 10px;
+    flex-direction: column;
+   margin-bottom: 20px;
+   
+
+}
+
+.filter-date{
+    display: flex;
+    justify-content: center;
+    min-width: 310px;
+    margin-bottom: 10px;
+    .date-init{
+         flex-direction: column;
+        display: flex;
+          max-width: 200px;
+           margin-right: 10px;
+           margin-left: 10px;
+            min-width: 160px;
+    }
+    .date-end{
+        flex-direction: column;
+        display: flex;
+       max-width: 200px;
+        min-width: 160px;
+    }
+}
+
+.filter-button{
+   display: flex;
+   
+  padding: 25px 0 15px 0;
+}
+
+ }
+
+ @media (max-width: 850px) { 
+.filter-select{
+  
+   //  margin-bottom: 0px;
+}
+    
+  
+
+
+ }
+
+ 
+
+
+</style>
 

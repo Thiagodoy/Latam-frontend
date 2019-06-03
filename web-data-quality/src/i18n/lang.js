@@ -122,7 +122,7 @@ module.exports = {
             language: 'Protuguês_BR',
             register: 'Cadastro',
             users: 'Usuários',
-            file: 'Arquivos',
+            file: 'Validar arquivos',
             associate_agency: 'Associar agências',
             save_file: 'Gravar arquivos',
             file_not_validation: 'Arq. sem validação',
