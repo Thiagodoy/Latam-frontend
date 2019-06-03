@@ -127,7 +127,7 @@
                     @download="download">
                 </data-table>
 
-                <input type="file" id="file-upload" style="display:none;" accept=".xls,.csv" multiple>
+                <input type="file" id="file-upload" style="display:none;" accept=".csv" multiple>
             </div>
             <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <br>
@@ -142,9 +142,9 @@
                         <tbody>
                             <file-upload-progress 
                                 v-for="(v,i) in filesUploads" 
-                                :processFile="false" 
-                                :uploadAws="true" 
-                                :uploadFtp="true" 
+                                :processFile="true" 
+                                :uploadAws="false" 
+                                :uploadFtp="false" 
                                 :key="i" 
                                 :fileInput="v" 
                                 :index="i" 
