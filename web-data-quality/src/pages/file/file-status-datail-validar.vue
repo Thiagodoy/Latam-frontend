@@ -1,5 +1,6 @@
 <template>
   <div>
+    <toolbar :config="configToolbar" @back="$emit('back')"></toolbar>
     <div class="row">
       <div class="col-md-12">
         <status-bar :status="3"></status-bar>
@@ -9,88 +10,27 @@
     <div class="row mt-5">
       <div class="col-md-6 scroll">
         <!--table mock -->
-        <table class="table table-striped table-dark">
-          <thead>
-            <tr>
-              <th scope="col">Field Name</th>
-              <th scope="col">Qtd errors</th>
-              <th scope="col">Qtd lines</th>
-              <th scope="col">Percent erros</th>
-              <th scope="col">Percent hit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Campo</td>
-              <td>10</td>
-              <td>10</td>
-              <td>100%</td>
-              <td>0%</td>
-            </tr>
-            <tr>
-              <td>Campo</td>
-              <td>10</td>
-              <td>10</td>
-              <td>100%</td>
-              <td>0%</td>
-            </tr>
-            <tr>
-              <td>Campo</td>
-              <td>10</td>
-              <td>10</td>
-              <td>100%</td>
-              <td>0%</td>
-            </tr>
-            <tr>
-              <td>Campo</td>
-              <td>10</td>
-              <td>10</td>
-              <td>100%</td>
-              <td>0%</td>
-            </tr>
-          </tbody>
-        </table>
+        <div id="table-scroll">
+            <data-table 
+                :config="dataTableConfig" 
+                :data="data">
+            </data-table>
+        </div>
 
         <!-- grafico mock -->
       </div>
       <div class="col-md-6">
         Grafico pizza
-        <graph-pizza/>
+        <graph-pizza :data="filecurrent.statusProcess" />
       </div>
     </div>
     <div class="row mt-5">
       <div class="col-md-6 scroll">
         <!--table mock -->
-        <table class="table table-striped table-dark">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Primeiro</th>
-              <th scope="col">Último</th>
-              <th scope="col">Nickname</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+       <data-information 
+          :config="dataTableConfigInformation" 
+          :data="dataw">
+       </data-information>
       </div>
       <!-- grafico mock -->
       <div class="col-md-6">
@@ -103,16 +43,67 @@
 
 <script>
 import StatusBar from "../../components/status-bar-progress/statusBarProgress";
+import Toolbar from '../../components/toolbar/toolbar.vue';
 import GraphPizza from "../../components/graphics/graph-pizza";
+import ToolbarFactory from '../../components/toolbar/toolbar-config-factory';
 import GraphBar from "../../components/graphics/graph-bar";
+import {dateTime} from "../../filter/date";
+import DataTable from '../../components/data-table/data-table.vue';
+import DataTableConfigFactory from '../../components/data-table/data-config-factory';
 export default {
+  props:['filecurrent'],
+  data(){
+    return {
+      information:[],
+      status:[],      
+      configToolbar: ToolbarFactory.build('TOOLBAR-BACK') ,
+      dataTableConfig: DataTableConfigFactory.build('DATA-TABLE-FILE-STATUS-VISUALIZATION'),
+      dataTableConfigInformation: DataTableConfigFactory.build('DATA-TABLE-FILE-INFORMATION-VISUALIZATION'),
+      data:{
+          conteudo:[],
+          pagination:{pageable:{}},
+      },
+      dataw:{
+          conteudo:[],
+          pagination:{pageable:{}},
+      },
+    }
+  },
+
+  mounted(){
+
+        let erros = 0;
+        this.filecurrent.statusProcess.forEach((v)=> {erros+= v.qtdErrors;});  
+
+       this.dataw.conteudo.push({information:'Responsável',value:this.filecurrent.userId});
+       this.dataw.conteudo.push({information:'Data',value:dateTime(this.filecurrent.createdDate)});
+       this.dataw.conteudo.push({information:'Arquivo',value:this.filecurrent.name}); 
+       this.dataw.conteudo.push({information:'Qtd de linhas',value:this.filecurrent.qtdTotalLines});
+       this.dataw.conteudo.push({information:'Aprovado',value:this.filecurrent.qtdTotalLines - erros});
+       this.dataw.conteudo.push({information:'Reprovado',value:erros});
+       this.data.conteudo =  this.filecurrent.statusProcess;
+
+       this.data.conteudo.sort((a,b)=>{
+         return a.qtdErrors > b.qtdErrors ? -1 : 1;
+       })
+
+  },
   components: {
     StatusBar,
     GraphPizza,
-    GraphBar
+    GraphBar,
+    DataTable,
+    Toolbar,
+    'data-information':DataTable
   }
 };
 </script>
 
-<style>
+<style lang="scss">
+
+#table-scroll {
+  height:400px;
+  overflow:auto;  
+  margin-top:20px;
+}
 </style>

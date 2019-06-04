@@ -9,10 +9,17 @@ class MockFactory {
                 return this.getMockImageProfile();
             case 'MAKE_IMAGE_PROFILE':
                 return this.makeImageProfile(params);
+            case 'MAKE_IMAGE_STATUS':
+                    return this.makeImageStatus(params);    
             default:
                 throw new Error('Not found a option!');
         }
 
+    }
+
+    makeImageStatus(param) {
+        return param == 'VALIDATION_ERROR' ? '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:red;" />' : 
+        param == 'VALIDATION_SUCCESS' ? '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />' : '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:blue;" />'  
     }
 
     makeImageProfile(image) {
@@ -24,4 +31,4 @@ class MockFactory {
 }
 
 const instance = new MockFactory();
-export default instance
+export default instance;

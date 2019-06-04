@@ -17,7 +17,7 @@
 
       <div class="box-status">
         <span id="validacao" class="status-label">Validação</span>
-        <div class="status-circle" :class="{ 'etapaOK':etapaTres}"><i v-if="etapaTres" class="fas fa-check"></i><span v-if="!etapaTres">3</span></div>
+        <div class="status-circle" :class="{ 'etapaErro':etapaTres}"><i v-if="etapaTres" class="fas fa-check"></i><span v-if="!etapaTres">3</span></div>
       </div>
 
       <div class="status-line" :class="{ 'lineOk':lineTres}"></div>
@@ -189,6 +189,11 @@ export default {
 .etapaOK {
   background: #00b894;
   border: solid #00b894 2px;
+}
+
+.etapaErro {
+  background: #f51313;
+  border: solid #f30101 2px;
 }
 
 .lineOk {

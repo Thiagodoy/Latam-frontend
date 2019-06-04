@@ -71,67 +71,17 @@
                        </div>
                        </div>
                      
-                   </div></center>
+                   </div></center>              
                    
-                   
-                   
-                   
-            <!--  <div class="filter-scroll">
-                        <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="tab-filter">
-                            <tr style="width:10%;">
-                                <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
-                                <th >
-                                    <multiselect
-                                        v-model="company"
-                                        :options="options"
-                                        :label="'name'"                                
-                                        :track-by="'id'"
-                                        tag-placeholder="Add this as new tag"                                
-                                        :selectLabel="'Pressione para selecionar'"
-                                        :selectedLabel="'Selecionado'"
-                                        :deselectLabel="'Pressione para Deselecionar'"
-                                        :placeholder="'Selecione a agencia'" 
-                                        :limit="2"
-                                        :max-width="150"                                                                  
-                                        :multiple="true"> 
-                                                                
-                                    </multiselect>
-                                </th>
-                                <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
-                                <td style="max-width:145px; min-width:150px">
-                                    <datepicker input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>                           
-                                </td>
-                                <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
-                                <td style="max-width:150px;min-width:150px">
-                                    <div>
-                                        <datepicker input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>                                
-                                    </div>                            
-                                </td>
-                                <td class="text-right"></td>
-                                <td>
-                                    <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
-                                </td>
-                            </tr>
-                            <tr>
-                            </tr>
-                            <tr>
-                            </tr>
-                        </table>
-                    </div> -->
 
                 <br>
-
-
-
                 <data-table 
                     :config="configDataTable" 
                     :data="data"
                     @page="setPage"
-                    @download="download">
-                </data-table>
-
-                <!-- Componente detalhes -->
-              <details-validar/>
+                    @download="download"
+                    @info="showDetail">
+                </data-table>            
               
                 <input type="file" id="file-upload" style="display:none;" accept=".csv" multiple>
 
@@ -165,7 +115,8 @@
     </div>
     <div v-else>
         <!-- Detail file -->
-        <file-detail-status @back="showOp = 'list'" :file="fileCurrent"></file-detail-status>
+        <!-- <file-detail-status @back="showOp = 'list'" :file="fileCurrent"></file-detail-status> -->
+        <details-validar @back="showOp = 'list'" :filecurrent="fileCurrent"></details-validar>
     </div>
 
 </div>     
@@ -185,7 +136,8 @@ import { mapGetters } from 'vuex';
 import Multiselect from 'vue-multiselect';
 import * as _ from 'lodash';
 import Constantes from '../../utils/constantes';
-import DetailsValidar from './file-status-datail-validar'
+import DetailsValidar from './file-status-datail-validar';
+import MockFactory from '../../utils/mock-factory'
 
 
 export default {
@@ -195,7 +147,7 @@ export default {
             show:'upload',
             loading:undefined,
             configToolbar: ToolbarFactory.build('TOOLBAR-FILE-VISUALIZATION') , 
-            configDataTable: DataTableFactory.build('DATA-TABLE-UPLOAD-RELATORIO-VISUALIZATION'),
+            configDataTable: DataTableFactory.build('DATA-TABLE-VALIDATION-UPLOAD-VISUALIZATION'),
             data:{
                 conteudo:[],
                 pagination:{pageable:{}},
@@ -213,7 +165,8 @@ export default {
                 size:10,
                 company:[],
                 timeStart:undefined,
-                timeEnd:undefined,                
+                timeEnd:undefined, 
+                status:['VALIDATION_UPLOADED','VALIDATION_PROCESSING','VALIDATION_PARSE','VALIDATION_ERROR','VALIDATION_SUCCESS']               
             },
             help:false,            
    
@@ -285,8 +238,7 @@ export default {
 
     },
 
-    methods:{
-
+    methods:{        
         setPage(page){            
             this.request.page = page;
             this.listFiles();
@@ -318,7 +270,7 @@ export default {
                 this.data.conteudo = response.content.map(f=>{
                     
                     f.companyName = this.getNameAgency(f.company);
-                    f.status = '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />';                    
+                    f.status = MockFactory.build('MAKE_IMAGE_STATUS',f.status);
                     return f;
                 });
 
@@ -380,8 +332,8 @@ export default {
             data.forEach(e=>{
                 a.push(this.agencys.find(a=> a.id == e.value));                
             });
-
-            return a;
+            
+            return a.filter(ee=> ee.layoutFile > 0);
         },
         showError(erro){
           this.mxShowModalError(erro);

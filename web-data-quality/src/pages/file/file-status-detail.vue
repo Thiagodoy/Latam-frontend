@@ -26,7 +26,8 @@
                 <div class="row">
                     <data-information 
                         :config="dataTableConfigInformation" 
-                        :data="dataw"></data-information>
+                        :data="dataw">
+                    </data-information>
                 </div>
 
             </div>

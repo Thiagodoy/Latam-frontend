@@ -22,12 +22,37 @@ class DataTableConfigFactory {
                 return this.configTableRelatorioVisualisation();
             case 'DATA-TABLE-UPLOAD-RELATORIO-VISUALIZATION':
                 return this.configTableFileUploadInformationVisualization();
+            case 'DATA-TABLE-VALIDATION-UPLOAD-VISUALIZATION':
+                    return this.configTableFileValidationUploadVisualization();
             case 'DATA-TABLE-USER-AGENCY':
                 return this.configTableUserAgencyVisualisation();
             default:
                 throw new Error('Configuration not exists!');
 
         }
+    }
+
+    configTableFileValidationUploadVisualization() {
+
+
+        return {
+            showCount: true,
+            showOptions: true,
+            showOptionsTYPE: 'FILE',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: true,
+            searchBy: "",
+            columns: [
+                { name: "companyName", title: "table_view_file_company_name", formatter: undefined },
+                { name: "name", title: "file", formatter: undefined },
+                { name: "createdDate", title: "table_created_date", formatter: (value) => { return dateTime(value) } },
+                { name: "userId", title: "table_user", formatter: undefined },
+                { name: "status", title: "table_view_file_company_status", formatter: undefined },
+            ]
+        };
+
     }
 
     configTableFileUploadInformationVisualization() {
@@ -46,6 +71,7 @@ class DataTableConfigFactory {
                 { name: "companyName", title: "table_view_file_company_name", formatter: undefined },
                 { name: "name", title: "file", formatter: undefined },
                 { name: "createdDate", title: "table_created_date", formatter: (value) => { return dateTime(value) } },
+                { name: "userId", title: "table_user", formatter: undefined },
                 { name: "status", title: "table_view_file_company_status", formatter: undefined },
             ]
         };

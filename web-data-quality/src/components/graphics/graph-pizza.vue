@@ -8,34 +8,48 @@
 <script>
 import Chart from 'chart.js';
 export default {
+
+    props:['data'],
+
     mounted(){
         
-   
+     
+     let tem = this.data.map(d=>{
+
+         let di = this.randomRgb();
+         return{
+             label:d.fieldName,
+             value:d.qtdErrors,
+             ...di
+         }
+     }).filter(ee=> ee.value > 0);
+
+     let labelTemp = tem.map(t=>{
+        return t.label;
+    });
+
+    let dataTemp = tem.map(t=>{
+        return t.value;
+    });
+
+    let backTemp = tem.map(t=>{
+        return t.backgroundColor;
+    });
+
+    let borderColorTemp = tem.map(t=>{
+        return t.borderColor;
+    });   
    
    var ctx = document.getElementById('pizza').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: labelTemp,
             datasets: [{
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                data: dataTemp ,
+                backgroundColor: backTemp ,
+                borderColor: borderColorTemp,
                 borderWidth: 1
             }]
         },
@@ -50,6 +64,12 @@ export default {
         }
     });
 
+    },
+    methods:{
+        randomRgb(){
+             let value = `${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)}`;
+             return {backgroundColor: `rgba(${value},0.2)`,borderColor: `rgba(${value},1)`};
+        }
     }
 
 }
