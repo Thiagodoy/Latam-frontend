@@ -6,28 +6,28 @@
 
             <div v-if="!(getIsFirstAccess == true)" class="x-menu">
                 <li class="x-item" id="">
-                    <router-link class="x-btn" tag="a" to="/home"><i class="fas fa-home "></i>&nbsp;{{$t('lang.home')}}</router-link>
+                    <router-link class="x-btn" tag="li" to="/home"><i class="fas fa-home "></i>&nbsp;{{$t('lang.home')}}</router-link>
                     
                 </li>    
                 <li  class="x-item" id="cadastro">
                     <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                     <div class="x-smenu">
-                        <router-link v-if="$can('manage', 'User')"  class="pl-5" tag="a" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
-                        <router-link v-if="$can('manage', 'Agency')" class="pl-5" tag="a" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
-                        <router-link v-if="$can('manage', 'Profile')" class="pl-5" tag="a" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
+                        <router-link v-if="$can('manage', 'User')"  class="pl-5" tag="li" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
+                        <router-link v-if="$can('manage', 'Agency')" class="pl-5" tag="li" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
+                        <router-link v-if="$can('manage', 'Profile')" class="pl-5" tag="li" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
                     </div>
                 </li>
                 <li class="x-item" id="mensagem">
                     <a href="#mensagem" class="x-btn"><i class="fas fa-arrow-alt-circle-up"></i>&nbsp;Upload &nbsp; <i class="fas fa-caret-down "></i></a>
                         <div class="x-smenu">
-                            <router-link  v-if="$can('manage', 'Upload')" class="pl-5" tag="a" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;{{$t('lang.save_file')}}</router-link>    
-                            <router-link v-if="$can('manage', 'Upload')" class="pl-5" tag="a" to="/file"><i class="fas fa-file-medical-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                           
+                            <router-link  v-if="$can('manage', 'Upload')" class="pl-5 " style="" tag="li" to="/upload"><i class="fas fa-file-upload"></i>&nbsp;{{$t('lang.save_file')}}</router-link>    
+                            <router-link v-if="$can('manage', 'Upload')" class="pl-5" tag="li" to="/file"><i class="fas fa-file-medical-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                           
                         </div>
                 </li>
                 <li class="x-item" id="senha" v-if="$can('manage', 'Opcao')">
                     <a href="#senha" class="x-btn"><i class="fas fa-cog"></i>&nbsp;{{$t('lang.options')}} &nbsp; <i class="fas fa-caret-down "></i></a>
                         <div class="x-smenu">
-                            <router-link   class="pl-5" tag="a" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>                        
+                            <router-link   class="pl-5" tag="li" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>                        
                         </div>
                 </li>
             </div>
@@ -59,7 +59,14 @@ export default {
     
 }
 </script>
-<style scoped>
+
+<style lang="scss" scoped>
+
+
+
+
+
+
 .all-sidebar{
    background-color: rgba(0, 0, 0, .5);
     width: 210px;
@@ -205,14 +212,32 @@ a:hover{text-decoration-line: none;}
 .x-smenu a{
     display: block;
     padding: 16px 16px;
-    color:white;
+    color: white;
     font-size: 16px;
     margin:  4px 0;
     position: relative;
 
 }
 
-.x-smenu a:before{
+.x-smenu li{
+    display: block;
+    padding: 16px 16px;
+    font-size: 16px;
+    margin:  4px 0;
+    position: relative;
+    transition: all .1s ease-in-out;
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1)
+    }
+
+}
+
+
+
+
+
+.x-smenu li:before{
     content: "";
     position: absolute;
     width: 6px;
@@ -222,10 +247,6 @@ a:hover{text-decoration-line: none;}
     top:0;
     transition: 0.3s;
     opacity: 0;
-
-
-
-
 }
 
 .x-smenu a:hover:before{
