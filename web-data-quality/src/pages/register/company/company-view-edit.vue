@@ -68,8 +68,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('s3-imput')}" >
-                                <label for="s3-imput" >{{$t('lang.table_agency_s3')}}</label>
-                                <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'required|validaNroMaxPerfil'"  name="profile" id="profile" >
+                                <label for="s3-imput" >Layout</label>
+                                <select :disabled="typeAction == 'view'" class="form-control campos" v-validate="'required|validaNroMaxPerfil'"  name="profile" id="profile" style="opacity:.7" >
                                     <option selected value="0">Nenhum layout</option>
                                     <option value="1">Layout minimo</option>
                                     <option value="2">Layout máximo</option>
@@ -348,7 +348,9 @@ input[type=radio]
 }
 
 
-
+option{
+    color:#222;
+}
 
 
 </style>
