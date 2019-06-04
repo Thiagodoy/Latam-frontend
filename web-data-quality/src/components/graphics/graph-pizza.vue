@@ -67,8 +67,8 @@ export default {
     },
     methods:{
         randomRgb(){
-             let value = `${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)}`;
-             return {backgroundColor: `rgba(${value},0.2)`,borderColor: `rgba(${value},1)`};
+             let value = `${Math.round(Math.random() * 245 + 10)},${Math.round(Math.random() * 245 + 10)},${Math.round(Math.random() * 245 + 10)}`;
+             return {backgroundColor: `rgba(${value},0.5)`,borderColor: `rgba(${value},1)`};
         }
     }
 

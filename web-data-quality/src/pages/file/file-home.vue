@@ -60,11 +60,11 @@
                        <div class="filter-date">
                            <div class="date-init">
                             <div class="filterlabel">{{$t('lang.label_input_search_date_From')}}&nbsp;</div>   
-                           <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                           <datepicker :clear-button="true" @cleared="clearData"  :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
                            </div>
                             <div class="date-end">
                              <div>{{$t('lang.label_input_search_date_To')}}&nbsp;</div>
-                             <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
+                             <datepicker :clear-button="true" @cleared="clearDataEnd" :clear-button-icon="'fas fa-backspace'"  input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
                             </div>
                              <div class="filter-button">
                             <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
@@ -206,6 +206,7 @@ export default {
                 }
             },
             set:function(data){
+                if(!data)return; 
                 data.setHours(0,0,1);                
                 this.request.timeStart = data.getTime();
             }
@@ -218,7 +219,8 @@ export default {
                    return new Date(this.request.timeEnd);
                 }
             },
-            set:function(data){                
+            set:function(data){  
+                if(!data)return;              
                 data.setHours(23,59,59);                
                 this.request.timeEnd = data.getTime();
             }
@@ -238,7 +240,14 @@ export default {
 
     },
 
-    methods:{        
+    methods:{    
+        
+        clearData(campo,data){            
+            this.request.timeStart = undefined;          
+        },
+        clearDataEnd(campo,data){            
+            this.request.timeEnd = undefined;          
+        },
         setPage(page){            
             this.request.page = page;
             this.listFiles();
@@ -258,7 +267,7 @@ export default {
             });
         },
         download(data){            
-            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download?fileName=${data.name}&company=${data.company}`;       
+            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file//errors/${data.id}/1`;       
             var aTag = window.document.getElementById('mobi');
             aTag.setAttribute('href', this.downloadStatementUrl);
             aTag.setAttribute('download', 'erros.txt');      

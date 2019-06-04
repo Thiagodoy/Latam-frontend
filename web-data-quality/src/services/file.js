@@ -13,6 +13,7 @@ class FileService extends Service {
     }
 
     uploadFile(file, userId, company, callbackProgress) {
+        debugger;
         return this._api.post(`/${company}/${userId}`, file, {
             onUploadProgress: callbackProgress
         })

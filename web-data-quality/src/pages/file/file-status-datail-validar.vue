@@ -3,7 +3,7 @@
     <toolbar :config="configToolbar" @back="$emit('back')"></toolbar>
     <div class="row">
       <div class="col-md-12">
-        <status-bar :status="3"></status-bar>
+        <status-bar :status="filecurrent.stage"></status-bar>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
         <!-- grafico mock -->
       </div>
       <div class="col-md-6">
-        Grafico pizza
+         Erros
         <graph-pizza :data="filecurrent.statusProcess" />
       </div>
     </div>
@@ -34,8 +34,9 @@
       </div>
       <!-- grafico mock -->
       <div class="col-md-6">
-        grafico barras
-        <graph-bar/>
+        <!-- Status -->
+        <!-- <graph-pizza-r :data="filecurrent.statusProcess" /> -->
+        <!-- <graph-bar/> -->
       </div>
     </div>
   </div>
@@ -91,7 +92,7 @@ export default {
   components: {
     StatusBar,
     GraphPizza,
-    GraphBar,
+    'graph-pizza-r':GraphPizza,
     DataTable,
     Toolbar,
     'data-information':DataTable
