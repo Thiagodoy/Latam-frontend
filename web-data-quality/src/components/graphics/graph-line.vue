@@ -33,7 +33,7 @@ export default {
          ctx.canvas.width = 4000;
 					ctx.canvas.height = 1500;
 				
-					
+					Chart.defaults.global.defaultFontColor = 'white';
           var myChart = new Chart(ctx, {
 			type: 'bar',
 			data: {
@@ -72,6 +72,8 @@ export default {
 				}]
 			},
 
+		
+
 			
 
 			options: {
@@ -85,13 +87,21 @@ export default {
 						ticks: {
 							source: 'data',
 							autoSkip: true
-						}
+						},
+						gridLines: {
+							color: 'rgba(171,171,171,1)',
+							lineWidth: 0.5
+        		}
 					}],
 					yAxes: [{
 						scaleLabel: {
 							display: true,
 							labelString: 'Qtd arquivos unid.'
-						}
+						},
+							gridLines: {
+         			color: 'rgba(171,171,171,1)',
+          		lineWidth: 0.5
+        }
 					}]
 				},
 				tooltips: {
@@ -140,8 +150,4 @@ export default {
 
 }
 
-.canvas{
-		min-height: 200px;
-			background: #00f;
-}
 </style>
