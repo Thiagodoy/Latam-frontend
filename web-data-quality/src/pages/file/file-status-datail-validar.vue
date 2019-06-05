@@ -3,7 +3,7 @@
     <toolbar :config="configToolbar" @back="$emit('back')"></toolbar>
     <div class="row">
       <div class="col-md-12">
-        <status-bar :status="filecurrent.stage"></status-bar>
+        <status-bar :hasError="haserror" :status="filecurrent.stage" :config="['Upload','Parse','Validação','Persistência','Concluido']"></status-bar>
       </div>
     </div>
 
@@ -68,6 +68,7 @@ export default {
           conteudo:[],
           pagination:{pageable:{}},
       },
+      haserror:false
     }
   },
 
@@ -75,7 +76,7 @@ export default {
 
         let erros = 0;
         this.filecurrent.statusProcess.forEach((v)=> {erros+= v.qtdErrors;});  
-
+        this.haserror = this.filecurrent.statusProcess.some(v=>v.qtdErrors>0);
        this.dataw.conteudo.push({information:'Responsável',value:this.filecurrent.userId});
        this.dataw.conteudo.push({information:'Data',value:dateTime(this.filecurrent.createdDate)});
        this.dataw.conteudo.push({information:'Arquivo',value:this.filecurrent.name}); 
