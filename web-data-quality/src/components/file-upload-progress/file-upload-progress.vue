@@ -85,7 +85,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .message-error{
-    color: red;
+    color: #d63031;
     font-weight: bold;
     margin-top: 0.15em;
 }

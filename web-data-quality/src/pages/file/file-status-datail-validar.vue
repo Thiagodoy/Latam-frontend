@@ -19,8 +19,8 @@
 
         <!-- grafico mock -->
       </div>
-      <div class="col-md-6">
-         Erros
+      <div class="col-md-6 pt-3">
+         Erros<br><br>
         <graph-pizza :data="filecurrent.statusProcess" />
       </div>
     </div>
@@ -110,5 +110,14 @@ export default {
   height:400px;
   overflow:auto;  
   margin-top:20px;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    cursor: pointer
 }
 </style>
