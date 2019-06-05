@@ -12,8 +12,7 @@ class FileService extends Service {
         return this.get(request, true)
     }
 
-    uploadFile(file, userId, company, callbackProgress) {
-        debugger;
+    uploadFile(file, userId, company, callbackProgress) {        
         return this._api.post(`/${company}/${userId}`, file, {
             onUploadProgress: callbackProgress
         })
@@ -22,6 +21,11 @@ class FileService extends Service {
     deleteFile(request) {
         this._url = '/{id}'
         return this.delete(request)
+    }
+
+    listStatusProcess(request){
+        this._url = '/status/files';
+        return this.get(request, true)
     }
 
 }
