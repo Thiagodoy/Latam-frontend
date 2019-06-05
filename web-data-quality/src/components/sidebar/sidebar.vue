@@ -24,6 +24,12 @@
                             <router-link v-if="$can('manage', 'Upload')" class="pl-5" tag="li" to="/file"><i class="fas fa-file-medical-alt"></i>&nbsp;{{$t('lang.file')}}</router-link>                           
                         </div>
                 </li>
+                <li class="x-item" id="dash">
+                    <a href="#dash" class="x-btn"><i class="fas fa-chart-pie"></i>&nbsp;DashBoard &nbsp; <i class="fas fa-caret-down "></i></a>
+                        <div class="x-smenu">
+                            <router-link  v-if="$can('manage', 'Upload')" class="pl-5 " style="" tag="li" to="/dashboard"><i class="fas fa-chart-line"></i>&nbsp;Arquivos</router-link>                                
+                        </div>
+                </li>
                 <li class="x-item" id="senha" v-if="$can('manage', 'Opcao')">
                     <a href="#senha" class="x-btn"><i class="fas fa-cog"></i>&nbsp;{{$t('lang.options')}} &nbsp; <i class="fas fa-caret-down "></i></a>
                         <div class="x-smenu">

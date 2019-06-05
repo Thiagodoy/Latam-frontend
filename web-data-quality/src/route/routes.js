@@ -6,6 +6,7 @@ import HomePage from '../pages/home.vue'
 import UserHome from '../pages/register/users/users-home.vue'
 import ProfileHome from '../pages/register/profile/profile-home.vue'
 import FileHome from '../pages/file/file-home.vue'
+import DashBoard from '../pages/dashboard/dashboard-home.vue'
 import ChangePass from '../pages/register/change-pass/change-pass.vue'
 import Upload from '../pages/file/upload.vue'
 import CompanyHome from '../pages/register/company/company-home.vue'
@@ -34,6 +35,7 @@ export default new Router({
                 { name: 'users-profile', path: '/users-profile', component: ProfileHome },
                 { name: 'upload', path: '/upload', component: Upload },
                 { name: 'company', path: '/company', component: CompanyHome },
+                {name: 'dashboard', path: '/dashboard', component:DashBoard}
             ]
 
         }

@@ -37,6 +37,7 @@
         <!-- Status -->
         <!-- <graph-pizza-r :data="filecurrent.statusProcess" /> -->
         <!-- <graph-bar/> -->
+        <graph-line/>
       </div>
     </div>
   </div>
@@ -48,6 +49,7 @@ import Toolbar from '../../components/toolbar/toolbar.vue';
 import GraphPizza from "../../components/graphics/graph-pizza";
 import ToolbarFactory from '../../components/toolbar/toolbar-config-factory';
 import GraphBar from "../../components/graphics/graph-bar";
+import GraphLine from "../../components/graphics/graph-line";
 import {dateTime} from "../../filter/date";
 import DataTable from '../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../components/data-table/data-config-factory';
@@ -93,6 +95,7 @@ export default {
   components: {
     StatusBar,
     GraphPizza,
+    GraphLine,
     'graph-pizza-r':GraphPizza,
     DataTable,
     Toolbar,
