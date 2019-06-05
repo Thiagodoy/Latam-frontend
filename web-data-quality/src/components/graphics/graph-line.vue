@@ -28,9 +28,9 @@ export default {
 				contruir(){
 							var ctx = document.getElementById('bar12').getContext('2d');
 							ctx.canvas.width = 4000;
-							ctx.canvas.height = 1500;
+							ctx.canvas.height = 1000;
 
-
+							Chart.defaults.global.defaultFontColor = 'white';
 							var myChart = new Chart(ctx, {
 									type: 'bar',
 									data: {
@@ -126,8 +126,4 @@ export default {
 
 }
 
-.canvas{
-		min-height: 200px;
-			background: #00f;
-}
 </style>
