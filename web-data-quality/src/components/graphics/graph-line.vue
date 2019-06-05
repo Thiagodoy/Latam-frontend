@@ -27,8 +27,8 @@ export default {
 
 				contruir(){
 							var ctx = document.getElementById('bar12').getContext('2d');
-							ctx.canvas.width = 4000;
-							ctx.canvas.height = 1000;
+							ctx.canvas.width = 5100;
+							ctx.canvas.height = 1900;
 
 							Chart.defaults.global.defaultFontColor = 'white';
 							var myChart = new Chart(ctx, {
@@ -83,12 +83,20 @@ export default {
 															ticks: {
 																	source: 'data',
 																	autoSkip: true
+															},
+															gridLines: {
+																color: 'rgba(255,255,255,0.4)',
+																lineWidth: 0.5
 															}
 													}],
 													yAxes: [{
 															scaleLabel: {
 																	display: true,
 																	labelString: 'Qtd arquivos unid.'
+															},
+															gridLines: {
+																color: 'rgba(255,255,255,0.4)',
+																lineWidth: 0.5
 															}
 													}]
 											},
