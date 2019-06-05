@@ -1,7 +1,10 @@
 <template>
     <div class="">
-       <canvas id="bar12" width="300" height=""></canvas>
-    </div>
+
+			<div class="chart-container" >
+       <canvas   style="canvas" id="bar12" width="" height=""></canvas>
+			</div> 
+	  </div>
 </template>
 
 <script>
@@ -11,7 +14,7 @@ export default {
     mounted(){
 
 
-       
+      
 
 		var dateFormat = 'MMMM DD YYYY';
 		var date = momment('April 01 2017', dateFormat);
@@ -27,8 +30,10 @@ export default {
 
  
          var ctx = document.getElementById('bar12').getContext('2d');
-         ctx.canvas.width = 1000;
-		ctx.canvas.height = 300;
+         ctx.canvas.width = 4000;
+					ctx.canvas.height = 1500;
+				
+					
           var myChart = new Chart(ctx, {
 			type: 'bar',
 			data: {
@@ -66,9 +71,15 @@ export default {
 					borderWidth: 2
 				}]
 			},
+
+			
+
 			options: {
+			
 				scales: {
+				
 					xAxes: [{
+						
 						type: 'time',
 						distribution: 'series',
 						ticks: {
@@ -120,6 +131,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.chart-container{
 
+	width: 100%;
+	min-height: 200px;
+	min-width: 350px;
+
+}
+
+.canvas{
+		min-height: 200px;
+			background: #00f;
+}
 </style>
