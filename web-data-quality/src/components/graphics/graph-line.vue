@@ -84,20 +84,14 @@ export default {
 																	source: 'data',
 																	autoSkip: true
 															},
-															gridLines: {
-																color: 'rgba(255,255,255,0.4)',
-																lineWidth: 0.5
-															}
+															
 													}],
 													yAxes: [{
 															scaleLabel: {
 																	display: true,
 																	labelString: 'Qtd arquivos unid.'
 															},
-															gridLines: {
-																color: 'rgba(255,255,255,0.4)',
-																lineWidth: 0.5
-															}
+														
 													}]
 											},
 											tooltips: {
