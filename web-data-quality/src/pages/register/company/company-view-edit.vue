@@ -71,8 +71,8 @@
                                 <label for="s3-imput" >Layout</label>
                                 <select :disabled="typeAction == 'view'" class="form-control campos" v-validate="'required|validaNroMaxPerfil'"  name="profile" id="profile" style="opacity:.7" >
                                     <option selected value="0">Nenhum layout</option>
-                                    <option value="1">Layout minimo</option>
-                                    <option value="2">Layout máximo</option>
+                                    <option value="1">Layout mínimo</option>
+                                    <!-- <option value="2">Layout completo</option> -->
                                 </select>
                             </div>
                         </div>
