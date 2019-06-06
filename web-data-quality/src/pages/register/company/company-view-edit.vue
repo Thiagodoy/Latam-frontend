@@ -18,62 +18,69 @@
             <div class="row">
                <div class="col-md-6">
                     <div class="col-md-12">
-                        <div class="form-group" >
+                        <div class="form-group" :class="{'has-error':errors.has('agenciaName')}" >
                             <label class="" >{{$t('lang.table_agency_name')}}</label>
-                            <input :disabled="typeAction=='view'" v-model="viewAgency.name" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_name')"  >
+                            <input :disabled="typeAction=='view'" v-model="viewAgency.name" name="agenciaName" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_name')"  >
+                            <div class="help-block">{{errors.first('agenciaName')}}</div> 
                         </div>
                     </div>
 
                     <div class="col-md-12">
-                        <div class="form-group" >
+                        <div class="form-group" :class="{'has-error':errors.has('cnpj')}" >
                             <label class="" >CNPJ</label>
-                            <input v-mask="maskCnpj" :disabled="typeAction=='view'" v-model="viewAgency.cnpj" type="text" class="form-control campos" placeholder="CNPJ"  >
+                            <input v-mask="maskCnpj" :disabled="typeAction=='view'" name="cnpj" v-model="viewAgency.cnpj" v-validate="'required'" type="text" class="form-control campos" placeholder="99.999.999/9999-99"  >
+                            <div class="help-block">{{errors.first('cnpj')}}</div> 
                         </div>
                     </div>
 
                     <div class="col-md-12">
-                        <div class="form-group" >
+                        <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
                             <label >{{$t('lang.table_agency_input_path')}}</label>
-                            <input :disabled="typeAction=='view'" v-model="viewAgency.inputPath" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_input_path')"   >
+                            <input :disabled="typeAction=='view'" v-model="viewAgency.inputPath" name="imput-path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_input_path')"   >
+                            <div class="help-block">{{errors.first('imput-path')}}</div>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="form-group" >
+                        <div class="form-group" :class="{'has-error':errors.has('processed_path')}" >
                             <label >{{$t('lang.table_agency_processed_path')}}</label>
-                            <input :disabled="typeAction=='view'" v-model="viewAgency.processedPath" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_processed_path')"   >
+                            <input :disabled="typeAction=='view'" v-model="viewAgency.processedPath" name="processed_path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_processed_path')"   >
+                            <div class="help-block">{{errors.first('processed_path')}}</div>
                         </div>
                     </div>
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-12">
-                            <div class="form-group" >
+                            <div class="form-group" :class="{'has-error':errors.has('file_path')}"  >
                                 <label >{{$t('lang.table_agency_local_file_path')}}</label>
-                                <input :disabled="typeAction=='view'" v-model="viewAgency.localFilePath" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_local_file_path')"   >
+                                <input :disabled="typeAction=='view'" v-model="viewAgency.localFilePath" name="file_path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_local_file_path')"   >
+                                <div class="help-block">{{errors.first('file_path')}}</div>
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <div class="form-group" >
+                            <div class="form-group" :class="{'has-error':errors.has('agency_code')}" >
                                 <label >{{$t('lang.table_agency_code')}}</label>
-                                <input :disabled="typeAction=='view'" v-model="viewAgency.agencyCode" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_code')"   >
+                                <input :disabled="typeAction=='view'" v-model="viewAgency.agencyCode" name="agency_code" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_code')"   >
+                                <div class="help-block">{{errors.first('agency_code')}}</div>
                             </div>
                         </div>
 
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('s3-imput')}" >
                                 <label for="s3-imput" >{{$t('lang.table_agency_s3')}}</label>
-                                <input :disabled="typeAction=='view'" v-validate="'required'" name="s3-imput" v-model="viewAgency.s3Path" type="text" class="form-control campos" :placeholder="$t('lang.table_agency_s3')"   >
+                                <input :disabled="typeAction=='view'" v-validate="'required'" name="s3-imput" v-model="viewAgency.s3Path"  type="text" class="form-control campos" :placeholder="$t('lang.table_agency_s3')"   >
                                 <div class="help-block">{{errors.first('s3-imput')}}</div>  
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group" :class="{'has-error':errors.has('s3-imput')}" >
+                            <div class="form-group" :class="{'has-error':errors.has('layout')}" >
                                 <label for="s3-imput" >Layout</label>
-                                <select v-model="viewAgency.layoutFile" :disabled="typeAction == 'view'" class="form-control campos" v-validate="'required|validaNroMaxPerfil'"  name="profile" id="profile" style="opacity:.7" >
+                                <select v-model="viewAgency.layoutFile" :disabled="typeAction == 'view'" name="layout" class="form-control campos" v-validate="'required'"   id="profile" style="opacity:.7" >
                                     <option selected value="0">Nenhum layout</option>
                                     <option value="1">Layout mínimo</option>
                                     <!-- <option value="2">Layout completo</option> -->
                                 </select>
+                                <div class="help-block">{{errors.first('layout')}}</div> 
                             </div>
                         </div>
                     </div>
@@ -96,7 +103,7 @@
                     </div>
 
                     <div v-if="typeAction == 'edit' || typeAction == 'new'" class="col-md-6 mt-3 ml-3">                        
-                        <button   style="color:#fff" @click="saveAgency" class="btn btn-default btn-large" >{{$t('lang.button_save')}}</button>
+                        <button   style="color:#fff" @click="saveAgency" :disabled="(errors.items.length > 0)" class="btn btn-default btn-large" >{{$t('lang.button_save')}}</button>
                         <button  style="color:#fff" @click="$emit('back')" class="btn btn-default btn-large ml-3 ">{{$t('lang.button_cancel')}}</button>  
                     </div>
             </div>
@@ -116,154 +123,90 @@
     </div>
 </template>
 <script>
-
 import AgenciaService from '../../../services/agency';
 import Modal from '../../../components/modal/message-dialog.vue';
 import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 export default {
 
-    props:['currentObject','typeAction'],
+    props: ['currentObject', 'typeAction'],
 
-    data(){
-        return{
-
-            show:'',
+    data() {
+        return {
+            show: '',
             maskCnpj: "##.###.###/####-##",
-            odchecked:undefined,
-            approvedChecked:undefined,
-            viewAgency:undefined,
-            loading:undefined,
+            odchecked: undefined,
+            approvedChecked: undefined,
+            viewAgency: {},
+            loading: undefined,
 
             configTable: DataTableConfigFactory.build('DATA-TABLE-USER-AGENCY'),
-         
-            data:{
-                conteudo:[],
-                pagination:undefined
-            },
-            filter:{
-                page:0,
-                size:10
-            },
 
-
+            data: {
+                conteudo: [],
+                pagination: undefined
+            },
+            filter: {
+                page: 0,
+                size: 10
+            },
         }
     },
 
-    mounted(){
-         this.viewAgency = this.currentObject || {name:''};
-
-          
-          this.loading = AgenciaService.listUserByAgency({id:this.currentObject.id}).then(response=>{
-
-              this.currentObject.users = response.map(a=>{
-                    a.group =  a.groups[0].id;
-                    return a;
-              });
-
-              this.data.conteudo = this.currentObject.users;
-          }).catch(erro=>{
-              this.mxShowModalError(erro);
-          });
-    },
-    methods:{
+    mounted() {
+        this.viewAgency = this.currentObject || {
+            name: ''
+        };
         
-        saveAgency(){  
-             alert(this.viewAgency.layoutFile)          
+        this.loading = AgenciaService.listUserByAgency({
+            id: this.currentObject.id
+        }).then(response => {
 
+            this.currentObject.users = response.map(a => {
+                a.group = a.groups[0].id;
+                return a;
+            });
+
+            this.data.conteudo = this.currentObject.users;
+        }).catch(erro => {
+            this.mxShowModalError(erro);
+        });
+    },
+    methods: {
+
+        saveAgency() {
             let promise = [];
+            this.$validator.validateAll().then(response => {
+                debugger;
+                if (!response) return;
 
-            this.$validator.reset();
-           
-            
-
-            if(!this.viewAgency.name || this.viewAgency.name.lenght == 0 ){
-                Modal.show({title:"Erro", message:"Campo Agência obrigatório"});
-                return;
-            } 
-
-            if(!this.viewAgency.cnpj || this.viewAgency.cnpj.lenght == 0 ){
-                Modal.show({title:"Erro", message:"Campo CNPJ obrigatório"});
-                return;
-            } 
-            
-            if(!this.viewAgency.inputPath || this.viewAgency.inputPath.lenght == 0 ){
-                Modal.show({title:"Erro", message:"Campo Entrada obrigatório"});
-                return;
-            } 
-
-             if(!this.viewAgency.processedPath || this.viewAgency.processedPath.lenght == 0 ){
-                Modal.show({title:"Erro", message:"Campo Processando obrigatório"});
-                return;
-            } 
-
-             if(!this.viewAgency.localFilePath || this.viewAgency.localFilePath.lenght == 0 ){
-                Modal.show({title:"Erro", message:"Campo Local obrigatório"});
-                return;
-            } 
-
-             if(!this.viewAgency.agencyCode || this.viewAgency.agencyCode.lenght == 0 ){
-                Modal.show({title:"Erro", message:"Campo Código obrigatório"});
-                return;
-            } 
-            
-            if(!this.viewAgency.s3Path || this.viewAgency.s3Path.lenght == 0 ){
-                Modal.show({title:"Erro", message:"Campo S3 obrigatório"});
-                return;
-            } 
-            
-            if(!document.getElementById('m').checked && !document.getElementById('s').checked && !document.getElementById('d').checked ){
-                Modal.show({title:"Erro", message:"Selecione frêquencia"});
-                return;
-            } 
-
-            if(this.typeAction == 'new'){ 
-                
-                
-               
-
-                AgenciaService.save(this.viewAgency).then(()=>{
-                      this.savedSuccess();
-                  })
-                
-            }else{
-                    console.log("TESTEEEE",this.viewAgency);
-                 alert(this.viewAgency.layoutFile)          
-                AgenciaService.update(this.viewAgency).then(()=>{
-                      this.savedSuccess();
-                  }) 
-            }
-
-            if(promise.length  == 0)return;
-
-            Promise.all(promise).then(response=>{
-
-
-                    this.viewAgency = undefined;
-                    this.$emit('back');
-                }).catch(erro=>{
-                    console.info(erro);
-                    let message = this.$t(`lang.msg_error_${erro.codeMessage}`)          
-                    Modal.show({title:"Erro", message:message});
-                });
+                if (this.typeAction == 'new') {
+                    this.loading = AgenciaService.save(this.viewAgency).then(() => {
+                        this.savedSuccess();
+                    }).catch(erro => {
+                        this.mxShowModalError(erro);
+                    });
+                } else {
+                    this.loading = AgenciaService.update(this.viewAgency).then(() => {
+                        this.savedSuccess();
+                    }).catch(erro => {
+                        this.mxShowModalError(erro);
+                    });
+                }
+            });
         },
-
-         savedSuccess(){
-          
-            this.show='SAVED';
-            setInterval(()=>{this.$emit('back')},1500);
-        }, 
+        savedSuccess() {
+            this.show = 'SAVED';
+            setInterval(() => {
+                this.$emit('back')
+            }, 1500);
+        },
     },
 
-    components:{
-
+    components: {
         DataTable,
-
     }
 }
-
-
-
 </script>
 
 <style lang="scss" scoped>
