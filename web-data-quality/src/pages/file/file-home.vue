@@ -28,8 +28,8 @@
 
         <nav mt-5>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a v-if="$can('upload', 'File')"  class="nav-item nav-link active" id="nav-profile-tab" @click="show='upload'" data-toggle="tab" role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
-                <a  v-if="$can('report', 'File')" class="nav-item nav-link " id="nav-home-tab" @click="show='file'" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
+                <a v-if="$can('upload', 'File')"  class="nav-item nav-link" :class="{'active': show == 'upload'}" id="nav-profile-tab" @click="show='upload'" data-toggle="tab" role="tab" aria-controls="nav-profile" aria-selected="false">Upload</a>
+                <a  v-if="$can('report', 'File')" class="nav-item nav-link " :class="{'active': show == 'file'}" id="nav-home-tab" @click="show='file'" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -295,7 +295,8 @@ export default {
                 this.filesUploads.splice(arguments[0],1);
            
         }, 1000),
-        openUpload(){          
+        openUpload(){   
+            this.show='upload';       
             let inputFile = document.getElementById('file-upload');
             inputFile.onchange = (e)=>{                
                if(this.getAgencysFromUser.length > 1){
