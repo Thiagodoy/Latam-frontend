@@ -7,25 +7,42 @@
 
             <div class="row mt-3 mb-5">
                 <div style="" class="col-md-12 text-center">
-                   <center>
-                     <multiselect
-                        v-model="company"
-                        :options="options"
-                        :label="'name'"                                
-                        :track-by="'id'"
-                        tag-placeholder="Add this as new tag"                                
-                        :selectLabel="'Pressione para selecionar'"
-                        :selectedLabel="'Selecionado'"
-                        :deselectLabel="'Pressione para Deselecionar'"
-                        :placeholder="'Selecione a agencia'" 
-                        :limit="2"
-                        :limit-text="(count)=>`Mais ${count}`"
-                        :max-width="150"                                                              
-                        :multiple="false">                        
-                    </multiselect>
-                   </center> 
+            <center><div class="filtros">
+                        <div class="filter-select">
+                            <div>{{$t('lang.table_view_file_company_name')}}:&nbsp;</div> 
+                            <multiselect
+                                v-model="company"
+                                :options="options"
+                                :label="'name'"                                
+                                :track-by="'id'"
+                                tag-placeholder="Add this as new tag"                                
+                                :selectLabel="'Pressione para selecionar'"
+                                :selectedLabel="'Selecionado'"
+                                :deselectLabel="'Pressione para Deselecionar'"
+                                :placeholder="'Selecione a agencia'" 
+                                :limit="2"
+                                :limit-text="(count)=>`Mais ${count}`"
+                                :max-width="150"                                                              
+                                :multiple="false">                        
+                            </multiselect>
+                        </div>
+                        <div class="filter-date">
+                            <div class="date-init">
+                                <div class="filterlabel">{{$t('lang.label_input_search_date_From')}}&nbsp;</div>   
+                                <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"    name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                            </div>
+                            <div class="date-end">
+                                <div>{{$t('lang.label_input_search_date_To')}}&nbsp;</div>
+                                <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
+                            </div>
+                            <div class="filter-button">
+                                <button style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                            </div>
+                        </div>
+                    </div> </center> 
                 </div>
             </div>
+          
             <graph-line :graphData="graphData"/>     
     </div>     
 </template>
@@ -160,5 +177,101 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.filtros{
+    display: flex;
+  justify-content: center;
+    margin-top:30px;
+    // flex-flow: row wrap;
+}
+
+.filter-select{
+  
+    display: flex;
+    justify-content: center;
+   margin-right: 10px;
+}
+
+    .filter-date{
+    display: flex;
+  //background: #ff0;
+    min-width: 370px;
+    .date-init{
+        display: flex;
+          max-width: 200px;
+           margin-right: 10px;
+            max-width: 170px;
+        min-width: 160px;
+    }
+    .date-end{
+        display: flex;
+       max-width: 170px;
+        min-width: 160px;
+    }
+}
+
+@media (max-width: 1150px) { 
+
+.filtros{
+  //  background: #ff0;
+    display: flex;
+ 
+    margin-top:30px;
+    flex-direction: column;
+    
+}
+
+.filter-select{
+  
+    display: flex;
+    justify-content: center;
+   margin-right: 10px;
+   margin-bottom: 10px;
+    flex-direction: column;
+   margin-bottom: 20px;
+   
+
+}
+
+.filter-date{
+    display: flex;
+    justify-content: center;
+    min-width: 310px;
+    margin-bottom: 10px;
+    .date-init{
+         flex-direction: column;
+        display: flex;
+          max-width: 200px;
+           margin-right: 10px;
+           margin-left: 10px;
+            min-width: 160px;
+    }
+    .date-end{
+        flex-direction: column;
+        display: flex;
+       max-width: 200px;
+        min-width: 160px;
+    }
+}
+
+.filter-button{
+   display: flex;
+   
+  padding: 25px 0 15px 0;
+}
+
+ }
+
+ @media (max-width: 850px) { 
+.filter-select{
+  
+   //  margin-bottom: 0px;
+}
+    
+  
+
+
+ }
+
+
 </style>
 

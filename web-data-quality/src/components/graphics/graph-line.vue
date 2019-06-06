@@ -27,12 +27,12 @@ export default {
 
 				contruir(){
 							var ctx = document.getElementById('bar12').getContext('2d');
-							ctx.canvas.width = 5100;
-							ctx.canvas.height = 1900;
+							ctx.canvas.width = 1000;
+							ctx.canvas.height = 350;
 
 							Chart.defaults.global.defaultFontColor = 'white';
 							var myChart = new Chart(ctx, {
-									type: 'bar',
+									type: 'line',
 									data: {
 											datasets: [{
 															label: 'Upload',
@@ -84,6 +84,10 @@ export default {
 																	source: 'data',
 																	autoSkip: true
 															},
+																gridLines: {
+															color: 'rgba(255,255,255,.4)',
+															lineWidth: 0.5
+														}
 															
 													}],
 													yAxes: [{
@@ -91,6 +95,10 @@ export default {
 																	display: true,
 																	labelString: 'Qtd arquivos unid.'
 															},
+															gridLines: {
+															color: 'rgba(255,255,255,.4)',
+															lineWidth: 0.5
+														}
 														
 													}]
 											},
@@ -123,8 +131,8 @@ export default {
 .chart-container{
 
 	width: 100%;
-	min-height: 200px;
-	min-width: 350px;
+	
+	background: rgba(0,0,0,.2)
 
 }
 
