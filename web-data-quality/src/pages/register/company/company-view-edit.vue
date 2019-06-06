@@ -69,7 +69,7 @@
                         <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('s3-imput')}" >
                                 <label for="s3-imput" >Layout</label>
-                                <select :disabled="typeAction == 'view'" class="form-control campos" v-validate="'required|validaNroMaxPerfil'"  name="profile" id="profile" style="opacity:.7" >
+                                <select v-model="viewAgency.layoutFile" :disabled="typeAction == 'view'" class="form-control campos" v-validate="'required|validaNroMaxPerfil'"  name="profile" id="profile" style="opacity:.7" >
                                     <option selected value="0">Nenhum layout</option>
                                     <option value="1">Layout mínimo</option>
                                     <!-- <option value="2">Layout completo</option> -->
@@ -168,13 +168,14 @@ export default {
     },
     methods:{
         
-        saveAgency(){            
+        saveAgency(){  
+             alert(this.viewAgency.layoutFile)          
 
             let promise = [];
 
             this.$validator.reset();
            
-           
+            
 
             if(!this.viewAgency.name || this.viewAgency.name.lenght == 0 ){
                 Modal.show({title:"Erro", message:"Campo Agência obrigatório"});
@@ -219,13 +220,15 @@ export default {
             if(this.typeAction == 'new'){ 
                 
                 
-
+               
 
                 AgenciaService.save(this.viewAgency).then(()=>{
                       this.savedSuccess();
                   })
                 
             }else{
+                    console.log("TESTEEEE",this.viewAgency);
+                 alert(this.viewAgency.layoutFile)          
                 AgenciaService.update(this.viewAgency).then(()=>{
                       this.savedSuccess();
                   }) 
