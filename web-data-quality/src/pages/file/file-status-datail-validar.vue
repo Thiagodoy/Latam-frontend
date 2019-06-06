@@ -37,7 +37,7 @@
         <!-- Status -->
         <!-- <graph-pizza-r :data="filecurrent.statusProcess" /> -->
         <!-- <graph-bar/> -->
-        <graph-line/>
+       <!-- <graph-line/> -->
       </div>
     </div>
   </div>
