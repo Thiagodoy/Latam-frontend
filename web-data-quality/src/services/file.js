@@ -28,6 +28,11 @@ class FileService extends Service {
         return this.get(request, true)
     }
 
+    listLogSintetico(request){
+        this._url = `/errors/sintetico/${request.fileId}/${request.field}`;
+        return this.get(request,false);
+    }
+
 }
 
 const instance = new FileService("/file");

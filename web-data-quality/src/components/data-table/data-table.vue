@@ -30,7 +30,9 @@
                                      <span @click="buttonClick('info',v)" ><i style="margin-left:10px;" class=" btn-option fas fa-info-circle" title="Informação"></i></span>
                                 </template>                                
                                 <template v-else-if="config.showOptionsTYPE == 'FILE-DETAIL'">                                                                      
-                                    <span><i class=" btn-option  fas  mr-3" :style="{color:(v.qtdErrors == 0 ? 'green':'red')}" :class="{'fa-check-circle':v.qtdErrors == 0,'fa-exclamation-circle':v.qtdErrors > 0 }"></i></span>                                    
+                                    
+                                    <span v-if="v.qtdErrors == 0"><i class=" btn-option  fas  mr-3 fa-check-circle" style="color:green"></i></span>                                    
+                                    <span v-else @click="$emit('showError',v.fieldName)"><i class=" btn-option  fas  mr-3 fa-exclamation-circle" style="color:red"></i></span>                                    
                                 </template>
                                 <template v-else-if="config.showOptionsTYPE == 'LIST-FILE-UPLOAD'">
                                     <i @click="buttonClick('download',v)" class="fas fa-download"></i>

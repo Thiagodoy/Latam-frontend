@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-async="loading">
     <toolbar :config="configToolbar" @back="$emit('back')"></toolbar>
     <div class="row">
       <div class="col-md-12">
@@ -13,7 +13,8 @@
         <div id="table-scroll">
             <data-table 
                 :config="dataTableConfig" 
-                :data="data">
+                :data="data"
+                @showError="showDetailLog">
             </data-table>
         </div>
 
@@ -45,6 +46,7 @@
 
 <script>
 import StatusBar from "../../components/status-bar-progress/statusBarProgress";
+import FileService from '../../services/file';
 import Toolbar from '../../components/toolbar/toolbar.vue';
 import GraphPizza from "../../components/graphics/graph-pizza";
 import ToolbarFactory from '../../components/toolbar/toolbar-config-factory';
@@ -70,7 +72,8 @@ export default {
           conteudo:[],
           pagination:{pageable:{}},
       },
-      haserror:false
+      haserror:false,
+      loading:undefined,
     }
   },
 
@@ -91,6 +94,19 @@ export default {
          return a.qtdErrors > b.qtdErrors ? -1 : 1;
        })
 
+  },
+  methods:{
+    showDetailLog(campo){
+      this.loading = FileService.listLogSintetico({fileId:this.filecurrent.id, field:campo}).then(response=>{
+
+          let temp = response.map(e=>{
+            return `${e.message} - ${e.qtd}`;
+          });
+          console.log('result', temp);
+
+          // this.mxShowModal({})
+      });
+    }
   },
   components: {
     StatusBar,
