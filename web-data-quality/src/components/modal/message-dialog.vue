@@ -32,6 +32,68 @@
          
 
           </div>
+
+
+         <!-- TYPE LISTA DE ERROS -->
+          <div v-if="type == 'LISTA-ERROS'" class="modal-body" >
+            <div v-html="message"></div>
+
+
+           
+            <div class="box-erros">
+              
+              <table class="table-erros ">
+                <thead>
+                  <tr>
+                    <td class="campo text-center">Qtd</td>
+                    <td class="text-center">Erro</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center qtd-erro">1</td>
+                    <td class="msg-erro">Esperado pelo menos 1 caractere. Valor encontrado [null]</td>
+                  </tr>
+                   <tr>
+                    <td class="text-center">5</td>
+                    <td class="msg-erro">Esperado pelo menos 1 caractere. Valor encontrado [null]</td>
+                  </tr>
+                   <tr>
+                    <td class="text-center">3</td>
+                    <td class="msg-erro">Esperado pelo menos 1 caractere. Valor encontrado [null]</td>
+                  </tr>
+                 
+                  
+                
+                
+                </tbody>
+
+              </table>
+              
+              
+              
+              
+              
+               <!-- <div v-for="(v,i) in agencysFiltered" :key="i"> 
+                  <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" />&nbsp;&nbsp;<label>{{v.name}}</label>&nbsp;&nbsp;
+                </div>
+                -->
+            </div>
+           <!--
+            <div v-for="(v,i) in agencys" :key="i"> 
+              <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" /><label>{{v.name}}</label>&nbsp;&nbsp;
+            </div>
+         -->
+         
+         
+
+          </div>
+
+<!----------------------------------------->
+
+
+
+
           <div v-else class="modal-body" v-html="message"></div>
           <div class="modal-footer">
             <template v-if="type == 'YES-NO'">
@@ -52,11 +114,17 @@
                   OK
                 </button>
               </template>
+               <template v-else-if="type == 'LISTA-ERROS'">            
+                <button :disabled="!agencySelected" type="button" class="btn" data-dismiss="modal" @click="result(agencySelected)">
+                  OK
+                </button>
+              </template>
               <template v-else>            
                 <button type="button" class="btn" data-dismiss="modal" @click="result('YES')">
                   Ok
                 </button>
               </template>
+              
           </div>
         </div>
       </div>
@@ -147,6 +215,39 @@ input[type=radio]
   -o-transform: scale(2.2); /* Opera */
   padding: 8px;
   margin-right: 8px;
+}
+
+.table-erros{
+ 
+  width: 100%;
+  thead tr{
+    font-weight: bold;
+  }
+  tbody tr{
+   
+    border: #ccc solid 1px;
+    td{
+       border: #ccc solid 1px;
+       padding: 5px;
+    }
+  }
+}
+
+.box-erros{
+ margin-top: 15px;
+  border:#ccc solid 1px;
+ height: 200px;
+ padding:15px;
+
+ overflow: auto;
+}
+
+.qtd-erro{
+  min-width: 80px;
+}
+
+.msg-erro{
+  color: red;
 }
 
 </style>

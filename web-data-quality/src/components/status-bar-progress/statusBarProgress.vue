@@ -70,6 +70,7 @@ export default {
 }
 
 .status-label {
+
 }
 
 #validacao {
@@ -90,6 +91,6 @@ export default {
 }
 #concluido {
   position: absolute;
-  margin: -25px 0 0 -37px;
+  margin: -35px 0 0 -37px;
 }
 </style>

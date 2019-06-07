@@ -41,6 +41,7 @@
        <!-- <graph-line/> -->
       </div>
     </div>
+    <button @click="teste">Testar Modal</button>
   </div>
 </template>
 
@@ -104,9 +105,15 @@ export default {
           });
           console.log('result', temp);
 
-          // this.mxShowModal({})
+           this.mxShowModal({title:'Informação', message:'Lista de erros encontrados', type:'LISTA-ERROS',  });
       });
-    }
+    },
+
+      teste(){
+       // this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencys(this.getAgencysFromUser) });
+       this.mxShowModal({title:'Informação', message:'Lista de erros encontrados', type:'LISTA-ERROS',  });
+      }
+
   },
   components: {
     StatusBar,
