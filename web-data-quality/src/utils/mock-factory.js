@@ -19,7 +19,8 @@ class MockFactory {
 
     makeImageStatus(param) {
         return param == 'VALIDATION_ERROR' ? '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:red;" />' : 
-        param == 'VALIDATION_SUCCESS' ? '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />' : '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:blue;" />'  
+        param == 'VALIDATION_SUCCESS' ? '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" />' : 
+        '<div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:blue;" />'  
     }
 
     makeImageProfile(image) {

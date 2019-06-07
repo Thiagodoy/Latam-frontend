@@ -92,6 +92,7 @@ module.exports = {
             Forgot_password: 'Forgot password',
             msg_error_1987: 'File repeated!',
             msg_error_1988: 'File upload success!',
+            msg_error_1986: 'File empty',
             msg_error_500: 'Server error!',
             msg_error_501: 'Server error on AWS!',
             msg_error_502: 'Server error on SFTP!',
@@ -205,6 +206,7 @@ module.exports = {
 
             msg_error_1987: 'Arquivo repetido!',
             msg_error_1988: 'Arquivo carregado com sucesso!',
+            msg_error_1986: 'Arquivo vazio',
             msg_error_500: 'Erro no servidor!',
             msg_error_501: 'Erro no servidor AWS!',
             msg_error_502: 'Erro no servidor do SFTP!',
@@ -320,6 +322,7 @@ module.exports = {
 
             msg_error_1987: 'File repeated!',
             msg_error_1988: 'Arquivo carregado com sucesso!',
+            msg_error_1986: 'Arquivo vazio',
             msg_error_500: 'Erro no servidor!',
             msg_error_501: 'Erro no servidor AWS!',
             msg_error_502: 'Erro no servidor do SFTP!',

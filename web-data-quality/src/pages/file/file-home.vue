@@ -75,13 +75,35 @@
                    
 
                 <br>
+                 <div class="row">
+                     
+                    <div class="col text-right" style="max-height: 22px;">
+                        
+                        <div style="display: inline-block;min-width: 115px; min-width: 115px;height: 30px;">
+                            <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" /> 
+                            <span class="margin-left" style="position: relative; top: -24px;">Sucesso</span>
+                        </div>
+                        <div style="display: inline-block;min-width: 115px; min-width: 148px;height: 30px;">
+                            <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:blue;" />  
+                            <span class="margin-left" style="position: relative; top: -24px;">Processando</span>
+                        </div>
+                       <div style="display: inline-block;min-width: 115px; min-width: 90px;height: 30px;">
+                        <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:red;" />
+                        <span class="margin-left" style="position: relative; top: -24px;">Erro</span>                        
+                       </div>
+                        
+                    </div>     
+                </div>
+
                 <data-table 
                     :config="configDataTable" 
                     :data="data"
                     @page="setPage"
                     @download="download"
                     @info="showDetail">
-                </data-table>            
+                </data-table>   
+
+                     
               
                 <input type="file" id="file-upload" style="display:none;" accept=".csv" multiple>
 
@@ -374,6 +396,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.margin-left{
+    margin-left: 7px;
+    margin-right: 15px;
+}
 
 .nav-item:active{
     background: #ff0;

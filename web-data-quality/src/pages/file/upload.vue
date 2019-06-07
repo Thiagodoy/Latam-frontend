@@ -57,11 +57,11 @@
                        <div class="filter-date">
                            <div class="date-init">
                             <div class="filterlabel">{{$t('lang.label_input_search_date_From')}}&nbsp;</div>   
-                           <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                           <datepicker @cleared="clearData" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
                            </div>
                             <div class="date-end">
                              <div>{{$t('lang.label_input_search_date_To')}}&nbsp;</div>
-                             <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
+                             <datepicker @cleared="clearDataEnd" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
                             </div>
                              <div class="filter-button">
                             <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
@@ -71,54 +71,28 @@
                    </div></center>
                    
                    
-                   
-                   
-            <!--  <div class="filter-scroll">
-                        <table style="width:100%; padding:30px;background-color: rgba(10,23,55,0.0); height:50px;" class="tab-filter">
-                            <tr style="width:10%;">
-                                <td class="text-right">{{$t('lang.table_view_file_company_name')}} &nbsp;</td>
-                                <th >
-                                    <multiselect
-                                        v-model="company"
-                                        :options="options"
-                                        :label="'name'"                                
-                                        :track-by="'id'"
-                                        tag-placeholder="Add this as new tag"                                
-                                        :selectLabel="'Pressione para selecionar'"
-                                        :selectedLabel="'Selecionado'"
-                                        :deselectLabel="'Pressione para Deselecionar'"
-                                        :placeholder="'Selecione a agencia'" 
-                                        :limit="2"
-                                        :max-width="150"                                                                  
-                                        :multiple="true"> 
-                                                                
-                                    </multiselect>
-                                </th>
-                                <td class="text-right">{{$t('lang.label_input_search_date_From')}}&nbsp;</td>
-                                <td style="max-width:145px; min-width:150px">
-                                    <datepicker input-class="input-date"  v-model="timeInit"  name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>                           
-                                </td>
-                                <td class="text-right">{{$t('lang.label_input_search_date_To')}} &nbsp;</td>
-                                <td style="max-width:150px;min-width:150px">
-                                    <div>
-                                        <datepicker input-class="input-date" v-model="timeEnd" style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>                                
-                                    </div>                            
-                                </td>
-                                <td class="text-right"></td>
-                                <td>
-                                    <button  @click="listFiles"   style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
-                                </td>
-                            </tr>
-                            <tr>
-                            </tr>
-                            <tr>
-                            </tr>
-                        </table>
-                    </div> -->
 
                 <br>
 
-
+                <div class="row">
+                     
+                    <div class="col text-right" style="max-height: 22px;">
+                        
+                        <div style="display: inline-block;min-width: 115px; min-width: 115px;height: 30px;">
+                            <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:green;" /> 
+                            <span class="margin-left" style="position: relative; top: -24px;">Sucesso</span>
+                        </div>
+                        <div style="display: inline-block;min-width: 115px; min-width: 148px;height: 30px;">
+                            <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:blue;" />  
+                            <span class="margin-left" style="position: relative; top: -24px;">Processando</span>
+                        </div>
+                       <div style="display: inline-block;min-width: 115px; min-width: 90px;height: 30px;">
+                        <div src="..." alt="..." class="rounded-circle text-primary" style="height:25px;width:25px; background-color:red;" />
+                        <span class="margin-left" style="position: relative; top: -24px;">Erro</span>                        
+                       </div>
+                        
+                    </div>     
+                </div>
 
                 <data-table 
                     :config="configDataTable" 
@@ -244,6 +218,7 @@ export default {
                 }
             },
             set:function(data){
+                if(!data)return;
                 data.setHours(0,0,1);                
                 this.request.timeStart = data.getTime();
             }
@@ -256,7 +231,8 @@ export default {
                    return new Date(this.request.timeEnd);
                 }
             },
-            set:function(data){                
+            set:function(data){   
+                if(!data)return;             
                 data.setHours(23,59,59);                
                 this.request.timeEnd = data.getTime();
             }
@@ -276,7 +252,12 @@ export default {
     },
 
     methods:{
-
+        clearData(campo,data){            
+            this.request.timeStart = undefined;          
+        },
+        clearDataEnd(campo,data){            
+            this.request.timeEnd = undefined;          
+        },
         setPage(page){            
             this.request.page = page;
             this.listFiles();
@@ -401,6 +382,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+.margin-left{
+    margin-left: 7px;
+    margin-right: 15px;
+}
 
 .nav-item:active{
     background: #ff0;

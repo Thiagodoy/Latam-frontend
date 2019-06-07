@@ -31,7 +31,11 @@ export default {
 							ctx.canvas.height = 350;
 
 							Chart.defaults.global.defaultFontColor = 'white';
-							var myChart = new Chart(ctx, {
+
+							if(window.myChart)
+								window.myChart.destroy();
+
+							window.myChart = new Chart(ctx, {
 									type: 'line',
 									data: {
 											datasets: [{
@@ -56,17 +60,17 @@ export default {
 															lineTension: 0,
 															borderWidth: 2
 													},
-													{
-															label: 'Erros',
-															backgroundColor: 'rgba(240,0,0,0.5)',
-															borderColor: 'rgba(240,0,0,1)',
-															data: this.graphData.dataErro,
-															type: 'line',
-															pointRadius: 0,
-															fill: false,
-															lineTension: 0,
-															borderWidth: 2
-													}
+													// {
+													// 		label: 'Erros',
+													// 		backgroundColor: 'rgba(240,0,0,0.5)',
+													// 		borderColor: 'rgba(240,0,0,1)',
+													// 		data: this.graphData.dataErro,
+													// 		type: 'line',
+													// 		pointRadius: 0,
+													// 		fill: false,
+													// 		lineTension: 0,
+													// 		borderWidth: 2
+													// }
 											]
 									},
 
@@ -107,7 +111,7 @@ export default {
 													mode: 'index',
 													callbacks: {
 															label: function (tooltipItem, myData) {
-																	console.log('label',tooltipItem, myData)
+																	
 																	var label = myData.datasets[tooltipItem.datasetIndex].label || '';
 																	if (label) {
 																			label += ': ';

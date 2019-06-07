@@ -3,7 +3,7 @@
     <toolbar :config="configToolbar" @back="$emit('back')"></toolbar>
     <div class="row">
       <div class="col-md-12">
-        <status-bar :hasError="haserror" :status="filecurrent.stage" :config="['Upload','Parse','Validação','Persistência','Concluido']"></status-bar>
+        <status-bar :hasError="haserror" :status="filecurrent.stage" :config="['Upload','Validação Layout','Validação Conteúdo','Concluído']"></status-bar>
       </div>
     </div>
 
@@ -27,10 +27,10 @@
     <div class="row mt-5">
       <div class="col-md-6 scroll">
         <!--table mock -->
-       <data-information 
+       <!-- <data-information 
           :config="dataTableConfigInformation" 
           :data="dataw">
-       </data-information>
+       </data-information> -->
       </div>
       <!-- grafico mock -->
       <div class="col-md-6">

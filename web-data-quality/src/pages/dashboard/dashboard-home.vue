@@ -8,9 +8,11 @@
             <div class="row mt-3 mb-5">
                 <div style="" class="col-md-12 text-center">
             <center><div class="filtros">
-                        <div class="filter-select">
+                        <div class="filter-select form-group" >
                             <div>{{$t('lang.table_view_file_company_name')}}:&nbsp;</div> 
-                            <multiselect
+                            <multiselect 
+                                name="agencia"
+                                v-validate="'required'"
                                 v-model="company"
                                 :options="options"
                                 :label="'name'"                                
@@ -20,23 +22,28 @@
                                 :selectedLabel="'Selecionado'"
                                 :deselectLabel="'Pressione para Deselecionar'"
                                 :placeholder="'Selecione a agencia'" 
-                                :limit="2"
+                                :limit="1"
                                 :limit-text="(count)=>`Mais ${count}`"
                                 :max-width="150"                                                              
                                 :multiple="false">                        
                             </multiselect>
                         </div>
                         <div class="filter-date">
-                            <div class="date-init">
-                                <div class="filterlabel">{{$t('lang.label_input_search_date_From')}}&nbsp;</div>   
-                                <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"    name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                            <div class="form-group" >
+                                <div class="date-init" >
+                                    <div class="filterlabel">{{$t('lang.label_input_search_date_From')}}&nbsp;</div>   
+                                    <datepicker @cleared="clearData" :clear-button="true" v-validate="'required'" :clear-button-icon="'fas fa-backspace'" v-model="timeInit"  input-class="input-date"    name="date-init" style="color:#222;" class="form-control mx-auto ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                                
+                                </div>
                             </div>
-                            <div class="date-end">
+                            
+                            <div class=" form-group date-end" >
                                 <div>{{$t('lang.label_input_search_date_To')}}&nbsp;</div>
-                                <datepicker :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
+                                <datepicker  @cleared="clearDataEnd" :clear-button="true" :clear-button-icon="'fas fa-backspace'" v-model="timeEnd"  input-class="input-date"  style="color:#222;" v-validate="'after:date-init'" name="date-end" class="  form-control mx-auto"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>    
+                                
                             </div>
                             <div class="filter-button">
-                                <button style="color:#fff" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
+                                <button style="color:#fff" @click="listar" class="btn btn-default btn-small ml-3 ">{{$t('lang.button_filter')}}</button>
                             </div>
                         </div>
                     </div> </center> 
@@ -68,6 +75,8 @@ export default {
             configToolbar: ToolbarFactory.build('TOOLBAR-BACK') ,    
             request:{
                 company:undefined,  
+                timeStart:undefined,
+                timeEnd:undefined,
             },
             options:[],  
             agencys:[],
@@ -79,9 +88,7 @@ export default {
         }
     },
 
-    mounted(){
-
-        
+    mounted(){     
 
 
         this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
@@ -110,24 +117,70 @@ export default {
             get:function(){
                 return  this.agencys.find(a=>a.id == this.request.company);
             }
-        }
+        },
+        timeInit:{
+            get:function(){
+                if(!this.request.timeStart){
+                    return '';
+                }else{
+                    return new Date(this.request.timeStart);
+                }
+            },
+            set:function(data){
+                if(!data)return;
+                data.setHours(0,0,1);                
+                this.request.timeStart = data.getTime();
+            }
+        },
+        timeEnd:{
+            get:function(){
+                if(!this.request.timeEnd){
+                    return '';
+                }else{
+                   return new Date(this.request.timeEnd);
+                }
+            },
+            set:function(data){ 
+                if(!data)return;               
+                data.setHours(23,59,59);                
+                this.request.timeEnd = data.getTime();
+            }
+        },
     },
     methods:{
+        clearData(campo,data){            
+            this.request.timeStart = undefined;          
+        },
+        clearDataEnd(campo,data){            
+            this.request.timeEnd = undefined;          
+        },
         listar(){
 
+              if(!this.request.company){
+                  this.mxShowModal({title:'Informação', message:'Selecione a agência!'});
+                  return;
+              } 
 
-            if(!this.request.company){
-                this.graphData = {
-                            dataValidacao:[],
-                            dataUpload:[],
-                            dataErro:[]
-                        }
-              return;                          
-            }
+              if(!this.request.timeStart || this.request.timeStart == ''){
+                  this.mxShowModal({title:'Informação', message:'Selecione uma data inicial!'});
+                  return;
+              } 
 
-            this.loading = FileService.listStatusProcess(this.request).then(response=>{                           
+              if(!this.request.timeEnd || this.request.timeEnd == ''){
+                  this.mxShowModal({title:'Informação', message:'Selecione uma data fim!'});
+                  return;
+              } 
+
+              if(this.request.timeEnd < this.request.timeStart){
+                  this.mxShowModal({title:'Informação', message:'Data fim tem que ser maior que a data inicial!'});
+                  return;
+              }          
+
+
+            return FileService.listStatusProcess(this.request).then(response=>{   
+                response = response.length > 0 ? response : [];            
                 this.mountData(response);
-            });
+            });            
         },
         mountData(response){
             
@@ -154,7 +207,8 @@ export default {
                     
                    dataValidacao.sort((a,b)=>{return a.time > b.time ? 1 : -1} );
                    dataUpload.sort((a,b)=>{return a.time > b.time ? 1 : -1} );
-                   dataErro.sort((a,b)=>{return a.time > b.time ? 1 : -1} );     
+                   //Zerado sem necessiadde de exibir esses dados
+                   dataErro = []; 
 
                    this.graphData = {dataValidacao,dataUpload,dataErro};
         }
@@ -163,15 +217,7 @@ export default {
         Toolbar,
         GraphLine,
         Multiselect,
-    },
-    watch:{
-        request:{
-            handler:function(newValue){
-                this.listar();
-            },
-            deep:true
-        }
-    }
+    }    
    
 }
 </script>

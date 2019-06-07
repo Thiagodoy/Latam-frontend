@@ -177,7 +177,7 @@ export default {
         saveAgency() {
             let promise = [];
             this.$validator.validateAll().then(response => {
-                debugger;
+                
                 if (!response) return;
 
                 if (this.typeAction == 'new') {
