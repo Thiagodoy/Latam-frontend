@@ -5,7 +5,7 @@
     </button>
     <div class="modal fade" id="message-dialog" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
       <div class="modal-dialog " role="document">
-        <div class="modal-content">
+        <div class="modal-content" :width="width">
           <div class="modal-header">
             <h5 class="modal-title" id="titulo">{{title}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -36,12 +36,8 @@
 
          <!-- TYPE LISTA DE ERROS -->
           <div v-if="type == 'LISTA-ERROS'" class="modal-body" >
-            <div v-html="message"></div>
-
-
-           
-            <div class="box-erros">
-              
+            <div v-html="message"></div>           
+            <div class="box-erros">              
               <table class="table-erros ">
                 <thead>
                   <tr>
@@ -50,46 +46,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="text-center qtd-erro">1</td>
-                    <td class="msg-erro">Esperado pelo menos 1 caractere. Valor encontrado [null]</td>
+                  <tr v-for="(v,i) in agencysFiltered" :key="i">
+                    <td class="text-center qtd-erro">{{v.qtd}}</td>
+                    <td class="msg-erro">{{v.message}}</td>
                   </tr>
-                   <tr>
-                    <td class="text-center">5</td>
-                    <td class="msg-erro">Esperado pelo menos 1 caractere. Valor encontrado [null]</td>
-                  </tr>
-                   <tr>
-                    <td class="text-center">3</td>
-                    <td class="msg-erro">Esperado pelo menos 1 caractere. Valor encontrado [null]</td>
-                  </tr>
-                 
-                  
-                
-                
                 </tbody>
-
-              </table>
-              
-              
-              
-              
-              
-               <!-- <div v-for="(v,i) in agencysFiltered" :key="i"> 
-                  <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" />&nbsp;&nbsp;<label>{{v.name}}</label>&nbsp;&nbsp;
-                </div>
-                -->
+              </table> 
             </div>
-           <!--
-            <div v-for="(v,i) in agencys" :key="i"> 
-              <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" /><label>{{v.name}}</label>&nbsp;&nbsp;
-            </div>
-         -->
-         
-         
-
           </div>
 
-<!----------------------------------------->
 
 
 
@@ -115,7 +80,7 @@
                 </button>
               </template>
                <template v-else-if="type == 'LISTA-ERROS'">            
-                <button :disabled="!agencySelected" type="button" class="btn" data-dismiss="modal" @click="result(agencySelected)">
+                <button  type="button" class="btn" data-dismiss="modal" @click="result('Ok')">
                   OK
                 </button>
               </template>
@@ -187,7 +152,7 @@ h5{
   border:#ccc solid 1px;
  height: 150px;
  padding:15px;
-
+ width: 144%;
  overflow: auto;
 }
 

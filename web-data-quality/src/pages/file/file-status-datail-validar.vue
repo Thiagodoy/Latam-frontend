@@ -105,7 +105,7 @@ export default {
           });
           console.log('result', temp);
 
-           this.mxShowModal({title:'Informação', message:'Lista de erros encontrados', type:'LISTA-ERROS',  });
+           this.mxShowModal({title:'Informação', message:'Lista de erros encontrados', type:'LISTA-ERROS', agencys:response, width:'144%' });
       });
     },
 

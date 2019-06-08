@@ -26,7 +26,8 @@ export default {
             agencys: undefined,
             agencySelected: undefined,
             agencysFiltered:undefined,
-            searchInput:'',            
+            searchInput:'', 
+            width:'100%'           
 
         }
     },
@@ -35,7 +36,11 @@ export default {
         // Ao montar, atribui a instancia de componente ao "store"        
         store.dialog = this;
     },
-
+    watch:{
+        width:function(newValue){
+            this.width = newValue;
+        }
+    },
     methods: {
         result(res) {
             // retorna o resultado e fecha o modal.
@@ -93,6 +98,7 @@ export default {
             store.dialog.disabled = options.disabled || false;
             store.dialog.agencys = options.agencys;
             store.dialog.agencysFiltered = options.agencys;
+            store.dialog.width = options.width || '100%'
             $("#btn-open-modal").click();
         });
     }
