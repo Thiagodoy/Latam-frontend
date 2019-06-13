@@ -335,6 +335,18 @@ export default {
             
             let someFileBigSize = this.checkFileSize(e.target.files);
             
+            let result = this.invalidExtensionFile(e.target.files);
+            debugger;
+            if(result){
+                 setTimeout(()=>{
+                   
+                   this.mxShowModal({title:'Erro', message:'Permitido apenas arquivos com extensão <b>.csv</b>.'});
+                    document.getElementById('file-upload').value = "";                
+                }, 500);
+                 
+                 return;
+            }
+
             if(someFileBigSize){
                 setTimeout(()=>{
                     let hasFiles = e.target.files.length > 1;
@@ -345,7 +357,7 @@ export default {
                 return;
             }
             
-            for(let i = 0; i < e.target.files.length; i++){                               
+            for(let i = 0; i < e.target.files.length; i++){ 
                 this.filesUploads.push({file:e.target.files[i],agency:agencia});
             }
             
@@ -358,6 +370,17 @@ export default {
                }
             }
             return false;
+        },
+        invalidExtensionFile(fileList){
+
+            let result = false;
+            for(let i = 0; i < fileList.length; i++){   
+               
+               if(!(/(\w)*\.csv/.test(fileList[i].name))){
+                   result = true;
+               }
+            }
+            return result;
         },
         getAgencys(data){
             let a = new Array();
