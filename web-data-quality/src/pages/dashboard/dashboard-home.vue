@@ -206,9 +206,8 @@ export default {
                    }); 
                     
                    dataValidacao.sort((a,b)=>{return a.time > b.time ? 1 : -1} );
-                   dataUpload.sort((a,b)=>{return a.time > b.time ? 1 : -1} );
-                   //Zerado sem necessiadde de exibir esses dados
-                   dataErro = []; 
+                   dataUpload.sort((a,b)=>{return a.time > b.time ? 1 : -1} );                   
+                   dataErro.sort((a,b)=>{return a.time > b.time ? 1 : -1} ); 
 
                    this.graphData = {dataValidacao,dataUpload,dataErro};
         }

@@ -60,17 +60,17 @@ export default {
 															lineTension: 0,
 															borderWidth: 2
 													},
-													// {
-													// 		label: 'Erros',
-													// 		backgroundColor: 'rgba(240,0,0,0.5)',
-													// 		borderColor: 'rgba(240,0,0,1)',
-													// 		data: this.graphData.dataErro,
-													// 		type: 'line',
-													// 		pointRadius: 0,
-													// 		fill: false,
-													// 		lineTension: 0,
-													// 		borderWidth: 2
-													// }
+													{
+															label: 'Erros',
+															backgroundColor: 'rgba(240,0,0,0.5)',
+															borderColor: 'rgba(240,0,0,1)',
+															data: this.graphData.dataErro,
+															type: 'line',
+															pointRadius: 0,
+															fill: false,
+															lineTension: 0,
+															borderWidth: 2
+													}
 											]
 									},
 

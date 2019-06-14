@@ -1,6 +1,6 @@
 {
     "name": "web-data-quality",
-    "version": "2.0.14",
+    "version": "2.0.15",
     "private": true,
     "scripts": {
         "dev": "vue-cli-service serve --port 8002",
