@@ -1,5 +1,5 @@
 import { Validator } from 'vee-validate';
-import { accountExists,validaNroMaxAgencia,validaNroMaxPerfil } from './user'
+import { accountExists,validaNroMaxAgencia,validaNroMaxPerfil,validCpf } from './user'
 import { caracterEspecial, passwordLength, passwordLowerCase, passwordUpperCase,caracterRepeated } from './password'
 
 
@@ -21,7 +21,9 @@ const dictionary = {
             passwordUpperCase: () => 'Senha tem quem ter pelo menos 1 letra em maiscula!',
             passwordCaracterRepeated:()=> 'Senha com pelo menos 3 caracteres repetidos em sequencia!',
             validaNroMaxAgencia:()=> 'Numero máximo para o perfil selecionado é uma agencia',
-            validaNroMaxPerfil:()=> 'É permitido selecionar apenas um perfil!'
+            validaNroMaxPerfil:()=> 'É permitido selecionar apenas um perfil!',
+            userExists:() => 'Cpf já cadastrado na base de dados!',
+            validaCPF:() => 'Cpf inválido!'
         }
     },
     en: {
@@ -59,6 +61,7 @@ plugin.install = function(Vue, options) {
     Validator.extend('passwordCaracterRepeated', caracterRepeated);
     Validator.extend('validaNroMaxAgencia', validaNroMaxAgencia,{ hasTarget: true });
     Validator.extend('validaNroMaxPerfil', validaNroMaxPerfil);
+    Validator.extend('validaCPF', validCpf);
     
     
 };
