@@ -368,11 +368,10 @@ export default {
                 this.request.id = this.request.email;
                 this.request.photo = this.userPhoto;                
 
-                if(valid && !this.userEdit){       
-                    let dateString =  moment(new Date()).format('YYYY-MM-DD')         
+                if(valid && !this.userEdit){                                 
                     this.request.info.push({key:'primeiro_acesso', userId: this.request.id, value:'true'});
-                    this.request.info.push({key:'ultimo_acesso', userId: this.request.id, value: dateString});
-                    this.request.info.push({key:'trocar_senha', userId: this.request.id, value: dateString});
+                    this.request.info.push({key:'ultimo_acesso', userId: this.request.id, value: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')});
+                    this.request.info.push({key:'trocar_senha', userId: this.request.id, value: moment(new Date()).format('YYYY-MM-DD')});
                     this.request.userMaster = this.getUser.email;
                     return UserService.saveUser(this.request).then(()=>{
                       this.savedSuccess('Usuário criado com sucesso!');
