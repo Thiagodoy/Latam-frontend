@@ -104,7 +104,7 @@
                         <div class="col-md-12">
                             <div  class="form-group" :class="{'has-error':errors.has('agency')}">
                                 <label for="profile">{{$t('lang.table_view_file_company_name')}}</label>
-                                <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="'validaNroMaxAgencia:g'" v-model="agency" name="agency" id="agency" multiple style="height:200px;">
+                                <select :disabled="typeAction == 'VIEW'" class="form-control campos" v-validate="''" v-model="agency" name="agency" id="agency" multiple style="height:200px;">
                                     <option class="campos "  v-for="(v,i) in agencys" :value="v.id" :key="i">{{`${v.name}`}}</option>
                                 </select>
                                 <div class="help-block">{{errors.first('agency')}}</div>
@@ -313,7 +313,7 @@ export default {
                     tempAgency.push(agency);
                 });
 
-                this.agencys = tempAgency;
+                    
             } 
             
             if(conditions && conditions.profile && conditions.profile.length > 0){
