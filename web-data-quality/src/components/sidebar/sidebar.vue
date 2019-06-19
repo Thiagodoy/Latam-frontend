@@ -35,10 +35,11 @@
                         <div class="x-smenu">
                             <router-link   class="pl-5" tag="li" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>                        
                         </div>
+                         <div class="x-smenu">
+                            <router-link   class="pl-5" tag="li" to="/termo-uso"><i class="fas fa-list"></i>&nbsp;{{$t('lang.terms')}}</router-link>                        
+                        </div>
                 </li>
-                 <li style="cursor:pointer" class="x-item" id="">
-                    <router-link class="x-btn" tag="li" to="/termo-uso"><i class="fas fa-list"></i>&nbsp;{{$t('lang.terms')}}</router-link>
-                </li>   
+               
             </div>
         </div>
 
