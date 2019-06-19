@@ -55,10 +55,6 @@
             </div>
           </div>
 
-
-
-
-
           <div v-else class="modal-body" v-html="message"></div>
           <div class="modal-footer">
             <template v-if="type == 'YES-NO'">
@@ -91,6 +87,8 @@
               </template>
               
           </div>
+
+
         </div>
       </div>
     </div>

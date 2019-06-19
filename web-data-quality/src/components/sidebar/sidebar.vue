@@ -5,7 +5,7 @@
             <localization></localization> 
 
             <div v-if="!(getIsFirstAccess == true)" class="x-menu">
-                <li class="x-item" id="">
+                <li style="cursor:pointer" class="x-item" id="">
                     <router-link class="x-btn" tag="li" to="/home"><i class="fas fa-home "></i>&nbsp;{{$t('lang.home')}}</router-link>
                     
                 </li>    
@@ -36,8 +36,16 @@
                             <router-link   class="pl-5" tag="li" to="/change-pass"><i class="fas fa-key"></i>&nbsp;{{$t('lang.change_password')}}</router-link>                        
                         </div>
                 </li>
+                 <li style="cursor:pointer" class="x-item" id="">
+                    <router-link class="x-btn" tag="li" to="/termo-uso"><i class="fas fa-list"></i>&nbsp;{{$t('lang.terms')}}</router-link>
+                </li>   
             </div>
-        </div>   
+        </div>
+
+      
+
+
+
     </div>  
 </template>
 <script>
@@ -58,6 +66,13 @@ export default {
             let agencia = this.getUser.groups.find(g=> g.name == 'AGENCIA');
             return !!agencia;
         }
+    },
+
+    methods:{
+        openTerms(){
+           this.mxShowModal({title:'Termos de uso',  type:'TERMO-USO', width:'100%' });
+        }
+
     },
     components:{
         Localization

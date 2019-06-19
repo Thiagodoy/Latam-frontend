@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Login from '../pages/login';
 
 import HomePage from '../pages/home.vue'
+import TermoUso from '../pages/termo-uso.vue'
 import UserHome from '../pages/register/users/users-home.vue'
 import ProfileHome from '../pages/register/profile/profile-home.vue'
 import FileHome from '../pages/file/file-home.vue'
@@ -35,7 +36,8 @@ export default new Router({
                 { name: 'users-profile', path: '/users-profile', component: ProfileHome },
                 { name: 'upload', path: '/upload', component: Upload },
                 { name: 'company', path: '/company', component: CompanyHome },
-                {name: 'dashboard', path: '/dashboard', component:DashBoard}
+                {name: 'dashboard', path: '/dashboard', component:DashBoard},
+                {name: 'termo-uso', path: '/termo-uso', component:TermoUso}
             ]
 
         }
