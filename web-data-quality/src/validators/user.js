@@ -85,15 +85,7 @@ export const validaNroMaxPerfil = {
     }
 };
 
-export const validaNroMaxAgencia = {
-    messages: {
-        en: (field, args) => {
-            return "CPF/CNPJ já cadastrado!";
-        },
-        'pt_BR': (field, args) => {
-            return "CPF/CNPJ já cadastrado!";
-        }
-    },
+export const validaNroMaxAgencia = {   
     validate(value, args) {
         return validaNroMaxAge(value, args);
     },
