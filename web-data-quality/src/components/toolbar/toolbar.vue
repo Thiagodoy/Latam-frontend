@@ -21,6 +21,27 @@
             <div v-if="config.filter.length > 0" class="toolbar-item input-search-box">
                   <input style="color:#eee" class="input-search form-control mx-auto" v-model="searchText" @keyup="search"  type="text" :placeholder="labelFilter"/>
             </div>
+
+            <!--
+            <div v-if="config.filter.length > 0" class="toolbar-item input-search-box">
+                <select required class="input-search form-control mx-auto">
+                     <option style="color:#999;" class="select-place" value="" selected >Exc. vendas</option>
+                    <option value="1">Executivo de venda 1</option>
+                    <option value="2">Executivo de venda 2</option>
+                </select>
+            </div>
+             <div v-if="config.filter.length > 0" class="toolbar-item input-search-box" :placeholder="labelFilter">
+                   <select required class="input-search form-control mx-auto">
+                 
+                    <option style="color:#999;" class="select-place" value="" selected>Exc. Planejamento</option>
+                    <option>Executivo de planejamento 1</option>
+                    <option>Executivo de planejamento 2</option>
+                </select>
+            </div>
+            -->
+
+
+
         </div>
 
     </div>
@@ -66,8 +87,16 @@ export default {
 
 <style lang="scss" scoped>
 
+select:invalid{
+    color:#ccc;
+}
 
-label,p,span,{
+select option{
+    color: #444;
+    margin: 5px;
+}
+
+label,p,span{
     font-size: 1rem;
 }
 
