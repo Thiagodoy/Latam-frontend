@@ -109,13 +109,13 @@
                             <label   class="checkboxtext mr-3" for="od">Notificação de upload</label>&nbsp;
                         </div>
 
-                        <div class="form-group col-md-4 " :class="{'has-error':errors.has('hora-limite')}" >
+                        <div class="form-group col-md-12 " :class="{'has-error':errors.has('hora-limite')}" >
                                 <label v-if="viewAgency.sendDailyUpload == 1"   class="checkboxtext mr-3" for="hora-limite">Hora limite</label>&nbsp;
                                 <input v-if="typeAction=='view'" :disabled="typeAction=='view'" name="hora-limite" v-model="viewAgency.timeLimit"  type="text" class="form-control campos"  >
-                                <vue-timepicker v-validate="'required'" v-if="viewAgency.sendDailyUpload == 1 && typeAction !='view'" class="form-control campos" v-model="timeLimit" name="hora-limite" ></vue-timepicker>
+                                <vue-timepicker v-validate="'required'" v-if="viewAgency.sendDailyUpload == 1 && typeAction !='view'" class="form-control " v-model="timeLimit" name="hora-limite" ></vue-timepicker>
                                 <div class="help-block">{{errors.first('hora-limite')}}</div>  
                             </div>
-                            <div class="form-group col-md-4 " :class="{'has-error':errors.has('hora-antecedencia')}" >
+                            <div class="form-group col-md-12 " :class="{'has-error':errors.has('hora-antecedencia')}" >
                                  <label v-if="viewAgency.sendDailyUpload == 1"   class="checkboxtext mr-3" for="hora-limite">Horas antecedência</label>&nbsp;                            
                                 <input v-if="viewAgency.sendDailyUpload == 1" :disabled="typeAction=='view'" v-validate="'required|min:1'" name="hora-antecedencia" v-model="viewAgency.hoursAdvance"  type="number" class="form-control campos" :placeholder="''"   >
                                 <div class="help-block">{{errors.first('hora-antecedencia')}}</div>  

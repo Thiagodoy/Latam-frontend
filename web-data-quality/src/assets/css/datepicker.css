@@ -26,4 +26,22 @@ input.input-date::placeholder {
     right: -90px;
 }
 
+.display-time{
+    background: rgba(0, 0,0, 0);
+    color: #eee;
+    padding: 0px;
+   
+  
+    border:none !important;
+   
+    
+    
+   
+  
+}
 
+.time-picker{
+    border: none;
+    padding: 0px;
+    
+}
