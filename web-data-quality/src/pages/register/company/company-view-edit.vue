@@ -85,7 +85,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 pt-2">
+                    <div class="col-md-6 pt-2">
                         <div class="checks ml-3 mb-3">
                             <input :disabled="typeAction=='view'" class="ml-2 campo-check" type="checkbox" v-model="viewAgency.odFlag" value="0"   true-value="1" false-value="0" />
                             <label   class="checkboxtext mr-3" for="od">{{$t('lang.table_Agency_od_flag')}}</label>&nbsp;
@@ -99,6 +99,27 @@
                             <input id="s" :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="S"     /><label>S</label>&nbsp;&nbsp;
                             <input id="d" :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="D"     /><label>D</label>
                         </div>
+
+                    </div>
+
+
+                    <div class="col-md-6 pt-2">
+                        <div class="checks ml-3 mb-3">
+                            <input :disabled="typeAction=='view'" class="ml-2 campo-check" type="checkbox" v-model="viewAgency.sendDailyUpload" value="0"   true-value="1" false-value="0" />
+                            <label   class="checkboxtext mr-3" for="od">Notificação de upload</label>&nbsp;
+                        </div>
+
+                        <div class="form-group col-md-4 " :class="{'has-error':errors.has('hora-limite')}" >
+                                <label v-if="viewAgency.sendDailyUpload == 1"   class="checkboxtext mr-3" for="hora-limite">Hora limite</label>&nbsp;
+                                <input v-if="typeAction=='view'" :disabled="typeAction=='view'" name="hora-limite" v-model="viewAgency.timeLimit"  type="text" class="form-control campos"  >
+                                <vue-timepicker v-validate="'required'" v-if="viewAgency.sendDailyUpload == 1 && typeAction !='view'" class="form-control campos" v-model="timeLimit" name="hora-limite" ></vue-timepicker>
+                                <div class="help-block">{{errors.first('hora-limite')}}</div>  
+                            </div>
+                            <div class="form-group col-md-4 " :class="{'has-error':errors.has('hora-antecedencia')}" >
+                                 <label v-if="viewAgency.sendDailyUpload == 1"   class="checkboxtext mr-3" for="hora-limite">Horas antecedência</label>&nbsp;                            
+                                <input v-if="viewAgency.sendDailyUpload == 1" :disabled="typeAction=='view'" v-validate="'required|min:1'" name="hora-antecedencia" v-model="viewAgency.hoursAdvance"  type="number" class="form-control campos" :placeholder="''"   >
+                                <div class="help-block">{{errors.first('hora-antecedencia')}}</div>  
+                            </div>
 
                     </div>
 
@@ -127,6 +148,8 @@ import AgenciaService from '../../../services/agency';
 import Modal from '../../../components/modal/message-dialog.vue';
 import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
+import VueTimepicker from 'vue2-timepicker'
+
 export default {
 
     props: ['currentObject', 'typeAction'],
@@ -152,11 +175,26 @@ export default {
             },
         }
     },
-
+    computed:{
+        timeLimit:{
+            set:function(data){
+                this.viewAgency.timeLimit =`${data.HH}:${data.mm}`
+            },
+            get:function(){
+                if(!this.viewAgency.timeLimit)
+                return {HH:'00',mm:'00'};
+                let temp = this.viewAgency.timeLimit.split(':');
+                return {HH:temp[0],mm:temp[1]}
+            }
+        }
+    },
     mounted() {
         this.viewAgency = this.currentObject || {
             name: ''
         };
+
+        if(!this.currentObject)
+        return;
         
         this.loading = AgenciaService.listUserByAgency({
             id: this.currentObject.id
@@ -176,6 +214,11 @@ export default {
 
         saveAgency() {
             let promise = [];
+
+
+
+
+
             this.$validator.validateAll().then(response => {
                 
                 if (!response) return;
@@ -205,6 +248,8 @@ export default {
 
     components: {
         DataTable,
+        VueTimepicker 
+       
     }
 }
 </script>
