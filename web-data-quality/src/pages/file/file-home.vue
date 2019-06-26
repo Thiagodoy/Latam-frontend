@@ -100,6 +100,7 @@
                     :data="data"
                     @page="setPage"
                     @download="download"
+                    @rowPerPage="setRowPage"
                     @info="showDetail">
                 </data-table>   
 
@@ -263,7 +264,12 @@ export default {
     },
 
     methods:{    
-        
+        setRowPage(rowPage){            
+             let temp = {...this.request};
+            temp.size = rowPage;
+            this.request = temp;
+            this.listFiles();
+        },        
         clearData(campo,data){            
             this.request.timeStart = undefined;          
         },

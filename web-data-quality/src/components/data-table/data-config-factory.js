@@ -41,7 +41,7 @@ class DataTableConfigFactory {
             showOptionsTYPE: 'FILE',
             showSearch: false,
             showHeaderOptions: false,
-            showRowPerPage: false,
+            showRowPerPage: true,
             showPagination: true,
             searchBy: "",
             columns: [
@@ -64,7 +64,7 @@ class DataTableConfigFactory {
             showOptionsTYPE: 'LIST-FILE-UPLOAD',
             showSearch: false,
             showHeaderOptions: false,
-            showRowPerPage: false,
+            showRowPerPage: true,
             showPagination: true,
             searchBy: "",
             columns: [
@@ -221,7 +221,7 @@ class DataTableConfigFactory {
             showOptionsTYPE: 'DEFAULT',
             showSearch: false,
             showHeaderOptions: false,
-            showRowPerPage: false,
+            showRowPerPage: true,
             showPagination: true,
             searchBy: "",
             columns: [
@@ -242,7 +242,7 @@ class DataTableConfigFactory {
             showOptionsTYPE: 'DEFAULT',
             showSearch: false,
             showHeaderOptions: false,
-            showRowPerPage: false,
+            showRowPerPage: true,
             showPagination: true,
             searchBy: "",
             columns: [

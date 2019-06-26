@@ -12,6 +12,7 @@
                 :config="configTable"
                 :data="data"
                 @page="setPage"
+                @rowPerPage="setRowPage"
                 @view="viewUser"
                 @edit="editUser"
                 @delete="deleteUser"
@@ -115,6 +116,11 @@ export default {
             temp.page = page;
             this.filter = temp;            
         },
+        setRowPage(rowPage){            
+             let temp = {...this.filter};
+            temp.size = rowPage;
+            this.filter = temp;
+        },
         setFilter(filter){    
             
             this.filter = _.merge({...filter},{
@@ -164,7 +170,7 @@ export default {
     watch:{
         filter:{
             handler:function(newValue, oldValue){
-                this.getUsers();
+                this.loading = this.getUsers();
             },
             deep:true
         },
@@ -172,7 +178,7 @@ export default {
             if(newValue == 'home'){
                 this.currentObject = undefined;
                 this.typeAction = undefined;
-                this.getUsers();
+                this.loading = this.getUsers();
             }
         }
     },

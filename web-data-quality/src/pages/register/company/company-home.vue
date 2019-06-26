@@ -19,6 +19,7 @@
                  @view="view"
                  @edit="edit"
                  @delete="del"
+                 @rowPerPage="setRowPage"
                  @page="setPage">
             </data-table>
         </div>
@@ -94,6 +95,11 @@ export default {
             let temp = {...this.filter};
             temp.page = page;
             this.filter = temp;            
+        },
+        setRowPage(rowPage){            
+             let temp = {...this.filter};
+            temp.size = rowPage;
+            this.filter = temp;
         },
         setFilter(filter){ 
             this.filter = _.merge({...filter},{

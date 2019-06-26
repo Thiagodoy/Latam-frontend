@@ -98,6 +98,7 @@
                     :config="configDataTable" 
                     :data="data"
                     @page="setPage"
+                    @rowPerPage="setRowPage"
                     @download="download">
                 </data-table>
 
@@ -252,6 +253,12 @@ export default {
     },
 
     methods:{
+        setRowPage(rowPage){            
+             let temp = {...this.request};
+            temp.size = rowPage;
+            this.request = temp;
+             this.listFiles();
+        },
         clearData(campo,data){            
             this.request.timeStart = undefined;          
         },
