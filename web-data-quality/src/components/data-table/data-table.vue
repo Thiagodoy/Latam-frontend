@@ -69,7 +69,7 @@
                         <p>{{$t('lang.table_pagination_row_page_title')}}</p>
                       </div>
                       <div>
-                        <select class="select-filtro" v-model="rowPerPage">
+                        <select class="select-filtro form-control ml-1" v-model="rowPerPage">
                           <option value="10" class="select-filtro">10</option>
                           <option value="20" class="select-filtro">20</option>
                           <option value="30" class="select-filtro">30</option>
@@ -179,6 +179,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.select-filtro{
+  padding:  0 5px 0 5px;
+  margin: -7px 0 0 0 ;
+  height: none;
+  option{
+    color: #444;
+  }
+  
+}
 
 .wrapper-table{
     overflow: auto;
