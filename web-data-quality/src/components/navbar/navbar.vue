@@ -5,7 +5,7 @@
             
          
 
-           <div v-html="image"  @click="show=!show" class="avatar text-left"></div>
+           <div v-html="getImage"  @click="show=!show" class="avatar text-left"></div>
        
           <transition name="fade">
             <div @mouseleave="show=false" v-if="show" class="box-menu-list"> 
@@ -36,16 +36,10 @@
                         <div class="menu-bar"></div>
                     </div>
                 </div>
-
-
               
                  <div class="latam">
                      <img style="width:120px;"  class=" mx-auto d-block" src="../../assets/images/Login_Logo_Latam.png">
                 </div>
-           
-           
-          
-           
            
         </div>
 
@@ -65,13 +59,21 @@ export default {
        }
     },
     computed:{
-        ...mapGetters(['getIsFirstAccess','getUser']),
+        ...mapGetters(['getIsFirstAccess','getUser','getImage']),
     },
     methods:{  
         ...mapActions(['logout']),
     },      
     mounted(){ 
         this.image = this.getUser.pictureUrl ?  MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.pictureUrl) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
+    },
+    watch:{
+        getUser:{
+            handler:function(newValue,oldValue){
+               
+            },
+            deep:true
+        }
     }  
 }
 </script>

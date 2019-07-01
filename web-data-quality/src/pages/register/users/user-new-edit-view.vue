@@ -146,7 +146,7 @@ import GroupService from '../../../services/group';
 import AgencyService from '../../../services/agency';
 import AbilityFactory from '../../../security/ability-factory';
 import moment from 'moment';
-import {mapGetters} from 'vuex';
+import {mapGetters,mapActions} from 'vuex';
 
 export default {
     props:['userEdit','typeAction', 'showMineProfile'],
@@ -191,25 +191,26 @@ export default {
             }
 
             if(this.showMineProfile){
-                
-                this.userEdit.groups.forEach((g)=>{
-                    g.groupId = g.id;
-                });
+               
+                // this.userEdit.groups.forEach((g)=>{
+                //     g.groupId = g.id;
+                // });
 
-                this.groups = this.groups.filter(gg=>{            
-                    return gg.id == this.userEdit.groups[0].id;
-                }); 
+                // this.groups = this.groups.filter(gg=>{            
+                //     return gg.id == this.userEdit.groups[0].id;
+                // }); 
                 
 
-                let temp = new Array();
-                this.userEdit.info.filter(e=> e.key == 'agencia').forEach(ee=>{
-                    temp.push(this.agencys.find(a=> a.id == ee.value));
-                });                
+                // let temp = new Array();
+                // this.userEdit.info.filter(e=> e.key == 'agencia').forEach(ee=>{
+                //     temp.push(this.agencys.find(a=> a.id == ee.value));
+                // });                
                 
-                this.agencys = temp;
+                // this.agencys = temp;
             }   
             
-            if(this.userEdit){                
+            if(this.userEdit){     
+                debugger;           
                 this.request.id = this.userEdit.email;
                 this.request.firstName = this.userEdit.firstName;
                 this.request.lastName = this.userEdit.lastName;
@@ -301,7 +302,7 @@ export default {
         }
     },
     methods:{
-
+        ...mapActions(['updatePhoto']),
         checkConditions(){
 
             let conditions = AbilityFactory.getRule()[0].conditions;               
@@ -336,7 +337,7 @@ export default {
                this.mxShowModalError(erro);
            });  
         },
-        removePhoto(){
+        removePhoto(){            
             this.userPhoto = undefined;
             document.getElementById('file-load-photo').value = '';
         },
@@ -364,7 +365,7 @@ export default {
         saveUser(){
             
             this.loading = this.$validator.validateAll().then((valid)=>{
-                                    
+                                  
                 this.request.id = this.request.email;
                 this.request.photo = this.userPhoto;                
 
@@ -377,8 +378,9 @@ export default {
                       this.savedSuccess('Usuário criado com sucesso!');
                     });
                 }else if(valid && this.userEdit){
-
-                  return UserService.updateUser(this.request).then(()=>{
+                    
+                  return UserService.updateUser(this.request).then(()=>{                        
+                      this.updatePhoto(this.userPhoto);                        
                       this.savedSuccess('Usuário atualizado com sucesso!');
                   })
                 }

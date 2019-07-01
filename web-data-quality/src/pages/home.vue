@@ -53,7 +53,7 @@ export default {
         
         if(!(this.getIsMaster) && value >= 1 && value <= 3){
             
-            this.mxShowModal({title:'Informação', message:`Sua senha expira em ${value} dias`});
+            this.mxShowModal({title:'Informação', message:`Sua senha expira em ${value} dias.`});
         }else if(!(this.getIsMaster) && value <= 0){
             this.mxShowModal({title:'Informação', message:this.$t('lang.msg_error_3')}).then(()=>{
                 return AuthService.expired(this.getUser.email).then(()=>{
