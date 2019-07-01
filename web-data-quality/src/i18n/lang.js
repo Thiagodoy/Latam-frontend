@@ -113,6 +113,7 @@ module.exports = {
             btn_accept: 'I accept',
             btn_no_accept: 'I do not accept',
             modal_terms: 'Terms and conditions',
+            text_help_upload: 'To save a file, click "New upload" located at the top of the screen. Select the file you want to share and click "Open." Check the upload status on your screen. A success message will be displayed when the upload is finished. '
 
 
 
@@ -231,6 +232,7 @@ module.exports = {
             btn_accept: 'Aceito',
             btn_no_accept: 'Não aceito',
             modal_terms: 'Termos e condições',
+            text_help_upload:'Para gravar um arquivo, clique em "Novo upload", localizado no topo da tela. Selecione o arquivo que deseja compartilhar e clique em "Abrir". Verifique o status do upload em sua tela. Uma mensagem de sucesso será exibida quando o upload terminar.'
 
 
 
@@ -350,7 +352,7 @@ module.exports = {
             btn_accept: 'Aceptado',
             btn_no_accept: 'No acepto',
             modal_terms: 'Términos y Condiciones',
-
+            text_help_upload:'Para grabar un archivo, haga clic en "Nueva carga", situado en la parte superior de la pantalla. Seleccione el archivo que desea compartir y haga clic en "Abrir". Compruebe el estado del upload en su pantalla. Se mostrará un mensaje de éxito cuando finalice la carga.'
 
 
         }
