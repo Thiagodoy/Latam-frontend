@@ -103,6 +103,7 @@ module.exports = {
             msg_error_3: '<span style="color:red;"><b>Expired password!</b></span> </br> \n Contact your system administrator to release your access.',
             msg_error_4: '<span style="color:red;"><b>Access Expired for 45 days.</b></span> </br> \n Contact your system administrator to release your access.',
             msg_error_5: 'Not found information about user.',
+            msg_error_6: 'User disabled.',
             msg_error_undefined: 'Server off',
             go_to_login: 'Go to login',
             title_change_pass: 'Change Password',
@@ -219,6 +220,7 @@ module.exports = {
             msg_error_3: '<span style="color:red;"><b>Senha expirada!</b></span> </br> Entre em contato com o administrador do sistema para a liberação do seu acesso.',
             msg_error_4: '<span style="color:red;"><b>Acesso expirado!</b></span> </br> Entre em contato com o administrador do sistema para a liberação do seu acesso.',
             msg_error_5: 'Informação de usuário não encontrada!',
+            msg_error_6: 'Usuário desativado.',
             msg_error_undefined: 'Servidor off!',
 
             go_to_login: 'Ir para login',
@@ -336,6 +338,7 @@ module.exports = {
             msg_error_3: '<span style="color:red;"><b>Contraseña caducada!</b></span> </br>  Póngase en contacto con el administrador del sistema para la liberación de su acceso.',
             msg_error_4: '<span style="color:red;"><b>Acesso expirado.</b></span> </br>  Póngase en contacto con el administrador del sistema para la liberación de su acceso.',
             msg_error_5: 'Informação de usuário não encontrada!',
+            msg_error_6: 'Usuário desativado.',
             msg_error_undefined: 'Servidor off!',
 
 
