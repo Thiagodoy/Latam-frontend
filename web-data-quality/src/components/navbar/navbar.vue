@@ -4,7 +4,10 @@
 
             
          
-           <div v-html="image"  @click="show=!show" class="avatar text-left"></div>
+
+
+           <div v-html="getImage"  @click="show=!show" class="avatar text-left"></div>
+
        
           <transition name="fade">
             <div @mouseleave="show=false" v-if="show" class="box-menu-list"> 
@@ -36,8 +39,6 @@
                     </div>
                 </div>
 
-        
-
               
                  <div class="latam">
                      
@@ -49,10 +50,6 @@
                    
                    
                
-           
-           
-          
-           
            
         </div>
 
@@ -72,13 +69,21 @@ export default {
        }
     },
     computed:{
-        ...mapGetters(['getIsFirstAccess','getUser']),
+        ...mapGetters(['getIsFirstAccess','getUser','getImage']),
     },
     methods:{  
         ...mapActions(['logout']),
     },      
     mounted(){ 
         this.image = this.getUser.pictureUrl ?  MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.pictureUrl) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
+    },
+    watch:{
+        getUser:{
+            handler:function(newValue,oldValue){
+               
+            },
+            deep:true
+        }
     }  
 }
 </script>

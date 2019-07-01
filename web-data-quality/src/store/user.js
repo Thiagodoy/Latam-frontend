@@ -5,24 +5,35 @@ import { extendMoment } from 'moment-range';
 import AbilityFactory from '../security/ability-factory';
 import Vue from 'vue';
 import { abilitiesPlugin } from '@casl/vue'
+import MockFactory from '../utils/mock-factory'
 
 const moment = extendMoment(Moment);
 
 // TYPES
 const MAIN_LOGIN = 'MAIN_SET_LOGIN';
+const MAIN_UPDATE_PHOTO = 'MAIN_UPDATE_PHOTO';
 
 const userStore = {
 
     state: {
-        user: undefined
+        user: undefined,
+        picture:undefined
     },
     mutations: {
         [MAIN_LOGIN](state, obj) {
             state.user = obj;
+            state.picture = state.user.pictureUrl
             sessionStorage.setItem('user', JSON.stringify(state.user));
+        },
+        [MAIN_UPDATE_PHOTO](state,obj){
+            state.user.pictureUrl = obj;
+            state.picture = obj;
         }
     },
     getters: {
+        getImage:(state, getters)=>{
+           return state.picture && state.picture ?  MockFactory.build('MAKE_IMAGE_PROFILE',state.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;
+        },
         getUser: (state, getters) => {
             return state.user ? state.user : { matricula: '', nome: '' };
         },
@@ -63,6 +74,10 @@ const userStore = {
             });
         },
 
+        updatePhoto({ commit, getters }, payload){
+            commit(MAIN_UPDATE_PHOTO, payload);            
+            instance.$forceUpdate(); 
+        },
         logout({ commit, dispatch }) {
             instance.$session.destroy();
             instance.$router.push({ name: 'login' });
