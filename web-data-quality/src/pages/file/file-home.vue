@@ -14,13 +14,7 @@
        <div   @mouseover="help=true" @mouseleave="help=false" class="help"><i class="far fa-question-circle"></i></div>
 
        <div v-if="help" class="box-help">
-           Para gravar um arquivo, selecione a opção Upload no menu.
-            Na próxima página, clique em Upload na parte superior
-             da tela e escolha o arquivo em uma pasta local.
-            Pronto, visualize a gravação do arquivo na tela.
-             Uma mensagem de carregamento com sucesso
-              será exibida na tela
-
+            {{$t('lang.text_help_upload')}}
 
        </div>
 

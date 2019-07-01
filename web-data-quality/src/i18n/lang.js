@@ -16,7 +16,7 @@ module.exports = {
             profile: 'Profile',
             options: 'Options',
             terms: 'Term of use',
-            change_password: 'Change Pass',
+            change_password: 'Change Password',
             msg_error_01: 'Not found the user',
             msg_success_user: 'User saved successfully!',
             msg_success_agency: 'Agency saved successfully!',
@@ -24,7 +24,7 @@ module.exports = {
             table_view_user_id: 'Id',
             table_view_user_firstname: 'FirstName',
             table_view_user_lastname: 'LastName',
-            table_view_user_email: 'E-mail',
+            table_view_user_email: 'E-MAIL',
             table_view_file_company_name: 'Agency',
             table_view_file_company_code: 'Code agency',
             table_view_file_name: 'File',
@@ -36,6 +36,7 @@ module.exports = {
             table_view_group_type: 'Type',
             aba_report: 'Report',
             table_created_date: 'Created date',
+            
 
 
             table_agency_name: "Agency",
@@ -74,6 +75,7 @@ module.exports = {
             button_new_pass: 'Save',
             button_filter: 'Filter',
             button_send_email: 'Send e-mail',
+            button_ressend_access_email:'Resend access e-mail',
             label_input_firstname: 'First Name',
             label_input_lastname: 'Last Name',
             label_input_email: 'E-mail',
@@ -90,6 +92,7 @@ module.exports = {
             confirm_pass: 'Confirm password',
             label_input_search_date_From: 'From:',
             label_input_search_date_To: 'To:',
+            label_hello:"Hello ",
             Forgot_password: 'Forgot password',
             msg_error_1987: 'File repeated!',
             msg_error_1988: 'File upload success!',
@@ -112,6 +115,7 @@ module.exports = {
             btn_accept: 'I accept',
             btn_no_accept: 'I do not accept',
             modal_terms: 'Terms and conditions',
+            text_help_upload: 'To save a file, click "New upload" located at the top of the screen. Select the file you want to share and click "Open." Check the upload status on your screen. A success message will be displayed when the upload is finished. '
 
 
 
@@ -141,7 +145,7 @@ module.exports = {
             table_view_user_id: 'Código',
             table_view_user_firstname: 'Nome',
             table_view_user_lastname: 'Sobrenome',
-            table_view_user_email: 'Email',
+            table_view_user_email: 'E-MAIL',
             table_view_file_company_name: 'Agência',
             table_view_file_company_code: 'Código agência ',
             table_view_file_name: 'Arquivos',
@@ -189,10 +193,11 @@ module.exports = {
             button_sign_in: 'Entrar',
             button_new_pass: 'Salvar',
             button_filter: 'Filtrar',
-            button_send_email: 'Enviar email',
+            button_send_email: 'Enviar e-mail',
+            button_ressend_access_email:'Reenviar e-mail de acesso',
             label_input_firstname: 'Nome',
             label_input_lastname: 'Sobrenome',
-            label_input_email: 'Email',
+            label_input_email: 'E-mail',
             label_input_company: 'Agência',
             label_input_password: 'Senha',
             label_input_confirm_password: 'Confirme',
@@ -207,6 +212,7 @@ module.exports = {
             label_input_search_date_To: 'Até:',
             confirm_pass: 'Confirmar senha',
             Forgot_password: 'Esqueceu a senha ?',
+            label_hello:"Olá ",
 
             msg_error_1987: 'Arquivo repetido!',
             msg_error_1988: 'Arquivo carregado com sucesso!',
@@ -230,6 +236,7 @@ module.exports = {
             btn_accept: 'Aceito',
             btn_no_accept: 'Não aceito',
             modal_terms: 'Termos e condições',
+            text_help_upload:'Para gravar um arquivo, clique em "Novo upload", localizado no topo da tela. Selecione o arquivo que deseja compartilhar e clique em "Abrir". Verifique o status do upload em sua tela. Uma mensagem de sucesso será exibida quando o upload terminar.'
 
 
 
@@ -259,7 +266,7 @@ module.exports = {
             table_view_user_id: 'Código',
             table_view_user_firstname: 'Nombre',
             table_view_user_lastname: 'Apellido',
-            table_view_user_email: 'Email',
+            table_view_user_email: 'E-MAIL',
             table_view_file_company_name: 'Agência',
             table_view_file_company_code: 'Agência codigo',
             table_view_file_name: 'Archivos',
@@ -309,10 +316,11 @@ module.exports = {
             button_new_pass: 'Guardar',
             button_filter: 'Filtrar',
             button_send_email: 'Enviar email',
+            button_ressend_access_email:'Reenviar e-mail de acceso',
             label_input_firstname: 'Nombre',
             label_input_lastname: 'Apellido',
             label_input_company: 'Company',
-            label_input_email: 'Email',
+            label_input_email: 'E-mail',
             label_input_password: 'Contraseña',
             label_input_confirm_password: 'Confirme',
             label_input_group_name: 'Name',
@@ -326,6 +334,7 @@ module.exports = {
             label_input_search_date_To: 'Para:',
             label_select_option: 'Seleccione una opción',
             Forgot_password: 'Olvido la contraseña',
+            label_hello:"Hola ",
 
             msg_error_1987: 'File repeated!',
             msg_error_1988: 'Arquivo carregado com sucesso!',
@@ -349,7 +358,7 @@ module.exports = {
             btn_accept: 'Aceptado',
             btn_no_accept: 'No acepto',
             modal_terms: 'Términos y Condiciones',
-
+            text_help_upload:'Para grabar un archivo, haga clic en "Nueva carga", situado en la parte superior de la pantalla. Seleccione el archivo que desea compartir y haga clic en "Abrir". Compruebe el estado del upload en su pantalla. Se mostrará un mensaje de éxito cuando finalice la carga.'
 
 
         }

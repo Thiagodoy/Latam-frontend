@@ -5,7 +5,9 @@
             
          
 
+
            <div v-html="getImage"  @click="show=!show" class="avatar text-left"></div>
+
        
           <transition name="fade">
             <div @mouseleave="show=false" v-if="show" class="box-menu-list"> 
@@ -36,10 +38,18 @@
                         <div class="menu-bar"></div>
                     </div>
                 </div>
+
               
                  <div class="latam">
+                     
                      <img style="width:120px;"  class=" mx-auto d-block" src="../../assets/images/Login_Logo_Latam.png">
                 </div>
+                <div class="hello">
+                   <span>{{$t('lang.label_hello')}} </span>&nbsp;{{getUser.firstName}}
+                </div>
+                   
+                   
+               
            
         </div>
 
@@ -78,6 +88,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+.hello{
+    color: #eee;
+    right: 100px;
+    top:16px;
+    position:absolute;
+}
 
     .latam{
        // background: #ff0;
