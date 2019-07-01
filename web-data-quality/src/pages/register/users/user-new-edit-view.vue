@@ -113,7 +113,7 @@
 
                          <div class="col-md-12">
                              <div class="form-group">
-                                <button v-if="typeAction == 'VIEW'" style="color:#fff" @click="resendEmail" class="btn btn-default">Reenviar email de acesso</button>                       
+                                <button v-if="typeAction == 'VIEW'" style="color:#fff" @click="resendEmail" class="btn btn-default">{{$t('lang.button_ressend_access_email')}}</button>                       
                              </div>
                          </div>
                         
