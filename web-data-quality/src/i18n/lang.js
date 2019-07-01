@@ -36,6 +36,7 @@ module.exports = {
             table_view_group_type: 'Type',
             aba_report: 'Report',
             table_created_date: 'Created date',
+            
 
 
             table_agency_name: "Agency",
@@ -90,6 +91,7 @@ module.exports = {
             confirm_pass: 'Confirm password',
             label_input_search_date_From: 'From:',
             label_input_search_date_To: 'To:',
+            label_hello:"Hello ",
             Forgot_password: 'Forgot password',
             msg_error_1987: 'File repeated!',
             msg_error_1988: 'File upload success!',
@@ -206,6 +208,7 @@ module.exports = {
             label_input_search_date_To: 'Até:',
             confirm_pass: 'Confirmar senha',
             Forgot_password: 'Esqueceu a senha ?',
+            label_hello:"Olá ",
 
             msg_error_1987: 'Arquivo repetido!',
             msg_error_1988: 'Arquivo carregado com sucesso!',
@@ -324,6 +327,7 @@ module.exports = {
             label_input_search_date_To: 'Para:',
             label_select_option: 'Seleccione una opción',
             Forgot_password: 'Olvido la contraseña',
+            label_hello:"Hola ",
 
             msg_error_1987: 'File repeated!',
             msg_error_1988: 'Arquivo carregado com sucesso!',
