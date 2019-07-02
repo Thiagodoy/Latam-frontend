@@ -18,7 +18,7 @@
 
                </div>
                 <ul>
-                    <router-link   tag="li" :to="{ name: 'meu-perfil', params: {login:'logado',show:'view' } }"><i class="fas fa-user"></i>&nbsp;{{$t('lang.profile')}}</router-link> 
+                    <router-link   tag="li" :to="{ name: 'meu-perfil', params: {login:'logado',show:'view' } }"><i class="fas fa-user"></i>&nbsp;{{$t('lang.profile')}}&nbsp;-&nbsp;{{getUser.groups[0].name}}</router-link> 
                     <li @click="logout"><i class="fas fa-door-open"></i>&nbsp;{{$t('lang.exit')}}</li>
                 </ul>
             </div>      
@@ -46,6 +46,7 @@
                 </div>
                 <div class="hello">
                    <span>{{$t('lang.label_hello')}} </span>&nbsp;{{getUser.firstName}}
+                   
                 </div>
                    
                    
@@ -70,12 +71,17 @@ export default {
     },
     computed:{
         ...mapGetters(['getIsFirstAccess','getUser','getImage']),
+
     },
     methods:{  
         ...mapActions(['logout']),
+
+        
     },      
     mounted(){ 
-        this.image = this.getUser.pictureUrl ?  MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.pictureUrl) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;                  
+        this.image = this.getUser.pictureUrl ?  MockFactory.build('MAKE_IMAGE_PROFILE',this.getUser.pictureUrl) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;   
+        
+        console.log("TESTE",this.getUser.groups[0].name);
     },
     watch:{
         getUser:{
