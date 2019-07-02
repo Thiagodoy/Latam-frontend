@@ -6,21 +6,25 @@ import AbilityFactory from '../security/ability-factory';
 import Vue from 'vue';
 import { abilitiesPlugin } from '@casl/vue'
 import MockFactory from '../utils/mock-factory'
+import * as _ from "lodash"
 
 const moment = extendMoment(Moment);
 
 // TYPES
 const MAIN_LOGIN = 'MAIN_SET_LOGIN';
 const MAIN_UPDATE_PHOTO = 'MAIN_UPDATE_PHOTO';
+const MAIN_PASS_WORD = 'MAIN_PASS_WORD';
 
 const userStore = {
 
     state: {
         user: undefined,
-        picture:undefined
+        picture:undefined,
+        pass: undefined,
     },
     mutations: {
         [MAIN_LOGIN](state, obj) {
+           
             state.user = obj;
             state.picture = state.user.pictureUrl
             sessionStorage.setItem('user', JSON.stringify(state.user));
@@ -28,9 +32,16 @@ const userStore = {
         [MAIN_UPDATE_PHOTO](state,obj){
             state.user.pictureUrl = obj;
             state.picture = obj;
+        },
+        [MAIN_PASS_WORD](state,obj){
+            state.pass = obj;
+            
         }
     },
     getters: {
+        getGroups:(state,getters)=>{
+            return state.user.groups;
+        },
         getImage:(state, getters)=>{
            return state.picture && state.picture ?  MockFactory.build('MAKE_IMAGE_PROFILE',state.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;
         },
@@ -67,6 +78,7 @@ const userStore = {
         loginStore({ commit, getters }, payload) {
             return AuthService.login(payload).then(response => {
                 commit(MAIN_LOGIN, response);
+                commit(MAIN_PASS_WORD,payload.password)
                 instance.$session.set('user', response);                
                 Vue.use(abilitiesPlugin, AbilityFactory.build(response));
                 instance.$forceUpdate();                
@@ -75,7 +87,15 @@ const userStore = {
         },
 
         updatePhoto({ commit, getters }, payload){
+            
             commit(MAIN_UPDATE_PHOTO, payload);            
+            instance.$forceUpdate(); 
+        },
+        updateUser({ commit, getters,dispatch,state  }, payload){
+            debugger
+            dispatch('loginStore', {email:payload.email,password:state.pass})
+
+            //commit(MAIN_LOGIN, payload);                     
             instance.$forceUpdate(); 
         },
         logout({ commit, dispatch }) {

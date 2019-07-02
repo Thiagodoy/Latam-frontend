@@ -207,17 +207,26 @@ export default {
                 // });                
                 
                 // this.agencys = temp;
+                
+                
+                this.userEdit.groups = this.getGroups;
+
+                console.log('this.userEdit.groups',this.userEdit.groups)
             }   
             
-            if(this.userEdit){     
-                debugger;           
+            if(this.userEdit){                              
                 this.request.id = this.userEdit.email;
                 this.request.firstName = this.userEdit.firstName;
                 this.request.lastName = this.userEdit.lastName;
                 this.request.email = this.userEdit.email;
                 this.request.photo = this.userEdit.pictureUrl;
                 this.userPhoto  = this.userEdit.pictureUrl;
-                this.request.groups = this.userEdit.groups.map((g)=>g.groupId);
+                if(this.showMineProfile){
+                     this.request.groups = this.userEdit.groups.map((g)=>g.id);
+                }else{
+                     this.request.groups = this.userEdit.groups.map((g)=>g.groupId);
+                }
+               
                 this.request.info = this.userEdit.info;
                 this.request.password = this.userEdit.password;
                 this.$forceUpdate();   
@@ -232,7 +241,7 @@ export default {
        
     },    
     computed:{
-        ...mapGetters(['getUser']),
+        ...mapGetters(['getUser','getGroups']),
         agency:{
             set:function(newValue){       
 
@@ -302,7 +311,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['updatePhoto']),
+        ...mapActions(['updatePhoto','updateUser']),
         checkConditions(){
 
             let conditions = AbilityFactory.getRule()[0].conditions;               
@@ -380,7 +389,8 @@ export default {
                 }else if(valid && this.userEdit){
                     
                   return UserService.updateUser(this.request).then(()=>{                        
-                      this.updatePhoto(this.userPhoto);                        
+                      this.updatePhoto(this.userPhoto); 
+                      this.updateUser(this.request);                       
                       this.savedSuccess('Usuário atualizado com sucesso!');
                   })
                 }
