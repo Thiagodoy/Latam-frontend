@@ -51,9 +51,11 @@ export default {
 
         let value = Math.sign(this.getCheckChangePassword) < 0 ? 0 : this.getCheckChangePassword;
         
-        if(!(this.getIsMaster) && value >= 1 && value <= 3){
+        if(!(this.getIsMaster) && value >= 1 && value <= 10){
             
-            this.mxShowModal({title:'Informação', message:`Sua senha expira em ${value} dias.`});
+            if(value == 10 || value == 5 || value == 1)
+                this.mxShowModal({title:'Informação', message:`Sua senha expira em ${value} dias.`});
+                
         }else if(!(this.getIsMaster) && value <= 0){
             this.mxShowModal({title:'Informação', message:this.$t('lang.msg_error_3')}).then(()=>{
                 return AuthService.expired(this.getUser.email).then(()=>{

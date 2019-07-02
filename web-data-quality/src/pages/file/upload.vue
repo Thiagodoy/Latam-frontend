@@ -1,5 +1,5 @@
 <template>
-<div v-async="loading">
+<div v-async="loading" ondrop="drop($event)"  @dragover="dragover">
 
     <div v-if="showOp== 'list'">
 
@@ -183,6 +183,7 @@ export default {
     },
     mounted(){
 
+
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
 
               let temp = undefined;               
@@ -248,6 +249,13 @@ export default {
     },
 
     methods:{
+        dragover(event){
+            console.log('dragover',event);
+        },
+        drop(event){
+            console.log('drop',event);
+           
+        },
         setRowPage(rowPage){            
              let temp = {...this.request};
             temp.size = rowPage;
