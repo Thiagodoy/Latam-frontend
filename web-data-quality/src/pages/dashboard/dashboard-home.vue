@@ -50,7 +50,8 @@
                 </div>
             </div>
           
-            <graph-line :graphData="graphData"/>     
+            <graph-line :graphData="graphData"/> <br>
+           <!-- <graph-bar/> -->    
     </div>     
 </template>
 
@@ -58,6 +59,7 @@
 <script>
 import Toolbar from '../../components/toolbar/toolbar.vue';
 import GraphLine from '../../components/graphics/graph-line'
+import GraphBar from '../../components/graphics/graph-bar'
 import ToolbarFactory from '../../components/toolbar/toolbar-config-factory';
 import Multiselect from 'vue-multiselect';
 import AgencyService from '../../services/agency'; 
@@ -215,6 +217,7 @@ export default {
     components:{
         Toolbar,
         GraphLine,
+        GraphBar,
         Multiselect,
     }    
    
