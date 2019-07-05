@@ -71,7 +71,7 @@ const userStore = {
             let dateNow = moment().toDate();
             let dateEnd = Date.UTC(...[dateNow.getUTCFullYear(), dateNow.getUTCMonth(), dateNow.getUTCDate()]);
 
-            return (90 - moment.range(dateInit, dateEnd).diff('days'));
+            return (180 - moment.range(dateInit, dateEnd).diff('days'));
         }
     },
     actions: {
