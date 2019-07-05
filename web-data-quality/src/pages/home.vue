@@ -49,8 +49,7 @@ export default {
     },
     mounted(){
 
-        let value = Math.sign(this.getCheckChangePassword) < 0 ? 0 : this.getCheckChangePassword;
-        debugger;
+        let value = Math.sign(this.getCheckChangePassword) < 0 ? 0 : this.getCheckChangePassword;        
         if(!(this.getIsMaster) && value >= 1 && value <= 10){
             
             if(value == 10 || value == 5 || value == 1)
