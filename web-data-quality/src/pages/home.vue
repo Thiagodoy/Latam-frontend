@@ -52,9 +52,11 @@ export default {
         let value = Math.sign(this.getCheckChangePassword) < 0 ? 0 : this.getCheckChangePassword;        
         if(!(this.getIsMaster) && value >= 1 && value <= 10){
             
-            if(value == 10 || value == 5 || value == 1)
+            if(value == 10 || value == 5 || value == 1){
+                
             let message = value == 1 ? `${value} dia` : `${value} dias`;
                 this.mxShowModal({title:'Informação', message:`Sua senha expira em ${message}.</br>Favor altere as sua senha.`});
+            }
                 
         }else if(!(this.getIsMaster) && value <= 0){
             this.mxShowModal({title:'Informação', message:this.$t('lang.msg_error_3')}).then(()=>{
