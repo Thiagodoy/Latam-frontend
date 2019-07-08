@@ -55,7 +55,7 @@ export default {
             if(value == 10 || value == 5 || value == 1){
                 
             let message = value == 1 ? `${value} dia` : `${value} dias`;
-                this.mxShowModal({title:'Informação', message:`Sua senha expira em ${message}.</br>Favor altere as sua senha.`});
+                this.mxShowModal({title:'Informação', message:`Sua senha expira em ${message}.</br>Favor altere a sua senha.`});
             }
                 
         }else if(!(this.getIsMaster) && value <= 0){
