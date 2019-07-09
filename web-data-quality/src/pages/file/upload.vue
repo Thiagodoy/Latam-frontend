@@ -287,10 +287,10 @@ export default {
             });
         },
         download(data){            
-            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download?fileName=${data.name}&company=${data.company}`;       
+            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/downloadNew?id=${data.id}`;       
             var aTag = window.document.getElementById('mobi');
             aTag.setAttribute('href', this.downloadStatementUrl);
-            aTag.setAttribute('download', 'erros.txt');      
+            //aTag.setAttribute('download', 'erros.txt');      
             aTag.click();
         },
         listFiles(){          
