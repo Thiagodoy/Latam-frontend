@@ -289,10 +289,10 @@ export default {
             });
         },
         download(data){            
-            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file//errors/${data.id}/1`;       
+            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/downloadNew?id=${data.id}`;       
             var aTag = window.document.getElementById('mobi');
             aTag.setAttribute('href', this.downloadStatementUrl);
-            aTag.setAttribute('download', 'erros.txt');      
+            //aTag.setAttribute('download', 'erros.txt');      
             aTag.click();
         },
         listFiles(){          
