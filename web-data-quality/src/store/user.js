@@ -64,14 +64,12 @@ const userStore = {
             return state.user.info.filter(e => e.key == 'agencia');
         },
         getCheckChangePassword: (state) => {
+            
             if (!state.user) return -1;
             let value = state.user.info.find(e => e.key == 'trocar_senha').value.split('-');
-            let d = moment(value).toDate();
-            let dateInit = Date.UTC(...[d.getUTCFullYear(), d.getUTCMonth() - 1, d.getUTCDate()]);
-            let dateNow = moment().toDate();
-            let dateEnd = Date.UTC(...[dateNow.getUTCFullYear(), dateNow.getUTCMonth(), dateNow.getUTCDate()]);
-
-            return (90 - moment.range(dateInit, dateEnd).diff('days'));
+            value[1] = value[1] - 1;           
+            
+            return (180 - moment.range(moment(value).toDate(),  moment().toDate()).diff('days'));
         }
     },
     actions: {
