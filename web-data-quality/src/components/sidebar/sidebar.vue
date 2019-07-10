@@ -12,7 +12,7 @@
                 <li  class="x-item" id="cadastro">
                     <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                     <div class="x-smenu">
-                        <router-link v-if="$can('manage', 'User')"  class="pl-5" tag="li" to="/users-register"><i class="fas fa-user"></i>&nbsp;{{$t('lang.users')}}</router-link>
+                        <router-link  v-if="$can('manage', 'User')"  class="pl-5" tag="li" to="/users-register"><i class="fas fa-user"></i>&nbsp;<span @click="teste">{{$t('lang.users')}}</span></router-link>
                         <router-link v-if="$can('manage', 'Agency')" class="pl-5" tag="li" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
                         <router-link v-if="$can('manage', 'Profile')" class="pl-5" tag="li" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
                     </div>
@@ -72,6 +72,13 @@ export default {
     methods:{
         openTerms(){
            this.mxShowModal({title:'Termos de uso',  type:'TERMO-USO', width:'100%' });
+        },
+
+
+        teste(){
+           
+         
+          
         }
 
     },

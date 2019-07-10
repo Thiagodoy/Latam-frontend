@@ -24,7 +24,8 @@
                 <a  v-if="$can('report', 'File')" class="nav-item nav-link" :class="{'active': show == 'file'}" id="nav-home-tab" @click="show='file'" data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">{{$t('lang.aba_report')}}</a>
             </div>
         </nav>
-        <div class="tab-content" id="nav-tabContent">
+
+        <div  class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" :class="{'show':(show !='upload'), 'active':(show !='upload')}" role="tabpanel" aria-labelledby="nav-home-tab">
                    
                    
@@ -100,7 +101,10 @@
                 <input type="file" id="file-upload" style="display:none;" accept=".xls,.csv" multiple>
             </div>
             <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <br>
+               
+                <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+
+
                 <div class="wrapper-table">
                     <table class="table tabela table-striped table-dark">
                         <thead>
@@ -149,6 +153,11 @@ import Multiselect from 'vue-multiselect';
 import * as _ from 'lodash';
 import Constantes from '../../utils/constantes';
 
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
+
+
 export default {
     
     data(){
@@ -177,7 +186,19 @@ export default {
                 timeEnd:undefined,
                 status:['COLLECTOR_UPLOADED']
             },
-            help:false,            
+            help:false,  
+           
+            dropzoneOptions: {
+               url: "https://httpbin.org/post",
+                maxFilesize: 2, // MB
+                maxFiles: 4,
+                //chunking: true,
+                //chunkSize: 500, // Bytes
+            
+                addRemoveLinks: true,
+            
+            }
+          
    
         }
     },
@@ -386,12 +407,28 @@ export default {
         DataTable,
         FileUploadProgress,
         FileDetailStatus,
-        Multiselect
+        Multiselect,
+       vueDropzone: vue2Dropzone
       
     }
 }
 </script>
 <style lang="scss" scoped>
+
+#dropzone{
+    background: rgba(0, 0, 0, .3);
+    margin-top: 20px;
+    color: white;
+    border:none;
+
+    
+}
+
+
+
+
+ 
+
 
 .margin-left{
     margin-left: 7px;

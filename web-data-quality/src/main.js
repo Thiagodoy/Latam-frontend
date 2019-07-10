@@ -16,9 +16,12 @@ import { VueMaskDirective } from "v-mask";
 import Autocomplete from 'v-autocomplete'
 import 'v-autocomplete/dist/v-autocomplete.css'
 import datepickercss from '../src/assets/css/datepicker.css';
+import drop from '../src/assets/css/drop.css';
 import "./assets/css/multselect.css";
 import 'jquery';
 import ComponentsPlugin from './components/index';
+
+
 
 Vue.use(ComponentsPlugin);
 

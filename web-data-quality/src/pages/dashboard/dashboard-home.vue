@@ -51,7 +51,8 @@
             </div>
           
             <graph-line :graphData="graphData"/> <br>
-           <!-- <graph-bar/> -->    
+          
+            <graph-stacked/>   
     </div>     
 </template>
 
@@ -60,6 +61,7 @@
 import Toolbar from '../../components/toolbar/toolbar.vue';
 import GraphLine from '../../components/graphics/graph-line'
 import GraphBar from '../../components/graphics/graph-bar'
+import GraphStacked from '../../components/graphics/graph-bar-stacked'
 import ToolbarFactory from '../../components/toolbar/toolbar-config-factory';
 import Multiselect from 'vue-multiselect';
 import AgencyService from '../../services/agency'; 
@@ -218,6 +220,7 @@ export default {
         Toolbar,
         GraphLine,
         GraphBar,
+        GraphStacked,
         Multiselect,
     }    
    
@@ -310,10 +313,7 @@ export default {
  }
 
  @media (max-width: 850px) { 
-.filter-select{
-  
-   //  margin-bottom: 0px;
-}
+
     
   
 
