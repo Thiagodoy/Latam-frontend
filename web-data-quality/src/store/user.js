@@ -98,6 +98,7 @@ const userStore = {
             instance.$session.destroy();
             instance.$router.push({ name: 'login' });
             commit(MAIN_LOGIN, undefined);
+            commit(MAIN_UPDATE_PHOTO, undefined);
             //workaround
             location.reload();
         },
