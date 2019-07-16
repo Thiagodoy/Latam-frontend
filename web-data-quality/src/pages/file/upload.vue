@@ -103,7 +103,7 @@
             </div>
             <div class="tab-pane fade" :class="{'show':(show =='upload'), 'active':(show =='upload')}" role="tabpanel" aria-labelledby="nav-profile-tab">
                
-                <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+                <!-- <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone> -->
 
 
                 <div class="wrapper-table">
