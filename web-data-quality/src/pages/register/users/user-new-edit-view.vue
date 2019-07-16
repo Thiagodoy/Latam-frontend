@@ -146,6 +146,7 @@ import AgencyService from '../../../services/agency';
 import AbilityFactory from '../../../security/ability-factory';
 import moment from 'moment';
 import {mapGetters,mapActions} from 'vuex';
+import route from '../../../route/routes';
 
 export default {
     props:['userEdit','typeAction', 'showMineProfile'],
@@ -397,7 +398,11 @@ export default {
         savedSuccess(msg){
 
             this.mxShowModal({title:'Informação', message:msg}).then(()=>{
-                this.$emit('back');
+                if(this.showMineProfile){
+                    route.push({name:'home'});
+                }else{
+                    this.$emit('back');
+                }
                 this.request = {groups:[], info:[]};
             })
             

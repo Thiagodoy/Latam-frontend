@@ -52,7 +52,7 @@
           
             <graph-line :graphData="graphData"/> <br>
           
-            <graph-stacked/>   
+            <!-- <graph-stacked/>    -->
     </div>     
 </template>
 
