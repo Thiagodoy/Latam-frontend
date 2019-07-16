@@ -46,7 +46,8 @@
                                         :placeholder="'Selecione a agencia'" 
                                         :limit="2"
                                         :limit-text="(count)=>`Mais ${count}`"
-                                        :max-width="150"                                                              
+                                        :max-width="150" 
+                                        :showNoResults="false"                                                                                                                           
                                         :multiple="true"> 
                                                                 
                                     </multiselect>
@@ -292,7 +293,7 @@ export default {
             this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/downloadNew?id=${data.id}`;       
             var aTag = window.document.getElementById('mobi');
             aTag.setAttribute('href', this.downloadStatementUrl);
-            //aTag.setAttribute('download', 'erros.txt');      
+            aTag.setAttribute('type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');      
             aTag.click();
         },
         listFiles(){          

@@ -5,8 +5,7 @@
            {{$t('lang.msg_success_user')}}
         </div>
         <div  class="tool-edit mb-2">
-            <div   @click="$emit('back')" class="tool-view-item"><i class="fas fa-arrow-circle-left"></i>&nbsp;{{$t('lang.button_back')}}</div> &nbsp; &nbsp;&nbsp;
-          
+            <div v-if="!this.showMineProfile"  @click="$emit('back')" class="tool-view-item"><i class="fas fa-arrow-circle-left"></i>&nbsp;{{$t('lang.button_back')}}</div> &nbsp; &nbsp;&nbsp;          
         </div>
         
          <div  class="row mt-3 wrapper-view-edit">
@@ -192,26 +191,22 @@ export default {
 
             if(this.showMineProfile){
                
-                // this.userEdit.groups.forEach((g)=>{
-                //     g.groupId = g.id;
-                // });
+                this.userEdit.groups.forEach((g)=>{
+                    g.groupId = g.id;
+                });
 
-                // this.groups = this.groups.filter(gg=>{            
-                //     return gg.id == this.userEdit.groups[0].id;
-                // }); 
+                this.groups = this.groups.filter(gg=>{            
+                    return gg.id == this.userEdit.groups[0].id;
+                }); 
                 
 
-                // let temp = new Array();
-                // this.userEdit.info.filter(e=> e.key == 'agencia').forEach(ee=>{
-                //     temp.push(this.agencys.find(a=> a.id == ee.value));
-                // });                
+                let temp = new Array();
+                this.userEdit.info.filter(e=> e.key == 'agencia').forEach(ee=>{
+                    temp.push(this.agencys.find(a=> a.id == ee.value));
+                });                
                 
-                // this.agencys = temp;
-                
-                
-                this.userEdit.groups = this.getGroups;
-
-                console.log('this.userEdit.groups',this.userEdit.groups)
+                this.agencys = temp;
+                this.userEdit.groups = this.getGroups;               
             }   
             
             if(this.userEdit){                              

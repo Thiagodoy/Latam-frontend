@@ -40,7 +40,7 @@ const userStore = {
     },
     getters: {
         getGroups:(state,getters)=>{
-            return state.user.groups;
+            return state.user ? state.user.groups : [];
         },
         getImage:(state, getters)=>{
            return state.picture && state.picture ?  MockFactory.build('MAKE_IMAGE_PROFILE',state.picture) :  MockFactory.build('MOCK_IMAGE_PROFILE') ;
@@ -89,10 +89,8 @@ const userStore = {
             commit(MAIN_UPDATE_PHOTO, payload);            
             instance.$forceUpdate(); 
         },
-        updateUser({ commit, getters,dispatch,state  }, payload){
-            debugger
+        updateUser({ commit, getters,dispatch,state  }, payload){            
             dispatch('loginStore', {email:payload.email,password:state.pass})
-
             //commit(MAIN_LOGIN, payload);                     
             instance.$forceUpdate(); 
         },

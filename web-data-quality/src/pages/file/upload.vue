@@ -45,7 +45,8 @@
                                         :placeholder="'Selecione a agencia'" 
                                         :limit="2"
                                         :limit-text="(count)=>`Mais ${count}`"
-                                        :max-width="150"                                                              
+                                        :max-width="150"
+                                        :showNoResults="false"                                                              
                                         :multiple="true"> 
                                                                 
                                     </multiselect>

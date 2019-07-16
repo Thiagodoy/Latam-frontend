@@ -1,5 +1,5 @@
 <template>
-    <div class="all-user-home">
+    <div v-async="loading" class="all-user-home">
         <div v-if="show =='home'">
             <!-- Conponente Toolbar -->
             <toolbar 
@@ -58,6 +58,7 @@ export default {
             configToolbar: ToolbarConfigFactory.build('TOOLBAR-USER-VISUALIZATION'),
             c:undefined,
             show:'home',
+            loading:undefined,
             typeAction:undefined,
             data:{
                 conteudo:[],
@@ -137,7 +138,7 @@ export default {
            }
 
 
-           return UserService.getUsers(this.filter).then((response)=>{
+            this.loading =  UserService.getUsers(this.filter).then((response)=>{
              
                 response.content.forEach((e)=>{ 
                     e.pictureUrl = e.picture;
@@ -170,7 +171,7 @@ export default {
     watch:{
         filter:{
             handler:function(newValue, oldValue){
-                this.loading = this.getUsers();
+                this.getUsers();
             },
             deep:true
         },
@@ -178,7 +179,7 @@ export default {
             if(newValue == 'home'){
                 this.currentObject = undefined;
                 this.typeAction = undefined;
-                this.loading = this.getUsers();
+                this.getUsers();
             }
         }
     },
