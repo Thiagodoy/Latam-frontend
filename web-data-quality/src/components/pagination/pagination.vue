@@ -10,7 +10,7 @@
       </li>
 
       <!-- Render the pages -->
-      <li  v-for="(v,i) in pages" :key="i" class="page-item">
+      <li  v-for="(v,i)  in pages"  :key="i" class="page-item">
           <a class="page-link" :class="{active: v.page == pageSelected}" @click="setPage(v.page)">{{v.label}}</a>
       </li>
       
@@ -107,6 +107,12 @@ export default {
       }
       
       this.pageSelected = newValue.pageable.pageNumber;
+
+
+
+
+
+
     }
   }
 }

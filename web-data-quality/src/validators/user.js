@@ -5,7 +5,7 @@ import UserStore from "../store/user";
 function validaAccount(val, args) {
     return account.checkCpfCnpj(val).then(r => {
         return {
-            valid: !r
+            valid: r
         }
     });
 }
