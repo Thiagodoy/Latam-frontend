@@ -319,7 +319,7 @@ export default {
                     tempAgency.push(agency);
                 });
 
-                    
+                  this.agencys = tempAgency;   
             } 
             
             if(conditions && conditions.profile && conditions.profile.length > 0){
@@ -384,9 +384,11 @@ export default {
                     });
                 }else if(valid && this.userEdit){
                     
-                  return UserService.updateUser(this.request).then(()=>{                        
-                      this.updatePhoto(this.userPhoto); 
-                      this.updateUser(this.request);                       
+                  return UserService.updateUser(this.request).then(()=>{  
+                      if(this.showMineProfile){
+                          this.updatePhoto(this.userPhoto); 
+                          this.updateUser(this.request);   
+                      }                      
                       this.savedSuccess('Usuário atualizado com sucesso!');
                   })
                 }
