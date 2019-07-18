@@ -337,7 +337,7 @@ export default {
             let someFileBigSize = this.checkFileSize(e.target.files);
             
             let result = this.invalidExtensionFile(e.target.files);
-            debugger;
+            
             if(result){
                  setTimeout(()=>{
                    
