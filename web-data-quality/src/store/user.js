@@ -14,6 +14,7 @@ const moment = extendMoment(Moment);
 const MAIN_LOGIN = 'MAIN_SET_LOGIN';
 const MAIN_UPDATE_PHOTO = 'MAIN_UPDATE_PHOTO';
 const MAIN_PASS_WORD = 'MAIN_PASS_WORD';
+const MAIN_ABILITY = 'MAIN_ABILITY';
 
 const userStore = {
 
@@ -21,21 +22,31 @@ const userStore = {
         user: undefined,
         picture:undefined,
         pass: undefined,
+        ability:undefined
     },
     mutations: {
         [MAIN_LOGIN](state, obj) {
            
             state.user = obj;
+
+            if(!obj)
+            return;
+
             state.picture = state.user.pictureUrl
             sessionStorage.setItem('user', JSON.stringify(state.user));
         },
         [MAIN_UPDATE_PHOTO](state,obj){
+            if(!obj)
+            return;
             state.user.pictureUrl = obj;
             state.picture = obj;
         },
         [MAIN_PASS_WORD](state,obj){
             state.pass = obj;
             
+        },
+        [MAIN_ABILITY](state,obj){
+            state.ability = obj
         }
     },
     getters: {
@@ -77,9 +88,13 @@ const userStore = {
             return AuthService.login(payload).then(response => {
                 commit(MAIN_LOGIN, response);
                 commit(MAIN_PASS_WORD,payload.password)
-                instance.$session.set('user', response);                
-                Vue.use(abilitiesPlugin, AbilityFactory.build(response));
-                instance.$forceUpdate();                
+                instance.$session.set('user', response);  
+                let ability = AbilityFactory.build(response);
+                
+                commit(MAIN_ABILITY,ability)              
+                Vue.use(abilitiesPlugin, ability);
+                instance.$forceUpdate();   
+                console.log('instance',instance)             
                 return response;
             });
         },
@@ -99,6 +114,7 @@ const userStore = {
             instance.$router.push({ name: 'login' });
             commit(MAIN_LOGIN, undefined);
             commit(MAIN_UPDATE_PHOTO, undefined);
+            Vue.use(abilitiesPlugin, null);
             //workaround
             location.reload();
         },
