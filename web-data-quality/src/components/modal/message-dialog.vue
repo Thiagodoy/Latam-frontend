@@ -150,7 +150,7 @@ h5{
   border:#ccc solid 1px;
  height: 150px;
  padding:15px;
- width: 144%;
+ width: 100%;
  overflow: auto;
 }
 

@@ -8,7 +8,7 @@
     </div>
 
     <div class="row mt-5">
-      <div class="col-md-6 scroll">
+      <div class="col-md-12 scroll">
         <!--table mock -->
         <div id="table-scroll">
             <data-table 
@@ -20,10 +20,10 @@
 
         <!-- grafico mock -->
       </div>
-      <div class="col-md-6 pt-3">
+      <!-- <div class="col-md-6 pt-3">
          Erros<br><br>
         <graph-pizza :data="filecurrent.statusProcess" />
-      </div>
+      </div> -->
     </div>
     <div class="row mt-5">
       <div class="col-md-6 scroll">
