@@ -78,7 +78,7 @@
                                 <select v-model="viewAgency.layoutFile" :disabled="typeAction == 'view'" name="layout" class="form-control campos" v-validate="'required'"   id="profile" style="opacity:.7" >
                                     <option selected value="0">Nenhum layout</option>
                                     <option value="1">Layout mínimo</option>
-                                    <!-- <option value="2">Layout completo</option> -->
+                                    <option value="2">Layout completo</option>
                                 </select>
                                 <div class="help-block">{{errors.first('layout')}}</div> 
                             </div>
