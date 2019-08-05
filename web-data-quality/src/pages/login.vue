@@ -21,7 +21,7 @@
                             <label for="email" class="control-label">{{$t('lang.label_input_email')}}</label>
                           </div>
                           <div class="col-md-10">
-                            <input type="text" v-validate="'required'"  name="email" class="form-control"  v-model="request.email" :placeholder="$t('lang.label_input_email')">
+                            <input id="input-email" type="text" v-validate="'required'"  name="email" class="form-control"  v-model="request.email" :placeholder="$t('lang.label_input_email')">
                           </div>
                         </div>
                         <div class="row">
@@ -38,7 +38,7 @@
                               <label for="password" class="control-label">{{$t('lang.label_input_password')}}</label>
                             </div>
                             <div class="col-md-10">
-                              <input  type="password" name="password" v-validate="'required'" v-model="request.password"  class="form-control"  :placeholder="$t('lang.label_input_password')">
+                              <input id="input-password"  type="password" name="password" v-validate="'required'" v-model="request.password"  class="form-control"  :placeholder="$t('lang.label_input_password')">
                             </div>                    
                           </div>
                           <div class="row">
