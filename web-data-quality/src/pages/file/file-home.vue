@@ -377,7 +377,7 @@ export default {
             let result = false;
             for(let i = 0; i < fileList.length; i++){   
                
-               if(!(/(\w)*\.csv/.test(fileList[i].name))){
+               if(!(/(\w)*\.(csv|CSV)/.test(fileList[i].name))){
                    result = true;
                }
             }
