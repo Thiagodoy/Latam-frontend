@@ -38,7 +38,13 @@
                          <div class="x-smenu">
                             <router-link   class="pl-5" tag="li" to="/termo-uso"><i class="fas fa-list"></i>&nbsp;{{$t('lang.terms')}}</router-link>                        
                         </div>
+
+
+                        <a :href="urlTutorial">
+									TUT
+								</a>
                 </li>
+                
                
             </div>
         </div>
@@ -53,6 +59,7 @@ export default {
 
     data(){
         return{
+            urlTutorial:`${process.env.VUE_APP_BASE_PATH}/asset/download/documents/Tutorial_V4.pdf`
         }
     },
 
