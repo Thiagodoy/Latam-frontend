@@ -228,6 +228,9 @@ export default {
                 this.$forceUpdate();   
             }
 
+            //Workaround pra remover as agencias nulas;
+           this.agencys = this.agencys.filter(a=> a);
+           
 
         }).catch(erro=>{            
             this.mxShowModalError(erro)

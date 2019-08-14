@@ -262,6 +262,7 @@ export default {
         setRowPage(rowPage){            
              let temp = {...this.request};
             temp.size = rowPage;
+            temp.page = 0;
             this.request = temp;
             this.listFiles();
         },        
@@ -389,7 +390,7 @@ export default {
                 a.push(this.agencys.find(a=> a.id == e.value));                
             });
             
-            return a.filter(ee=> ee.layoutFile > 0);
+            return a.filter(ee=> ee.layoutFile && ee.layoutFile > 0);
         },
         showError(erro){
           this.mxShowModalError(erro);

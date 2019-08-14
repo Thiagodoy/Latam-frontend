@@ -275,12 +275,12 @@ export default {
             console.log('dragover',event);
         },
         drop(event){
-            console.log('drop',event);
-           
+            console.log('drop',event);           
         },
         setRowPage(rowPage){            
              let temp = {...this.request};
             temp.size = rowPage;
+            temp.page = 0;
             this.request = temp;
              this.listFiles();
         },
