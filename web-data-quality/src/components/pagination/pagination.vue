@@ -10,13 +10,9 @@
       </li>
 
       <!-- Render the pages -->
-<<<<<<< HEAD
-      <li  v-for="(v,i)  in pages"  :key="i" class="page-item">
-          <a class="page-link" :class="{active: v.page == pageSelected}" @click="setPage(v.page)">{{v.label}}</a>
-=======
+
       <li  v-for="(v,i) in pages" :key="i" class="page-item">
           <a class="page-link" v-if="v.show" :class="{active: v.page == pageSelected}" @click="setPage(v.page)">{{v.label}}</a>
->>>>>>> 095cc703fda1e930ef5a590f8f99eed2db3f6ef7
       </li>
       
       <li class="page-item" v-if="!isLastPage" @click="setPage(pageSelected + 1)">
@@ -114,12 +110,6 @@ export default {
       }
       
       this.pageSelected = newValue.pageable.pageNumber;
-<<<<<<< HEAD
-
-
-
-
-=======
        
       let count  = 0; 
       for(let v = this.pageSelected; v >= 0; v-- ){
@@ -138,7 +128,6 @@ export default {
         }
         ++count;
       }
->>>>>>> 095cc703fda1e930ef5a590f8f99eed2db3f6ef7
 
 
     }
