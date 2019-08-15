@@ -262,6 +262,7 @@ export default {
         setRowPage(rowPage){            
              let temp = {...this.request};
             temp.size = rowPage;
+            temp.page = 0;
             this.request = temp;
             this.listFiles();
         },        
@@ -337,7 +338,7 @@ export default {
             let someFileBigSize = this.checkFileSize(e.target.files);
             
             let result = this.invalidExtensionFile(e.target.files);
-            debugger;
+            
             if(result){
                  setTimeout(()=>{
                    
@@ -377,7 +378,7 @@ export default {
             let result = false;
             for(let i = 0; i < fileList.length; i++){   
                
-               if(!(/(\w)*\.csv/.test(fileList[i].name))){
+               if(!(/(\w)*\.(csv|CSV)/.test(fileList[i].name))){
                    result = true;
                }
             }
@@ -389,7 +390,7 @@ export default {
                 a.push(this.agencys.find(a=> a.id == e.value));                
             });
             
-            return a.filter(ee=> ee.layoutFile > 0);
+            return a.filter(ee=> ee.layoutFile && ee.layoutFile > 0);
         },
         showError(erro){
           this.mxShowModalError(erro);

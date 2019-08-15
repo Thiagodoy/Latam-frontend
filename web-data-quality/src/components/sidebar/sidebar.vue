@@ -38,7 +38,15 @@
                          <div class="x-smenu">
                             <router-link   class="pl-5" tag="li" to="/termo-uso"><i class="fas fa-list"></i>&nbsp;{{$t('lang.terms')}}</router-link>                        
                         </div>
+                        
+                        <div class="x-smenu">
+                            <li style="margin: -15px;margin-left:15px;"><a class="linkPdf" :href="urlTutorial " target="_blank"><i class="fas fa-info-circle"></i>&nbsp;Tutorial</a></li>
+                        </div>
+
+
+                        
                 </li>
+                
                
             </div>
         </div>
@@ -53,6 +61,8 @@ export default {
 
     data(){
         return{
+            urlTutorial:`${process.env.VUE_APP_BASE_PATH}/asset/download/documents/Tutorial_V4.pdf`
+            
         }
     },
 
@@ -78,7 +88,10 @@ export default {
 
 <style lang="scss" scoped>
 
+.linkPdf{
 
+margin: -15px;
+}
 
 
 
@@ -272,6 +285,8 @@ a:hover{text-decoration-line: none;}
 .x-item:target .x-smenu{
     max-height: 100em;
 }
+
+
 
 
 

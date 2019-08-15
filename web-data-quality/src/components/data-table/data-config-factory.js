@@ -47,6 +47,7 @@ class DataTableConfigFactory {
             columns: [
                 { name: "companyName", title: "table_view_file_company_name", formatter: undefined },
                 { name: "name", title: "file", formatter: undefined },
+                { name: "version", title: "table_view_file_version", formatter: undefined },
                 { name: "createdDate", title: "table_created_date", formatter: (value) => { return dateTime(value) } },
                 { name: "userId", title: "table_user", formatter: undefined },
                 { name: "status", title: "table_view_file_company_status", formatter: undefined },
