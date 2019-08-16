@@ -10,6 +10,7 @@
       </li>
 
       <!-- Render the pages -->
+
       <li  v-for="(v,i) in pages" :key="i" class="page-item">
           <a class="page-link" v-if="v.show" :class="{active: v.page == pageSelected}" @click="setPage(v.page)">{{v.label}}</a>
       </li>

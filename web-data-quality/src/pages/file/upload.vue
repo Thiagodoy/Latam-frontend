@@ -185,7 +185,7 @@ export default {
                 company:[],
                 timeStart:undefined,
                 timeEnd:undefined,
-                status:['COLLECTOR_UPLOADED']
+                status:'UPLOADED'
             },
             help:false,  
            

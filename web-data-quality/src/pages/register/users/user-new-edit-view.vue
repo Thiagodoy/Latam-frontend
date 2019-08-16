@@ -379,7 +379,7 @@ export default {
 
                 if(valid && !this.userEdit){                                 
                     this.request.info.push({key:'primeiro_acesso', userId: this.request.id, value:'true'});
-                    this.request.info.push({key:'ultimo_acesso', userId: this.request.id, value: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')});
+                    this.request.info.push({key:'ultimo_acesso', userId: this.request.id, value: moment(new Date()).format('YYYY-MM-DD')});
                     this.request.info.push({key:'trocar_senha', userId: this.request.id, value: moment(new Date()).format('YYYY-MM-DD')});
                     this.request.userMaster = this.getUser.email;
                     return UserService.saveUser(this.request).then(()=>{
