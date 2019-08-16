@@ -47,8 +47,8 @@ class UserService extends Service {
      * @param  {} value
      */
     checkCpfCnpj(value) {
-        this._url = `/userExists/${value}`;
-        return this.get();
+        this._url = `/userExists`;
+        return this.get({cpfCnpj:value},true);
     }
 
     /**
