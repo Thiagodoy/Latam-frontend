@@ -26,7 +26,7 @@
                             <td v-if="config.showOptions">
                                <template v-if="config.showOptionsTYPE == 'FILE'">     
                                          
-                                     <span v-if="fileHasError(v)"><i @click="buttonClick('download',v)" class="fas fa-download" title="Relatório de erros"></i></span>                                                           
+                                     <span v-if="v.repeatedLine > 0"><i @click="buttonClick('download',v)" class="fas fa-download" title="Relatório de erros"></i></span>                                                           
                                      <span @click="buttonClick('info',v)" ><i style="margin-left:10px;" class=" btn-option fas fa-info-circle" title="Informação"></i></span>
                                 </template>                                
                                 <template v-else-if="config.showOptionsTYPE == 'FILE-DETAIL'">                                                                      
