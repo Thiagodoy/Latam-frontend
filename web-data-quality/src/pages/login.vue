@@ -100,7 +100,8 @@
 
                <div style="displat:flex; justify-content: space-between;" class="row mt-3">
                 <div  class="pl-4"><img style="max-width:60px;" class="img-fluid mx-auto d-block" src="../assets/images/Login_Logo.png"></div>
-                <div  class="pr-3">  {{`v${version}`}}</div>
+                <div  class="pr-3">  API {{versaoApi}}</div>
+                <div  class="pr-3">  SITE {{`v${version}`}}</div>
                 
             
               </div>
@@ -117,6 +118,7 @@
 <script>
 import Localization from "../components/local/localization.vue";
 import AuthenticationService from "../services/auth.js";
+import AssetService from "../services/asset.js";
 import {mapActions, mapGetters } from 'vuex';
 import Package from '../../package.json';
 
@@ -131,12 +133,18 @@ export default {
         password: undefined
       },
       version:undefined,
+      versaoApi:undefined,
       forgotRequest:{},
       loading: undefined
     };
   },
   mounted(){    
     this.version = Package.version;
+    AssetService.getVersao().then(response=>{
+      this.versaoApi = response;
+    })
+
+
    },
   computed:{
     ...mapGetters(['getIsFirstAccess'])

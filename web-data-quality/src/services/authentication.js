@@ -12,7 +12,7 @@ class Authentication extends Service {
 
         request.password = md5(request.password);
         return this.post(request);
-    }
+    }    
 }
 let url = '/user';
 const singleton = new Authentication(url);
