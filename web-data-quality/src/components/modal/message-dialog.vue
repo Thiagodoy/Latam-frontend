@@ -20,8 +20,11 @@
             <input  class="input form-control mt-1 mb-1" v-model="searchInput" @keyup="search" type="text" placeholder="pesquisar..."/>
             <div class="box-agency">
                 <div v-for="(v,i) in agencysFiltered" :key="i"> 
-                  <input  class="ml-2" v-model="agencySelected" type="radio" :value="v.id" />&nbsp;&nbsp;<label>{{v.name}}</label>&nbsp;&nbsp;
+                  <input  class="ml-2" v-model="agencySelected" type="radio" :value="v" />&nbsp;&nbsp;<label>{{v.name}}</label>&nbsp;&nbsp;
                 </div>
+            </div>
+            <div v-if="agencySelected &&  (!agencySelected.layoutFile || agencySelected.layoutFile == 0)">
+              <span class="text-center qtd-erro" style="color:red;font-weight: 600"> Agência sem layout definido!</span>
             </div>
            <!--
             <div v-for="(v,i) in agencys" :key="i"> 
@@ -71,7 +74,7 @@
                 </button>
               </template>
               <template v-else-if="type == 'AGENCIA'">            
-                <button :disabled="!agencySelected" type="button" class="btn" data-dismiss="modal" @click="result(agencySelected)">
+                <button :disabled="!agencySelected || (agencySelected.layoutFile && agencySelected.layoutFile == 0)" type="button" class="btn" data-dismiss="modal" @click="result(agencySelected)">
                   OK
                 </button>
               </template>

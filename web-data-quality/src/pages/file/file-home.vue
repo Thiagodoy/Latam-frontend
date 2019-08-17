@@ -204,9 +204,7 @@ export default {
               }  
 
               this.agencys = temp;
-              this.options = temp;              
-              //this.company = temp;  
-
+              this.options = temp;                                          
               this.listFiles();
        }).catch(erro=>{
            this.mxShowModalError(erro);
@@ -320,12 +318,13 @@ export default {
            
         }, 1000),
         openUpload(){   
-            this.show='upload';       
+            this.show='upload';  
+                 
             let inputFile = document.getElementById('file-upload');
             inputFile.onchange = (e)=>{                
                if(this.getAgencysFromUser.length > 1){
-                    this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencys(this.getAgencysFromUser) }).then((response)=>{                        
-                        this.processFile(e, response);
+                    this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencys(this.getAgencysFromUser) }).then((response)=>{                                               
+                       this.processFile(e, response.id);
                     });
                 }else{
                     this.processFile(e,this.getAgencysFromUser[0].value);
@@ -340,8 +339,7 @@ export default {
             let result = this.invalidExtensionFile(e.target.files);
             
             if(result){
-                 setTimeout(()=>{
-                   
+                 setTimeout(()=>{                   
                    this.mxShowModal({title:'Erro', message:'Permitido apenas arquivos com extensão <b>.csv</b>.'});
                     document.getElementById('file-upload').value = "";                
                 }, 500);
@@ -389,8 +387,11 @@ export default {
             data.forEach(e=>{
                 a.push(this.agencys.find(a=> a.id == e.value));                
             });
+
+            //Remove as agencias invalidas
+            a = a.filter(rr=> rr);
             
-            return a.filter(ee=> ee.layoutFile && ee.layoutFile > 0);
+            return a;//a.filter(ee=> ee.layoutFile && ee.layoutFile > 0);
         },
         showError(erro){
           this.mxShowModalError(erro);

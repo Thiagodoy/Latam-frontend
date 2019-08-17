@@ -39,11 +39,11 @@ export default {
     watch:{
         width:function(newValue){
             this.width = newValue;
-        }
+        },      
     },
     methods: {
-        result(res) {
-            // retorna o resultado e fecha o modal.
+        result(res) {          
+
             $(this.$el).modal('hide');
 
             if (this.type == 'OK-CANCEL-FILE') {
@@ -54,7 +54,16 @@ export default {
                 this.resultCallback({ res, result: this.resultResponse });
                 this.resultResponse = '';
             }
+            
+            setTimeout(()=>{
+                this.searchInput = '';
+                this.agencySelected = undefined;
+            },1000);
+            
+
             this.resultCallback(res);
+
+          
         },
         search:_.debounce(function(){
                
