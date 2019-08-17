@@ -22,7 +22,7 @@
         </div>
 
         <!--Componentes Options -->             
-        <user-new-edit-view :userEdit="currentObject" :typeAction="typeAction" :showMineProfile="showMineProfile"  @back="show = 'home';f=false" v-if="show=='new'"></user-new-edit-view>    
+        <user-new-edit-view :userEdit="currentObject" :typeAction="typeAction" :mineProfile="showMineProfile"  @back="show = 'home';f=false" v-if="show=='new'"></user-new-edit-view>    
 
            
     

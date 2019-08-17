@@ -149,7 +149,7 @@ import {mapGetters,mapActions} from 'vuex';
 import route from '../../../route/routes';
 
 export default {
-    props:['userEdit','typeAction', 'showMineProfile'],
+    props:['userEdit','typeAction', 'mineProfile'],
     data(){
         return {
 
@@ -157,6 +157,7 @@ export default {
             maskCpf: "###.###.###-##",
             loading:undefined,
             show:'',
+            showMineProfile:undefined,
             userPhoto:undefined,
             request:{
                 groups:[],
@@ -168,6 +169,9 @@ export default {
     },    
     mounted(){        
 
+        
+        this.showMineProfile = this.mineProfile;
+        
         let promises = new Array();
 
         //TODO: workaround alterar para listar apenas as agencias do usuario
@@ -221,8 +225,9 @@ export default {
                      this.request.groups = this.userEdit.groups.map((g)=>g.id);
                 }else{
                      this.request.groups = this.userEdit.groups.map((g)=>g.groupId);
+                     console.log('Request',this.request.groups,'userEdit',this.userEdit.groups)
                 }
-               
+                
                 this.request.info = this.userEdit.info;
                 this.request.password = this.userEdit.password;
                 this.$forceUpdate();   
@@ -371,7 +376,13 @@ export default {
         },
 
         saveUser(){
-            
+
+            //Caso o usuário edite a suas informações pela listagem de usuário
+            //atualiza suas informações
+            if(this.getUser.email == this.request.id && !this.showMineProfile){
+                this.showMineProfile = true;
+            }
+
             this.loading = this.$validator.validateAll().then((valid)=>{
                                   
                 this.request.id = this.request.email;
