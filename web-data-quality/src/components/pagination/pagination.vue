@@ -29,6 +29,7 @@
   .pagination {
     justify-content: center;
     .page-item {
+      cursor: pointer;
       .page-link {
         background-color: #454d55;
         opacity: .4;

@@ -96,7 +96,9 @@ export default {
             this.mxShowModal({title:"Informação", message:`Deseja deletar esse usuário ${data.email}`, type:'YES-NO'}).then(response =>{
                 if(response == 'YES'){
                     //Corrigir o loading
-               this.loading = UserService.deleteUser({id:data.id}).then(response=>{this.getUsers()}).catch(erro=>{
+               this.loading = UserService.deleteUser({id:data.id}).then(response=>{
+                   this.getUsers()
+                   }).catch(erro=>{
                         this.mxShowModalError(erro);
                    }) 
                 }
@@ -116,19 +118,23 @@ export default {
             let temp = {...this.filter};
             temp.page = page;
             this.filter = temp;            
+            this.getUsers();
         },
         setRowPage(rowPage){            
              let temp = {...this.filter};
             temp.size = rowPage;
             this.filter = temp;
+
+            this.getUsers();
         },
         setFilter(filter){    
             
             this.filter = _.merge({...filter},{
                 page:0,
                 size:10
-            })
-            
+            });
+
+            this.getUsers();            
         },
         getUsers(){                                  
 
@@ -168,13 +174,7 @@ export default {
             });
         }              
     },
-    watch:{
-        filter:{
-            handler:function(newValue, oldValue){
-                this.getUsers();
-            },
-            deep:true
-        },
+    watch:{        
         show(newValue, oldValue){
             if(newValue == 'home'){
                 this.currentObject = undefined;
