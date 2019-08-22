@@ -61,7 +61,7 @@ export default {
 
     data(){
         return{
-            urlTutorial:`${process.env.VUE_APP_BASE_PATH}/asset/download/documents/Tutorial_V4.pdf`
+            urlTutorial:`${process.env.VUE_APP_BASE_PATH}/asset/download/documents/Tutorial_V6.pdf`
             
         }
     },

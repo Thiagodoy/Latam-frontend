@@ -344,7 +344,7 @@ export default {
             inputFile.onchange = (e)=>{                
                if(this.getAgencysFromUser.length > 1){
                     this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencys(this.getAgencysFromUser) }).then((response)=>{                        
-                        this.processFile(e, response);
+                        this.processFile(e, response.id);
                     });
                 }else{
                     this.processFile(e,this.getAgencysFromUser[0].value);
