@@ -33,6 +33,12 @@ class FileService extends Service {
         return this.get(request,false);
     }
 
+    generateFileReturn(request){
+        this._url = '/generate/arquivo-retorno';
+        return this.get(request,true);
+    }
+
+
 }
 
 const instance = new FileService("/file");

@@ -288,12 +288,26 @@ export default {
                this.showError(erro);
             });
         },
-        download(data){            
-            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/downloadNew?id=${data.id}`;       
-            var aTag = window.document.getElementById('mobi');
-            aTag.setAttribute('href', this.downloadStatementUrl);
-            aTag.setAttribute('type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');      
-            aTag.click();
+        download(data){ 
+
+
+            let user  = this.getUser;
+
+            let request = {id:data.id,email:user.email};    
+
+
+            this.loading = FileService.generateFileReturn(request).then(response=>{
+                this.mxShowModal({title:'Informação', message:`<p>Solicitação realizada com sucesso!</p><p>Assim que o processo for finalizado o usuário <b>${user.email}</b> receberá o email com o link para o download do arquivo</p>`, type:'OK' });
+            }).catch((error)=>{
+                console.error(error);
+            });
+
+
+            // this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download/arquivo-retorno?id=${data.id}`;       
+            // var aTag = window.document.getElementById('mobi');
+            // aTag.setAttribute('href', this.downloadStatementUrl);
+            // aTag.setAttribute('type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');      
+            // aTag.click();
         },
         listFiles(){          
             this.loading = FileService.listFile(this.request).then((response)=>{
