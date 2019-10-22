@@ -51,7 +51,7 @@
                      <!-- Novo campo PERFIL -->
                      <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('profile')}" >
-                                <label for="s3-imput" >Perfil</label>
+                                <label for="s3-imput" >{{$t('lang.profile')}}</label>
                                 <select v-model="viewAgency.profile" :disabled="typeAction == 'view'" name="profile" class="form-control campos" v-validate="'required'"   id="profile" style="opacity:.7" >
                                     <option selected value="CONSOLIDATORS">Consolidators</option>
                                     <option value="CORPORATE">Corporate</option>
@@ -101,7 +101,7 @@
                         <!-- nOVO CAMPO CATEGORIA DA AGENCIA -->
                          <div class="col-md-12">
                             <div class="form-group" :class="{'has-error':errors.has('category')}" >
-                                <label for="s3-imput" >Categoria da agência</label>
+                                <label for="s3-imput" >{{$t('lang.label_agency_category')}}</label>
                                 <select v-model="viewAgency.category" :disabled="typeAction == 'view'" name="category" class="form-control campos" v-validate="'required'"   id="profile" style="opacity:.7" >
                                     <option selected value="RM1">RM1</option>
                                     <option value="RM2">RM2</option>

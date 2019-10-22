@@ -99,6 +99,7 @@ module.exports = {
             label_input_phone: 'Cell phone',
             label_input_current_pass: 'Current password',
             label_imput_newpass: 'New password',
+            label_agency_category: 'Agency Category',
             confirm_pass: 'Confirm password',
             label_input_search_date_From: 'From:',
             label_input_search_date_To: 'To:',
@@ -228,6 +229,7 @@ module.exports = {
             label_input_phone: 'Telefone celular',
             label_input_current_pass: 'Senha atual',
             label_imput_newpass: 'Nova senha',
+            label_agency_category: 'Categoria da Agência',
             label_input_search_date_From: 'De:',
             label_input_search_date_To: 'Até:',
             confirm_pass: 'Confirmar senha',
@@ -313,6 +315,7 @@ module.exports = {
             table_description:'Descripción',
 
 
+
             table_agency_name: "Agência",
             table_agency_input_path: "Input path",
             table_agency_processed_path: "Processed path",
@@ -359,6 +362,7 @@ module.exports = {
             label_input_phone: 'Teléfono celular',
             label_input_current_pass: 'Contraseña actual',
             label_imput_newpass: 'Nueva contraseña',
+            label_agency_category: 'Categoria da Agência',
             confirm_pass: 'Confirmar seña',
             label_input_search_date_From: 'De:',
             label_input_search_date_To: 'Para:',
