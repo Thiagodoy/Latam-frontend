@@ -7,7 +7,7 @@
                     <div class="progress">
                         <div class="progress-bar" 
                         :class="{'bg-danger':status == 'ERROR', 'bg-success':status == 'SUCCESS', 'progress-bar-striped': (status == 'UPLOAD' && percentUpload > 98), 'progress-bar-animated':(status == 'UPLOAD' && percentUpload > 98)}" role="progressbar" :style="{width : `${percentUpload}%`}" :aria-valuenow="percentUpload" aria-valuemin="0" aria-valuemax="100">{{`${percentUpload}%`}}</div>
-                    </div>
+                    </div>                    
                     <p v-if="message && message.length > 0"  class="text-center" :class="{'message-error': status == 'ERROR','message-success': status == 'SUCCESS' }" role="alert">
                             {{$t(message)}}
                     </p>
@@ -17,6 +17,9 @@
             <td>
                  <span v-if="(this.percentUpload < 100)" @click="cancelUpload()"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
             </td>   
+            <td>
+                <span v-if="this.messageErrorHeader" @click="showError()"> <i class="fas fa-info-circle"></i></span>
+            </td>
         </tr>
 </template>
 <script>
@@ -24,6 +27,7 @@ import FileService from '../../services/file';
 import axios from 'axios';
 import { setTimeout } from 'timers';
 import {mapActions, mapGetters } from 'vuex';
+import Modal from '../modal/message-dialog.vue'
 
 export default {
     props:['fileInput','index','uploadAws','uploadFtp','processFile'],
@@ -32,6 +36,7 @@ export default {
            percentUpload: 0 ,
            status:'UPLOAD',
            message:'',
+           messageErrorHeader:undefined,
            company:'teste',
            userId:'user',
            file:undefined,
@@ -57,6 +62,7 @@ export default {
                 let code = JSON.parse(data).codeMessage; 
                 this.status = code == 1988 ? 'SUCCESS' : 'ERROR'
                 this.message = `lang.msg_error_${JSON.parse(data).codeMessage}`; 
+                this.messageErrorHeader = JSON.parse(data).result;
                 return code;
             }],
         }).then(()=>{
@@ -77,7 +83,10 @@ export default {
         cancelUpload(){
             this.cancelToken.cancel('Cancelado pelo usuário');
             this.message ='Cancelado pelo usuário' ;
-             this.status = 'ERROR';
+            this.status = 'ERROR';
+        },
+        showError(){
+            Modal.show({title:'Erro', width:'133%', message:this.messageErrorHeader});
         }
     }
   

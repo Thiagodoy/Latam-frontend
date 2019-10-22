@@ -104,6 +104,7 @@ module.exports = {
             label_input_search_date_To: 'To:',
             label_hello:"Hello ",
             Forgot_password: 'Forgot password',
+            msg_error_777: 'File already is processing!',
             msg_error_1987: 'File repeated!',
             msg_error_1988: 'File upload success!',
             msg_error_1989: 'Layout of file not defined!',
@@ -234,6 +235,7 @@ module.exports = {
             label_hello:"Olá ",
 
             msg_error_1987: 'Arquivo repetido!',
+            msg_error_777: 'Arquivo já esta sendo processado!',
             msg_error_1988: 'Arquivo carregado com sucesso!',
             msg_error_1989: 'Agência sem layout definido!',
             msg_error_1986: 'Arquivo vazio',
@@ -365,6 +367,7 @@ module.exports = {
             label_hello:"Hola ",
 
             msg_error_1987: 'File repeated!',
+            msg_error_777: 'Arquivo já esta sendo processado!',
             msg_error_1988: 'Arquivo carregado com sucesso!',
             msg_error_1986: 'Arquivo vazio',
             msg_error_1989: 'Agência sem layout definido!',
