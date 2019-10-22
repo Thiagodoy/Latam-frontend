@@ -26,6 +26,10 @@ class DataTableConfigFactory {
                     return this.configTableFileValidationUploadVisualization();
             case 'DATA-TABLE-USER-AGENCY':
                 return this.configTableUserAgencyVisualisation();
+            case 'DATA-TABLE-DATA-TABLE-HOLLIDAY-VISUALIZATION':
+                return this.configTableHollidayVisualisation();
+            case 'DATA-TABLE-DATA-TABLE-CALENDER-VISUALIZATION':
+            return this.configTableCalenderVisualisation();
             default:
                 throw new Error('Configuration not exists!');
 
@@ -277,6 +281,47 @@ class DataTableConfigFactory {
                 { name: "lastName", title: "table_view_user_lastname", formatter: undefined },
                 { name: "email", title: "table_view_user_email", formatter: undefined },
                 { name: "group", title: "profile", formatter: (value) => { return value.toUpperCase() } },
+
+            ]
+        };
+    }
+
+    configTableHollidayVisualisation() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "descricao", title: "table_description", formatter: undefined },
+                { name: "data", title: "table_date", formatter: undefined },
+               
+
+            ]
+        };
+    }
+
+    configTableCalenderVisualisation() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "periodo", title: "table_period", formatter: undefined },
+                { name: "data_inicial", title: "table_date_start", formatter: undefined },
+                { name: "data_final", title: "table_date_end", formatter: undefined },
+               
 
             ]
         };

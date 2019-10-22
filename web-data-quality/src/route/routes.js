@@ -13,7 +13,8 @@ import Upload from '../pages/file/upload.vue'
 import CompanyHome from '../pages/register/company/company-home.vue'
 import RouterGuard from './route-guard';
 import MeuPerfil from '../pages/register/users/users-home.vue';
-
+import Hollidays from '../pages/register/hollidays/hollidays.vue';
+import Calenders from '../pages/register/calenders/calenders';
 
 
 Vue.use(Router)
@@ -37,7 +38,11 @@ export default new Router({
                 { name: 'upload', path: '/upload', component: Upload },
                 { name: 'company', path: '/company', component: CompanyHome },
                 {name: 'dashboard', path: '/dashboard', component:DashBoard},
-                {name: 'termo-uso', path: '/termo-uso', component:TermoUso}
+                {name: 'termo-uso', path: '/termo-uso', component:TermoUso},
+                {name: 'calender', path: '/calenders', component:Calenders},
+                {name: 'hollidays', path: '/hollidays', component:Hollidays},
+
+                
             ]
 
         }

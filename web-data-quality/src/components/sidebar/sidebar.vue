@@ -12,9 +12,11 @@
                 <li  class="x-item" id="cadastro">
                     <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                     <div class="x-smenu">
-                        <router-link  v-if="$can('manage', 'User')"  class="pl-5" tag="li" to="/users-register"><i class="fas fa-user"></i>&nbsp;<span>{{$t('lang.users')}}</span></router-link>
-                        <router-link v-if="$can('manage', 'Agency')" class="pl-5" tag="li" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
-                        <router-link v-if="$can('manage', 'Profile')" class="pl-5" tag="li" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
+                        <router-link  v-if="$can('manage', 'User')"  class="pl-4" tag="li" to="/users-register"><i class="fas fa-user"></i>&nbsp;<span>{{$t('lang.users')}}</span></router-link>
+                        <router-link v-if="$can('manage', 'Agency')" class="pl-4" tag="li" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
+                        <router-link v-if="$can('manage', 'Profile')" class="pl-4" tag="li" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
+                        <router-link v-if="$can('manage', 'Profile')" class="pl-4" tag="li" to="/hollidays"><i class="far fa-calendar-check"></i>&nbsp;{{$t('lang.holidays_register')}}</router-link>
+                        <router-link v-if="$can('manage', 'Profile')" class="pl-4" tag="li" to="/calenders"><i class="far fa-calendar-alt"></i>&nbsp;{{$t('lang.research_calendar')}}</router-link>
                     </div>
                 </li>
                 <li class="x-item" id="mensagem">

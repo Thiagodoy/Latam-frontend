@@ -15,6 +15,12 @@ class ToolbarConfigFactory {
                 return this.configToolbarGroupVisualization();
             case 'TOOLBAR-BACK':
                 return this.configToolbarBack();
+            case 'TOOLBAR-HOLLIDAY-VISUALIZATION':
+                return this.configToolbarHollidayVisualization();  
+            case 'TOOLBAR-CALENDER-VISUALIZATION':
+                return this.configToolbarCalenderVisualization();    
+
+
             default:
                 throw new Error('Configuration not exists!');
         }
@@ -83,6 +89,35 @@ class ToolbarConfigFactory {
             filter: [
                 { label: 'table_view_group_type', attribute: 'type' },
                 { label: 'table_view_group_name', attribute: 'name' }
+            ]
+
+        };
+    }
+
+    configToolbarHollidayVisualization() {
+        return {
+            buttons: [
+                { emit: 'new', class: 'btn-add-user', icon: 'fas fa-user-plus', label: 'button_new' }
+            ],
+            filter: [
+                { label: 'table_date', attribute: 'data' },
+                { label: 'table_description', attribute: 'descricao' },
+
+            ]
+
+        };
+    }
+
+    configToolbarCalenderVisualization() {
+        return {
+            buttons: [
+                { emit: 'new', class: 'btn-add-user', icon: 'fas fa-user-plus', label: 'button_new' }
+            ],
+            filter: [
+                { label: 'table_period', attribute: 'periodo' },
+                { label: 'table_date_start', attribute: 'data-inicial' },
+                { label: 'table_date_end', attribute: 'data-final' },
+
             ]
 
         };
