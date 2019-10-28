@@ -22,6 +22,7 @@ export default new Router({
     mode: 'history',
     routes: [
         { name: 'login', path: '/', component: Login, display: 'Login' },
+        
         {
             name: 'home',
             path: '/home',
