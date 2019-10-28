@@ -39,7 +39,10 @@
                                 </template> 
                                  <template v-else-if="config.showOptionsTYPE == 'DETALHES'">
                                     <center><span @click="buttonClick('view',v)"> <i  style="cursor:pointer;font-size:25px" class="far fa-calendar-alt"></i></span></center>
-                                </template>    
+                                </template> 
+                                 <template v-else-if="config.showOptionsTYPE == 'APROVED'">
+                                    <center><span @click="buttonClick('view',v)"> <i  style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i></span></center>
+                                </template>     
                                  <template v-else-if="config.showOptionsTYPE == 'JOB'">
                                     <span class="mr-2" @click="buttonClick('play',v)"> <img src="img/play.svg"  style="cursor:pointer;font-size:25px" /></span>
                                     <span @click="buttonClick('stop',v)"> <img src="img/stop.svg"  style="cursor:pointer;font-size:25px"/></span>

@@ -2,11 +2,11 @@
     <div v-async="loading" class="all-user-home">
         <div >
             <!-- Conponente Toolbar -->
-            <toolbar 
-                :config="configToolbar" 
-                @filter="setFilter"
-                @new="show = 'new';typeAction = 'new'">
-            </toolbar>   
+            <div class="tool mb-2">
+           
+            </div>
+
+            
            
             <!--Componente DataTable -->
             <data-table
@@ -25,8 +25,7 @@
 
 
 
-import Toolbar from '../../components/toolbar/toolbar.vue';
-import ToolbarConfigFactory from '../../components/toolbar/toolbar-config-factory';
+
 import DataTable from '../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../components/data-table/data-config-factory';
 import _ from 'lodash';
@@ -37,7 +36,7 @@ import Modal from '../../components/modal/message-dialog.vue';
 export default {
     data(){
         return{
-            configToolbar: ToolbarConfigFactory.build('TOOLBAR-HOLLIDAY-VISUALIZATION'),
+          
             configTable: DataTableConfigFactory.build('DATA-TABLE-JOB'),
             loading:undefined,
            data:{
@@ -92,7 +91,7 @@ export default {
 
 
     components:{
-        Toolbar,
+       
         DataTable, 
       
        
@@ -111,7 +110,17 @@ export default {
 </script>
 <style <style lang="scss" scoped>
 
+.tool{
+     background-color: rgba(0,0,0,0.5);
+     width: 100%;
+     display: flex;
+     border-radius:5px;
+     padding: 10px;
 
+     .tool-view-item:hover{
+         cursor: pointer;
+         color: #ffed69;}
+}
 
 </style>
 

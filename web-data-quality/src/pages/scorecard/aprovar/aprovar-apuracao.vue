@@ -1,6 +1,6 @@
 <template>
     <div v-async="loading" class="all-user-home">
-        <div >
+        <div v-if="show == 'home'" >
             <!-- Conponente Toolbar -->
             <toolbar 
                 :config="configToolbar" 
@@ -10,13 +10,16 @@
            
             <!--Componente DataTable -->
             <data-table
-                 :data="data"
+                @view="view"
+                :data="data"
                 :config="configTable"
-                 @rowPerPage="setRowPage"
-                 @page="setPage">
+                @rowPerPage="setRowPage"
+                @page="setPage">
             </data-table>
         </div>
-        <!--Componentes Options --> 
+         <!--Componentes Options --> 
+         
+         <checked v-else-if="show=='view'" :dataObject="dataObject" @back="show = 'home'"></checked>
     </div> 
 </template>
 <script>
@@ -26,20 +29,23 @@ import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import _ from 'lodash';
 import Modal from '../../../components/modal/message-dialog.vue';
+import Checked from './aprovar-check';
 
 export default {
     data(){
         return{
+            show:'home',
             configToolbar: ToolbarConfigFactory.build('TOOLBAR-HOLLIDAY-VISUALIZATION'),
             configTable: DataTableConfigFactory.build('DATA-TABLE-APROVAR'),
             loading:undefined,
+            dataObject:undefined,
            data:{
                 conteudo:[
-                    { job_name:"Job 1",sched_name:"job Sched 1",description:"Descrição 1",trigguer_state:"true", cron_expression:"teste", next_fire_time:"teste", prev_fire_time:"teste"},
-                    { job_name:"Job 2",sched_name:"job Sched 1",description:"Descrição 1",trigguer_state:"true", cron_expression:"teste", next_fire_time:"teste", prev_fire_time:"teste"},
-                    { job_name:"Job 3",sched_name:"job Sched 1",description:"Descrição 1",trigguer_state:"true", cron_expression:"teste", next_fire_time:"teste", prev_fire_time:"teste"},
-                    { job_name:"Job 4",sched_name:"job Sched 1",description:"Descrição 1",trigguer_state:"true", cron_expression:"teste", next_fire_time:"teste", prev_fire_time:"teste"},
-                    { job_name:"Job 5",sched_name:"job Sched 1",description:"Descrição 1",trigguer_state:"true", cron_expression:"teste", next_fire_time:"teste", prev_fire_time:"teste"}
+                    { agency:"Agência 1",periodo:"1/2020",im:"10", frequencia:"90",result:"Maximo" },
+                    { agency:"Agência 2",periodo:"1/2020",im:"10", frequencia:"90",result:"Máximo" },
+                    { agency:"Agência 3",periodo:"1/2020",im:"10",frequencia:"90",result:"0" },
+                    { agency:"Agência 4",periodo:"1/2020",im:"10",frequencia:"90",result:"Mininmo"},
+                    { agency:"Agência 5",periodo:"1/2020",im:"10",frequencia:"90",result:"Mininmo"}
                     ],
                 pagination:undefined
             },
@@ -48,6 +54,12 @@ export default {
     },
 
     methods:{
+
+         view(data){
+            this.show = 'view';
+            this.dataObject = data;
+            console.log("click")
+        },    
 
         setPage(page){            
             let temp = {...this.filter};
@@ -73,6 +85,7 @@ export default {
     components:{
         Toolbar,
         DataTable, 
+        Checked
       
        
     }

@@ -36,6 +36,8 @@ class DataTableConfigFactory {
             return this.configTableJob(); 
             case 'DATA-TABLE-APROVAR':
             return this.configTableAprovar();  
+            case 'DATA-TABLE-REVISAR':
+            return this.configTableRevisar();
             
            
            
@@ -388,7 +390,7 @@ class DataTableConfigFactory {
         return {
             showCount: false,
             showOptions: true,
-            showOptionsTYPE: 'DEFAULT',
+            showOptionsTYPE: 'APROVED',
             showSearch: false,
             showHeaderOptions: true,
             showRowPerPage: false,
@@ -399,9 +401,30 @@ class DataTableConfigFactory {
                 { name: "agency", title: "Agência", formatter: undefined },
                 { name: "periodo", title: "Período", formatter: undefined },
                 { name: "im", title: "IM", formatter: undefined },
-                { name: "profile", title: "Perfil", formatter: undefined },
-                { name: "frequência", title: "Frequência", formatter: undefined },
+                { name: "frequencia", title: "Frequência", formatter: undefined },
                 { name: "result", title: "Resultado", formatter: undefined },
+            ]
+
+        };
+    }
+
+    configTableRevisar() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'APROVED',
+            showSearch: false,
+            showHeaderOptions: true,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "agency", title: "Agência", formatter: undefined },
+                { name: "periodo", title: "Período", formatter: undefined },
+                { name: "aprovado", title: "Aprovado", formatter: undefined },
+                { name: "aprovador", title: "Aprovador", formatter: undefined },
+                { name: "data", title: "Data", formatter: undefined },
             ]
 
         };
