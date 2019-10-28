@@ -37,6 +37,15 @@ module.exports = {
             table_view_group_type: 'Type',
             aba_report: 'Report',
             table_created_date: 'Created date',
+            research_calendar:'Research Calendar',
+            holidays_register:'Holidays Calendar',
+            table_date:'Date',
+            table_date_start:'Initial Date',
+            table_date_end:'Finale Date',
+            table_period:'Period',
+            table_description:'Descrption',
+            
+
             
 
 
@@ -46,7 +55,7 @@ module.exports = {
             table_agency_local_file_path: "Local file path",
             table_agency_code: "Agency code",
             table_Agency_od_flag: "Od ",
-            table_agency_flag_monthly: "Frequency",
+            table_agency_flag_monthly: "Upload Frequency",
             table_agency_flag_approved: "Approved",
             table_agency_s3: 'S3',
 
@@ -90,6 +99,7 @@ module.exports = {
             label_input_phone: 'Cell phone',
             label_input_current_pass: 'Current password',
             label_imput_newpass: 'New password',
+            label_agency_category: 'Agency Category',
             confirm_pass: 'Confirm password',
             label_input_search_date_From: 'From:',
             label_input_search_date_To: 'To:',
@@ -161,6 +171,13 @@ module.exports = {
             table_view_group_type: 'Tipo',
             aba_report: 'Relatório',
             table_created_date: 'Data de criação',
+            research_calendar:'Calendário de Apuração',
+            holidays_register:'Calendário de feriados',
+            table_date:'Data',
+            table_date_start:'Data Inicial',
+            table_date_end:'Data Final',
+            table_period:'Período',
+            table_description:'Descrição',
 
 
             table_agency_name: "Agência",
@@ -169,7 +186,7 @@ module.exports = {
             table_agency_local_file_path: "Local do arquivo",
             table_agency_code: "Código agencia",
             table_Agency_od_flag: "Od",
-            table_agency_flag_monthly: "Frequência",
+            table_agency_flag_monthly: "Frequência de upload",
             table_agency_flag_approved: "Aprovado",
             table_agency_s3: 'S3',
 
@@ -212,6 +229,7 @@ module.exports = {
             label_input_phone: 'Telefone celular',
             label_input_current_pass: 'Senha atual',
             label_imput_newpass: 'Nova senha',
+            label_agency_category: 'Categoria da Agência',
             label_input_search_date_From: 'De:',
             label_input_search_date_To: 'Até:',
             confirm_pass: 'Confirmar senha',
@@ -288,6 +306,14 @@ module.exports = {
             aba_report: 'Informe',
             table_created_date: 'Creación',
             table_user: 'Usuario',
+            research_calendar:'Horário de sondeo',
+            holidays_register:'Horário de vacaciones',
+            table_date:'Fecha',
+            table_date_start:'Fecha de inicio',
+            table_date_end:'Fecha Final',
+            table_period:'Periodo',
+            table_description:'Descripción',
+
 
 
             table_agency_name: "Agência",
@@ -296,7 +322,7 @@ module.exports = {
             table_agency_local_file_path: "Local file path",
             table_agency_code: "Agency code",
             table_Agency_od_flag: "Od flag",
-            table_agency_flag_monthly: "Frequência",
+            table_agency_flag_monthly: "Frequência de upload",
             table_agency_flag_approved: "Flag approved",
             table_agency_s3: 'S3',
 
@@ -336,6 +362,7 @@ module.exports = {
             label_input_phone: 'Teléfono celular',
             label_input_current_pass: 'Contraseña actual',
             label_imput_newpass: 'Nueva contraseña',
+            label_agency_category: 'Categoria da Agência',
             confirm_pass: 'Confirmar seña',
             label_input_search_date_From: 'De:',
             label_input_search_date_To: 'Para:',

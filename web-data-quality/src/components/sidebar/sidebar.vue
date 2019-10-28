@@ -12,9 +12,11 @@
                 <li  class="x-item" id="cadastro">
                     <a href="#cadastro"   class="x-btn"><i class="far fa-clone"></i>&nbsp;{{$t('lang.register')}} &nbsp; <i class="fas fa-caret-down"></i></a>
                     <div class="x-smenu">
-                        <router-link  v-if="$can('manage', 'User')"  class="pl-5" tag="li" to="/users-register"><i class="fas fa-user"></i>&nbsp;<span>{{$t('lang.users')}}</span></router-link>
-                        <router-link v-if="$can('manage', 'Agency')" class="pl-5" tag="li" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
-                        <router-link v-if="$can('manage', 'Profile')" class="pl-5" tag="li" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
+                        <router-link  v-if="$can('manage', 'User')"  class="pl-4" tag="li" to="/users-register"><i class="fas fa-user"></i>&nbsp;<span>{{$t('lang.users')}}</span></router-link>
+                        <router-link v-if="$can('manage', 'Agency')" class="pl-4" tag="li" to="/company"><i class="fas fa-building"></i>&nbsp;{{$t('lang.table_view_file_company_name')}}</router-link>
+                        <router-link v-if="$can('manage', 'Profile')" class="pl-4" tag="li" to="/users-profile"><i class="fas fa-users"></i>&nbsp;{{$t('lang.profile')}}</router-link>
+                        <router-link v-if="$can('manage', 'Profile')" class="pl-4" tag="li" to="/hollidays"><i class="far fa-calendar-check"></i>&nbsp;{{$t('lang.holidays_register')}}</router-link>
+                        <router-link v-if="$can('manage', 'Profile')" class="pl-4" tag="li" to="/calenders"><i class="far fa-calendar-alt"></i>&nbsp;{{$t('lang.research_calendar')}}</router-link>
                     </div>
                 </li>
                 <li class="x-item" id="mensagem">
@@ -41,11 +43,40 @@
                         
                         <div class="x-smenu">
                             <li style="margin: -15px;margin-left:15px;"><a class="linkPdf" :href="urlTutorial " target="_blank"><i class="fas fa-info-circle"></i>&nbsp;Tutorial</a></li>
+                        </div>     
+                </li>
+                 <li class="x-item" id="scorecard" v-if="$can('manage', 'Opcao')">
+                    <a href="#scorecard" class="x-btn"><i class="fas fa-table"></i>&nbsp;Scorecard &nbsp; <i class="fas fa-caret-down "></i></a>
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="/entrega_im"><i class="fas fa-check-square"></i>&nbsp; Entrega IM</router-link>                        
                         </div>
-
-
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="/frequencia_detalhada"><i class="fas fa-file-contract"></i>&nbsp; Frequência detalhada</router-link>                        
+                        </div>
+                       
+                         <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="/informacoes_detalhada"><i class="fas fa-file-alt"></i>&nbsp; Informações detalhada</router-link>                        
+                        </div>
+                         <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="/qualidade_detalhada"><i class="fas fa-file-download"></i>&nbsp; Qualidade</router-link>                        
+                        </div>
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="aprovar"><i class="fas fa-check"></i>&nbsp;Aprovar apuração</router-link>                        
+                        </div>
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="revisar"><i class="fas fa-check-double"></i>&nbsp;Revisar apuração</router-link>                        
+                        </div>
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="controle"><i class="fas fa-tasks"></i>&nbsp;Controle de apuração</router-link>                        
+                        </div>
+                        
+                      
+                        
                         
                 </li>
+                <li style="cursor:pointer" class="x-item" id="">
+                    <router-link class="x-btn" tag="li" to="/job"><i class="fas fa-toolbox"></i>&nbsp;Job</router-link>
+                </li> 
                 
                
             </div>
