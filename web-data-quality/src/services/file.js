@@ -1,7 +1,7 @@
 import Service from './service';
 class FileService extends Service {
-    constructor(endpoint) {
-        super(endpoint);
+    constructor(type,endpoint) {
+        super(type,endpoint);
     }
 
     /**
@@ -41,5 +41,5 @@ class FileService extends Service {
 
 }
 
-const instance = new FileService("/file");
+const instance = new FileService('behavior',"/file");
 export default instance;

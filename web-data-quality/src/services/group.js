@@ -1,7 +1,7 @@
 import Service from './service';
 class GroupService extends Service {
-    constructor(endpoint) {
-        super(endpoint);
+    constructor(type,endpoint) {
+        super(type,endpoint);
     }
 
     /**
@@ -28,5 +28,5 @@ class GroupService extends Service {
     }
 }
 
-const instance = new GroupService('/group');
+const instance = new GroupService('behavior','/group');
 export default instance;

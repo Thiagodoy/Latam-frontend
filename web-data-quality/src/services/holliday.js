@@ -1,7 +1,7 @@
-import ServiceScore from './service-score';
-class HollidayService extends ServiceScore {
-    constructor(endpoint) {
-        super(endpoint);
+import Service from './service';
+class HollidayService extends Service {
+    constructor(type,endpoint) {
+        super(type,endpoint);
     }
 
     /**
@@ -28,5 +28,5 @@ class HollidayService extends ServiceScore {
     }
 }
 
-const instance = new HollidayService('/holliday');
+const instance = new HollidayService('scorecard','/holiday');
 export default instance;
