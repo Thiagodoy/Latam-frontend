@@ -30,12 +30,22 @@ class DataTableConfigFactory {
                 return this.configTableHollidayVisualisation();
             case 'DATA-TABLE-DATA-TABLE-CALENDER-VISUALIZATION':
             return this.configTableCalenderVisualisation();
+            case 'DATA-TABLE-FREQUENCY-DETAIL':
+                return this.configTableFrequencyDetail();
+            case 'DATA-TABLE-JOB':
+            return this.configTableJob(); 
+            case 'DATA-TABLE-APROVAR':
+            return this.configTableAprovar();  
+            
+           
+           
+                
             default:
                 throw new Error('Configuration not exists!');
 
         }
     }
-
+    configTableCalenderDetail
     configTableFileValidationUploadVisualization() {
 
 
@@ -324,6 +334,76 @@ class DataTableConfigFactory {
                
 
             ]
+        };
+    }
+
+    configTableFrequencyDetail() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'DETALHES',
+            showSearch: false,
+            showHeaderOptions: true,
+            titleOption:"Frequencia",
+            widthOptions:"115px",
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "company", title: "table_view_file_company_name", formatter: undefined },
+                { name: "periodo", width:'150px', title: "table_period", formatter: undefined },
+               
+
+            ]
+        };
+    }
+
+    configTableJob() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'JOB',
+            showSearch: false,
+            showHeaderOptions: true,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "job_name", title: "Job", formatter: undefined },
+                { name: "sched_name", title: "Sched", formatter: undefined },
+                { name: "description", title: "Descrição", formatter: undefined },
+                { name: "trigguer_state", title: "Trigguer", formatter: undefined },
+                { name: "cron_expression", title: "Cron ", formatter: undefined },
+                { name: "next_fire_time", title: "Next", formatter: undefined },
+                { name: "prev_fire_time", title: "Prev", formatter: undefined }
+              
+            ]
+
+        };
+    }
+
+    configTableAprovar() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: true,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "agency", title: "Agência", formatter: undefined },
+                { name: "periodo", title: "Período", formatter: undefined },
+                { name: "im", title: "IM", formatter: undefined },
+                { name: "profile", title: "Perfil", formatter: undefined },
+                { name: "frequência", title: "Frequência", formatter: undefined },
+                { name: "result", title: "Resultado", formatter: undefined },
+            ]
+
         };
     }
 

@@ -38,6 +38,7 @@ import AgencyService from '../../../services/agency.js';
 import _ from 'lodash';
 import Modal from '../../../components/modal/message-dialog.vue';
 import HollidayViewEdit from './holliday-new-view-edit'
+import HollidayService from '../../../services/holliday.js'
 
 
 export default {
@@ -62,6 +63,13 @@ export default {
             },
              filter:{page:0,size:10}           
         }
+    },
+
+    created() {
+        console.log("teste");
+        HollidayService.getHolliday({page:0,size:10}).then((response)=>{
+        console.log(response);
+        })
     },
 
 

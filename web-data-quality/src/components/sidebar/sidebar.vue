@@ -43,11 +43,40 @@
                         
                         <div class="x-smenu">
                             <li style="margin: -15px;margin-left:15px;"><a class="linkPdf" :href="urlTutorial " target="_blank"><i class="fas fa-info-circle"></i>&nbsp;Tutorial</a></li>
+                        </div>     
+                </li>
+                 <li class="x-item" id="scorecard" v-if="$can('manage', 'Opcao')">
+                    <a href="#scorecard" class="x-btn"><i class="fas fa-table"></i>&nbsp;Scorecard &nbsp; <i class="fas fa-caret-down "></i></a>
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="/entrega_im"><i class="fas fa-check-square"></i>&nbsp; Entrega IM</router-link>                        
                         </div>
-
-
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="/frequencia_detalhada"><i class="fas fa-file-contract"></i>&nbsp; Frequência detalhada</router-link>                        
+                        </div>
+                       
+                         <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="/informacoes_detalhada"><i class="fas fa-file-alt"></i>&nbsp; Informações detalhada</router-link>                        
+                        </div>
+                         <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="/qualidade_detalhada"><i class="fas fa-file-download"></i>&nbsp; Qualidade</router-link>                        
+                        </div>
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="aprovar"><i class="fas fa-check"></i>&nbsp;Aprovar apuração</router-link>                        
+                        </div>
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="revisar"><i class="fas fa-check-double"></i>&nbsp;Revisar apuração</router-link>                        
+                        </div>
+                        <div class="x-smenu">
+                            <router-link   class="pl-4" tag="li" to="controle"><i class="fas fa-tasks"></i>&nbsp;Controle de apuração</router-link>                        
+                        </div>
+                        
+                      
+                        
                         
                 </li>
+                <li style="cursor:pointer" class="x-item" id="">
+                    <router-link class="x-btn" tag="li" to="/job"><i class="fas fa-toolbox"></i>&nbsp;Job</router-link>
+                </li> 
                 
                
             </div>
