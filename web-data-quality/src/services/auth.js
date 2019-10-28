@@ -2,8 +2,8 @@ import Service from './service';
 import md5 from 'md5';
 
 class AuthenticationService extends Service {
-    constructor(endpoint) {
-        super(endpoint);
+    constructor(type,endpoint) {
+        super(type,endpoint);
     }
 
     /**
@@ -49,5 +49,5 @@ class AuthenticationService extends Service {
     }
 }
 
-const instance = new AuthenticationService("/auth");
+const instance = new AuthenticationService('behavior',"/auth");
 export default instance;

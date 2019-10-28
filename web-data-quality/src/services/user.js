@@ -2,8 +2,8 @@ import Service from './service';
 import md5 from 'md5';
 
 class UserService extends Service {
-    constructor(endpoint) {
-        super(endpoint);
+    constructor(type,endpoint) {
+        super(type,endpoint);
     }
 
     /**
@@ -62,5 +62,5 @@ class UserService extends Service {
 
 
 
-const instance = new UserService('/user');
+const instance = new UserService('behavior','/user');
 export default instance;
