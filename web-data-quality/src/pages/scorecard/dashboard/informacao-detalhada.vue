@@ -3,7 +3,17 @@
 
     <div class="tool mb-4">
         <div   @click="$emit('back')" class="tool-view-item"><i class="fas fa-arrow-circle-left"></i>&nbsp;{{$t('lang.button_back')}}</div> &nbsp; &nbsp;&nbsp;
-    </div>  
+    </div> 
+
+      <div class="row">
+          <div class=" text-center col-md-12">
+            <div class=" center-block box">
+                <div class="box-title">Informações</div>
+                <div class="box-label">Dias Entregues / Dias uteis</div>
+                <div class="box-result">22/22</div>
+            </div>
+          </div>
+        </div> 
 
    
     <div class="wrapper-calender-detail">
@@ -19,44 +29,44 @@
       <div class="weeks" v-for="(week,i) in weeks" :key="i">
         <div class="week">
           <div class="week-date"> {{week.sunday | extractDay}}</div>
-          <div class="week-status">
-            <img :src="week.sunday | extractStatus"/>
+          <div  v-if="week.sunday" class="week-status">
+                <img :src="week.sunday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.monday | extractDay }}</div>
-          <div class="week-status">
+          <div  v-if="week.monday" class="week-status">
             <img :src="week.monday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.tuesday | extractDay}}</div>
-          <div class="week-status">
-            <img :src="week.tuesday | extractStatus"/>
+          <div  v-if="week.tuesday" class="week-status">
+           <img :src="week.tuesday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.wednesday | extractDay}}</div>
-          <div class="week-status">
-            <img :src="week.wednesday | extractStatus"/>
+          <div  v-if="week.wednesday" class="week-status">
+                <img :src="week.wednesday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.thusday | extractDay}}</div>
-          <div class="week-status">
-            <img :src="week.thusday | extractStatus"/>
+          <div  v-if="week.thusday" class="week-status">
+                 <img :src="week.thusday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.friday | extractDay}}</div>
-          <div class="week-status">
-            <img :src="week.friday | extractStatus"/>
+          <div  v-if="week.friday" class="week-status">
+                  <img :src="week.friday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date"> {{week.saturday | extractDay}}</div>
-         <div class="week-status">
-            <img :src="week.saturday | extractStatus"/>
+         <div  v-if="week.saturday" class="week-status">
+                 <img :src="week.saturday | extractStatus"/>
           </div>
         </div>
       </div> 
@@ -119,30 +129,40 @@ export default {
     getWeeks(){
       let response = [
          {week_of_year:43,
-            sunday:'2019-10-1|1',
-            monday:'2019-10-2|1',
-            tuesday:'2019-10-3|1',
-            wednesday:'2019-10-4|0',
-            thusday:'2019-10-5|1',
-            friday:'2019-10-6|1',
-            saturday:'2019-10-7|0',
+            sunday:null,
+            monday:null,
+            tuesday:null,
+            wednesday:'2019-10-1|1',
+            thusday:'2019-10-2|1',
+            friday:'2019-10-3|1',
+            saturday:'2019-10-4|1',
            
           },
           {week_of_year:44,
-            sunday:'2019-10-8|1',
-            monday:'2019-10-9|1',
-            tuesday:'2019-10-10|2',
-            wednesday:'2019-10-11|1',
-            thusday:'2019-10-12|1',
-            friday:'2019-10-13',
-            saturday:'2019-10-14|1',
+            sunday:'2019-10-5|1',
+            monday:'2019-10-6|1',
+            tuesday:'2019-10-7|1',
+            wednesday:'2019-8-8|1',
+            thusday:'2019-10-9|1',
+            friday:'2019-10-10|1',
+            saturday:'2019-10-11|1',
             
           },
-          {week_of_year:43,
-            sunday:'2019-10-15|1',
-            monday:'2019-10-16|1',
-            tuesday:'2019-10-17|1',
-            wednesday:'2019-10-18|1',
+           {week_of_year:45,
+            sunday:'2019-10-12|1',
+            monday:'2019-10-13|1',
+            tuesday:'2019-10-14|1',
+            wednesday:'2019-8-15|1',
+            thusday:'2019-10-16|1',
+            friday:'2019-10-17|1',
+            saturday:'2019-10-18|1',
+            
+          },
+         {week_of_year:46,
+            sunday:'2019-10-19|1',
+            monday:'2019-10-20|1',
+            tuesday:'2019-10-21|1',
+            wednesday:'2019-10-22|1',
             thusday:null,
             friday:null,
             saturday:null,
@@ -165,6 +185,29 @@ export default {
 
 //calender
 
+
+.box{
+display: flex;
+
+margin-bottom: 10px;
+justify-content: center
+
+}
+.box-title{
+border: solid #fff 1px;
+padding: 15px;
+ background-color: rgba(0, 0, 0, 0.4);
+}
+.box-label{
+border: solid #fff 1px;
+padding: 15px;
+ background-color: rgba(0, 0, 0, 0.4);
+}
+.box-result{
+border: solid #fff 1px;
+padding: 15px;
+ background-color: rgba(0, 0, 0, 0.4);
+}
 
 .wrapper-calender-detail{
   width: 100%;
@@ -200,14 +243,14 @@ export default {
 
 .week-date{
   font-size: 35px;
-   padding: 10px 0 0 0;
+  padding: 10px 0 0 0;
 }
 
 .week-status{
  // background: #fff;
   padding: 0px;
   text-align: right;
-  padding:  0 8px 0 0 ;
+  padding:  5px 8px 0 0 ;
 }
 
 .tool{

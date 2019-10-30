@@ -30,17 +30,17 @@ class DataTableConfigFactory {
                 return this.configTableHollidayVisualisation();
             case 'DATA-TABLE-DATA-TABLE-CALENDER-VISUALIZATION':
             return this.configTableCalenderVisualisation();
-            case 'DATA-TABLE-FREQUENCY-DETAIL':
-                return this.configTableFrequencyDetail();
             case 'DATA-TABLE-JOB':
             return this.configTableJob(); 
             case 'DATA-TABLE-APROVAR':
             return this.configTableAprovar();  
             case 'DATA-TABLE-REVISAR':
             return this.configTableRevisar();
+            case 'DATA-TABLE-RECEITA':
+            return this.configTableReceita();
             
            
-           
+            
                 
             default:
                 throw new Error('Configuration not exists!');
@@ -310,8 +310,8 @@ class DataTableConfigFactory {
             searchBy: "",
             columns: [
 
-                { name: "descricao", title: "table_description", formatter: undefined },
-                { name: "data", title: "table_date", formatter: undefined },
+                { name: "description", title: "table_description", formatter: undefined },
+                { name: "dataCompleta", title: "table_date", formatter: undefined },
                
 
             ]
@@ -339,27 +339,7 @@ class DataTableConfigFactory {
         };
     }
 
-    configTableFrequencyDetail() {
-        return {
-            showCount: false,
-            showOptions: true,
-            showOptionsTYPE: 'DETALHES',
-            showSearch: false,
-            showHeaderOptions: true,
-            titleOption:"Frequencia",
-            widthOptions:"115px",
-            showRowPerPage: false,
-            showPagination: false,
-            searchBy: "",
-            columns: [
-
-                { name: "company", title: "table_view_file_company_name", formatter: undefined },
-                { name: "periodo", width:'150px', title: "table_period", formatter: undefined },
-               
-
-            ]
-        };
-    }
+   
 
     configTableJob() {
         return {
@@ -390,7 +370,7 @@ class DataTableConfigFactory {
         return {
             showCount: false,
             showOptions: true,
-            showOptionsTYPE: 'APROVED',
+            showOptionsTYPE: 'CHECK',
             showSearch: false,
             showHeaderOptions: true,
             showRowPerPage: false,
@@ -398,11 +378,15 @@ class DataTableConfigFactory {
             searchBy: "",
             columns: [
 
+              
                 { name: "agency", title: "Agência", formatter: undefined },
-                { name: "periodo", title: "Período", formatter: undefined },
-                { name: "im", title: "IM", formatter: undefined },
-                { name: "frequencia", title: "Frequência", formatter: undefined },
-                { name: "result", title: "Resultado", formatter: undefined },
+                { name: "cluster", title: "Cluster", formatter: undefined },
+                { name: "bda", title: "Nota BDA", formatter: undefined },
+                { name: "im", title: "Nota IM", formatter: undefined },
+                { name: "scorecard", title: "Scorecard", formatter: undefined },
+                { name: "comentario", title: "Comentário/Justificativa", formatter: undefined },
+                { name: "ajust", title: "Sc Ajustado", formatter: undefined },
+                { name: "ajustBy", title: "Ajustado por", formatter: undefined },
             ]
 
         };
@@ -421,10 +405,33 @@ class DataTableConfigFactory {
             columns: [
 
                 { name: "agency", title: "Agência", formatter: undefined },
-                { name: "periodo", title: "Período", formatter: undefined },
-                { name: "aprovado", title: "Aprovado", formatter: undefined },
-                { name: "aprovador", title: "Aprovador", formatter: undefined },
-                { name: "data", title: "Data", formatter: undefined },
+                { name: "cluster", title: "Cluster", formatter: undefined },
+                { name: "bda", title: "Nota BDA", formatter: undefined },
+                { name: "im", title: "Nota IM", formatter: undefined },
+                { name: "scorecard", title: "Scorecard", formatter: undefined },
+                { name: "comentario", title: "Comentário/Justificativa", formatter: undefined },
+                { name: "ajust", title: "Sc Ajustado", formatter: undefined },
+                { name: "ajustBy", title: "Ajustado por", formatter: undefined },
+            ]
+
+        };
+    }
+
+    configTableReceita() {
+        return {
+            showCount: false,
+            showOptions: false,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: true,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "cia_voo", title: "CIA_VOO", formatter: undefined },
+                { name: "receita", title: "Receita não aproveitada", formatter: undefined },
+                
             ]
 
         };

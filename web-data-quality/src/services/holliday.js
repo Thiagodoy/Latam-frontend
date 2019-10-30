@@ -26,6 +26,11 @@ class HollidayService extends Service {
     updateHolliday(request) {
         return this.put(request);
     }
+
+    deletar(request) {
+        this._url = `${request.id}`;
+        return this.delete(request);
+    }
 }
 
 const instance = new HollidayService('scorecard','/holiday');

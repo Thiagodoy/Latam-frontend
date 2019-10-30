@@ -51,14 +51,7 @@ export default {
             show:'home',
             typeAction:undefined,
            data:{
-                conteudo:[
-                    {descricao:"Ano Novo",data:"01/01/2020"},
-                    {descricao:"7 Setembro",data:"07/09/2020"},
-                    {descricao:"Dia das crianças",data:"12/10/2020"},
-                    {descricao:"Finados",data:"02/11/2020"},
-                    {descricao:"Proclamação da republica",data:"15/11/1986"},
-                    {descricao:"Natal",data:"25/08/2020"},
-                    ],
+                conteudo:[ ],
                 pagination:undefined
             },
              filter:{page:0,size:10}           
@@ -66,22 +59,32 @@ export default {
     },
 
     created() {
-        console.log("teste");
-        HollidayService.getHolliday({page:0,size:10}).then((response)=>{
-        console.log(response);
-        })
+       this.getHolliday();
+
+       
+       
     },
 
 
     methods:{
 
+        getHolliday(){
+            this.loading = HollidayService.getHolliday({page:0,size:10}).then((response)=>{
+                
+                this.data.conteudo = response.content.map(g =>{
+                     g.dataCompleta = g.date[2] +"/"+g.date[1]+"/"+g.date[0]
+                     return g
+                     })
+        })
+        },
+
          del(data){
             Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
                  if(response == 'YES'){
                     
-                   this.loading = AgencyService.deleteCompany({id:data.id}).then(response=>{
+                   this.loading = HollidayService.deletar({id:data.id}).then(response=>{
                        
-                       this.getAgency();
+                       this.getHolliday();
      
                        }).catch(erro=>{
                            this.mxShowModalError(erro);                        
@@ -131,6 +134,22 @@ export default {
    
    mounted(){
        
+    },
+
+    watch:{
+        filter:{
+            handler:function(newValue, oldValue){
+                this.getHolliday();
+            },
+            deep:true
+        },
+        show(newValue, oldValue){
+            if(newValue == 'home'){
+                this.currentObject = undefined;
+                this.typeAction = undefined;
+                this.getHolliday();
+            }
+        }
     },
 
     

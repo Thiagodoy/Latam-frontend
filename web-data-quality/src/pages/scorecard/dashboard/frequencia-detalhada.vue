@@ -3,7 +3,21 @@
 
     <div class="tool mb-4">
         <div   @click="$emit('back')" class="tool-view-item"><i class="fas fa-arrow-circle-left"></i>&nbsp;{{$t('lang.button_back')}}</div> &nbsp; &nbsp;&nbsp;
-    </div>  
+    </div> 
+
+        <div class="row">
+          <div class=" text-center col-md-12">
+            <div class=" center-block box">
+                <div class="box-title">Frequência</div>
+                <div class="box-label">Dias Entregues / Dias uteis</div>
+                <div class="box-result">14/18</div>
+            </div>
+          </div>
+        </div>
+  
+       
+      
+   
 
    
     <div class="wrapper-calender-detail">
@@ -20,50 +34,43 @@
         <div class="week">
           <div class="week-date"> {{week.sunday | extractDay}}</div>
           <div class="week-status">
-               <span>100%</span>
-              <img style="cursor:pointer" v-if="week.sunday"  src="img/download.svg"/>
+            <img :src="week.sunday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.monday | extractDay }}</div>
           <div class="week-status">
-               <span>100%</span>
-               <img style="cursor:pointer" v-if="week.monday" src="img/download.svg"/>
+            <img :src="week.monday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.tuesday | extractDay}}</div>
           <div class="week-status">
-               <span>100%</span>
-               <img style="cursor:pointer" v-if="week.tuesday"  src="img/download.svg"/>
+            <img :src="week.tuesday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.wednesday | extractDay}}</div>
           <div class="week-status">
-               <span>100%</span>
-               <img style="cursor:pointer" v-if="week.wednesday"  src="img/download.svg"/>
+            <img :src="week.wednesday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.thusday | extractDay}}</div>
           <div class="week-status">
-               <span>100%</span>
-               <img style="cursor:pointer" v-if="week.thusday"  src="img/download.svg"/>
+            <img :src="week.thusday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date">{{week.friday | extractDay}}</div>
           <div class="week-status">
-               <span>100%</span>
-               <img style="cursor:pointer" v-if="week.friday"  src="img/download.svg"/>
+            <img :src="week.friday | extractStatus"/>
           </div>
         </div>
         <div class="week">
           <div class="week-date"> {{week.saturday | extractDay}}</div>
          <div class="week-status">
-              <span>100%</span>
-              <img style="cursor:pointer" v-if="week.saturday" src="img/download.svg"/>
+            <img :src="week.saturday | extractStatus"/>
           </div>
         </div>
       </div> 
@@ -101,7 +108,17 @@ export default {
         }
     },
 
-   
+    extractStatus:function(value){
+      if(value){
+        let x = value.split("|",3)
+        if(x[1] == '1'){
+          return  "img/success.svg"
+        }else{
+          return  "img/error.svg"
+        } 
+      }
+      else{ return ""}
+    }
 },
 
 
@@ -163,6 +180,30 @@ export default {
 //calender
 
 
+.box{
+display: flex;
+
+margin-bottom: 10px;
+justify-content: center
+
+}
+.box-title{
+border: solid #fff 1px;
+padding: 15px;
+ background-color: rgba(0, 0, 0, 0.4);
+}
+.box-label{
+border: solid #fff 1px;
+padding: 15px;
+ background-color: rgba(0, 0, 0, 0.4);
+}
+.box-result{
+border: solid #fff 1px;
+padding: 15px;
+ background-color: rgba(0, 0, 0, 0.4);
+}
+
+
 .wrapper-calender-detail{
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -197,14 +238,14 @@ export default {
 
 .week-date{
   font-size: 35px;
-  padding: 10px 0 0 0;
+   padding: 10px 0 0 0;
 }
 
 .week-status{
  // background: #fff;
-  display: flex;
-  justify-content: space-between;
-  padding:  0 10px 0 10px ;
+  padding: 0px;
+  text-align: right;
+  padding:  0 8px 0 0 ;
 }
 
 .tool{
@@ -222,4 +263,3 @@ export default {
 
 
 </style>
-

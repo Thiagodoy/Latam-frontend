@@ -1,22 +1,17 @@
 <template>
   <div>
-    <div class="topo text-center">
-      <h6></h6>
-      <i class="far fa-check-square"></i>&nbsp;&nbsp;Entrega IM
-    </div>
-
+   
     <table class="table table-striped table-dark fluid">
       <thead>
         <tr>
           <td>Agência</td>
-          <td>Período</td>
+        
           <td>Entrega IM</td>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(entrega,i) in entregas" :key="i">
           <td>{{entrega.agencia}}</td>
-          <td width="150">{{entrega.periodo}}</td>
           <td class="text-center" width="120">
             <input :checked="entrega.entrega" name="i" type="checkbox" />
           </td>
@@ -30,14 +25,8 @@ export default {
   data() {
     return {
       entregas: [
-        {codigo:545454, agencia: "Agência 1", periodo: "01/2020", entrega: true },
-        {codigo:545454, agencia: "Agência 2", periodo: "02/2020", entrega: false },
-        {codigo:545454, agencia: "Agência 3", periodo: "03/2020", entrega: true },
-        {codigo:545454, agencia: "Agência 4", periodo: "04/2020", entrega: true },
-        {codigo:545454, agencia: "Agência 5", periodo: "05/2020", entrega: true },
-        {codigo:545454, agencia: "Agência 6", periodo: "06/2020", entrega: true },
-        {codigo:545454, agencia: "Agência 7", periodo: "07/2020", entrega: false },
-        {codigo:545454, agencia: "Agência 8", periodo: "08/2020", entrega: true }
+        {codigo:545454, agencia: "Agência 1", entrega: true },
+        {codigo:545454, agencia: "Agência 2",  entrega: false },
       ]
     };
   }

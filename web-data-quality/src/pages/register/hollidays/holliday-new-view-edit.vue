@@ -3,7 +3,7 @@
         <div  v-async="loading"> </div>
         
          <div v-if="show == 'SAVED'"  class="alert alert-success text-center" role="alert">
-           {{$t('lang.msg_success_agency')}}
+          Feriado salvo com sucesso
         </div>
 
 
@@ -19,19 +19,19 @@
                     <div class="col-md-12">
                         <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
                             <label >{{$t('lang.table_description')}}</label>
-                            <input v-model="request.descricao" :disabled="typeAction=='view'"  name="imput-path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_description')"   >
+                            <input v-model="description" :disabled="typeAction=='view'"  name="imput-path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_description')"   >
                             <div class="help-block">{{errors.first('imput-path')}}</div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div :disabled="typeAction=='view'" class="form-group" :class="{'has-error':errors.has('imput-path')}" >
                             <label >{{$t('lang.table_date')}}</label>
-                             <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="request.date"  name="date-init" style="color:#222;max-width:50%; min-width:200px" class="form-control  ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                             <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date"  name="date-init" style="color:#222;max-width:50%; min-width:200px" class="form-control  ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
                             <div class="help-block">{{errors.first('imput-path')}}</div>
                         </div>
                     </div>
                      <div v-if="typeAction == 'edit' || typeAction == 'new'" class="col-md-6 mt-3 ml-3">                        
-                        <button   style="color:#fff"  :disabled="(errors.items.length > 0)" class="btn btn-default btn-large" >{{$t('lang.button_save')}}</button>
+                        <button @click="save"  style="color:#fff"  :disabled="(errors.items.length > 0)" class="btn btn-default btn-large" >{{$t('lang.button_save')}}</button>
                         <button  style="color:#fff" @click="$emit('back')" class="btn btn-default btn-large ml-3 ">{{$t('lang.button_cancel')}}</button>  
                     </div>
                 </div>    
@@ -60,6 +60,7 @@ import Modal from '../../../components/modal/message-dialog.vue';
 import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import VueTimepicker from 'vue2-timepicker'
+import HollidayService from '../../../services/holliday.js'
 
 export default {
 
@@ -70,10 +71,10 @@ export default {
             show: '',
             loading: undefined,
             configTable: DataTableConfigFactory.build('DATA-TABLE-USER-AGENCY'),
-            request:{
-                descricao:undefined,
-                date:undefined
-            }
+            
+                description:undefined,
+                date:undefined,
+            
         }
     },
     computed:{
@@ -82,9 +83,13 @@ export default {
     mounted() {
 
         if(this.typeAction == 'view' || this.typeAction == 'edit'){
-            this.request.descricao = this.currentObject.descricao;
-            this.request.date = this.currentObject.data;
-        }
+            this.description = this.currentObject.description;
+            this.date = this.currentObject.date[1] +"/"+ this.currentObject.date[2]+"/"+this.currentObject.date[0];
+
+            console.log('Objeto',this.date);
+       
+       
+       }
 
         console.log("Type",this.typeAction);
         console.log("Objeto",this.currentObject);
@@ -100,6 +105,24 @@ export default {
                 if (!response) return;
 
                 if (this.typeAction == 'new') {
+
+                    let request = {
+                        date:this.date,
+                        day : this.date.getF,
+                        month:0,
+                        year:0,
+                        description:this.description
+                    }
+
+                        console.log("data : ",request)
+
+                   
+                   
+                   this.loading = HollidayService.saveHolliday(request).then(()=>{
+                        this.savedSuccess();
+                    }).catch(e=>{
+
+                    })
                    
                 } else {
                    

@@ -23,29 +23,31 @@
     </div> 
 </template>
 <script>
-import Toolbar from '../../../components/toolbar/toolbar.vue';
-import ToolbarConfigFactory from '../../../components/toolbar/toolbar-config-factory';
+
 import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import _ from 'lodash';
 import Modal from '../../../components/modal/message-dialog.vue';
-import Checked from './aprovar-check';
+
 
 export default {
     data(){
         return{
             show:'home',
-            configToolbar: ToolbarConfigFactory.build('TOOLBAR-HOLLIDAY-VISUALIZATION'),
-            configTable: DataTableConfigFactory.build('DATA-TABLE-APROVAR'),
+          
+            configTable: DataTableConfigFactory.build('DATA-TABLE-REVISAR'),
             loading:undefined,
             dataObject:undefined,
            data:{
                 conteudo:[
-                    { agency:"Agência 1",periodo:"1/2020",im:"10", frequencia:"90",result:"Maximo" },
-                    { agency:"Agência 2",periodo:"1/2020",im:"10", frequencia:"90",result:"Máximo" },
-                    { agency:"Agência 3",periodo:"1/2020",im:"10",frequencia:"90",result:"0" },
-                    { agency:"Agência 4",periodo:"1/2020",im:"10",frequencia:"90",result:"Mininmo"},
-                    { agency:"Agência 5",periodo:"1/2020",im:"10",frequencia:"90",result:"Mininmo"}
+                       {agency:"Agência 1",cluster:"RM1",bda:"0",im:"30",scorecard:"Não recebe SC",comentario:"Agência ficou sem energia 5 Dias",ajust:"Recebe RM1",ajustBy:""},
+                        {agency:"Agência 2",cluster:"RM2",bda:"40",im:"30",scorecard:"Não recebe SC",comentario:"Não Recebe SC",ajust:"Não recebe SC",ajustBy:""},
+                         {agency:"Agência 3",cluster:"RM3",bda:"60",im:"0",scorecard:"Recebe RM2",comentario:"",ajust:"Recebe RM2",ajustBy:""},
+
+
+
+
+                   
                     ],
                 pagination:undefined
             },
@@ -79,27 +81,12 @@ export default {
         },
 
     },
-   
-
-
     components:{
-        Toolbar,
+       
         DataTable, 
-        Checked
-      
        
     }
-
-
-
 }
-
-
-
-
-
-
-
 </script>
 <style <style lang="scss" scoped>
 

@@ -40,8 +40,9 @@
                                  <template v-else-if="config.showOptionsTYPE == 'DETALHES'">
                                     <center><span @click="buttonClick('view',v)"> <i  style="cursor:pointer;font-size:25px" class="far fa-calendar-alt"></i></span></center>
                                 </template> 
+                                
                                  <template v-else-if="config.showOptionsTYPE == 'APROVED'">
-                                    <center><span @click="buttonClick('view',v)"> <i  style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i></span></center>
+                                    <center><span @click="buttonClick('view',v)"> <i class=" btn-option  fas fa-pen mr-3" title="Edit"></i></span></center>
                                 </template>     
                                  <template v-else-if="config.showOptionsTYPE == 'JOB'">
                                     <span class="mr-2" @click="buttonClick('play',v)"> <img src="img/play.svg"  style="cursor:pointer;font-size:25px" /></span>
