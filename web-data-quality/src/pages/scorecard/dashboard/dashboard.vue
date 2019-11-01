@@ -7,7 +7,7 @@
                         <div class="form-group mr-3" >
                             <label >Mês</label>
                             <select class="form-control campos" style="opacity:.7" >
-                                <option >Setembro/2019</option>
+                                <option >Janeiro/2019</option>
                                 <option >Outubro/2019</option>
                                 <option >Novembro/2019</option>
                                 <option >Dezembro/2019</option>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="card-body">
                             <div><span style="font-size:18px;"> Envio diário</span><br><small style="color:#888;font-size:10px;">(Dias entregues/Dias Uteis)</small></div>
-                            <div style="font-size:20px; color:#ffed69;">18/20</div>    
+                            <div style="font-size:20px; color:#ffed69;">25/28</div>    
                         </div>
                     </div>
             
@@ -47,7 +47,7 @@
                         <div class="card-body">
                             <div>
                                 <div><span style="font-size:18px;">Emissão diária</span><br><small style="color:#888;font-size:10px;">(Dias entregues/Dias de emissão</small></div> 
-                                <div style="font-size:20px; color:#ffed69;">28/28</div>
+                                <div style="font-size:20px; color:#ffed69;">25/28</div>
                             </div>
                             <div>
                                 <div><span  style="font-size:18px;" >Info Empresas</span><br><small style="color:#888;font-size:10px;">(Pontos)</small></div> 

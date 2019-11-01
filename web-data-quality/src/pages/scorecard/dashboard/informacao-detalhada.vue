@@ -8,9 +8,10 @@
       <div class="row">
           <div class=" text-center col-md-12">
             <div class=" center-block box">
+                <div class="box-title">Janeiro</div>
                 <div class="box-title">Informações</div>
                 <div class="box-label">Dias Entregues / Dias uteis</div>
-                <div class="box-result">22/22</div>
+                <div class="box-result">25/28</div>
             </div>
           </div>
         </div> 
@@ -129,43 +130,44 @@ export default {
     getWeeks(){
       let response = [
          {week_of_year:43,
-            sunday:null,
-            monday:null,
-            tuesday:null,
-            wednesday:'2019-10-1|1',
-            thusday:'2019-10-2|1',
-            friday:'2019-10-3|1',
-            saturday:'2019-10-4|1',
+            sunday:'2019-10-17|1',
+            monday:'2019-10-18|1',
+            tuesday:'2019-10-19|1',
+            wednesday:'2019-10-20|1',
+            thusday:'2019-10-21|1',
+            friday:'2019-10-22|1',
+            saturday:'2019-10-23|0',
            
           },
           {week_of_year:44,
-            sunday:'2019-10-5|1',
-            monday:'2019-10-6|1',
-            tuesday:'2019-10-7|1',
-            wednesday:'2019-8-8|1',
-            thusday:'2019-10-9|1',
-            friday:'2019-10-10|1',
-            saturday:'2019-10-11|1',
+            sunday:'2019-10-24|1',
+            monday:'2019-10-25|1',
+            tuesday:'2019-10-26|2',
+            wednesday:'2019-10-27|1',
+            thusday:'2019-10-28|1',
+            friday:'2019-10-29|0',
+            saturday:'2019-10-30|1',
             
           },
-           {week_of_year:45,
-            sunday:'2019-10-12|1',
-            monday:'2019-10-13|1',
-            tuesday:'2019-10-14|1',
-            wednesday:'2019-8-15|1',
-            thusday:'2019-10-16|1',
-            friday:'2019-10-17|1',
-            saturday:'2019-10-18|1',
+          {week_of_year:43,
+            sunday:'2019-10-31|1',
+            monday:'2019-10-1|1',
+            tuesday:'2019-10-2|1',
+            wednesday:'2019-10-3|1',
+            thusday:'2019-10-4|1',
+            friday:'2019-10-5|1',
+            saturday:'2019-10-6|1',
             
           },
-         {week_of_year:46,
-            sunday:'2019-10-19|1',
-            monday:'2019-10-20|1',
-            tuesday:'2019-10-21|1',
-            wednesday:'2019-10-22|1',
-            thusday:null,
-            friday:null,
-            saturday:null,
+           
+           {week_of_year:44,
+            sunday:'2019-10-7|1',
+            monday:'2019-10-8|1',
+            tuesday:'2019-10-9|1',
+            wednesday:'2019-10-10|1',
+            thusday:'2019-10-11|1',
+            friday:'2019-10-12|1',
+            saturday:'2019-10-13|1',
             
           },
               ];
