@@ -32,7 +32,7 @@ Vue.use(ComponentsPlugin);
 //auto complete
 Vue.use(Autocomplete)
 
-Vue.com
+
 
 //Mask
 Vue.directive("mask", VueMaskDirective);
