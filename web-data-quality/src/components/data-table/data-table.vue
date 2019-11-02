@@ -47,7 +47,10 @@
                                  <template v-else-if="config.showOptionsTYPE == 'JOB'">
                                     <span class="mr-2" @click="buttonClick('play',v)"> <img src="img/play.svg"  style="cursor:pointer;font-size:25px" /></span>
                                     <span @click="buttonClick('stop',v)"> <img src="img/stop.svg"  style="cursor:pointer;font-size:25px"/></span>
-                                </template>          
+                                </template> 
+                                 <template v-else-if="config.showOptionsTYPE == 'DELETE'">
+                                    <span @click="buttonClick('delete',v)"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
+                                </template>           
                                
                                
                                

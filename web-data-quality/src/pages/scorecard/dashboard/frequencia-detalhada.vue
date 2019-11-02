@@ -8,7 +8,8 @@
         <div class="row">
           <div class=" text-center col-md-12">
             <div class=" center-block box">
-                <div class="box-title">Janeiro</div>
+                <div class="box-title">{{periodo}}</div>
+                <div class="box-title">{{dataInicial}} - {{dataFinal}}</div><br>
                 <div class="box-title">Frequência</div>
                 <div class="box-label">Dias Entregues / Dias uteis</div>
                 <div class="box-result">25/28</div>
@@ -32,47 +33,74 @@
         <div class="title-day">SÁBADO</div>
       </div>
       <div class="weeks" v-for="(week,i) in weeks" :key="i">
+        <!--Domingos -->
         <div class="week">
-          <div class="week-date"> {{week.sunday | extractDay}}</div>
-          <div class="week-status">
+          <div v-if="typeof(week.sunday) == 'string'" class="week-date">  {{week.sunday | extractDay}}</div>
+          <div v-if="typeof(week.sunday) == 'object'" class="week-date-feriado">  {{week.sunday | extractDay}}</div>
+          <div  v-if="typeof(week.sunday) == 'string'" class="week-status">
             <img :src="week.sunday | extractStatus"/>
           </div>
+          <div v-if=" week.sunday && typeof(week.sunday) == 'object' ">Feriado</div>
         </div>
+
+        <!--Segundas -->
         <div class="week">
-          <div class="week-date">{{week.monday | extractDay }}</div>
-          <div class="week-status">
+          <div v-if="typeof(week.monday) == 'string'" class="week-date">  {{week.monday | extractDay}}</div>
+          <div v-if="typeof(week.monday) == 'object'" class="week-date-feriado">  {{week.monday | extractDay}}</div>
+          <div  v-if="typeof(week.monday) == 'string'" class="week-status">
             <img :src="week.monday | extractStatus"/>
           </div>
+          <div v-if="week.monday && typeof(week.monday) == 'object'">Feriado</div>
         </div>
+
+        <!--Terças -->
         <div class="week">
-          <div class="week-date">{{week.tuesday | extractDay}}</div>
-          <div class="week-status">
+          <div v-if="typeof(week.tuesday) == 'string'" class="week-date">  {{week.tuesday | extractDay}}</div>
+          <div v-if="typeof(week.tuesday) == 'object'" class="week-date-feriado">  {{week.tuesday | extractDay}}</div>
+          <div  v-if="typeof(week.tuesday) == 'string'" class="week-status">
             <img :src="week.tuesday | extractStatus"/>
           </div>
+          <div v-if="week.tuesday && typeof(week.tuesday) == 'object'">Feriado</div>
         </div>
+
+        <!--Quartas -->
         <div class="week">
-          <div class="week-date">{{week.wednesday | extractDay}}</div>
-          <div class="week-status">
+          <div v-if="typeof(week.wednesday) == 'string'" class="week-date">  {{week.wednesday | extractDay}}</div>
+          <div v-if="typeof(week.wednesday) == 'object'" class="week-date-feriado">  {{week.wednesday | extractDay}}</div>
+          <div  v-if="typeof(week.wednesday) == 'string'" class="week-status">
             <img :src="week.wednesday | extractStatus"/>
           </div>
+           <div v-if="week.wednesday && typeof(week.wednesday) == 'object'">Feriado</div>
         </div>
+
+        <!--Quintas -->
         <div class="week">
-          <div class="week-date">{{week.thusday | extractDay}}</div>
-          <div class="week-status">
-            <img :src="week.thusday | extractStatus"/>
+          <div v-if="typeof(week.thursday) == 'string'" class="week-date">  {{week.thursday | extractDay}}</div>
+          <div v-if="typeof(week.thursday) == 'object'" class="week-date-feriado">  {{week.thursday | extractDay}}</div>
+          <div  v-if="typeof(week.thursday) == 'string'" class="week-status">
+            <img :src="week.thursday | extractStatus"/>
           </div>
+           <div v-if="week.thursday && typeof(week.thursday) == 'object'">Feriado</div>
         </div>
+
+        <!--Sextas -->
         <div class="week">
-          <div class="week-date">{{week.friday | extractDay}}</div>
-          <div class="week-status">
-            <img :src="week.friday | extractStatus"/>
-          </div>
+          <div v-if="typeof(week.friday) == 'string'" class="week-date">  {{week.friday | extractDay}}</div>
+            <div v-if="typeof(week.friday) == 'object'" class="week-date-feriado">  {{week.friday | extractDay}}</div>
+            <div  v-if="typeof(week.friday) == 'string'" class="week-status">
+              <img :src="week.friday | extractStatus"/>
+            </div>
+            <div v-if="week.friday && typeof(week.friday) == 'object'">Feriado</div>
         </div>
+
+        <!--Sábados -->
         <div class="week">
-          <div class="week-date"> {{week.saturday | extractDay}}</div>
-         <div class="week-status">
-            <img :src="week.saturday | extractStatus"/>
-          </div>
+            <div v-if="typeof(week.saturday) == 'string'" class="week-date">  {{week.saturday | extractDay}}</div>
+            <div v-if="typeof(week.saturday) == 'object'" class="week-date-feriado">  {{week.saturday | extractDay}}</div>
+            <div  v-if="typeof(week.saturday) == 'string'" class="week-status">
+              <img :src="week.saturday | extractStatus"/>
+            </div>
+            <div v-if="week.saturday && typeof(week.saturday) == 'object'">Feriado</div>
         </div>
       </div> 
       
@@ -84,40 +112,59 @@
   </div>
 </template>
 <script>
+import moment from 'moment';
 export default {
-  props:['dataObject'] , 
+  props:['dataObject','calenderFrequencia'] , 
   data() {
     return {   
-                weeks:[]
+                weeks:[],
+                feriados:[],
+                dataInicial:this.calenderFrequencia.weeks[0].calendar.dateInit,
+                dataFinal:this.calenderFrequencia.weeks[0].calendar.dateEnd,
+                periodo:this.calenderFrequencia.weeks[0].calendar.period,
+
     };
   },
 
  
  created() {
      console.log("teste",this.dataObject);
+     console.log("aqui ->",this.calenderFrequencia);
+      this.showDaysInCalender();
+
+    
  },
 
 
   filters: {
-    extractDay: function (value) {
-
-        if(value){
-      let x = value.split('-',3);
-      let y = x[2].split('|',3)
-      
-      return y[0];
+    extractDay: function (value,value2) {        
+        if(value && typeof(value) == "string"){
+          let x = value.split('-',3);
+          let y = x[2].replace("]", "");
+      return y;
         }
-    },
+
+        if(value && typeof(value) == "object"){
+          return  value[0]
+        }
+   
+   },
+
+    
 
     extractStatus:function(value){
-      if(value){
-        let x = value.split("|",3)
-        if(x[1] == '1'){
-          return  "img/success.svg"
-        }else{
-          return  "img/error.svg"
-        } 
+      if(value && typeof(value) == "string"){
+        let x = value.split('-',4);
+        x= x[3];
+        if (x == "[1]"){
+         return  "img/success.svg"
+        }
+        if (x == "[0]"){
+       return  "img/error.svg"
+        }
+
       }
+
       else{ return ""}
     }
 },
@@ -125,62 +172,70 @@ export default {
 
   mounted() {
   
-    this.getWeeks();
   },
 
   
 
   methods: {
-    getWeeks(){
-      let response = [
-         {week_of_year:43,
-            sunday:'2019-10-17|1',
-            monday:'2019-10-18|1',
-            tuesday:'2019-10-19|1',
-            wednesday:'2019-10-20|1',
-            thusday:'2019-10-21|1',
-            friday:'2019-10-22|1',
-            saturday:'2019-10-23|0',
+
+    invertDate(value){
+      let data = value;
+      data = data.split("/");
+      data = data[2] + "/" + data[1] + "/" + data[0];
+      return data
+    },
+
+
+
+    showDaysInCalender(){
+     let feriados = this.calenderFrequencia.holidays;
+      feriados = feriados.map(g=>{     
+        g.semanaDoAno = moment(this.invertDate(g.date)).week();
+        g.diaDaSemana = moment(this.invertDate(g.date)).day();
+        return g;      
+     });
+
+     
+     let semanas = this.calenderFrequencia.weeks
+      semanas = semanas.map(g=>{
+          feriados.forEach(e => {
+               if(g.weekOfYear == e.semanaDoAno){
+                 if(e.diaDaSemana == 1){
+                      g.monday= [e.day,e.description]
+                 }
+                  if(e.diaDaSemana == 2){
+                      g.tuesday = [e.day,e.description]
+                 }
+                  if(e.diaDaSemana == 3){
+                      g.wednesday = [e.day,e.description]
+                 }
+                  if(e.thursday == 4){
+                      g.wednesday = [e.day,e.description]
+                 }
+                  if(e.diaDaSemana == 5){
+                      g.friday = [e.day,e.description]
+                 }  
+            }    
+           });
+            
+            
+            
            
-          },
-          {week_of_year:44,
-            sunday:'2019-10-24|1',
-            monday:'2019-10-25|1',
-            tuesday:'2019-10-26|2',
-            wednesday:'2019-10-27|1',
-            thusday:'2019-10-28|1',
-            friday:'2019-10-29|0',
-            saturday:'2019-10-30|1',
-            
-          },
-          {week_of_year:43,
-            sunday:'2019-10-31|1',
-            monday:'2019-10-1|1',
-            tuesday:'2019-10-2|1',
-            wednesday:'2019-10-3|1',
-            thusday:'2019-10-4|1',
-            friday:'2019-10-5|1',
-            saturday:'2019-10-6|1',
-            
-          },
-           
-           {week_of_year:44,
-            sunday:'2019-10-7|1',
-            monday:'2019-10-8|1',
-            tuesday:'2019-10-9|1',
-            wednesday:'2019-10-10|1',
-            thusday:'2019-10-11|1',
-            friday:'2019-10-12|1',
-            saturday:'2019-10-13|1',
-            
-          },
-              ];
+        return g;
+      })
+   
+   console.log("semanas:",semanas)
+  
+  
+   this.weeks = this.calenderFrequencia.weeks;
+   
 
-          this.weeks = response;
-        // console.log(this.weeks)   
-    }
-
-
+   
+   
+   
+   }
+   
+  
     
   },
 };
@@ -251,6 +306,12 @@ padding: 15px;
 .week-date{
   font-size: 35px;
    padding: 10px 0 0 0;
+}
+
+.week-date-feriado{
+  font-size: 35px;
+   padding: 10px 0 0 0;
+   color:red
 }
 
 .week-status{

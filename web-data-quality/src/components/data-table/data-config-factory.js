@@ -302,7 +302,7 @@ class DataTableConfigFactory {
         return {
             showCount: false,
             showOptions: true,
-            showOptionsTYPE: 'DEFAULT',
+            showOptionsTYPE: 'DELETE',
             showSearch: false,
             showHeaderOptions: false,
             showRowPerPage: false,
@@ -311,7 +311,7 @@ class DataTableConfigFactory {
             columns: [
 
                 { name: "description", title: "table_description", formatter: undefined },
-                { name: "dataCompleta", title: "table_date", formatter: undefined },
+                { name: "date", title: "table_date", formatter: undefined },
                
 
             ]

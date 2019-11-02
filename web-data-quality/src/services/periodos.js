@@ -7,7 +7,7 @@ class HollidayService extends Service {
     /**
      * @param  {} request
      */
-    getHolliday(request) {
+    listar(request) {
         this._url = ''
         return this.get(request, true);
     }
@@ -15,7 +15,7 @@ class HollidayService extends Service {
     /**
      * @param  {} request
      */
-    saveHolliday(request) {
+    salvar(request) {
         this._url = '';
         return this.post(request);
     }
@@ -33,5 +33,5 @@ class HollidayService extends Service {
     }
 }
 
-const instance = new HollidayService('scorecard','/holiday');
+const instance = new HollidayService('scorecard','/calendar');
 export default instance;

@@ -26,7 +26,7 @@
                     <div class="col-md-12">
                         <div :disabled="typeAction=='view'" class="form-group" :class="{'has-error':errors.has('imput-path')}" >
                             <label >{{$t('lang.table_date')}}</label>
-                             <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date"  name="date-init" style="color:#222;max-width:50%; min-width:200px" class="form-control  ml-2"  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker>  
+                             <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date"  name="date-init" style="color:#222;max-width:50%; min-width:200px" class="form-control  ml-2"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>  
                             <div class="help-block">{{errors.first('imput-path')}}</div>
                         </div>
                     </div>
@@ -61,6 +61,7 @@ import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import VueTimepicker from 'vue2-timepicker'
 import HollidayService from '../../../services/holliday.js'
+import {dateDay,dateMonth,dateYear,date} from "../../../filter/date";
 
 export default {
 
@@ -84,15 +85,17 @@ export default {
 
         if(this.typeAction == 'view' || this.typeAction == 'edit'){
             this.description = this.currentObject.description;
-            this.date = this.currentObject.date[1] +"/"+ this.currentObject.date[2]+"/"+this.currentObject.date[0];
+            this.date = Date.now();// this.currentObject.date ;
 
-            console.log('Objeto',this.date);
-       
+            let dat = this.currentObject.date.split('/');
+           this.date =  new Date(parseInt(dat[2]),parseInt(dat[1]) - 1,parseInt(dat[0]))
+           console.log("Data ->",this.currentObject.date)
+           
        
        }
 
-        console.log("Type",this.typeAction);
-        console.log("Objeto",this.currentObject);
+      
+       // console.log("Objeto ->",this.currentObject.date);
         
     },
     methods: {
@@ -107,14 +110,14 @@ export default {
                 if (this.typeAction == 'new') {
 
                     let request = {
-                        date:this.date,
-                        day : this.date.getF,
-                        month:0,
-                        year:0,
+                        date: date(this.date),
+                        day : dateDay(this.date),
+                        month:dateMonth(this.date),
+                        year:dateYear(this.date),
                         description:this.description
                     }
 
-                        console.log("data : ",request)
+                        console.log("REQUEST: ",request)
 
                    
                    
@@ -122,7 +125,7 @@ export default {
                         this.savedSuccess();
                     }).catch(e=>{
 
-                    })
+                    })   
                    
                 } else {
                    

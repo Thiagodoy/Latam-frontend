@@ -59,7 +59,7 @@ export default {
     },
 
     created() {
-       this.getHolliday();
+       this.getHoliday();
 
        
        
@@ -68,23 +68,21 @@ export default {
 
     methods:{
 
-        getHolliday(){
+        getHoliday(){
             this.loading = HollidayService.getHolliday({page:0,size:10}).then((response)=>{
+               console.log(response.content) ;
+               this.data.conteudo = response.content;
                 
-                this.data.conteudo = response.content.map(g =>{
-                     g.dataCompleta = g.date[2] +"/"+g.date[1]+"/"+g.date[0]
-                     return g
-                     })
         })
         },
 
          del(data){
-            Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
+            Modal.show({title:"Informação", message:`Deseja deletar Feriado ? `, type:'YES-NO'}).then(response =>{
                  if(response == 'YES'){
                     
                    this.loading = HollidayService.deletar({id:data.id}).then(response=>{
                        
-                       this.getHolliday();
+                       this.getHoliday();
      
                        }).catch(erro=>{
                            this.mxShowModalError(erro);                        
@@ -147,7 +145,7 @@ export default {
             if(newValue == 'home'){
                 this.currentObject = undefined;
                 this.typeAction = undefined;
-                this.getHolliday();
+                this.getHoliday();
             }
         }
     },
