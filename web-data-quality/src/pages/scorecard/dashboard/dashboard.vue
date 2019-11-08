@@ -42,23 +42,11 @@
                             :multiple="false">                      
                             </multiselect>
                         </div>
+                        <div class="form-group mt-4 ml-3">
+                            <button  @click="buscarStatusScore"  style="color:#fff" class="btn btn-default btn-large" >Buscar</button>
 
-                       
-                      
-                       
-                       
-                       
-                       
-                       
-                        
-                    
-                       
-                       
-                       
-                       
-                       
-                       
-                      
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -67,7 +55,7 @@
                     <div class="card">
                         <div class="card-title">Frequência</div>
                         <div class="card-icone">
-                            <img @click="show ='frequencia'" style="cursor:pointer" src="img/success_large.svg">      
+                            <img v-if="frequencia.response==true" @click="show ='frequencia'" style="cursor:pointer" src="img/success_large.svg">      
                         </div>
                         <div class="card-body">
                             <div><span style="font-size:18px;"> Envio diário</span><br><small style="color:#888;font-size:10px;">(Dias entregues/Dias Uteis)</small></div>
@@ -79,17 +67,20 @@
                     <div class="card">
                         <div class="card-title">Informações</div>
                         <div class="card-icone">
-                            <img @click="show ='info'" style="cursor:pointer" src="img/success_large.svg">   
+                            <img v-if="info.response==true" @click="show ='info'" style="cursor:pointer" src="img/success_large.svg">   
                         </div>
                         <div class="card-body">
                             <div>
                                 <div><span style="font-size:18px;">Emissão diária</span><br><small style="color:#888;font-size:10px;">(Dias entregues/Dias de emissão</small></div> 
                                 <div style="font-size:20px; color:#ffed69;">{{info.diasEntregues}}/{{info.diasEmissao}}</div>
                             </div>
+                           
+                           <!--
                             <div>
                                 <div><span  style="font-size:18px;" >Info Empresas</span><br><small style="color:#888;font-size:10px;">(Pontos)</small></div> 
                                 <div style="font-size:20px; color:#ffed69;">10/10</div>
-                            </div>
+                            </div> -->
+
                         </div>
                         
                     </div>
@@ -98,7 +89,7 @@
                     <div class="card">
                         <div class="card-title">Qualidade</div>
                         <div class="card-icone">
-                            <img @click="show ='qualidade'" style="cursor:pointer" src="img/success_large.svg">   
+                            <img v-if="qualidade.response==true" @click="show ='qualidade'" style="cursor:pointer" src="img/success_large.svg">   
                         </div>
                         <div class="card-body">
                             <div><span style="font-size:18px;">Aproveitamento</span><br><small style="color:#888;font-size:10px;margin-top:-10px">(% de linhas aproveitadas)</small></div>
@@ -110,14 +101,14 @@
             </div>
 
       
-            {{frequencia.semanas}}
+         
 
         </div> <!--home-->  
 
         <!-- Detalhes -->
         <frequencia-detalhada  :calender-frequencia = "calenderFrequencia" v-if="show == 'frequencia'" @back="show = 'home'"></frequencia-detalhada> 
-        <informacao-detalhada v-if="show == 'info'" @back="show = 'home'"></informacao-detalhada> 
-        <qualidade-detalhada v-if="show == 'qualidade'" @back="show = 'home'"></qualidade-detalhada> 
+        <informacao-detalhada :calender-info = "calenderInfo" v-if="show == 'info'" @back="show = 'home'"></informacao-detalhada> 
+        <qualidade-detalhada :calender-qualidade = "calenderQualidade" v-if="show == 'qualidade'" @back="show = 'home'"></qualidade-detalhada> 
    
    
    
@@ -135,6 +126,7 @@ import ServicePeriodo from '../../../services/periodos'
 import ServiceAgency from '../../../services/agency'
 import ServiceWeeks from '../../../services/weeks'
 import Multiselect from 'vue-multiselect';
+import moment from 'moment';
 export default {
     data(){
         return{
@@ -145,18 +137,23 @@ export default {
             agencias:[],
             agencia:undefined,
             calenderFrequencia:undefined,
+            calenderInfo:undefined,
+            calenderQualidade:undefined,
 
             frequencia:{
                 semanas:undefined,
                 diasUteis:0,
-                diasEntregues:0,    
+                diasEntregues:0,
+                response:false,    
             },
             info:{
                 diasEntregues:0,
                 diasEmissao:0, 
+                response:false,  
             },
             qualidade:{
-                linhasAprovadas:0
+                linhasAprovadas:0,
+                response:false,  
             },
             
             
@@ -175,7 +172,7 @@ export default {
     mounted() {
         this.getPeriodos();
         this.getAgency();
-        this.getCalenderFrequencia();
+       
 
        
                
@@ -187,8 +184,54 @@ export default {
     
 
     methods:{
+
+        invertDate(value){
+            let data = value;
+            data = data.split("/");
+            data = data[2] + "/" + data[1] + "/" + data[0];
+            return data
+        },
+
+        reset(){
+            this.calenderFrequencia= undefined;
+            this.frequencia.semanas=undefined;
+            this.frequencia.diasUteis=0;
+            this.frequencia.diasEntregues=0;
+            this.info.diasEntregues=0;
+            this.info.diasEmissao=0; 
+            this.info.linhasAprovadas=0 ;
+            this.frequencia.response = false;
+            this.info.response = false;
+             this.qualidade.response = false;
+
+
+        },
+
+        buscarStatusScore(){
+
+            if(!this.agencia || !this.periodo){
+                alert("Seleciona o Periodo e a agência")
+            }else{
+
+            this.reset();  
+
+            let frequencia = {agency:this.agencia.id,calendar:this.periodo.id,type:"FREQUENCY"}
+            let info = {agency:this.agencia.id,calendar:this.periodo.id,type:"INFORMATION"}
+            let qualidade = {agency:this.agencia.id,calendar:this.periodo.id,type:"QUALITY"}
+            
+            this.getCalenderFrequencia(frequencia);
+            this.getCalenderInfo(info);
+            this.getCalenderQualidade(qualidade);
+            }
+        },
+
+        calcularDiasUteis(){
+         
+
+        },
+
         getPeriodos(){
-            this.loading = ServicePeriodo.listar(this.filtrosMes).then(response=>{
+            this.loading = ServicePeriodo.listar({page:0,size:1000}).then(response=>{
                // console.log(response);
                 this.periodos = response.content;
             }).catch(e=>{
@@ -204,18 +247,39 @@ export default {
                 console.log(e);
             })
         },
-        getCalenderFrequencia(){
-            let request={agency:25,calendar:9,type:"FREQUENCY"}
-            this.loading = ServiceWeeks.listar(request).then(response=>{ 
-                console.log("FREQUENCIA -> ",response);
+        getCalenderFrequencia(filtro){
+            this.loading = ServiceWeeks.listar(filtro).then(response=>{ 
+                this.frequencia.response = true
+               // console.log("FREQUENCIA -> ",response);
                 this.calenderFrequencia = response;
                 this.frequencia.semanas = response.weeks.length;
-              
-               // console.log("FREQUENCIA -> ",response.weeks);
+                let x=0 ;
+                response.weeks.forEach(e => {
+                   x = x + e.deliveryDays
+                });
+                this.frequencia.diasEntregues = x;
+                this.frequencia.diasUteis = response.weeks[0].calendar.workDays
             }).catch(e=>{
                 console.log(e);
             })
+        },
+
+        getCalenderInfo(filtro){
+                    this.loading = ServiceWeeks.listar(filtro).then(response=>{
+                        this.info.response = true
+                        this.calenderInfo = response
+                        console.log('Info ->',response)
+                    });
+
+        },
+        getCalenderQualidade(filtro){
+                    this.loading = ServiceWeeks.listar(filtro).then(response=>{
+                         this.qualidade.response = true
+                         this.calenderQualidade = response
+                        console.log('Qualidade ->',response)
+                    });
         }
+
     },
 
     components:{

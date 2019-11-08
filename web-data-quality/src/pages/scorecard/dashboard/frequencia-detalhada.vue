@@ -122,15 +122,25 @@ export default {
                 dataInicial:this.calenderFrequencia.weeks[0].calendar.dateInit,
                 dataFinal:this.calenderFrequencia.weeks[0].calendar.dateEnd,
                 periodo:this.calenderFrequencia.weeks[0].calendar.period,
+               
+                datas:[]
 
     };
   },
 
  
- created() {
-     console.log("teste",this.dataObject);
-     console.log("aqui ->",this.calenderFrequencia);
-      this.showDaysInCalender();
+ mounted() {
+    console.log("teste",this.dataObject);
+    console.log("aqui ->",this.calenderFrequencia);
+    console.log("datas", this.datas)
+    this.createDate(this.dataInicial,this.dataFinal);
+    //this.createDate("01/09/2019","20/09/2019");
+    this.showDaysInCalender();
+    
+    
+     
+     
+    
 
     
  },
@@ -138,7 +148,9 @@ export default {
 
   filters: {
     extractDay: function (value,value2) {        
-        if(value && typeof(value) == "string"){
+      
+      
+      if(value && typeof(value) == "string"){
           let x = value.split('-',3);
           let y = x[2].replace("]", "");
       return y;
@@ -147,6 +159,13 @@ export default {
         if(value && typeof(value) == "object"){
           return  value[0]
         }
+
+        else{
+          
+          
+       
+       
+       }
    
    },
 
@@ -170,20 +189,90 @@ export default {
 },
 
 
-  mounted() {
   
-  },
 
   
 
   methods: {
 
-    invertDate(value){
-      let data = value;
-      data = data.split("/");
-      data = data[2] + "/" + data[1] + "/" + data[0];
-      return data
+    createDate(dateIni,dateFim){ // cria todos os dias do mes com base nas datas inicial e finais do periodo
+
+      let g = moment(dateFim) < moment(dateIni)
+     
+
+      if(dateIni && dateFim && g == false ){
+        
+
+        this.datas = []  ;
+        var dataInicial = dateIni; //pega data inicial
+        var dataFinal = dateFim;   //pega data final
+        dataInicial = this.invertDate(dataInicial); //invert format da data para YYYY-MM-DD
+        dataFinal = this.invertDate(dataFinal);        //invert format da data para YYYY-MM-DD
+        var mesData1 = moment(dataInicial).format("MM")  //pega o mes da data inicial
+        var anoData1 = moment(dataInicial).format("YYYY") //pega o ano da data inicial
+        var mesData2 = moment(dataFinal).format("MM")   //pega o mes da data final
+        var anoData2 = moment(dataFinal).format("YYYY") // pega o ano da data final
+        var startDayMes1 = moment(dataInicial).format("DD")  //pega o primeiro dia da data inicial
+        var startDayMes2 = 1                                  //constante do primeiro dia do segundo mes caso houver
+        var difDias = this.calculaDias(dataInicial,dataFinal); // diferença de dias da dta inicial para a data final
+        var ultimoDiaMes1 = moment(dataInicial).endOf('month').format('DD')  //ultiom dia do mes da data inicial
+        var ultimoDiaMes2 = moment(dataFinal).format("DD")       // dia final
+        var qtdMes1 = ultimoDiaMes1 - startDayMes1 + 1;           //diferença de dias do ultimo dia dp mes (28,30 ou 31) para o dia da data inicial
+        var qtdMes2 = ultimoDiaMes2 - startDayMes2 + 1;      // diferença de dias da constante 1 para o dia da data dinal
+        var qtdMes1Mes1 = moment(dataFinal).format("DD") - moment(dataInicial).format("DD") + 1;
+        var contMes1 = startDayMes1;
+        var contMes2 = startDayMes2;
+        var m1 = moment(dataInicial).format("MM-YYYY")
+        var m2 = moment(dataFinal).format("MM-YYYY")
+
+
+        if( m1 == m2){
+          // gera os dias quando data inicial e data final estão no mesmo mes
+          for (var i = 0; i < qtdMes1Mes1 ; i++) {
+           let data = anoData1+"-"+mesData1+"-"+contMes1
+           
+           this.datas.push({data:data,semanaDoAno:moment(data).week(),diaDaSemana:moment(data).day()} )
+            contMes1++
+          }
+          console.log("Datas",this.datas)
+        }else{
+            // gera os dias quando data final tem o  mes posterio a data inicial
+          for (var i = 0; i < qtdMes1 ; i++) {
+           let data = anoData1+"-"+mesData1+"-"+contMes1
+           
+           this.datas.push({data:data,semanaDoAno:moment(data).week(),diaDaSemana:moment(data).day()} )
+            contMes1++
+          }
+          for (var i = 0; i < qtdMes2 ; i++) {
+              let data = anoData2+"-"+mesData2+"-"+contMes2
+           
+           this.datas.push({data:data,semanaDoAno:moment(data).week(),diaDaSemana:moment(data).day()} )
+              contMes2++
+          }
+          console.log("Datas",this.datas);
+        } 
+      }else{
+        console.log("datas inseridas, incorretas")
+     }
     },
+
+    calculaDias(date1, date2){
+      var data1 = moment(date1,'DD/MM/YYYY');
+      var data2 = moment(date2,'DD/MM/YYYY');
+      var diff  = data2.diff(data1, 'days');
+      return diff + 1;
+    },
+
+
+  invertDate(value){
+    let data = value;
+    data = data.split("/");
+    data = data[2] + "/" + data[1] + "/" + data[0];
+    return data
+  },
+
+
+    
 
 
 
@@ -210,17 +299,48 @@ export default {
                       g.wednesday = [e.day,e.description]
                  }
                   if(e.thursday == 4){
-                      g.wednesday = [e.day,e.description]
+                      g.thursday = [e.day,e.description]
                  }
                   if(e.diaDaSemana == 5){
                       g.friday = [e.day,e.description]
                  }  
             }    
+           }); 
+
+          this.datas.forEach(data => {
+             if(g.weekOfYear == data.semanaDoAno){
+                if(data.diaDaSemana == 0 &&  g.sunday==null){
+                    g.sunday=  "["+ data.data + "]-[3]"
+                }
+                 if(data.diaDaSemana == 1 &&  g.monday==null){
+                      g.monday=  "["+ data.data + "]-[3]"
+                 }
+                  if(data.diaDaSemana == 2 && g.tuesday == null ){
+                      g.tuesday =  "["+ data.data + "]-[3]"
+                 }
+                  if(data.diaDaSemana == 3 && g.wednesday == null ){
+                      g.wednesday =  "["+ data.data + "]-[3]"
+                 }
+                 if(data.diaDaSemana == 4 && g.thursday == null ){
+                      g.thursday =  "["+ data.data + "]-[3]"
+                 }
+                  
+                  if(data.diaDaSemana == 5 &&  g.friday == null  ){
+                      g.friday =  "["+ data.data + "]-[3]"
+                 } 
+                  if(data.diaDaSemana == 6 &&  g.saturday == null){
+                      g.saturday =  "["+ data.data + "]-[3]"
+                 } 
+            }    
+             
            });
-            
-            
-            
+
+          
+         
            
+           
+
+
         return g;
       })
    

@@ -26,9 +26,8 @@
             </div>
 
             <entrega-im></entrega-im> 
-          
-             <revisar></revisar> 
-               <aprovar></aprovar> 
+            <revisar></revisar>
+            <aprovar></aprovar> 
 
 
 

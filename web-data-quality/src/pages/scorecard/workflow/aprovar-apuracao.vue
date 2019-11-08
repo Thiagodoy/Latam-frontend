@@ -9,8 +9,8 @@
                 <tr>
                     <td>Agência</td>
                     <td>Cluster</td>
-                    <td>Nota BDA</td>
-                    <td>Nota IM</td>
+                    <td>BDA</td>
+                    <td>IM</td>
                     <td>Scorecard</td>
                     <td>Comentário/Justificativa</td>
                     <td>Sc Ajustado</td>
@@ -20,14 +20,14 @@
             </thead>
             <tbody>
                 <tr v-for="(item,i) in conteudo" :key="i">
-                <td>{{item.agency}}</td>
-                <td>{{item.cluster}}</td>
+                <td>{{item.agency.name}}</td>
+                <td>{{item.agency.category}}</td>
                 <td>{{item.bda}}</td>
-                <td>{{item.im}}</td>
+                <td>{{item.scoreIm}}</td>
                 <td>{{item.scorecard}}</td>
-                <td>{{item.comentario}}</td>
-                <td>{{item.ajust}}</td>
-                <td>{{item.ajustBy}}</td>
+                <td>{{item.comments}}</td>
+                <td>{{item.adjustedResult}}</td>
+                <td>{{item.adjustedUserId}}</td>
               
                 
                 
@@ -35,7 +35,7 @@
                 
                 
                 <td class="text-center" width="120">
-                    <input  name="i" type="checkbox" />
+                    <input @click="aprovarScore" id="check-score" name="i" type="checkbox" />
                 </td>
                 </tr>
             </tbody>
@@ -61,8 +61,7 @@
     </div> 
 </template>
 <script>
-import DataTable from '../../../components/data-table/data-table.vue';
-import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
+import ServiceScore from '../../../services/scorecard'
 import _ from 'lodash';
 import Modal from '../../../components/modal/message-dialog.vue';
 //import Checked from './aprovar-check';
@@ -72,45 +71,55 @@ export default {
         return{
             show:'home',
            
-            configTable: DataTableConfigFactory.build('DATA-TABLE-APROVAR'),
+            
             loading:undefined,
             dataObject:undefined,
            
                 conteudo:[
-                    {agency:"Agência 1",cluster:"RM1",bda:"0",im:"30",scorecard:"Não recebe SC",comentario:"Agência ficou sem energia 5 Dias",ajust:"Recebe RM1",ajustBy:""},
-                        {agency:"Agência 2",cluster:"RM2",bda:"40",im:"30",scorecard:"Não recebe SC",comentario:"Não Recebe SC",ajust:"Não recebe SC",ajustBy:""},
-                         {agency:"Agência 3",cluster:"RM3",bda:"60",im:"0",scorecard:"Recebe RM2",comentario:"",ajust:"Recebe RM2",ajustBy:""},
-
                     ],
             
-             filter:{page:0,size:10}           
+             filterScore:{
+                    agencys:[25],
+                    calendar:9,
+                    approved:undefined,
+                    reviewed:undefined,
+                    page:0,
+                    size:10,
+                 }           
         }
+    },
+
+
+    mounted() {
+        this.getScore();
     },
 
     methods:{
 
-         view(data){
-            this.show = 'view';
-            this.dataObject = data;
-            console.log("click")
-        },    
+        getScore(){
+            this.loading = ServiceScore.listar(this.filterScore).then(response=>{
+                console.log("response score",response);
+                this.conteudo = response.content;
+            }).catch(erro=>{
 
-        setPage(page){            
-            let temp = {...this.filter};
-            temp.page = page;
-            this.filter = temp;            
+            })
         },
-        setRowPage(rowPage){            
-             let temp = {...this.filter};
-            temp.size = rowPage;
-            this.filter = temp;
-        },
-        setFilter(filter){ 
-            this.filter = _.merge({...filter},{
-                page:0,
-                size:10
-            });            
-        },
+
+         aprovarScore(){
+         this.mxShowModal({ type:"YES-NO",title:'Informação', message:' Aprovar Score ?'}).then(response=>{
+          if(response == 'YES'){
+             alert("Aprovado")
+          }else{
+           document.getElementById('check-score').checked=false;
+          }
+          
+         
+      }).catch(()=>{
+         
+      }) 
+    }
+
+        
 
     },
    
@@ -118,7 +127,7 @@ export default {
 
     components:{
       
-        DataTable, 
+      
       
        
     }

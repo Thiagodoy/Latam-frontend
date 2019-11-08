@@ -11,25 +11,67 @@
       </thead>
       <tbody>
         <tr v-for="(entrega,i) in entregas" :key="i">
-          <td>{{entrega.agencia}}</td>
+          <td>{{entrega.agency.name}}</td>
           <td class="text-center" width="120">
-            <input :checked="entrega.entrega" name="i" type="checkbox" />
+            <input id="check-im" @click="salvarIm" :disabled="entrega.delivered == 'S'" :checked="entrega.delivered == 'S'" name="i" style="cursor:pointer" type="checkbox" />
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
 <script>
+import ServiceIm from '../../../services/im'
+import Modal from '../../../components/modal/message-dialog.vue';
 export default {
   data() {
     return {
-      entregas: [
-        {codigo:545454, agencia: "Agência 1", entrega: true },
-        {codigo:545454, agencia: "Agência 2",  entrega: false },
-      ]
+      entregas: [],
+      loading:undefined,
+      filterIm:{
+        agency:25,
+        page:0,
+        size:10,
+        calendar:9
+      }
+    
     };
+  },
+
+
+  mounted() {
+    this.getIM();
+    
+  },
+
+
+  methods:{
+    getIM(){
+
+      this.loading = ServiceIm.listar(this.filterIm).then(response =>{
+        console.log("response",response);
+        this.entregas = response;
+
+      })
+    },
+
+    salvarIm(){
+      this.mxShowModal({ type:"YES-NO",title:'Informação', message:' Aprovar IM ?'}).then(response=>{
+          if(response == 'YES'){
+             alert("Aprovado")
+          }else{
+           document.getElementById('check-im').checked=false;
+          }
+          
+         
+      }).catch(()=>{
+         
+      }) 
+    }
   }
+
+
 };
 </script>
 
