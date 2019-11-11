@@ -78,11 +78,11 @@
                 <td>{{item.scoreIm}}</td>
                 <td>{{item.scorecard}}</td>
                 <td>
-                    <textarea :disabled="inputTableDisabled" class="input-table" type="text"   v-model="item.comments" ></textarea>
+                    <textarea :id="'textArea'+i" disabled class="input-table" type="text"   v-model="item.comments" ></textarea>
                  
                 </td>
                 <td>
-                    <select :disabled="inputTableDisabled" class="input-table" v-model="item.adjustedResult" >
+                    <select :id="'select'+i" disabled class="input-table" v-model="item.adjustedResult" >
                         <option value="MINIMO">Minimo</option>
                         <option value="MAXIMO" >Máximo</option>
                         <option value="0">0</option>
@@ -93,14 +93,14 @@
                     <div  style=" padding-left:10px;" class="test-center">
                          <input v-if="mode == 'edit'" id="check-revisado" @click="salvarRevisado(item)" :disabled="item.reviewed == 'S'" :checked="item.reviewed == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
                     </div>
-                    <div style=""  class="text-center" @click="btEdit" v-if="mode == 'edit' && (item.reviewed == 'N' || item.reviewed == null) ">
+                    <div style=""  class="text-center" @click="btEdit(item,i)" v-if="item.reviewed == 'N' || item.reviewed == null ">
                         <i style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i>
                     </div>
                 
-                    <div v-if="mode == 'save-cancel'">
-                        <div><i @click="save(item)" style="cursor:pointer;font-size:25px" class="far fa-save"></i></div> 
-                        <div><i @click="cancel" style="cursor:pointer;font-size:25px" class="far fa-window-close "></i></div>
-                    </div>
+                   
+                        <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="save(item,i)" style="cursor:pointer;font-size:25px" class="far fa-save" ></i></div> 
+                        <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="cancel(item,i)" style="cursor:pointer;font-size:25px" class="far fa-window-close "></i></div>
+                    
 
                 </td>
                 </tr>
@@ -200,6 +200,21 @@ export default {
 
     methods:{
 
+        btEdit(object,index){
+            console.log(object);
+            console.log(index)
+            document.getElementById('textArea'+index).disabled = false
+            document.getElementById('select'+index).disabled = false
+
+        },
+
+
+        
+        cancel(object,index){
+            document.getElementById('textArea'+index).disabled = true
+            document.getElementById('select'+index).disabled = true
+        },
+
         buscar(){
             this.filterScore.calendar = this.periodo.id;
           this.getScore();
@@ -252,21 +267,13 @@ export default {
         },
 
 
-        btEdit(){
-            this.inputTableDisabled = false;
-            this.mode='save-cancel'
-        },
+       
 
-        cancel(){
-            this.inputTableDisabled = true;
-             this.mode='edit'
-        },
-
-        save(object){
+        save(object,index){
          
             let requestAjust = {
                 "adjustedResult": object.adjustedResult,
-                "adjustedUserId": "",
+                "adjustedUserId": object.adjustedUserId,
                 "approved": object.approved,
                 "approvedUserId": object.approvedUserId,
                 "comments": object.comments,
@@ -275,12 +282,16 @@ export default {
                 "reviewed": object.reviewed,
             }
 
+           
           
            ServiceScore.update(requestAjust).then(()=>{
                 this.mxShowModal({ type:"OK",title:'Informação', message:' Ajuste realizado com sucesso'})
                         this.mode = "edit";
                         this.inputTableDisabled = true;
+                       document.getElementById('textArea'+index).disabled = true
+                       document.getElementById('select'+index).disabled = true
                         this.getScore();
+                        console.log("INDEX AQUI ->",index)
                    
               
               
