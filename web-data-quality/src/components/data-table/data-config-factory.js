@@ -330,9 +330,9 @@ class DataTableConfigFactory {
             searchBy: "",
             columns: [
 
-                { name: "periodo", title: "table_period", formatter: undefined },
-                { name: "data_inicial", title: "table_date_start", formatter: undefined },
-                { name: "data_final", title: "table_date_end", formatter: undefined },
+                { name: "period", title: "table_period", formatter: undefined },
+                { name: "dateInit", title: "table_date_start", formatter: undefined },
+                { name: "dateEnd", title: "table_date_end", formatter: undefined },
                
 
             ]

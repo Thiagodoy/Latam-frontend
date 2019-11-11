@@ -23,7 +23,7 @@
                             :multiple="false">                      
                             </multiselect>
                         </div>
-                        <div class="  form-group">
+                        <div class="  form-group" v-if="$can('manage', 'Score-Dashboard-agency')">
                           <label >Agência</label> 
                             <multiselect
                             v-model="agencia"
@@ -43,7 +43,8 @@
                             </multiselect>
                         </div>
                         <div class="form-group mt-4 ml-3">
-                            <button  @click="buscarStatusScore"  style="color:#fff" class="btn btn-default btn-large" >Buscar</button>
+                            <button v-if="!masterAgencia" @click="buscarStatusScore"  style="color:#fff" class="btn btn-default btn-large" >Buscar</button>
+                            <button v-if="masterAgencia" @click="buscarScoreMasterAgrncia"  style="color:#fff" class="btn btn-default btn-large" >Buscar</button>
 
                         </div>
 
@@ -72,7 +73,7 @@
                         <div class="card-body">
                             <div>
                                 <div><span style="font-size:18px;">Emissão diária</span><br><small style="color:#888;font-size:10px;">(Dias entregues/Dias de emissão</small></div> 
-                                <div style="font-size:20px; color:#ffed69;">{{info.diasEntregues}}/{{info.diasEmissao}}</div>
+                                <div style="font-size:20px; color:#ffed69;">{{info.diasEntregues}}/{{info.diasEmit}}</div>
                             </div>
                            
                            <!--
@@ -126,6 +127,7 @@ import ServicePeriodo from '../../../services/periodos'
 import ServiceAgency from '../../../services/agency'
 import ServiceWeeks from '../../../services/weeks'
 import Multiselect from 'vue-multiselect';
+import {mapGetters} from 'vuex'
 import moment from 'moment';
 export default {
     data(){
@@ -148,13 +150,15 @@ export default {
             },
             info:{
                 diasEntregues:0,
-                diasEmissao:0, 
+                diasEmit:0, 
                 response:false,  
             },
             qualidade:{
                 linhasAprovadas:0,
                 response:false,  
             },
+
+            masterAgencia: undefined,
             
             
             
@@ -169,9 +173,22 @@ export default {
         }
     },
 
+    computed:{
+      ...mapGetters(['getUser','getAgencysFromUser','getIsMaster']),
+
+    },
+
+
     mounted() {
         this.getPeriodos();
-        this.getAgency();
+        //this.getAgency();
+        this.agency();
+
+        if(this.getUser.groups[0].id == "master agência") {
+         this.masterAgencia = true;
+        }else{
+            this.masterAgencia = false;
+        }
        
 
        
@@ -205,6 +222,20 @@ export default {
              this.qualidade.response = false;
 
 
+        },
+
+       buscarScoreMasterAgrncia(){
+            this.reset();  
+
+            console.log(this.agencias[0].id)
+
+            let frequencia = {agency:this.agencias[0].id,calendar:this.periodo.id,type:"FREQUENCY"}
+            let info = {agency:this.agencias[0].id,calendar:this.periodo.id,type:"INFORMATION"}
+            let qualidade = {agency:this.agencias[0].id,calendar:this.periodo.id,type:"QUALITY"}
+            
+            this.getCalenderFrequencia(frequencia);
+            this.getCalenderInfo(info);
+            this.getCalenderQualidade(qualidade);
         },
 
         buscarStatusScore(){
@@ -247,6 +278,25 @@ export default {
                 console.log(e);
             })
         },
+
+         agency(){
+            this.loading =  ServiceAgency.list({page:0,size:1000}).then(response=>{            
+
+              let temp = undefined;               
+              if(!this.getIsMaster){
+                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
+              }else{
+                  temp = response.content;
+              }  
+
+              this.agencias = temp;
+            
+       }).catch(erro=>{
+           this.mxShowModalError(erro);
+       });
+
+        },
+
         getCalenderFrequencia(filtro){
             this.loading = ServiceWeeks.listar(filtro).then(response=>{ 
                 this.frequencia.response = true
@@ -268,7 +318,13 @@ export default {
                     this.loading = ServiceWeeks.listar(filtro).then(response=>{
                         this.info.response = true
                         this.calenderInfo = response
-                        console.log('Info ->',response)
+                         let x=0 ;
+                        response.weeks.forEach(e => {
+                        x = x + e.deliveryDays
+                        });
+                        this.info.diasEntregues = x;
+                        this.info.diasEmit = response.weeks[0].calendar.workDays
+                        //console.log('Info ->',response)
                     });
 
         },
@@ -277,6 +333,7 @@ export default {
                          this.qualidade.response = true
                          this.calenderQualidade = response
                         console.log('Qualidade ->',response)
+
                     });
         }
 

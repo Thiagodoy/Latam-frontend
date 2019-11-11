@@ -35,6 +35,7 @@ import ToolbarConfigFactory from '../../../components/toolbar/toolbar-config-fac
 import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import AgencyService from '../../../services/agency.js';
+import CalendarService from '../../../services/calendar.js';
 import _ from 'lodash';
 import Modal from '../../../components/modal/message-dialog.vue';
 import CalenderViewEdit from './calender-new-view-edit'
@@ -50,21 +51,17 @@ export default {
             show:'home',
             typeAction:undefined,
            data:{
-                conteudo:[
-                    {periodo:"Janeiro/2019",data_inicial:"17/12/2018",data_final:"13/01/2019"},
-                     {periodo:"Fevereiro/2019",data_inicial:"14/01/2019",data_final:"17/02/2019"},
-                      {periodo:"Março/2019",data_inicial:"18/02/2019",data_final:"17/03/2019"},
-                       {periodo:"Abril/2019",data_inicial:"18/03/2019",data_final:"14/4/2019"},
-                        {periodo:"Maio/2019",data_inicial:"15/04/2019",data_final:"12/05/2019"},
-                       
-                  
-                    ],
+                conteudo:[],
                 pagination:undefined
             },
              filter:{page:0,size:10}           
         }
     },
 
+created(){
+    console.log("teste")
+    this.getCalendar();
+},
 
     methods:{
 
@@ -112,6 +109,14 @@ export default {
                 size:10
             });            
         },
+
+        getCalendar(){
+            console.log("teste")
+            this.loading = CalendarService.listar(this.filter).then(response=>{
+                console.log(response);
+                this.data.conteudo = response.content;
+            })
+        }
 
 
 

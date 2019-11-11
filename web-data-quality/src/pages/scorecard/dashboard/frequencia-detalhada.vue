@@ -12,7 +12,7 @@
                 <div class="box-title">{{dataInicial}} - {{dataFinal}}</div><br>
                 <div class="box-title">Frequência</div>
                 <div class="box-label">Dias Entregues / Dias uteis</div>
-                <div class="box-result">25/28</div>
+                <div class="box-result">{{diasEntregues}}/{{diasUteis}}</div>
             </div>
           </div>
         </div>
@@ -122,7 +122,8 @@ export default {
                 dataInicial:this.calenderFrequencia.weeks[0].calendar.dateInit,
                 dataFinal:this.calenderFrequencia.weeks[0].calendar.dateEnd,
                 periodo:this.calenderFrequencia.weeks[0].calendar.period,
-               
+                diasUteis:this.calenderFrequencia.weeks[0].calendar.workDays,
+                diasEntregues:undefined,
                 datas:[]
 
     };
@@ -130,12 +131,13 @@ export default {
 
  
  mounted() {
-    console.log("teste",this.dataObject);
-    console.log("aqui ->",this.calenderFrequencia);
-    console.log("datas", this.datas)
+    //console.log("teste",this.dataObject);
+    //console.log("Calendar",this.calenderFrequencia.weeks[0].calendar.workDays);
+   //console.log("datas", this.datas)
     this.createDate(this.dataInicial,this.dataFinal);
     //this.createDate("01/09/2019","20/09/2019");
     this.showDaysInCalender();
+    this.calcDiasEntregues();
     
     
      
@@ -234,7 +236,7 @@ export default {
            this.datas.push({data:data,semanaDoAno:moment(data).week(),diaDaSemana:moment(data).day()} )
             contMes1++
           }
-          console.log("Datas",this.datas)
+         // console.log("Datas",this.datas)
         }else{
             // gera os dias quando data final tem o  mes posterio a data inicial
           for (var i = 0; i < qtdMes1 ; i++) {
@@ -249,7 +251,7 @@ export default {
            this.datas.push({data:data,semanaDoAno:moment(data).week(),diaDaSemana:moment(data).day()} )
               contMes2++
           }
-          console.log("Datas",this.datas);
+         // console.log("Datas",this.datas);
         } 
       }else{
         console.log("datas inseridas, incorretas")
@@ -272,7 +274,14 @@ export default {
   },
 
 
-    
+    calcDiasEntregues(){
+      let x=0 ;
+      this.calenderFrequencia.weeks.forEach(e => {
+          x = x + e.deliveryDays
+      });
+      this.diasEntregues = x;
+
+    },
 
 
 
@@ -344,7 +353,7 @@ export default {
         return g;
       })
    
-   console.log("semanas:",semanas)
+  // console.log("semanas:",semanas)
   
   
    this.weeks = this.calenderFrequencia.weeks;

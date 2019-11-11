@@ -8,10 +8,11 @@
       <div class="row">
           <div class=" text-center col-md-12">
             <div class=" center-block box">
-                <div class="box-title">Janeiro</div>
+                <div class="box-title">{{periodo}}</div>
+                <div class="box-title">{{dataInicial}} - {{dataFinal}}</div><br>
                 <div class="box-title">Informações</div>
-                <div class="box-label">Dias Entregues / Dias uteis</div>
-                <div class="box-result">25/28</div>
+                <div class="box-label">Dias Entregues</div>
+                <div class="box-result">{{diasEntregues}}/{{diasEmit}}</div>
             </div>
           </div>
         </div> 
@@ -118,6 +119,8 @@ export default {
                 dataInicial:this.calenderInfo.weeks[0].calendar.dateInit,
                 dataFinal:this.calenderInfo.weeks[0].calendar.dateEnd,
                 periodo:this.calenderInfo.weeks[0].calendar.period,
+                diasEmit:this.calenderInfo.weeks[0].calendar.workDays,
+                diasEntregues:undefined,
                
                 datas:[]
     };
@@ -129,6 +132,7 @@ export default {
     this.createDate(this.dataInicial,this.dataFinal);
     //this.createDate("19/08/2019","13/09/2019");
     this.showDaysInCalender();
+    this.calcDiasEntregues();
    
  },
 
@@ -250,6 +254,15 @@ export default {
       var data2 = moment(date2,'DD/MM/YYYY');
       var diff  = data2.diff(data1, 'days');
       return diff + 1;
+    },
+
+    calcDiasEntregues(){
+      let x=0 ;
+      this.calenderInfo.weeks.forEach(e => {
+          x = x + e.deliveryDays
+      });
+      this.diasEntregues = x;
+
     },
 
 

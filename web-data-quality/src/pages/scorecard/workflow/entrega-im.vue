@@ -1,5 +1,59 @@
 <template>
-  <div>
+  <div v-async="loading">
+
+    <div class="row" >
+                <div class="col-md-12">
+                    <div class="wrapper-filtros">
+                        <div class="  form-group mr-3">
+                          <label >Mês</label> 
+                            <multiselect
+                            v-model="periodo"
+                            :options="periodos"
+                            :label="'period'"                                
+                            :track-by="'id'"
+                            tag-placeholder="Add this as new tag"                                
+                            :selectLabel="''"
+                            :selectedLabel="''"
+                            :deselectLabel="''"
+                            :placeholder="'Selecione o Mês'" 
+                            :limit="2"
+                            :limit-text="(count)=>`Mais ${count}`"
+                            :max-width="150" 
+                            :showNoResults="false"                                                                                                                           
+                            :multiple="false">                      
+                            </multiselect>
+                        </div>
+                        <div class="  form-group">
+                          <label >Agência</label> 
+                            <multiselect
+                            v-model="agencia"
+                            :options="agencias"
+                            :label="'name'"                                
+                            :track-by="'id'"
+                            tag-placeholder="Add this as new tag"                                
+                            :selectLabel="''"
+                            :selectedLabel="''"
+                            :deselectLabel="''"
+                            :placeholder="'Selecione a Agência'" 
+                            :limit="2"
+                            :limit-text="(count)=>`Mais ${count}`"
+                            :max-width="150" 
+                            :showNoResults="false"                                                                                                                           
+                            :multiple="false">                      
+                            </multiselect>
+                        </div>
+                        <div class="form-group mt-4 ml-3">
+                            <button  @click="filtrar"  style="color:#fff" class="btn btn-default btn-large" >Buscar</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
    
     <table class="table table-striped table-dark fluid">
       <thead>
@@ -13,7 +67,7 @@
         <tr v-for="(entrega,i) in entregas" :key="i">
           <td>{{entrega.agency.name}}</td>
           <td class="text-center" width="120">
-            <input id="check-im" @click="salvarIm" :disabled="entrega.delivered == 'S'" :checked="entrega.delivered == 'S'" name="i" style="cursor:pointer" type="checkbox" />
+            <input :id="'chek'+i" @click="salvarIm(entrega,i)" :disabled="entrega.delivered == 'S'" :checked="entrega.delivered == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
           </td>
         </tr>
       </tbody>
@@ -24,29 +78,53 @@
 <script>
 import ServiceIm from '../../../services/im'
 import Modal from '../../../components/modal/message-dialog.vue';
+import ServicePeriodo from '../../../services/periodos'
+import ServiceAgency from '../../../services/agency'
+import Multiselect from 'vue-multiselect';
+import {mapGetters} from 'vuex'
 export default {
   data() {
     return {
       entregas: [],
       loading:undefined,
+      periodo:undefined,
+      periodos:[],
+      agencia:undefined,
+      agencias:[],
+
       filterIm:{
         agency:25,
         page:0,
         size:10,
         calendar:9
-      }
+      },
+
+      company:[]
     
     };
   },
 
+   computed:{
+      ...mapGetters(['getUser','getAgencysFromUser','getIsMaster']),
+
+    },
+
 
   mounted() {
     this.getIM();
+    this.getPeriodos();
+    this.getAgency();
+  // this.agency();
     
   },
 
 
   methods:{
+
+    filtrar(){
+
+    },
+
     getIM(){
 
       this.loading = ServiceIm.listar(this.filterIm).then(response =>{
@@ -56,10 +134,20 @@ export default {
       })
     },
 
-    salvarIm(){
+    salvarIm(object,i){
       this.mxShowModal({ type:"YES-NO",title:'Informação', message:' Aprovar IM ?'}).then(response=>{
           if(response == 'YES'){
-             alert("Aprovado")
+            let requestIm = {
+              "delivered": "S",
+              "id": object.id,
+              "user": this.getUser.id
+            }
+            this.loading = ServiceIm.update(requestIm).then(()=>{
+              this.mxShowModal({ type:"OK",title:'Informação', message:' IM Aprovado'})
+                       document.getElementById('chek'+i).disabled=true;
+                       // this.getIM();
+                       console.log('chek'+i);
+            })
           }else{
            document.getElementById('check-im').checked=false;
           }
@@ -68,7 +156,66 @@ export default {
       }).catch(()=>{
          
       }) 
-    }
+    },
+
+     getPeriodos(){
+            this.loading =    ServicePeriodo.listar({page:0,size:1000}).then(response=>{
+               // console.log(response);
+                this.periodos = response.content;
+            }).catch(e=>{
+                console.log(e);
+            })
+        },
+
+        getAgency(){
+             this.loading = ServiceAgency.list({page:0,size:1000}).then(response=>{ 
+              //
+                this.agencias = response.content;
+            }).catch(e=>{
+                console.log(e);
+            })
+        },
+
+
+        agency(){
+            this.loading =  ServiceAgency.list({page:0,size:1000}).then(response=>{            
+
+              let temp = undefined;               
+              if(!this.getIsMaster){
+                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
+              }else{
+                  temp = response.content;
+              }  
+
+              this.agencias = temp;
+            
+       }).catch(erro=>{
+           this.mxShowModalError(erro);
+       });
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  },
+
+   
+
+  components:{
+    Multiselect,
   }
 
 
@@ -132,5 +279,19 @@ table {
     }
   }
 }
+
+.wrapper-filtros{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+select{
+     background-color: rgba(0,0,0,0.5);
+}
+option{
+    color: #666;
+}
+
+
 </style>
 

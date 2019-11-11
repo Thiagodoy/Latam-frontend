@@ -2,6 +2,58 @@
     <div v-async="loading" class="all-user-home">
         <div v-if="show == 'home'" >
             <!-- Conponente Toolbar -->
+
+            <div class="row" >
+                <div class="col-md-12">
+                    <div class="wrapper-filtros">
+                        <div class="  form-group mr-3">
+                          <label >Mês</label> 
+                            <multiselect
+                            v-model="periodo"
+                            :options="periodos"
+                            :label="'period'"                                
+                            :track-by="'id'"
+                            tag-placeholder="Add this as new tag"                                
+                            :selectLabel="''"
+                            :selectedLabel="''"
+                            :deselectLabel="''"
+                            :placeholder="'Selecione o Mês'" 
+                            :limit="2"
+                            :limit-text="(count)=>`Mais ${count}`"
+                            :max-width="150" 
+                            :showNoResults="false"                                                                                                                           
+                            :multiple="false">                      
+                            </multiselect>
+                        </div>
+                      <!--
+                        <div class="  form-group">
+                          <label >Agência</label> 
+                            <multiselect
+                            v-model="agencia"
+                            :options="agencias"
+                            :label="'name'"                                
+                            :track-by="'id'"
+                            tag-placeholder="Add this as new tag"                                
+                            :selectLabel="''"
+                            :selectedLabel="''"
+                            :deselectLabel="''"
+                            :placeholder="'Selecione a Agência'" 
+                            :limit="2"
+                            :limit-text="(count)=>`Mais ${count}`"
+                            :max-width="150" 
+                            :showNoResults="false"                                                                                                                           
+                            :multiple="false">                      
+                            </multiselect>
+                        </div> -->
+                        <div class="form-group mt-4 ml-3">
+                            <button  @click="buscar"  style="color:#fff" class="btn btn-default btn-large mr-3" >Buscar</button>
+                          <!--   <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button> -->
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
           
            
               <table class="table table-striped table-dark fluid">
@@ -37,26 +89,19 @@
                     </select>
                 </td>
                 <td>{{item.adjustedUserId}}</td>
-
+                <td style="" class="text-center" width="120">
+                    <div  style=" padding-left:10px;" class="test-center">
+                         <input v-if="mode == 'edit'" id="check-revisado" @click="salvarRevisado(item)" :disabled="item.reviewed == 'S'" :checked="item.reviewed == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
+                    </div>
+                    <div style=""  class="text-center" @click="btEdit" v-if="mode == 'edit' && (item.reviewed == 'N' || item.reviewed == null) ">
+                        <i style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i>
+                    </div>
                 
-
-
-
-
-                    <td class="text-center" width="120">
-                    <div @click="btEdit" v-if="mode == 'edit'"><i style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i></div>
-                   
                     <div v-if="mode == 'save-cancel'">
                         <div><i @click="save(item)" style="cursor:pointer;font-size:25px" class="far fa-save"></i></div> 
-                        
                         <div><i @click="cancel" style="cursor:pointer;font-size:25px" class="far fa-window-close "></i></div>
-
-
                     </div>
-                 
-                 
-                
-                   
+
                 </td>
                 </tr>
             </tbody>
@@ -85,6 +130,10 @@
 import ServiceScore from '../../../services/scorecard'
 import _ from 'lodash';
 import Modal from '../../../components/modal/message-dialog.vue';
+import ServicePeriodo from '../../../services/periodos'
+import ServiceAgency from '../../../services/agency'
+import Multiselect from 'vue-multiselect';
+import {mapGetters} from 'vuex'
 //import Checked from './aprovar-check';
 
 export default {
@@ -94,6 +143,10 @@ export default {
             inputTableDisabled:true,
             mode:"edit",
             scoreResult:undefined,
+            periodo:undefined,
+            periodos:[],
+            agencia:undefined,
+            agencias:[],
            
 
            
@@ -105,23 +158,98 @@ export default {
                     ],
             
              filterScore:{
-                    agencys:[25],
-                    calendar:9,
+                    agencys:this.agencias, 
+                    calendar:undefined,
                     approved:undefined,
                     reviewed:undefined,
                     page:0,
-                    size:10,
+                    size:30,
                  } ,
                   
         }
     },
 
+     computed:{
+      ...mapGetters(['getUser','getAgencysFromUser','getIsMaster']),
+
+    },
+
 
     mounted() {
-        this.getScore();
+
+        this.loading =  ServiceAgency.list({page:0,size:1000}).then(response=>{            
+              let temp = undefined;               
+              if(!this.getIsMaster){
+                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
+              }else{
+                  temp = response.content;
+              }  
+
+              this.agencias = temp;
+              this.filterScore.agencys = temp.map(g=>g.id);
+              //this.getScore();
+        }).catch(erro=>{
+            this.mxShowModalError(erro);
+        });
+       
+        this.getPeriodos();
+       // this.agency();
+         
+       
     },
 
     methods:{
+
+        buscar(){
+            this.filterScore.calendar = this.periodo.id;
+          this.getScore();
+        },
+
+        listarTodos(){
+            
+        },
+
+        salvarRevisado(object){
+            this.mxShowModal({ type:"YES-NO",title:'Informação', message:' Marcar como revisado ?'}).then(response=>{
+                if(response == 'YES'){
+                     console.log("yes")
+                     let requestRevisado = {
+                        "adjustedResult": object.adjustedResult,
+                        "adjustedUserId": this.getUser.id,
+                        "approved": object.approved,
+                        "approvedUserId": object.approvedUserId,
+                        "comments": object.comments,
+                        "id": object.id,
+                        "result": object.result,
+                        "reviewed": "S",
+                    }
+
+                    console.log("sssssssssss",requestRevisado);
+
+          
+                this.loading = ServiceScore.update(requestRevisado).then(()=>{
+                this.mxShowModal({ type:"OK",title:'Informação', message:' Revisão finalizada com sucesso'})
+                        this.mode = "edit";
+                        this.inputTableDisabled = true;
+                        this.getScore();
+                   
+              
+              
+           }).catch(e=>{
+               alert("erro: ",e)
+           })
+                }
+                
+                
+                else{
+                document.getElementById('check-revisado').checked=false;
+                }
+                
+                
+            }).catch(()=>{
+                
+            }) 
+        },
 
 
         btEdit(){
@@ -135,20 +263,30 @@ export default {
         },
 
         save(object){
-            console.log("OBJETO",object)
-            let requestSave = {
-                'adjustedResult': object.adjustedResult,
-                'adjustedUserId': "", //colocar id usuario
-                'approved': object.approved, 
-                'approvedUserId': object.approvedUserId,
-                'comments': object.comments,
-                'id': object.id,
-                'result': object.result,
-                'reviewed': object.reviewed,   
+         
+            let requestAjust = {
+                "adjustedResult": object.adjustedResult,
+                "adjustedUserId": "",
+                "approved": object.approved,
+                "approvedUserId": object.approvedUserId,
+                "comments": object.comments,
+                "id": object.id,
+                "result": object.result,
+                "reviewed": object.reviewed,
             }
 
-            console.log("REQUEST",requestSave);
-            ServiceScore.update(requestSave);
+          
+           ServiceScore.update(requestAjust).then(()=>{
+                this.mxShowModal({ type:"OK",title:'Informação', message:' Ajuste realizado com sucesso'})
+                        this.mode = "edit";
+                        this.inputTableDisabled = true;
+                        this.getScore();
+                   
+              
+              
+           }).catch(e=>{
+               alert("erro: ",e)
+           })
                     
                
 
@@ -160,6 +298,34 @@ export default {
                 this.conteudo = response.content;
             }).catch(erro=>{
 
+            })
+        },
+
+
+        agency(){
+            this.loading =  ServiceAgency.list({page:0,size:1000}).then(response=>{            
+              let temp = undefined;               
+              if(!this.getIsMaster){
+                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
+              }else{
+                  temp = response.content;
+              }  
+
+              this.agencias = temp;
+              this.filterScore.agencys = temp.map(g=>g.id);
+              this.getScore();
+       }).catch(erro=>{
+           this.mxShowModalError(erro);
+       });
+
+        },
+
+         getPeriodos(){
+            this.loading =    ServicePeriodo.listar({page:0,size:1000}).then(response=>{
+               // console.log(response);
+                this.periodos = response.content;
+            }).catch(e=>{
+                console.log(e);
             })
         },
 
@@ -184,7 +350,7 @@ export default {
 
 
     components:{
-      
+      Multiselect,
       
       
        
@@ -245,6 +411,13 @@ table {
     background: rgba(207, 221, 6, 0) !important;
     border:none;
    color:#a9a9a9;
+}
+
+.wrapper-filtros{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    min-width: 550px;
 }
 
 </style>

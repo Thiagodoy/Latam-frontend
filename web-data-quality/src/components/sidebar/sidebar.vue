@@ -45,13 +45,17 @@
                             <li style="margin: -15px;margin-left:15px;"><a class="linkPdf" :href="urlTutorial " target="_blank"><i class="fas fa-info-circle"></i>&nbsp;Tutorial</a></li>
                         </div>     
                 </li>
-                 <li class="x-item" id="scorecard" v-if="$can('manage', 'Opcao')">
+                 <li class="x-item" id="scorecard" v-if="$can('manage', 'Score')">
                     <a href="#scorecard" class="x-btn"><i class="fas fa-table"></i>&nbsp;Scorecard &nbsp; <i class="fas fa-caret-down "></i></a>
-                        <div class="x-smenu">
+                        <div v-if="$can('manage', 'Score-Dashboard')" class="x-smenu">
                             <router-link   class="pl-4" tag="li" to="score-dash"><i class="fas fa-desktop"></i>&nbsp;Dashboard</router-link>                        
                         </div>
-                         <div class="x-smenu">
-                            <router-link   class="pl-4" tag="li" to="workflow"><i class="fas fa-check"></i>&nbsp;Workflow</router-link>                        
+                         <div class="x-smenu" v-if="$can('manage', 'Score-Workflow')">
+                            <router-link   class="pl-4" tag="li" to="workflow"><i class="fas fa-check"></i>&nbsp;Workflow</router-link>  
+                                                  
+                        
+                        
+                        
                         </div>
                       
                        
@@ -64,7 +68,7 @@
                         
                         
                 </li>
-                <li style="cursor:pointer" class="x-item" id="">
+                <li style="cursor:pointer" class="x-item" id="" v-if="$can('manage', 'Job')">
                     <router-link class="x-btn" tag="li" to="/job"><i class="fas fa-toolbox"></i>&nbsp;Job</router-link>
                 </li> 
                 
