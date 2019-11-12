@@ -305,8 +305,8 @@ class DataTableConfigFactory {
             showOptionsTYPE: 'DELETE',
             showSearch: false,
             showHeaderOptions: false,
-            showRowPerPage: false,
-            showPagination: false,
+            showRowPerPage: true,
+            showPagination: true,
             searchBy: "",
             columns: [
 
@@ -322,11 +322,11 @@ class DataTableConfigFactory {
         return {
             showCount: false,
             showOptions: true,
-            showOptionsTYPE: 'DEFAULT',
+            showOptionsTYPE: 'DELETE',
             showSearch: false,
             showHeaderOptions: false,
-            showRowPerPage: false,
-            showPagination: false,
+            showRowPerPage: true,
+            showPagination: true,
             searchBy: "",
             columns: [
 

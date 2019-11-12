@@ -5,7 +5,7 @@
             <div class="wrapper-abas">
                 <div @click="mudarAba('im')" v-if="$can('manage', 'Workflow-im')" class="abas" :class="{active:abaIsActive == 'im'}"  >IM</div>
                 <div @click="mudarAba('planejamento')" v-if="$can('manage', 'Workflow-planejamento')" class="abas" :class="{active:abaIsActive == 'planejamento'}" >Planejamento</div>
-                <div  @click="mudarAba('performance')" v-if="$can('manage', 'Workflow-performance')" class="abas" :class="{active:abaIsActive == 'perfomance'}"  >Performance</div>
+                <div  @click="mudarAba('performance')" v-if="$can('manage', 'Workflow-performance')" class="abas" :class="{active:abaIsActive == 'performance'}"  >Performance</div>
 
             </div>
             <div class="wrapper-workflows">

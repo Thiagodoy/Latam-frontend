@@ -54,9 +54,29 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="row-page-top">
+                <div class=""  >
+                    <div>
+                        <label style="font-size:12px;">{{$t('lang.table_pagination_row_page_title')}}</label>
+                    </div>
+                    <div>
+                        <select class="select-filtro form-control" v-model="rowPerPage" @change="setRowPage" >
+                            <option :value="10" class="select-filtro">10</option>
+                            <option :value="20" class="select-filtro">20</option>
+                            <option :value="30" class="select-filtro">30</option>
+                            <option :value="40" class="select-filtro">40</option>
+                        </select>
+                    </div>                       
+                </div>
+            
+                   
+                 
+            </div>
           
            
-              <table class="table table-striped table-dark fluid">
+            <table class="table table-striped table-dark fluid">
             <thead>
                 <tr>
                     <td><b>Agência</b></td>
@@ -106,7 +126,9 @@
                 </tr>
             </tbody>
             </table>
+             <center><pagination class="pagination" ref="pagination" :info-page="pagination" @page="setPage"></pagination></center>
 
+           
 
 
 
@@ -134,6 +156,7 @@ import ServicePeriodo from '../../../services/periodos'
 import ServiceAgency from '../../../services/agency'
 import Multiselect from 'vue-multiselect';
 import {mapGetters} from 'vuex'
+import Pagination from '../../../components/pagination/pagination.vue';
 //import Checked from './aprovar-check';
 
 export default {
@@ -154,17 +177,21 @@ export default {
             loading:undefined,
             dataObject:undefined,
            
-                conteudo:[
-                    ],
+                conteudo:[],
+                pagination:undefined,
             
-             filterScore:{
+            
+            rowPerPage:10,
+            filterScore:{
                     agencys:this.agencias, 
                     calendar:undefined,
                     approved:undefined,
                     reviewed:undefined,
                     page:0,
-                    size:30,
+                    size:10,
                  } ,
+
+                 
                   
         }
     },
@@ -217,6 +244,7 @@ export default {
 
         buscar(){
             this.filterScore.calendar = this.periodo.id;
+          
           this.getScore();
         },
 
@@ -307,6 +335,7 @@ export default {
             this.loading = ServiceScore.listar(this.filterScore).then(response=>{
                 console.log("response score",response);
                 this.conteudo = response.content;
+                this.pagination = response;
             }).catch(erro=>{
 
             })
@@ -352,8 +381,25 @@ export default {
       }).catch(()=>{
          
       }) 
-    }
+    },
 
+
+    setRowPage(){
+        console.log(this.rowPerPage);
+        this.filterScore.size = this.rowPerPage;
+        console.log(this.filterScore);
+    },
+
+
+     setPage(page){            
+            let temp = {...this.filterScore};
+            temp.page = page;
+            this.filterScore = temp;            
+            this.getScore();
+        },
+    
+
+    
         
 
     },
@@ -362,6 +408,7 @@ export default {
 
     components:{
       Multiselect,
+      Pagination,
       
       
        
@@ -429,6 +476,23 @@ table {
     justify-content: center;
     margin-top: 20px;
     min-width: 550px;
+}
+
+.row-page-top{
+    display: flex;
+    justify-content: space-between;
+}
+.pagination-box{
+    background: #ffed69;
+   
+}
+
+.pagination{
+  margin-top: 30px;
+}
+
+.select-filtro option{
+    color:#222;
 }
 
 </style>

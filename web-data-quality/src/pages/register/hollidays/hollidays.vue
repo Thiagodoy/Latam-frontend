@@ -72,6 +72,7 @@ export default {
             this.loading = HollidayService.getHolliday({page:0,size:10}).then((response)=>{
                console.log(response.content) ;
                this.data.conteudo = response.content;
+               this.data.pagination = response;
                 
         })
         },
@@ -107,7 +108,8 @@ export default {
         setPage(page){            
             let temp = {...this.filter};
             temp.page = page;
-            this.filter = temp;            
+            this.filter = temp; 
+            this. getHoliday();           
         },
         setRowPage(rowPage){            
              let temp = {...this.filter};

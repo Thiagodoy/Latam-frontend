@@ -53,7 +53,24 @@
 
 
 
-
+     <div class="row-page-top">
+        <div class=""  >
+            <div>
+                <label style="font-size:12px;">{{$t('lang.table_pagination_row_page_title')}}</label>
+            </div>
+            <div>
+                <select class="select-filtro form-control" v-model="rowPerPage" @change="setRowPage" >
+                    <option :value="10" class="select-filtro">10</option>
+                    <option :value="20" class="select-filtro">20</option>
+                    <option :value="30" class="select-filtro">30</option>
+                    <option :value="40" class="select-filtro">40</option>
+                </select>
+            </div>                       
+        </div>
+    
+            
+          
+    </div>
    
     <table class="table table-striped table-dark fluid">
       <thead>
@@ -72,6 +89,7 @@
         </tr>
       </tbody>
     </table>
+     <center><pagination class="pagination" ref="pagination" :info-page="pagination" @page="setPage"></pagination></center>
   </div>
 </template>
 
@@ -82,6 +100,7 @@ import ServicePeriodo from '../../../services/periodos'
 import ServiceAgency from '../../../services/agency'
 import Multiselect from 'vue-multiselect';
 import {mapGetters} from 'vuex'
+import Pagination from '../../../components/pagination/pagination.vue';
 export default {
   data() {
     return {
@@ -91,6 +110,8 @@ export default {
       periodos:[],
       agencia:undefined,
       agencias:[],
+      rowPerPage :10,
+      pagination:undefined,
 
       filterIm:{
         agency:25,
@@ -130,6 +151,7 @@ export default {
       this.loading = ServiceIm.listar(this.filterIm).then(response =>{
         console.log("response",response);
         this.entregas = response;
+        this.pagination = response;
 
       })
     },
@@ -193,7 +215,22 @@ export default {
            this.mxShowModalError(erro);
        });
 
-        }
+        },
+
+
+         setRowPage(){
+        console.log(this.rowPerPage);
+        this.filterIm.size = this.rowPerPage;
+        console.log(this.filterIm);
+    },
+
+
+     setPage(page){            
+            let temp = {...this.filterIm};
+            temp.page = page;
+            this.filterIm = temp;            
+            this.getIM();
+        },
 
 
 
@@ -216,6 +253,7 @@ export default {
 
   components:{
     Multiselect,
+    Pagination,
   }
 
 
@@ -291,6 +329,24 @@ select{
 option{
     color: #666;
 }
+
+.row-page-top{
+    display: flex;
+    justify-content: space-between;
+}
+.pagination-box{
+    background: #ffed69;
+   
+}
+
+.pagination{
+  margin-top: 30px;
+}
+
+.select-filtro option{
+    color:#222;
+}
+
 
 
 </style>

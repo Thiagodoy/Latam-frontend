@@ -12,13 +12,14 @@
             <div   @click="$emit('back')" class="tool-view-item"><i class="fas fa-arrow-circle-left"></i>&nbsp;{{$t('lang.button_back')}}</div> &nbsp; &nbsp;&nbsp;
         </div>
 
+       
          <div  class="wrapper">
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-12">
                         <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
                             <label >{{$t('lang.table_period')}}</label>
-                            <input :disabled="typeAction=='view'" v-model="request.periodo" name="imput-path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_period')"   >
+                            <input :disabled="typeAction=='view'" v-model="periodo" name="imput-path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_period')"   >
                             <div class="help-block">{{errors.first('imput-path')}}</div>
                         </div>
                     </div>
@@ -27,14 +28,14 @@
                             <div class="col-md-6">
                             <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
                                 <label >{{$t('lang.table_date_start')}}</label>
-                                <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="request.date_start"  name="date-start" style="color:#222; min-width:200px" class="form-control  "  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker> 
+                                <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date_start"  name="date-start" style="color:#222; min-width:200px" class="form-control  "  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker> 
                                 <div class="help-block">{{errors.first('imput-path')}}</div>
                             </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
                                     <label class="ml-1" >{{$t('lang.table_date_end')}}</label>
-                                    <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="request.date_end"  name="date-init" style="color:#222; min-width:200px" class="form-control  "  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker> 
+                                    <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date_end"  name="date-init" style="color:#222; min-width:200px" class="form-control  "  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker> 
                                     <div class="help-block">{{errors.first('imput-path')}}</div>
                                 </div>
                             </div>
@@ -42,7 +43,7 @@
                     </div>
                    
                      <div v-if="typeAction == 'edit' || typeAction == 'new'" class="col-md-6 mt-3 ml-3">                        
-                        <button   style="color:#fff"  :disabled="(errors.items.length > 0)" class="btn btn-default btn-large" >{{$t('lang.button_save')}}</button>
+                        <button @click="save"  style="color:#fff"  :disabled="(errors.items.length > 0)" class="btn btn-default btn-large" >{{$t('lang.button_save')}}</button>
                         <button  style="color:#fff" @click="$emit('back')" class="btn btn-default btn-large ml-3 ">{{$t('lang.button_cancel')}}</button>  
                     </div>
                 </div>    
@@ -62,6 +63,9 @@ import Modal from '../../../components/modal/message-dialog.vue';
 import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import VueTimepicker from 'vue2-timepicker'
+import CalendarService from '../../../services/calendar.js';
+import moment from 'moment';
+import {dateDay,dateMonth,dateYear,date} from "../../../filter/date";
 
 export default {
 
@@ -69,22 +73,21 @@ export default {
 
     data() {
         return {
-            show: '',
+            show:'',
             loading: undefined,
             configTable: DataTableConfigFactory.build('DATA-TABLE-USER-AGENCY'),
-            request:{
-                periodo:undefined,
-                date_start:undefined,
-                date_end:undefined,
-            }
+           
+            periodo:undefined,
+            date_start:undefined,
+            date_end:undefined,
+        
         }
     },
-    computed:{
-       
-    },
-    mounted() {
+    
+    created() {
 
-            console.log(this.currentObject);
+           console.log("Teste")
+           console.log(this.typeAction);
 
         if(this.typeAction == "view" || this.typeAction == "edit"){
             this.request.periodo = this.currentObject.periodo;
@@ -103,6 +106,22 @@ export default {
                 if (!response) return;
 
                 if (this.typeAction == 'new') {
+
+                    let request = {
+                        
+                        "dateEnd": date(this.date_end),
+                        "dateInit": date(this.date_start),
+                        "id": 0,
+                        "period": this.periodo,
+                        //"workDays": 0
+                   }
+
+                     
+                   this.loading = CalendarService.salvar(request).then(()=>{
+                        this.savedSuccess();
+                    }).catch(e=>{
+                        console.log(e);
+                    })   
                    
                 } else {
                    

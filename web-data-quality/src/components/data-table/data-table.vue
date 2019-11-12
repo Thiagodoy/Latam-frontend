@@ -167,7 +167,6 @@ export default {
             value = 'empty';
 
           this.$emit('searching',value);
-
         },500),
         downloadCsv(){
           this.$emit('downloadCsv',this.data.pagination);

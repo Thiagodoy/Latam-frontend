@@ -69,9 +69,9 @@ created(){
             Modal.show({title:"Informação", message:`Deseja deletar Agencia ? `, type:'YES-NO'}).then(response =>{
                  if(response == 'YES'){
                     
-                   this.loading = AgencyService.deleteCompany({id:data.id}).then(response=>{
+                   this.loading = CalendarService.deletar({id:data.id}).then(response=>{
                        
-                       this.getAgency();
+                       this.getCalendar();
      
                        }).catch(erro=>{
                            this.mxShowModalError(erro);                        
@@ -96,7 +96,8 @@ created(){
         setPage(page){            
             let temp = {...this.filter};
             temp.page = page;
-            this.filter = temp;            
+            this.filter = temp;  
+            this.getCalendar();          
         },
         setRowPage(rowPage){            
              let temp = {...this.filter};
@@ -115,6 +116,7 @@ created(){
             this.loading = CalendarService.listar(this.filter).then(response=>{
                 console.log(response);
                 this.data.conteudo = response.content;
+                this.data.pagination =response;
             })
         }
 
