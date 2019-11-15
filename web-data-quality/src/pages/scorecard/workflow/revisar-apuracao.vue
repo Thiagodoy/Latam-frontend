@@ -25,8 +25,8 @@
                             :multiple="false">                      
                             </multiselect>
                         </div>
-                      <!--
-                        <div class="  form-group">
+                      
+                        <div class="  form-group mr-3">
                           <label >Agência</label> 
                             <multiselect
                             v-model="agencia"
@@ -44,10 +44,20 @@
                             :showNoResults="false"                                                                                                                           
                             :multiple="false">                      
                             </multiselect>
-                        </div> -->
+                        </div> 
+                        <div class="  form-group">
+                            <label  >Status</label> 
+                            <select v-model="filterScore.reviewed" class="form-control select-campo mr-3">
+                                <option :value='undefined'>Todos</option>
+                                <option value ="N">Pendentes</option>
+                                <option value="S">Finalizados</option>
+
+                            </select>
+                        </div>
+                        
                         <div class="form-group mt-4 ml-3">
                             <button  @click="buscar"  style="color:#fff" class="btn btn-default btn-large mr-3" >Buscar</button>
-                          <!--   <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button> -->
+                             <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button>
 
                         </div>
 
@@ -84,7 +94,7 @@
                     <td><b>BDA</b></td>
                     <td><b>IM</b></td>
                     <td><b>Scorecard</b></td>
-                    <td><b>Comentário/Justificativa</b></td>
+                    <td ><b>Comentário/Justificativa</b></td>
                     <td><b>Sc Ajustado</b></td>
                     <td><b>Ajustado por</b></td>
                     <td></td>
@@ -97,8 +107,8 @@
                 <td>{{item.bda}}</td>
                 <td>{{item.scoreIm}}</td>
                 <td>{{item.scorecard}}</td>
-                <td>
-                    <textarea :id="'textArea'+i" disabled class="input-table" type="text"   v-model="item.comments" ></textarea>
+                <td width="250px">
+                    <textarea style="width:100%" placeholder="Comentário/Justificativa" :id="'textArea'+i" disabled class="input-table" type="text"   v-model="item.comments" ></textarea>
                  
                 </td>
                 <td>
@@ -204,23 +214,10 @@ export default {
 
     mounted() {
 
-        this.loading =  ServiceAgency.list({page:0,size:1000}).then(response=>{            
-              let temp = undefined;               
-              if(!this.getIsMaster){
-                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
-              }else{
-                  temp = response.content;
-              }  
-
-              this.agencias = temp;
-              this.filterScore.agencys = temp.map(g=>g.id);
-              //this.getScore();
-        }).catch(erro=>{
-            this.mxShowModalError(erro);
-        });
+      
        
         this.getPeriodos();
-       // this.agency();
+        this.agency();
          
        
     },
@@ -243,12 +240,39 @@ export default {
         },
 
         buscar(){
-            this.filterScore.calendar = this.periodo.id;
-          
-          this.getScore();
+
+           // console.log(this.conteudo)
+           // console.log("Agencia",this.agencia.id)
+           // console.log("periodo", this.periodo.id);
+
+             this.calendar = undefined;
+             this.reviewed = undefined;
+
+            if(this.periodo){
+                this.filterScore.calendar = this.periodo.id
+            }
+
+            if(this.agencia){
+                this.filterScore.agencys=[]
+                 this.filterScore.agencys[0]=this.agencia.id;
+            }
+
+           this.getScore();
+             
+
+   
+           
+          console.log(this.filterScore);
+        
         },
 
         listarTodos(){
+             this.filterScore.agencys = this.agencias;
+                 this.filterScore.calendar=undefined;
+                   this.filterScore.reviewed = undefined;
+                   console.log(this.filterScore)
+                   
+                  this.agency();
             
         },
 
@@ -332,6 +356,7 @@ export default {
         },
 
         getScore(){
+          
             this.loading = ServiceScore.listar(this.filterScore).then(response=>{
                 console.log("response score",response);
                 this.conteudo = response.content;
@@ -491,9 +516,25 @@ table {
   margin-top: 30px;
 }
 
-.select-filtro option{
+.select-campo{
+      background: rgba(0, 0, 0, .4);
+      height: 36px;
+      border-radius: 0px;
+      color:#ddd;
+
+      &:focus{
+        box-shadow: 0 0 0 0;
+        border: 0 none;
+        outline: 0;
+       
+
+    }
+}
+
+.select-campo option{
     color:#222;
 }
+
 
 </style>
 

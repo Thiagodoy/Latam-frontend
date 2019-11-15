@@ -76,11 +76,11 @@
                                 <div style="font-size:20px; color:#ffed69;">{{info.diasEntregues}}/{{info.diasEmit}}</div>
                             </div>
                            
-                           <!--
-                            <div>
+                           
+                            <div v-if="profileAgency == 'CORPORATE'">
                                 <div><span  style="font-size:18px;" >Info Empresas</span><br><small style="color:#888;font-size:10px;">(Pontos)</small></div> 
                                 <div style="font-size:20px; color:#ffed69;">10/10</div>
-                            </div> -->
+                            </div> 
 
                         </div>
                         
@@ -141,6 +141,7 @@ export default {
             calenderFrequencia:undefined,
             calenderInfo:undefined,
             calenderQualidade:undefined,
+            profileAgency:undefined,
 
             frequencia:{
                 semanas:undefined,
@@ -324,6 +325,7 @@ export default {
                         });
                         this.info.diasEntregues = x;
                         this.info.diasEmit = response.weeks[0].calendar.workDays
+                        this.profileAgency = response.weeks[0].agency.profile
                         //console.log('Info ->',response)
                     });
 

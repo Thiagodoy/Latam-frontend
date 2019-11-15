@@ -62,6 +62,7 @@ import DataTableConfigFactory from '../../../components/data-table/data-config-f
 import VueTimepicker from 'vue2-timepicker'
 import HollidayService from '../../../services/holliday.js'
 import {dateDay,dateMonth,dateYear,date} from "../../../filter/date";
+import moment from 'moment';
 
 export default {
 
@@ -109,23 +110,25 @@ export default {
 
                 if (this.typeAction == 'new') {
 
-                    let request = {
+                    let DataATual = moment().format('YYYY/MM/DD');
+                    let Data = moment(this.date).format('YYYY/MM/DD');
+
+                    if(Data < DataATual){
+                         this.mxShowModal({ type:"OK",title:'Informação', message:'Não é possivel inserir Feriados em datas passadas'})
+
+                    }else{
+                        let request = {
                         date: date(this.date),
                         day : dateDay(this.date),
                         month:dateMonth(this.date),
                         year:dateYear(this.date),
                         description:this.description
+                        }
+                        this.loading = HollidayService.saveHolliday(request).then(()=>{
+                            this.savedSuccess();
+                        }).catch(e=>{ })   
+
                     }
-
-                        console.log("REQUEST: ",request)
-
-                   
-                   
-                   this.loading = HollidayService.saveHolliday(request).then(()=>{
-                        this.savedSuccess();
-                    }).catch(e=>{
-
-                    })   
                    
                 } else {
                    

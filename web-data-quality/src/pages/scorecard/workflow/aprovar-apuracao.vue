@@ -25,8 +25,8 @@
                             :multiple="false">                      
                             </multiselect>
                         </div>
-                      <!--
-                        <div class="  form-group">
+                      
+                        <div class="  form-group mr-3">
                           <label >Agência</label> 
                             <multiselect
                             v-model="agencia"
@@ -44,12 +44,22 @@
                             :showNoResults="false"                                                                                                                           
                             :multiple="false">                      
                             </multiselect>
-                        </div> -->
+                        </div> 
+                         <div class="  form-group">
+                            <label  >Status</label> 
+                            <select v-model="filterScore.approved" class="form-control select-campo mr-3">
+                                <option :value='undefined'>Todos</option>
+                                <option value ="N">Pendentes</option>
+                                <option value="S">Finalizados</option>
+
+                            </select>
+                        </div>
                         <div class="form-group mt-4 ml-3">
                             <button  @click="buscar"  style="color:#fff" class="btn btn-default btn-large mr-3" >Buscar</button>
-                          <!--   <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button> -->
+                            <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button> 
 
                         </div>
+                        
 
                     </div>
                 </div>
@@ -68,6 +78,9 @@
                             <option :value="40" class="select-filtro">40</option>
                         </select>
                     </div>                       
+                </div>
+                <div class="export-box">
+                    <button @click="exportar" class="bt-export"><i class="far fa-arrow-alt-circle-down"></i> Exportar</button>
                 </div>
             
                    
@@ -154,6 +167,7 @@ export default {
             periodo:undefined,
             periodos:[],
             agencias:[],
+            agencia:undefined,
             rowPerPage :10,
             pagination:undefined,
            
@@ -177,30 +191,49 @@ export default {
     },
 
     mounted() {
-         this.loading =  ServiceAgency.list({page:0,size:1000}).then(response=>{            
-              let temp = undefined;               
-              if(!this.getIsMaster){
-                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
-              }else{
-                  temp = response.content;
-              }  
-
-              this.agencias = temp;
-              this.filterScore.agencys = temp.map(g=>g.id);
-              //this.getScore();
-        }).catch(erro=>{
-            this.mxShowModalError(erro);
-        });
-       
+        
+        this.agency();
         this.getPeriodos();
     },
 
     methods:{
 
-          buscar(){
-              this.filterScore.calendar = this.periodo.id
-              console.log("Request",this.filterScore)
-          this.getScore();
+
+          listarTodos(){
+             this.filterScore.agencys = this.agencias;
+                 this.filterScore.calendar=undefined;
+                   this.filterScore.reviewed = "S";
+                   console.log(this.filterScore)
+                   
+                  this.agency();
+            
+        },
+
+           buscar(){
+
+           // console.log(this.conteudo)
+           // console.log("Agencia",this.agencia.id)
+           // console.log("periodo", this.periodo.id);
+
+             this.calendar = undefined;
+             this.reviewed = "S";
+
+            if(this.periodo){
+                this.filterScore.calendar = this.periodo.id
+            }
+
+            if(this.agencia){
+                this.filterScore.agencys=[]
+                 this.filterScore.agencys[0]=this.agencia.id;
+            }
+
+           this.getScore();
+             
+
+   
+           
+          console.log(this.filterScore);
+        
         },
 
         getScore(){
@@ -272,6 +305,29 @@ export default {
       }).catch(()=>{
          
       }) 
+    },
+
+
+      agency(){
+            this.loading =  ServiceAgency.list({page:0,size:1000}).then(response=>{            
+              let temp = undefined;               
+              if(!this.getIsMaster){
+                  temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
+              }else{
+                  temp = response.content;
+              }  
+
+              this.agencias = temp;
+              this.filterScore.agencys = temp.map(g=>g.id);
+              this.getScore();
+       }).catch(erro=>{
+           this.mxShowModalError(erro);
+       });
+
+        },
+
+    exportar(){
+        alert("exportar");
     },
 
     
@@ -367,6 +423,44 @@ table {
 }
 
 .select-filtro option{
+    color:#222;
+}
+
+.bt-export{
+    margin-top: 35px;
+    padding: 5px;
+  background-color: rgba(30, 200, 100, .5);
+    border:none;
+    border-radius: 5px;
+    color: #eee;
+    &:hover{
+        cursor: pointer;
+        background-color: rgba(30, 200, 100, 1);
+    }
+    &:focus{
+         box-shadow: 0 0 0 0;
+        border: 0 none;
+        outline: 0;
+
+    }
+}
+
+.select-campo{
+      background: rgba(0, 0, 0, .4);
+      height: 36px;
+      border-radius: 0px;
+      color:#ddd;
+
+      &:focus{
+        box-shadow: 0 0 0 0;
+        border: 0 none;
+        outline: 0;
+       
+
+    }
+}
+
+.select-campo option{
     color:#222;
 }
 

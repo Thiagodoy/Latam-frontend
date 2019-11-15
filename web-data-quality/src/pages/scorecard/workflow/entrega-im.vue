@@ -76,6 +76,7 @@
       <thead>
         <tr>
           <td>Agência</td>
+          <td>Mês</td>
         
           <td>Entrega IM</td>
         </tr>
@@ -83,6 +84,7 @@
       <tbody>
         <tr v-for="(entrega,i) in entregas" :key="i">
           <td>{{entrega.agency.name}}</td>
+          <td>{{entrega.calendar.period}}</td>
           <td class="text-center" width="120">
             <input :id="'chek'+i" @click="salvarIm(entrega,i)" :disabled="entrega.delivered == 'S'" :checked="entrega.delivered == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
           </td>
