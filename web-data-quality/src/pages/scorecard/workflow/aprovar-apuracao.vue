@@ -185,6 +185,7 @@ export default {
                     reviewed:"S",
                     page:0,
                     size:10,
+                    sort:"approved"
                  }           
         }
     },
