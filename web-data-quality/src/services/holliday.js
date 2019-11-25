@@ -24,6 +24,7 @@ class HollidayService extends Service {
      * @param  {} request
      */
     updateHolliday(request) {
+        this._url = '';
         return this.put(request);
     }
 

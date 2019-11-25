@@ -131,6 +131,23 @@ export default {
                     }
                    
                 } else {
+
+                     let requestEdit = {
+                        date: date(this.date),
+                        day : dateDay(this.date),
+                        month:dateMonth(this.date),
+                        year:dateYear(this.date),
+                        description:this.description,
+                        id:this.currentObject.id
+                        }
+                        this.loading = HollidayService.updateHolliday(requestEdit).then(()=>{
+                            this.savedSuccess();
+                        }).catch(e=>{ })  
+
+                    
+
+
+
                    
                 }
             });

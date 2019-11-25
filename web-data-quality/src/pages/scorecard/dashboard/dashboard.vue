@@ -82,7 +82,7 @@
                                 </div>
                             
                                 <!-- v-if="profileAgency == 'CORPORATE'" -->
-                                <div class="mt-5" >
+                                <div v-if="profileAgency == 'CORPORATE'" class="mt-5" >
                                     <div style="display:flex; justify-content:space-between" >
                                         <div><span  style="font-size:18px;" >Info Empresas</span></div>
                                         <div style="font-size:20px; color:#ffed69;">10/10</div>
