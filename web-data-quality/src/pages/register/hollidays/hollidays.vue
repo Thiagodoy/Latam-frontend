@@ -50,15 +50,20 @@ export default {
             loading:undefined,
             show:'home',
             typeAction:undefined,
-           data:{
+            data:{
                 conteudo:[ ],
                 pagination:undefined
             },
-             filter:{page:0,size:10}           
+            filter:{
+                page:0,
+                size:10
+            }           
         }
     },
 
-    created() {
+    mounted() {
+        
+   
        this.getHoliday();
 
        
@@ -69,8 +74,8 @@ export default {
     methods:{
 
         getHoliday(){
-            this.loading = HollidayService.getHolliday({page:0,size:10}).then((response)=>{
-               console.log(response.content) ;
+            this.loading = HollidayService.getHolliday(this.filter).then((response)=>{
+               console.log("Feriados",response) ;
                this.data.conteudo = response.content;
                this.data.pagination = response;
                 
@@ -109,12 +114,13 @@ export default {
             let temp = {...this.filter};
             temp.page = page;
             this.filter = temp; 
-            this. getHoliday();           
+            this.getHoliday();           
         },
         setRowPage(rowPage){            
              let temp = {...this.filter};
             temp.size = rowPage;
             this.filter = temp;
+            this.getHoliday();  
         },
         setFilter(filter){ 
             this.filter = _.merge({...filter},{
@@ -132,14 +138,12 @@ export default {
    
    
    
-   mounted(){
-       
-    },
+  
 
     watch:{
         filter:{
             handler:function(newValue, oldValue){
-                this.getHolliday();
+                this.getHoliday();
             },
             deep:true
         },

@@ -84,16 +84,29 @@ export default {
         }
     },
     
-    created() {
+   mounted() {
+       
+  
 
-           console.log("Teste")
-           console.log(this.typeAction);
+          
+          
+           console.log("Objeto",this.currentObject)
+           console.log("Type",this.typeAction)
 
         if(this.typeAction == "view" || this.typeAction == "edit"){
-            this.request.periodo = this.currentObject.periodo;
-            this.request.date_start = this.currentObject.data_inicial;
-            this.request.date_end = this.currentObject.data_final;
+           console.log("certo")
+           this.periodo = this.currentObject.period;
+           let ini = this.currentObject.dateInit.split('/');
+           let fim = this.currentObject.dateEnd.split('/');
+          
+          
+          this.date_start = new Date(parseInt(ini[2]),parseInt(ini[1]) - 1,parseInt(ini[0]))
+           this.date_end = new Date(parseInt(fim[2]),parseInt(fim[1]) - 1,parseInt(fim[0]))
         }
+
+
+        
+            
         
     },
     methods: {
@@ -124,6 +137,25 @@ export default {
                     })   
                    
                 } else {
+
+                     let requestEdit = {
+                        
+                        "dateEnd": date(this.date_end),
+                        "dateInit": date(this.date_start),
+                        "id": this.currentObject.id,
+                        "period": this.periodo,
+                        "workDays": this.currentObject.workDays,
+                   }
+
+                   console.log(requestEdit);
+
+                   this.loading = CalendarService.update(requestEdit).then(()=>{
+                        this.savedSuccess();
+                    }).catch(e=>{
+                        console.log(e);
+                    })   
+
+                  
                    
                 }
             });

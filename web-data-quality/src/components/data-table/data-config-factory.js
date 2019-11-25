@@ -302,7 +302,7 @@ class DataTableConfigFactory {
         return {
             showCount: false,
             showOptions: true,
-            showOptionsTYPE: 'DELETE',
+            showOptionsTYPE: 'DEFAULT',
             showSearch: false,
             showHeaderOptions: false,
             showRowPerPage: true,
@@ -322,7 +322,7 @@ class DataTableConfigFactory {
         return {
             showCount: false,
             showOptions: true,
-            showOptionsTYPE: 'DELETE',
+            showOptionsTYPE: 'DEFAULT',
             showSearch: false,
             showHeaderOptions: false,
             showRowPerPage: true,

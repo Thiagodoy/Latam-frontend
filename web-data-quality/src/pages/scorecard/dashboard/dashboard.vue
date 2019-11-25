@@ -59,7 +59,7 @@
                             <img v-if="frequencia.response==true" @click="show ='frequencia'" style="cursor:pointer" src="img/success_large.svg">      
                         </div>
                         <div class="card-body">
-                            <div><span style="font-size:18px;"> Envio diário</span><br><small style="color:#888;font-size:10px;">(Dias entregues/Dias Uteis)</small></div>
+                            <div><span style="font-size:18px;"> Envio diário</span><br><small style="color:#888;font-size:18px;">(Dias entregues/Dias Uteis)</small></div>
                             <div style="font-size:20px; color:#ffed69;">{{frequencia.diasEntregues}}/{{frequencia.diasUteis}}</div>    
                         </div>
                     </div>
@@ -72,16 +72,25 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                <div><span style="font-size:18px;">Emissão diária</span><br><small style="color:#888;font-size:10px;">(Dias entregues/Dias de emissão</small></div> 
-                                <div style="font-size:20px; color:#ffed69;">{{info.diasEntregues}}/{{info.diasEmit}}</div>
+                                <div>
+                                    <div style="display:flex; justify-content:space-between ">
+                                        <div><span style="font-size:18px;">Emissão diária</span></div>
+                                        <div style="font-size:20px; color:#ffed69;">{{info.diasEntregues}}/{{info.diasEmit}}</div>
+                                    </div>
+                                    <small style="color:#888;font-size:18px;">(Dias entregues/Dias de emissão</small>
+                                   
+                                </div>
+                            
+                                <!-- v-if="profileAgency == 'CORPORATE'" -->
+                                <div class="mt-5" >
+                                    <div style="display:flex; justify-content:space-between" >
+                                        <div><span  style="font-size:18px;" >Info Empresas</span></div>
+                                        <div style="font-size:20px; color:#ffed69;">10/10</div>
+                                    </div>
+                                    <div><small style="color:#888;font-size:18px;">(Pontos)</small></div> 
+                                   
+                                </div> 
                             </div>
-                           
-                           
-                            <div v-if="profileAgency == 'CORPORATE'">
-                                <div><span  style="font-size:18px;" >Info Empresas</span><br><small style="color:#888;font-size:10px;">(Pontos)</small></div> 
-                                <div style="font-size:20px; color:#ffed69;">10/10</div>
-                            </div> 
-
                         </div>
                         
                     </div>
@@ -93,7 +102,7 @@
                             <img v-if="qualidade.response==true" @click="show ='qualidade'" style="cursor:pointer" src="img/success_large.svg">   
                         </div>
                         <div class="card-body">
-                            <div><span style="font-size:18px;">Aproveitamento</span><br><small style="color:#888;font-size:10px;margin-top:-10px">(% de linhas aproveitadas)</small></div>
+                            <div><span style="font-size:18px;">Aproveitamento</span><br><small style="color:#888;font-size:18px;margin-top:-10px">(% de linhas aproveitadas)</small></div>
                             <div style="font-size:20px; color:#ffed69;">{{qualidade.linhasAprovadas}}%</div>    
                         </div>
                     
@@ -263,9 +272,10 @@ export default {
         },
 
         getPeriodos(){
-            this.loading = ServicePeriodo.listar({page:0,size:1000}).then(response=>{
+            this.loading = ServicePeriodo.listar({pagination:false,page:0,size:1000}).then(response=>{
                // console.log(response);
-                this.periodos = response.content;
+                this.periodos = response;
+                this.periodos.push({id:9,period:"Set/19"})
             }).catch(e=>{
                 console.log(e);
             })

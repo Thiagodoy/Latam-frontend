@@ -45,7 +45,7 @@
                             :multiple="false">                      
                             </multiselect>
                         </div> 
-                        <div class="  form-group">
+                    <!--    <div class="  form-group">
                             <label  >Status</label> 
                             <select v-model="filterScore.reviewed" class="form-control select-campo mr-3">
                                 <option :value='undefined'>Todos</option>
@@ -53,11 +53,11 @@
                                 <option value="S">Finalizados</option>
 
                             </select>
-                        </div>
+                        </div> -->
                         
                         <div class="form-group mt-4 ml-3">
                             <button  @click="buscar"  style="color:#fff" class="btn btn-default btn-large mr-3" >Buscar</button>
-                             <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button>
+                           <!--  <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button> -->
 
                         </div>
 
@@ -84,42 +84,45 @@
                    
                  
             </div>
+
+            
+
           
            
             <table class="table table-striped table-dark fluid">
             <thead>
                 <tr>
-                    <td><b>Agência</b></td>
-                    <td><b>Cluster</b></td>
-                    <td><b>BDA</b></td>
-                    <td><b>IM</b></td>
-                    <td><b>Scorecard</b></td>
-                    <td ><b>Comentário/Justificativa</b></td>
-                    <td><b>Sc Ajustado</b></td>
-                    <td><b>Ajustado por</b></td>
-                    <td></td>
+                    <th class="l-agencia"><b>Agência</b></th>
+                    <th class="l-cluster"><b>Cluster</b></th>
+                    <th class="l-bda"><b>BDA</b></th>
+                    <th class="l-im"><b>IM</b></th>
+                    <th class="l-scorecard"><b>Scorecard</b></th>
+                    <th class="l-coment"><b>Comentário/Justificativa</b></th>
+                    <th class="l-scAjust"><b>Sc Ajustado</b></th>
+                    <th class="l-ajustby"><b>Ajustado por</b></th>
+                    <th class="l-options"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item,i) in conteudo" :key="i">
-                <td>{{item.agency.name}}</td>
-                <td>{{item.agency.category}}</td>
-                <td>{{item.bda}}</td>
-                <td>{{item.scoreIm}}</td>
-                <td>{{item.scorecard}}</td>
-                <td width="250px">
-                    <textarea style="width:100%" placeholder="Comentário/Justificativa" :id="'textArea'+i" disabled class="input-table" type="text"   v-model="item.comments" ></textarea>
+                <td class="l-agencia">{{item.agency.name}}</td>
+                <td class="l-cluster">{{item.agency.category}}</td>
+                <td class="l-bda">{{item.bda}}</td>
+                <td class="l-im">{{item.scoreIm}}</td>
+                <td class="l-scorecard">{{item.scorecard}}</td>
+                <td class="l-coment" >
+                    <textarea style="width:100%"  :id="'textArea'+i" disabled class="input-table" type="text"   v-model="item.comments" ></textarea>
                  
                 </td>
-                <td>
+                <td class="l-scAjust">
                     <select :id="'select'+i" disabled class="input-table" v-model="item.adjustedResult" >
                         <option value="MINIMO">Minimo</option>
                         <option value="MAXIMO" >Máximo</option>
                         <option value="0">0</option>
                     </select>
                 </td>
-                <td>{{item.adjustedUserId}}</td>
-                <td style="" class="text-center" width="120">
+                <td class="l-ajustby">{{item.adjustedUserId}}</td>
+                <td style="" class="text-center l-options" width="120">
                     <div  style=" padding-left:10px;" class="test-center">
                          <input v-if="mode == 'edit'" id="check-revisado" @click="salvarRevisado(item)" :disabled="item.reviewed == 'S'" :checked="item.reviewed == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
                     </div>
@@ -129,7 +132,7 @@
                 
                    
                         <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="save(item,i)" style="cursor:pointer;font-size:25px" class="far fa-save" ></i></div> 
-                        <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="cancel(item,i)" style="cursor:pointer;font-size:25px" class="far fa-window-close "></i></div>
+                   <!-- <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="cancel(item,i)" style="cursor:pointer;font-size:25px" class="far fa-window-close "></i></div> -->
                     
 
                 </td>
@@ -193,7 +196,7 @@ export default {
             
             rowPerPage:10,
             filterScore:{
-                    agencys:this.agencias, 
+                    agencys:[], 
                     calendar:undefined,
                     approved:undefined,
                     reviewed:undefined,
@@ -241,29 +244,18 @@ export default {
 
         buscar(){
 
-           // console.log(this.conteudo)
-           // console.log("Agencia",this.agencia.id)
-           // console.log("periodo", this.periodo.id);
-
-             this.calendar = undefined;
-             this.reviewed = undefined;
-
-            if(this.periodo){
+            if(!this.periodo){alert("Selecione o Mês")}else{
                 this.filterScore.calendar = this.periodo.id
+                 if(!this.agencia ){
+                    this.filterScore.agencys = this.agencias.map(g=>g.id);
+                     }else{
+                        this.filterScore.agencys = []
+                        this.filterScore.agencys.push( this.agencia.id)
+                    }
+                console.log("request",this.filterScore);
+                this.getScore();
             }
-
-            if(this.agencia){
-                this.filterScore.agencys=[]
-                 this.filterScore.agencys[0]=this.agencia.id;
-            }
-
-           this.getScore();
-             
-
-   
-           
-          console.log(this.filterScore);
-        
+          
         },
 
         listarTodos(){
@@ -377,8 +369,8 @@ export default {
               }  
 
               this.agencias = temp;
-              this.filterScore.agencys = temp.map(g=>g.id);
-              this.getScore();
+             // this.filterScore.agencys = temp.map(g=>g.id);
+             // this.getScore();
        }).catch(erro=>{
            this.mxShowModalError(erro);
        });
@@ -386,9 +378,10 @@ export default {
         },
 
          getPeriodos(){
-            this.loading =    ServicePeriodo.listar({page:0,size:1000}).then(response=>{
+            this.loading =    ServicePeriodo.listar({pagination:false,page:0,size:1000}).then(response=>{
                // console.log(response);
-                this.periodos = response.content;
+                this.periodos = response;
+               this.periodos.push({id:9,period :'Set/19'});
             }).catch(e=>{
                 console.log(e);
             })
@@ -463,6 +456,7 @@ input[type="checkbox"] {
   background: #ffed69;
 }
 
+
 table {
   background-color: rgba(0, 0, 0, 0.4);
 
@@ -534,6 +528,52 @@ table {
 .select-campo option{
     color:#222;
 }
+
+/////////
+
+table {
+    width: 100%;
+    min-width: 1020px;
+}
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 60px;
+
+    /*text-align: left;*/
+}
+
+tbody {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+
+tbody td, thead th {
+  //  width: 11.1%;
+    float: left;
+}
+
+//largura campos
+
+.l-agencia{width: 15%}
+.l-cluster{width: 7%}
+.l-bda{width: 7%}
+.l-im{width: 7%}
+.l-scorecard{width: 11.5%}
+.l-coment{width: 20%}
+.l-scAjust{width: 11.5%}
+.l-ajustby{width: 14%}
+.l-options{width: 7%}
+
 
 
 </style>

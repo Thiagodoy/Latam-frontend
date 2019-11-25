@@ -11,7 +11,7 @@
                <div class="box-title">{{periodo}}</div>
                 <div class="box-title">{{dataInicial}} - {{dataFinal}}</div><br>
                 <div class="box-title">Qualidade</div>
-                <div class="box-label">Aproveitamento Linhas</div>
+                <div class="box-label">% de linhas aproveitadas</div>
                 <div class="box-result">{{aproveitamentoMedio}}</div>
             </div>
           </div>

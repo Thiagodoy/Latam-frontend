@@ -45,7 +45,7 @@
                             :multiple="false">                      
                             </multiselect>
                         </div> 
-                         <div class="  form-group">
+                       <!--  <div class="  form-group">
                             <label  >Status</label> 
                             <select v-model="filterScore.approved" class="form-control select-campo mr-3">
                                 <option :value='undefined'>Todos</option>
@@ -53,10 +53,10 @@
                                 <option value="S">Finalizados</option>
 
                             </select>
-                        </div>
+                        </div> -->
                         <div class="form-group mt-4 ml-3">
                             <button  @click="buscar"  style="color:#fff" class="btn btn-default btn-large mr-3" >Buscar</button>
-                            <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button> 
+                          <!--  <button  @click="listarTodos"  style="color:#fff" class="btn btn-default btn-large" >Todos</button> -->
 
                         </div>
                         
@@ -99,6 +99,7 @@
                     <td>Comentário/Justificativa</td>
                     <td>Sc Ajustado</td>
                     <td>Ajustado por</td>
+                    <td>Comentario A.Performance</td>
                     <td>Aprovar</td>
                 </tr>
             </thead>
@@ -112,6 +113,9 @@
                 <td>{{item.comments}}</td>
                 <td>{{item.adjustedResult}}</td>
                 <td>{{item.adjustedUserId}}</td>
+                 <td>
+                      <textarea style="width:100%"  :id="'textArea'+i" disabled class="input-table" type="text"    ></textarea>
+                 </td>
               
                 
                 
@@ -175,7 +179,7 @@ export default {
                     ],
             
              filterScore:{
-                    agencys:this.agencias,
+                    agencys:[],
                     calendar:undefined,
                     approved:undefined,
                     reviewed:"S",
@@ -209,31 +213,20 @@ export default {
             
         },
 
-           buscar(){
+        buscar(){
 
-           // console.log(this.conteudo)
-           // console.log("Agencia",this.agencia.id)
-           // console.log("periodo", this.periodo.id);
-
-             this.calendar = undefined;
-             this.reviewed = "S";
-
-            if(this.periodo){
+            if(!this.periodo){alert("Selecione o Mês")}else{
                 this.filterScore.calendar = this.periodo.id
+                 if(!this.agencia ){
+                    this.filterScore.agencys = this.agencias.map(g=>g.id);
+                     }else{
+                        this.filterScore.agencys = []
+                        this.filterScore.agencys.push( this.agencia.id)
+                    }
+                console.log("request",this.filterScore);
+                this.getScore();
             }
-
-            if(this.agencia){
-                this.filterScore.agencys=[]
-                 this.filterScore.agencys[0]=this.agencia.id;
-            }
-
-           this.getScore();
-             
-
-   
-           
-          console.log(this.filterScore);
-        
+          
         },
 
         getScore(){
@@ -247,9 +240,10 @@ export default {
         },
 
         getPeriodos(){
-            this.loading =    ServicePeriodo.listar({page:0,size:1000}).then(response=>{
+            this.loading =    ServicePeriodo.listar({pagination:false,page:0,size:1000}).then(response=>{
                // console.log(response);
-                this.periodos = response.content;
+                this.periodos = response;
+                 this.periodos.push({id:9,period :'Set/19'});
             }).catch(e=>{
                 console.log(e);
             })
@@ -319,7 +313,7 @@ export default {
 
               this.agencias = temp;
               this.filterScore.agencys = temp.map(g=>g.id);
-              this.getScore();
+              //this.getScore();
        }).catch(erro=>{
            this.mxShowModalError(erro);
        });
@@ -464,6 +458,13 @@ table {
     color:#222;
 }
 
+
+.input-table{
+    background: rgba(0, 0, 0, 0);
+    border:#a9a9a9 1px solid;
+    color:#a9a9a9;
+    padding:5px;
+}
 
 </style>
 

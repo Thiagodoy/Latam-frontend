@@ -43,7 +43,7 @@
                             </multiselect>
                         </div>
                         <div class="form-group mt-4 ml-3">
-                            <button  @click="filtrar"  style="color:#fff" class="btn btn-default btn-large" >Buscar</button>
+                            <button  @click="buscar"  style="color:#fff" class="btn btn-default btn-large" >Buscar</button>
 
                         </div>
 
@@ -116,10 +116,10 @@ export default {
       pagination:undefined,
 
       filterIm:{
-        agency:25,
+        agency:[],
         page:0,
         size:10,
-        calendar:9
+        calendar:undefined,
       },
 
       company:[]
@@ -134,25 +134,40 @@ export default {
 
 
   mounted() {
-    this.getIM();
+   //this.getIM();
     this.getPeriodos();
-    this.getAgency();
-  // this.agency();
+   // this.getAgency();
+   this.agency();
+
+   
     
   },
 
 
   methods:{
 
-    filtrar(){
-
+    buscar(){
+      if(!this.periodo){alert("Selecione um periodo")}else{
+       // this.filterIm.page =0;
+       // this.filterIm.size =10;
+        this.filterIm.calendar = this.periodo.id
+        console.log("agencia",this.agencia)
+        if(!this.agencia ){
+           this.filterIm.agency = this.agencias.map(g=>g.id);
+        }else{
+          this.filterIm.agency = []
+          this.filterIm.agency.push( this.agencia.id)}
+      } 
+       //console.log('Agencias ->',this.agencias)
+      console.log("request", this.filterIm);
+      this.getIM();
     },
 
     getIM(){
 
       this.loading = ServiceIm.listar(this.filterIm).then(response =>{
-        console.log("response",response);
-        this.entregas = response;
+        console.log("Lista de ims",response);
+        this.entregas = response.content;
         this.pagination = response;
 
       })
@@ -173,7 +188,7 @@ export default {
                        console.log('chek'+i);
             })
           }else{
-           document.getElementById('check-im').checked=false;
+           document.getElementById('chek'+i).checked=false;
           }
           
          
@@ -183,9 +198,10 @@ export default {
     },
 
      getPeriodos(){
-            this.loading =    ServicePeriodo.listar({page:0,size:1000}).then(response=>{
+            this.loading =    ServicePeriodo.listar({pagination:false,page:0,size:1000}).then(response=>{
                // console.log(response);
-                this.periodos = response.content;
+                this.periodos = response;
+                this.periodos.push({id:9,period :'Set/19'});
             }).catch(e=>{
                 console.log(e);
             })
@@ -212,6 +228,7 @@ export default {
               }  
 
               this.agencias = temp;
+             // console.log('Aegencias',this.agencias)
             
        }).catch(erro=>{
            this.mxShowModalError(erro);
@@ -220,11 +237,12 @@ export default {
         },
 
 
+       
          setRowPage(){
         console.log(this.rowPerPage);
         this.filterIm.size = this.rowPerPage;
-        console.log(this.filterIm);
-    },
+      
+        },
 
 
      setPage(page){            
@@ -233,8 +251,7 @@ export default {
             this.filterIm = temp;            
             this.getIM();
         },
-
-
+    
 
 
 

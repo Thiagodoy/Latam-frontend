@@ -100,8 +100,8 @@ class ToolbarConfigFactory {
                 { emit: 'new', class: 'btn-add-user', icon: 'fas fa-user-plus', label: 'button_new' }
             ],
             filter: [
-                { label: 'table_date', attribute: 'data' },
-                { label: 'table_description', attribute: 'descricao' },
+                { label: 'table_date', attribute: 'date' },
+                { label: 'table_description', attribute: 'description' },
 
             ]
 

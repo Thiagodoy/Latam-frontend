@@ -11,7 +11,7 @@
                 <div class="box-title">{{periodo}}</div>
                 <div class="box-title">{{dataInicial}} - {{dataFinal}}</div><br>
                 <div class="box-title">Informações</div>
-                <div class="box-label">Dias Entregues</div>
+                <div class="box-label">Dias Entregues/Dias de emissão</div>
                 <div class="box-result">{{diasEntregues}}/{{diasEmit}}</div>
             </div>
           </div>

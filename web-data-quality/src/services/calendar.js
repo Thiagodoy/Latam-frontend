@@ -24,6 +24,7 @@ class CalendarService extends Service {
      * @param  {} request
      */
     update(request) {
+        this._url = '';
         return this.put(request);
     }
 

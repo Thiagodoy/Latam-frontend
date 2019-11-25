@@ -54,12 +54,12 @@ export default {
                 conteudo:[],
                 pagination:undefined
             },
-             filter:{page:0,size:10}           
+             filter:{pagination:true,page:0,size:10}           
         }
     },
 
 created(){
-    console.log("teste")
+   
     this.getCalendar();
 },
 
@@ -103,18 +103,20 @@ created(){
              let temp = {...this.filter};
             temp.size = rowPage;
             this.filter = temp;
+             this.getCalendar()
         },
         setFilter(filter){ 
             this.filter = _.merge({...filter},{
                 page:0,
                 size:10
+
             });            
         },
 
         getCalendar(){
             console.log("teste")
             this.loading = CalendarService.listar(this.filter).then(response=>{
-                console.log(response);
+                console.log("Periodos",response);
                 this.data.conteudo = response.content;
                 this.data.pagination =response;
             })
@@ -131,6 +133,22 @@ created(){
    
    mounted(){
        
+    },
+
+     watch:{
+        filter:{
+            handler:function(newValue, oldValue){
+                this.getCalendar();
+            },
+            deep:true
+        },
+        show(newValue, oldValue){
+            if(newValue == 'home'){
+                this.currentObject = undefined;
+                this.typeAction = undefined;
+                this.getCalendar();
+            }
+        }
     },
 
     
