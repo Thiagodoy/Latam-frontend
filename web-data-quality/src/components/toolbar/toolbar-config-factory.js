@@ -100,8 +100,8 @@ class ToolbarConfigFactory {
                 { emit: 'new', class: 'btn-add-user', icon: 'fas fa-user-plus', label: 'button_new' }
             ],
             filter: [
-                { label: 'table_date', attribute: 'date' },
                 { label: 'table_description', attribute: 'description' },
+                { label: 'table_date', attribute: 'date' },
 
             ]
 
@@ -114,9 +114,8 @@ class ToolbarConfigFactory {
                 { emit: 'new', class: 'btn-add-user', icon: 'fas fa-user-plus', label: 'button_new' }
             ],
             filter: [
-                { label: 'table_period', attribute: 'periodo' },
-                { label: 'table_date_start', attribute: 'data-inicial' },
-                { label: 'table_date_end', attribute: 'data-final' },
+                { label: 'table_period', attribute: 'period' },
+                
 
             ]
 

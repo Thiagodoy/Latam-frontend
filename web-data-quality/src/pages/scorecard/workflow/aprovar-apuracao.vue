@@ -80,41 +80,46 @@
                     </div>                       
                 </div>
                 <div class="export-box">
-                    <button @click="exportar" class="bt-export"><i class="far fa-arrow-alt-circle-down"></i> Exportar</button>
+                    <button @click="download" class="bt-export"><i class="far fa-arrow-alt-circle-down"></i> Exportar</button>
                 </div>
             
                    
                  
             </div>
+            <a id ="downLink"></a>
           
            
               <table class="table table-striped table-dark fluid">
             <thead>
                 <tr>
-                    <td>Agência</td>
-                    <td>Cluster</td>
-                    <td>BDA</td>
-                    <td>IM</td>
-                    <td>Scorecard</td>
-                    <td>Comentário/Justificativa</td>
-                    <td>Sc Ajustado</td>
-                    <td>Ajustado por</td>
-                    <td>Comentario A.Performance</td>
-                    <td>Aprovar</td>
+                  
+                   
+                   
+
+                     <th class="l-agencia"><b>Agência</b></th>
+                    <th class="l-cluster"><b>Cluster</b></th>
+                    <th class="l-bda"><b>BDA</b></th>
+                    <th class="l-im"><b>IM</b></th>
+                    <th class="l-scorecard"><b>Scorecard</b></th>
+                    <th class="l-coment"><b>Comentário/Justificativa</b></th>
+                    <th class="l-scAjust"><b>Sc Ajustado</b></th>
+                    <th class="l-ajustby"><b>Ajustado por</b></th>
+                     <th class="l-performance">Comentario A.Performance</th>
+                    <th class="l-options"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item,i) in conteudo" :key="i">
-                <td>{{item.agency.name}}</td>
-                <td>{{item.agency.category}}</td>
-                <td>{{item.bda}}</td>
-                <td>{{item.scoreIm}}</td>
-                <td>{{item.scorecard}}</td>
-                <td>{{item.comments}}</td>
-                <td>{{item.adjustedResult}}</td>
-                <td>{{item.adjustedUserId}}</td>
-                 <td>
-                      <textarea style="width:100%"  :id="'textArea'+i" disabled class="input-table" type="text"    ></textarea>
+                <td class="l-agencia">{{item.agency.name}}</td>
+                <td class="l-cluster">{{item.agency.category}}</td>
+                <td class="l-bda">{{item.bda}}</td>
+                <td class="l-im">{{item.scoreIm}}</td>
+                <td class="l-scorecard">{{item.scorecard}}</td>
+                <td class="l-coment">{{item.comments}}</td>
+                <td class="l-scAjust">{{item.adjustedResult}}</td>
+                <td class="l-ajustby">{{item.adjustedUserId}}</td>
+                 <td class="l-performance">
+                      <textarea style="width:100%"  :id="'textArea'+i" disabled class="input-table" type="text" v-model="item.commentsAnalyst"   ></textarea>
                  </td>
               
                 
@@ -122,8 +127,18 @@
                 
                 
                 
-                <td class="text-center" width="120">
-                    <input :checked="item.approved == 'S'"  :disabled="item.approved == 'S'" @click="aprovarScore(item)" id="check-score" name="i" type="checkbox" />
+                <td class="text-center l-options" width="120">
+                   <div  style=" padding-left:12px;" >
+                        <input class="" :checked="item.approved == 'S'"  :disabled="item.approved == 'S'" @click="aprovarScore(item,i)" :id="'check'+i" name="i" type="checkbox" />
+                   </div>
+                    
+                     <div style=""  class="text-center" @click="btEdit(item,i)" v-if="item.approved == 'N' || item.approved == null ">
+                        <i style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i>
+                    </div>
+                    <div><i v-if="item.approved == 'N' || item.approved == null " @click="save(item,i)" style="cursor:pointer;font-size:25px" class="far fa-save" ></i></div> 
+               
+               
+               
                 </td>
                 </tr>
             </tbody>
@@ -158,6 +173,7 @@ import ServiceAgency from '../../../services/agency'
 import Multiselect from 'vue-multiselect';
 import {mapGetters} from 'vuex'
 import Pagination from '../../../components/pagination/pagination.vue';
+import JsonToCsv from '../../../utils/json2csv'
 //import Checked from './aprovar-check';
 
 export default {
@@ -174,6 +190,9 @@ export default {
             agencia:undefined,
             rowPerPage :10,
             pagination:undefined,
+            comentAnalista:undefined,
+
+            request:undefined,
            
                 conteudo:[
                     ],
@@ -186,7 +205,19 @@ export default {
                     page:0,
                     size:10,
                     sort:"approved"
-                 }           
+                 },
+                 
+                 colunas:[
+                    { name: "agency.name", title: "Agência"},
+                    { name: "agency.category", title: "Cluster"},
+                    { name: "bda", title: "BDA"},
+                    { name: "scoreIm", title: "IM"},
+                    { name: "scorecard", title: "Scorecard"},
+                    { name: "comments", title: "Comentario/Justificativa"},
+                    { name: "adjustedResult", title: "Scorecard ajustado"},
+                    { name: "adjustedUserId", title: "Ajustado por"},
+                    { name: "commentsAnalyst", title: "Comentario A. Performance"},
+                 ]
         }
     },
 
@@ -202,6 +233,49 @@ export default {
     },
 
     methods:{
+
+         btEdit(object,index){
+            console.log(object);
+            console.log(index)
+            document.getElementById('textArea'+index).disabled = false
+          
+        },
+
+        
+        save(object,index){
+         
+            let requestAjust = {
+                "adjustedResult": object.adjustedResult,
+                "adjustedUserId": object.adjustedUserId,
+                "approved": object.approved,
+                "approvedUserId": object.approvedUserId,
+                "comments": object.comments,
+                "id": object.id,
+                "result": object.result,
+                "reviewed": object.reviewed,
+                "commentsAnalyst":object.comentAnalista,
+            }
+
+           
+          
+           ServiceScore.update(requestAjust).then(()=>{
+                this.mxShowModal({ type:"OK",title:'Informação', message:' Ajuste realizado com sucesso'})
+                        this.mode = "edit";
+                        this.inputTableDisabled = true;
+                       document.getElementById('textArea'+index).disabled = true
+                      
+                        this.getScore();
+                        
+                   
+              
+              
+           }).catch(e=>{
+               alert("erro: ",e)
+           })
+                    
+               
+
+        },
 
 
           listarTodos(){
@@ -250,7 +324,7 @@ export default {
             })
         },
 
-         aprovarScore(object){
+         aprovarScore(object,i){
          this.mxShowModal({ type:"YES-NO",title:'Informação', message:' Aprovar Score ?'}).then(response=>{
           if(response == 'YES'){
              console.log("yes")
@@ -273,6 +347,13 @@ export default {
                         this.mode = "edit";
                         this.inputTableDisabled = true;
                         this.getScore();
+
+                        if(object.approved == 'S'){
+                            document.getElementById("check"+i).checked =true;
+                        }
+                         if(object.approved == 'N'){
+                            document.getElementById("check"+i).checked =false;
+                        }
                    
               
               
@@ -339,6 +420,33 @@ export default {
             this.filterScore = temp;            
             this.getScore();
         },
+
+
+         download() {
+      if (this.conteudo.length > 0) {
+        //Ao gerar o arquivo tem listar todos os registro que é da consulta
+        
+         // this.filterScore.page = 0,
+          this.filterScore.size =1000,
+         
+
+         this.loading = ServiceScore.listar(this.filterScore).then(
+          response => {
+            let config = {};
+            config.columns = this.colunas;
+            config.fileName = "relatorio.csv";
+            config.data = response.content;
+            JsonToCsv.downloadtoCsv(config);
+            
+          }
+        );
+      } else {
+        Modal.show({
+          title: "Informação",
+          message: "Nenhum registro encontrado."
+        });
+      }
+    }
 
         
 
@@ -466,6 +574,59 @@ table {
     color:#a9a9a9;
     padding:5px;
 }
+
+.input-table:disabled{
+    background: rgba(207, 221, 6, 0) !important;
+    border:none;
+   color:#a9a9a9;
+}
+
+
+table {
+    width: 100%;
+    min-width: 1020px;
+}
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 70px;
+   
+
+    /*text-align: left;*/
+}
+
+tbody {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+
+tbody td, thead th {
+  //  width: 11.1%;
+    float: left;
+}
+
+//largura campos
+
+.l-agencia{width: 10%}
+.l-cluster{width: 5%}
+.l-bda{width: 5%}
+.l-im{width: 5%}
+.l-scorecard{width: 8%}
+.l-coment{width: 18%}
+.l-scAjust{width: 8%}
+.l-ajustby{width: 15%}
+.l-performance{width: 15%}
+.l-options{width: 11%}
+
 
 </style>
 

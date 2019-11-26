@@ -124,7 +124,7 @@
                 <td class="l-ajustby">{{item.adjustedUserId}}</td>
                 <td style="" class="text-center l-options" width="120">
                     <div  style=" padding-left:10px;" class="test-center">
-                         <input v-if="mode == 'edit'" id="check-revisado" @click="salvarRevisado(item)" :disabled="item.reviewed == 'S'" :checked="item.reviewed == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
+                         <input v-if="mode == 'edit'" :id="'check'+i" @click="salvarRevisado(item,i)" :disabled="item.reviewed == 'S'" :checked="item.reviewed == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
                     </div>
                     <div style=""  class="text-center" @click="btEdit(item,i)" v-if="item.reviewed == 'N' || item.reviewed == null ">
                         <i style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i>
@@ -269,7 +269,7 @@ export default {
             
         },
 
-        salvarRevisado(object){
+        salvarRevisado(object,i){
             this.mxShowModal({ type:"YES-NO",title:'Informação', message:' Marcar como revisado ?'}).then(response=>{
                 if(response == 'YES'){
                      console.log("yes")
@@ -288,10 +288,24 @@ export default {
 
           
                 this.loading = ServiceScore.update(requestRevisado).then(()=>{
-                this.mxShowModal({ type:"OK",title:'Informação', message:' Revisão finalizada com sucesso'})
-                        this.mode = "edit";
+
+                    
+                this.mxShowModal({ type:"OK",title:'Informação', message:' Revisão finalizada com sucesso'});
+                       this.mode = "edit";
                         this.inputTableDisabled = true;
                         this.getScore();
+
+                       
+                       if(object.reviewed == 'S'){
+                            document.getElementById("check"+i).checked =true;
+                        }
+                         if(object.reviewed == 'N'){
+                            document.getElementById("check"+i).checked =false;
+                        }
+
+                        
+                       
+                       
                    
               
               

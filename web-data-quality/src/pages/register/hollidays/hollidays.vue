@@ -74,6 +74,7 @@ export default {
     methods:{
 
         getHoliday(){
+            console.log("filtro",this.filter)
             this.loading = HollidayService.getHolliday(this.filter).then((response)=>{
                console.log("Feriados",response) ;
                this.data.conteudo = response.content;
@@ -125,7 +126,8 @@ export default {
         setFilter(filter){ 
             this.filter = _.merge({...filter},{
                 page:0,
-                size:10
+                size:10,
+               
             });            
         },
 

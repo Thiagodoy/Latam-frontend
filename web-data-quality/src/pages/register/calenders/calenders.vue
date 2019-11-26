@@ -108,7 +108,8 @@ created(){
         setFilter(filter){ 
             this.filter = _.merge({...filter},{
                 page:0,
-                size:10
+                size:10,
+                 pagination:true
 
             });            
         },
