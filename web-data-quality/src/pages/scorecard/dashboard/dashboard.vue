@@ -118,7 +118,7 @@
         <!-- Detalhes -->
         <frequencia-detalhada  :calender-frequencia = "calenderFrequencia" v-if="show == 'frequencia'" @back="show = 'home'"></frequencia-detalhada> 
         <informacao-detalhada :calender-info = "calenderInfo" v-if="show == 'info'" @back="show = 'home'"></informacao-detalhada> 
-        <qualidade-detalhada :calender-qualidade = "calenderQualidade" v-if="show == 'qualidade'" @back="show = 'home'"></qualidade-detalhada> 
+        <qualidade-detalhada :qualidade='qualidade' :calender-qualidade = "calenderQualidade" v-if="show == 'qualidade'" @back="show = 'home'"></qualidade-detalhada> 
    
    
    
@@ -344,7 +344,58 @@ export default {
                     this.loading = ServiceWeeks.listar(filtro).then(response=>{
                          this.qualidade.response = true
                          this.calenderQualidade = response
-                        console.log('Qualidade ->',response)
+                      //  console.log('Qualidade ->',response);
+                        
+                        var diasPercent = []
+                        var percent = response.weeks;
+                        var valorPercentDiario = []
+                       
+                        console.log("percent",percent);
+
+                        percent.forEach(week => {  
+                            if( week.sunday != null){  diasPercent.push(week.sunday)}
+                             if( week.monday != null){  diasPercent.push(week.monday)}
+                              if( week.tuesday != null){  diasPercent.push(week.tuesday)}
+                               if( week.wednesday != null){  diasPercent.push(week.wednesday)}
+                                if( week.thursday != null){ diasPercent.push(week.thursday)}
+                                 if( week.friday != null){   diasPercent.push(week.friday)}
+                                  if( week.saturday != null){   diasPercent.push(week.saturday)}
+                              
+
+                        });
+
+                        console.log("Dias",diasPercent);
+                        console.log("teste")
+                       
+                       diasPercent.forEach(item => {
+                            let dia =  item.split("-");
+                            dia= dia[3]
+                            dia = dia.replace("[","")
+                            dia = dia.replace("]","")
+                        
+                        
+                        valorPercentDiario.push(dia)   
+                     });
+
+                     console.log("Valor",valorPercentDiario)
+                    
+                       var valorTotal = 0;
+                        var dias = diasPercent.length;
+                       
+
+                       valorPercentDiario.forEach(valor => {
+                         valorTotal =  valorTotal + parseFloat(valor) 
+                       
+                      
+                      });
+                    
+                         var mediaPercent =( valorTotal/dias)*100
+                       this.qualidade.linhasAprovadas = mediaPercent;
+                      console.log(valorTotal) ;
+                       console.log(dias) ;
+                        console.log(mediaPercent) ;
+                      
+                       
 
                     });
         }

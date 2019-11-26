@@ -12,7 +12,7 @@
                 <div class="box-title">{{dataInicial}} - {{dataFinal}}</div><br>
                 <div class="box-title">Qualidade</div>
                 <div class="box-label">% de linhas aproveitadas</div>
-                <div class="box-result">{{aproveitamentoMedio}}</div>
+                <div class="box-result">{{qualidade.linhasAprovadas}}%</div>
             </div>
           </div>
         </div> 
@@ -219,7 +219,7 @@ import DataTable from '../../../components/data-table/data-table.vue';
 import DataTableConfigFactory from '../../../components/data-table/data-config-factory';
 import moment from 'moment'
 export default {
-  props:['calenderQualidade'] , 
+  props:['calenderQualidade','qualidade'] , 
   data() {
     return {   
          weeks:[],
@@ -228,6 +228,7 @@ export default {
         dataFinal:this.calenderQualidade.weeks[0].calendar.dateEnd,
         periodo:this.calenderQualidade.weeks[0].calendar.period,
         aproveitamentoMedio:undefined,
+        percent:undefined,
         
         datas:[],
         configTable: DataTableConfigFactory.build('DATA-TABLE-RECEITA'),
@@ -244,16 +245,15 @@ export default {
 
  
  created() {
-     console.log("Objeto qualidade",this.calenderQualidade);
-    console.log("Objeto Info",this.calenderQualidade);
-    console.log("datas",this.datas)
+    // console.log("Objeto qualidade",this.calenderQualidade);
+   // console.log("Objeto Info",this.calenderQualidade);
+   // console.log("datas",this.datas)
     this.createDate(this.dataInicial,this.dataFinal);
     //this.createDate("19/08/2019","13/09/2019");
     this.showDaysInCalender();
+      
 
-
-
-
+     console.log("TESTEEEEEEEEEE",this.qualidade)
 
 
 },
@@ -332,6 +332,8 @@ export default {
 
   methods: {
 
+   
+
      createDate(dateIni,dateFim){ // cria todos os dias do mes com base nas datas inicial e finais do periodo
 
       let g = moment(dateFim) < moment(dateIni)
@@ -386,7 +388,7 @@ export default {
            this.datas.push({data:data,semanaDoAno:moment(data).week(),diaDaSemana:moment(data).day()} )
               contMes2++
           }
-          console.log("Datas",this.datas);
+         // console.log("Datas",this.datas);
         } 
       }else{
         console.log("datas inseridas, incorretas")

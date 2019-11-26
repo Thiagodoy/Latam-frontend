@@ -31,12 +31,10 @@ class Json2Csv {
 
                 let value =  obj.name.split(".");
 
-                debugger;
+                
                 if(value.length == 1){
                     record.push(e[obj.name]);
                 }else{
-                    debugger;
-                    console.log("teste", eval('e[value[0]][value[1]]'));
                     record.push(eval('e[value[0]][value[1]]'));
                 }
 
