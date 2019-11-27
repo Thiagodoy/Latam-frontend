@@ -385,12 +385,12 @@ export default {
 
                        valorPercentDiario.forEach(valor => {
                          valorTotal =  valorTotal + parseFloat(valor) 
-                       
+                            
                       
                       });
                     
                          var mediaPercent =( valorTotal/dias)*100
-                       this.qualidade.linhasAprovadas = mediaPercent;
+                       this.qualidade.linhasAprovadas =  mediaPercent.toFixed(2);
                       console.log(valorTotal) ;
                        console.log(dias) ;
                         console.log(mediaPercent) ;
