@@ -123,17 +123,19 @@
                 </td>
                 <td class="l-ajustby">{{item.adjustedUserId}}</td>
                 <td style="" class="text-center l-options" width="120">
-                    <div  style=" padding-left:10px;" class="test-center">
-                         <input v-if="mode == 'edit'" :id="'check'+i" @click="salvarRevisado(item,i)" :disabled="item.reviewed == 'S'" :checked="item.reviewed == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
-                    </div>
-                    <div style=""  class="text-center" @click="btEdit(item,i)" v-if="item.reviewed == 'N' || item.reviewed == null ">
-                        <i style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i>
-                    </div>
-                
                    
-                        <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="save(item,i)" style="cursor:pointer;font-size:25px" class="far fa-save" ></i></div> 
-                   <!-- <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="cancel(item,i)" style="cursor:pointer;font-size:25px" class="far fa-window-close "></i></div> -->
-                    
+                    <div v-if="showOptions">
+                            <div  style=" padding-left:10px;" class="test-center">
+                                <input v-if="mode == 'edit'" :id="'check'+i" @click="salvarRevisado(item,i)" :disabled="item.reviewed == 'S'" :checked="item.reviewed == 'S'" :name="i" style="cursor:pointer" type="checkbox" />
+                            </div>
+                            <div style=""  class="text-center" @click="btEdit(item,i)" v-if="item.reviewed == 'N' || item.reviewed == null ">
+                                <i style="cursor:pointer;font-size:25px" class="fas fa-pen-square"></i>
+                            </div>
+                        
+                        
+                                <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="save(item,i)" style="cursor:pointer;font-size:25px" class="far fa-save" ></i></div> 
+                        <!-- <div><i v-if="item.reviewed == 'N' || item.reviewed == null " @click="cancel(item,i)" style="cursor:pointer;font-size:25px" class="far fa-window-close "></i></div> -->
+                    </div>        
 
                 </td>
                 </tr>
@@ -170,6 +172,7 @@ import ServiceAgency from '../../../services/agency'
 import Multiselect from 'vue-multiselect';
 import {mapGetters} from 'vuex'
 import Pagination from '../../../components/pagination/pagination.vue';
+import moment from 'moment'
 //import Checked from './aprovar-check';
 
 export default {
@@ -205,6 +208,10 @@ export default {
                     sort:'reviewed'
                  } ,
 
+            edite:false,   
+            dataFinal:undefined, 
+            showOptions :true,
+
                  
                   
         }
@@ -231,8 +238,20 @@ export default {
         btEdit(object,index){
             console.log(object);
             console.log(index)
-            document.getElementById('textArea'+index).disabled = false
-            document.getElementById('select'+index).disabled = false
+            console.log(this.edite)
+
+            if(this.edite == false){
+                this.edite = true;
+                document.getElementById('textArea'+index).disabled = false
+                document.getElementById('select'+index).disabled = false
+               
+
+            }else{
+                document.getElementById('textArea'+index).disabled = true
+                document.getElementById('select'+index).disabled = true
+                this.edite = false;
+            }
+            
 
         },
 
@@ -363,11 +382,36 @@ export default {
         },
 
         getScore(){
+
+            this.showOptions = true;
           
             this.loading = ServiceScore.listar(this.filterScore).then(response=>{
                 console.log("response score",response);
                 this.conteudo = response.content;
                 this.pagination = response;
+                this.dataFinal = response.content[0].calendar.dateEnd;
+               
+               
+              
+                console.log(moment().format("YYYY/MM/DD HH:mm:ss"))
+                let DataHoraAtual = moment().format("YYYY/MM/DD HH:mm:ss");
+               
+               
+               let dataFinal = this.dataFinal.split("/");
+               dataFinal = dataFinal[2] +"/"+dataFinal[1]+"/"+dataFinal[0]+" 08:00:00";
+               dataFinal = moment(dataFinal).format("YYYY/MM/DD HH:mm:ss")
+
+                console.log(dataFinal);
+
+                console.log(DataHoraAtual < dataFinal);
+
+                if(DataHoraAtual < dataFinal){
+                    this.showOptions = false;
+                }
+               
+            
+
+
             }).catch(erro=>{
 
             })
