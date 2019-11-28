@@ -71,7 +71,7 @@
                             <img v-if="info.response==true" @click="show ='info'" style="cursor:pointer" src="img/success_large.svg">   
                         </div>
                         <div class="card-body">
-                            <div>
+                            <div style="width:100%">
                                 <div>
                                     <div style="display:flex; justify-content:space-between ">
                                         <div><span style="font-size:18px;">Emissão diária</span></div>

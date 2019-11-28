@@ -40,7 +40,7 @@
            {{ week.sunday | extractStatusPositivo}}
           </div>
           
-          <div style="color:#0F0;font-size:18px;" v-if="typeof(week.sunday) == 'string'" class="week-status">
+          <div style="color:#F00;font-size:18px;" v-if="typeof(week.sunday) == 'string'" class="week-status">
            {{ week.sunday | extractStatusNegativo}}
           </div>
           <div v-if=" week.sunday && typeof(week.sunday) == 'object' ">Feriado</div>
@@ -53,7 +53,7 @@
           <div style="color:#0F0;font-size:18px;" v-if="typeof(week.monday) == 'string'" class="week-status">
           {{week.monday | extractStatusPositivo}}
           </div>
-          <div style="color:#0F0;font-size:18px;" v-if="typeof(week.monday) == 'string'" class="week-status">
+          <div style="color:#F00;font-size:18px;" v-if="typeof(week.monday) == 'string'" class="week-status">
           {{week.monday | extractStatusNegativo}}
           </div>
           <div v-if="week.monday && typeof(week.monday) == 'object'">Feriado</div>
@@ -66,7 +66,7 @@
           <div style="color:#0F0;font-size:18px;" v-if="typeof(week.tuesday) == 'string'" class="week-status">
             {{week.tuesday | extractStatusPositivo}}
           </div>
-           <div style="color:#0F0;font-size:18px;" v-if="typeof(week.tuesday) == 'string'" class="week-status">
+           <div style="color:#F00;font-size:18px;" v-if="typeof(week.tuesday) == 'string'" class="week-status">
             {{week.tuesday | extractStatusNegativo}}
           </div>
           <div v-if="week.tuesday && typeof(week.tuesday) == 'object'">Feriado</div>
@@ -92,7 +92,7 @@
           <div style="color:#0F0;font-size:18px;" v-if="typeof(week.thursday) == 'string'" class="week-status">
            {{week.thursday | extractStatusPositivo}}
           </div>
-           <div style="color:#0F0;font-size:18px;" v-if="typeof(week.thursday) == 'string'" class="week-status">
+           <div style="color:#F00;font-size:18px;" v-if="typeof(week.thursday) == 'string'" class="week-status">
            {{week.thursday | extractStatusNegativo}}
           </div>
            <div v-if="week.thursday && typeof(week.thursday) == 'object'">Feriado</div>
@@ -105,7 +105,7 @@
             <div style="color:#0F0;font-size:18px;"  v-if="typeof(week.friday) == 'string'" class="week-status">
              {{week.friday | extractStatusPositivo}}
             </div>
-            <div style="color:#0F0;font-size:18px;"  v-if="typeof(week.friday) == 'string'" class="week-status">
+            <div style="color:#F00;font-size:18px;"  v-if="typeof(week.friday) == 'string'" class="week-status">
              {{week.friday | extractStatusNegativo}}
             </div>
             <div v-if="week.friday && typeof(week.friday) == 'object'">Feriado</div>
