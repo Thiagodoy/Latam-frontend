@@ -85,6 +85,7 @@ export default {
               if(!response.content){
                  this.data.conteudo = [],
                   this.data.conteudo.push(response);
+                  
               }
 
             
