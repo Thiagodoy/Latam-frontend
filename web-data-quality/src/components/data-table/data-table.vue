@@ -16,7 +16,7 @@
                                 <img v-if="nameSort == v.name && actionSort == 'descending'" @click.stop="sort(v.name,'ascending')" class="sort" src="../../assets/images/svg/ascending-sort.svg">
                                 <img v-if="nameSort == v.name && actionSort == 'ascending'" @click.stop="sort(v.name,'descending')" class="sort" src="../../assets/images/svg/descending-sort.svg">
                             </th>
-                            <th v-if="config.showOptions"></th>
+                            <th v-if="config.showOptions"  :width="config.widthOptions">{{config.titleOption}}</th>
                         </tr>
                     </thead>
                     <tbody>                        
@@ -26,7 +26,7 @@
                             <td v-if="config.showOptions">
                                <template v-if="config.showOptionsTYPE == 'FILE'">     
                                          
-                                     <span v-if="v.repeatedLine > 0"><i @click="buttonClick('download',v)" class="fas fa-download" title="Relatório de erros"></i></span>                                                           
+                                     <span v-if="v.repeatedLine > 0"><i @click="buttonClick('download',v)" style="cursor:pointer;" class="fas fa-download" title="Relatório de erros"></i></span>                                                           
                                      <span @click="buttonClick('info',v)" ><i style="margin-left:10px;" class=" btn-option fas fa-info-circle" title="Informação"></i></span>
                                 </template>                                
                                 <template v-else-if="config.showOptionsTYPE == 'FILE-DETAIL'">                                                                      
@@ -36,7 +36,24 @@
                                 </template>
                                 <template v-else-if="config.showOptionsTYPE == 'LIST-FILE-UPLOAD'">
                                     <i @click="buttonClick('download',v)" class="fas fa-download"></i>
-                                </template>             
+                                </template> 
+                                 <template v-else-if="config.showOptionsTYPE == 'DETALHES'">
+                                    <center><span @click="buttonClick('view',v)"> <i  style="cursor:pointer;font-size:25px" class="far fa-calendar-alt"></i></span></center>
+                                </template> 
+                                
+                                 <template v-else-if="config.showOptionsTYPE == 'APROVED'">
+                                    <center><span @click="buttonClick('view',v)"> <i class=" btn-option  fas fa-pen mr-3" title="Edit"></i></span></center>
+                                </template>     
+                                 <template v-else-if="config.showOptionsTYPE == 'JOB'">
+                                    <span class="mr-2" @click="buttonClick('play',v)"> <img src="img/play.svg"  style="cursor:pointer;font-size:25px" /></span>
+                                    <span @click="buttonClick('stop',v)"> <img src="img/stop.svg"  style="cursor:pointer;font-size:25px"/></span>
+                                </template> 
+                                 <template v-else-if="config.showOptionsTYPE == 'DELETE'">
+                                    <span @click="buttonClick('delete',v)"><i class=" btn-option far fa-times-circle" title="Delete"></i></span>
+                                </template>           
+                               
+                               
+                               
                                 <template v-else>
                                     <span @click="buttonClick('view',v)"> <i class= " btn-option far fa-sticky-note mr-3" alt="View"  title="View"></i></span>
                                     <span @click="buttonClick('edit',v)"><i class=" btn-option  fas fa-pen mr-3" title="Edit"></i></span>
@@ -150,7 +167,6 @@ export default {
             value = 'empty';
 
           this.$emit('searching',value);
-
         },500),
         downloadCsv(){
           this.$emit('downloadCsv',this.data.pagination);
@@ -235,7 +251,7 @@ export default {
 .btn-option{
     background-color: rgba(0,0,0,0);
     &:hover{
-       font-size: 20px;
+      // font-size: 20px;
        cursor: pointer;
       color: #fff;
       -webkit-transition:                     0.2s;

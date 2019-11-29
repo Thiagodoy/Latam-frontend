@@ -3,8 +3,8 @@ import md5 from 'md5';
 import axios from 'axios'
 
 class Authentication extends Service {
-    constructor(endpoint) {
-        super(endpoint);
+    constructor(type,endpoint) {
+        super(type,endpoint);
     }
 
     login(request) {
@@ -15,5 +15,5 @@ class Authentication extends Service {
     }    
 }
 let url = '/user';
-const singleton = new Authentication(url);
+const singleton = new Authentication('behavior',url);
 export default singleton;

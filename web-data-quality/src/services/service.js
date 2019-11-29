@@ -1,16 +1,28 @@
 import axios from 'axios';
 import Interceptor from './inteceptors';
 export default class Service {
-    constructor(url) {
+    constructor(type,url) {
 
         this._api = axios.create({
-            baseURL: `${process.env.VUE_APP_BASE_PATH}${url}`,
+            baseURL: `${this.getEndpoint(type)}${url}`,
             timeout: 100000,
             headers: { 'Access-Control-Allow-Origin': '*' }
         });
         this._api.interceptors.response.use(...Interceptor.configure());
         this._url = '';
     }
+
+    getEndpoint(type){
+
+        switch(type){
+            case 'behavior':
+                return process.env.VUE_APP_BASE_PATH;
+            case 'scorecard':
+                return process.env.VUE_APP_BASE_PATH_SCORE;    
+        }
+
+    }
+
 
     /**
      * @param  {} request

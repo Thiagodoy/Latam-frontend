@@ -194,7 +194,7 @@ export default {
 
 
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
-
+                debugger;
               let temp = undefined;               
               if(!this.getIsMaster){
                   temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
@@ -202,6 +202,10 @@ export default {
               }else{
                   temp = response.content;
               }  
+
+
+              //Só exibir as agencias que tem o layout Completo definido
+              temp = temp.filter(a=> a.layoutFile == 2);
 
               this.agencys = temp;
               this.options = temp;                                          
@@ -274,8 +278,8 @@ export default {
             this.request.page = page;
             this.listFiles();
         },
-        getNameAgency(id){            
-            return this.agencys.find(e=>e.id == id).name;
+        getNameAgency(id){             
+            return  this.agencys.length > 0 ? this.agencys.find(e=>e.id == id).name : '';
         },
         showDetail(data){
             this.showOp = 'detail';
@@ -288,12 +292,26 @@ export default {
                this.showError(erro);
             });
         },
-        download(data){            
-            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/downloadNew?id=${data.id}`;       
-            var aTag = window.document.getElementById('mobi');
-            aTag.setAttribute('href', this.downloadStatementUrl);
-            aTag.setAttribute('type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');      
-            aTag.click();
+        download(data){ 
+
+
+            let user  = this.getUser;
+
+            let request = {id:data.id,email:user.email};    
+
+
+            this.loading = FileService.generateFileReturn(request).then(response=>{
+                this.mxShowModal({title:'Informação', message:`<p>Solicitação realizada com sucesso!</p><p>Assim que o processo for finalizado o usuário <b>${user.email}</b> receberá o email com o link para o download do arquivo</p>`, type:'OK' });
+            }).catch((error)=>{
+                console.error(error);
+            });
+
+
+            // this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download/arquivo-retorno?id=${data.id}`;       
+            // var aTag = window.document.getElementById('mobi');
+            // aTag.setAttribute('href', this.downloadStatementUrl);
+            // aTag.setAttribute('type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');      
+            // aTag.click();
         },
         listFiles(){          
             this.loading = FileService.listFile(this.request).then((response)=>{

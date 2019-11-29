@@ -47,6 +47,20 @@
                             <div class="help-block">{{errors.first('processed_path')}}</div>
                         </div>
                     </div>
+                     
+                     <!-- Novo campo PERFIL -->
+                     <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error':errors.has('profile')}" >
+                                <label for="s3-imput" >{{$t('lang.profile')}}</label>
+                                <select v-model="viewAgency.profile" :disabled="typeAction == 'view'" name="profile" class="form-control campos" v-validate="'required'"   id="profile" style="opacity:.7" >
+                                    <option selected value="CONSOLIDATORS">Consolidators</option>
+                                    <option value="CORPORATE">Corporate</option>
+                                   
+                                </select>
+                                <div class="help-block">{{errors.first('profile')}}</div> 
+                            </div>
+                        </div>
+                   
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-12">
@@ -76,28 +90,44 @@
                             <div class="form-group" :class="{'has-error':errors.has('layout')}" >
                                 <label for="s3-imput" >Layout</label>
                                 <select v-model="viewAgency.layoutFile" :disabled="typeAction == 'view'" name="layout" class="form-control campos" v-validate="'required'"   id="profile" style="opacity:.7" >
-                                    <option selected value="0">Nenhum layout</option>
-                                    <option value="1">Layout mínimo</option>
+                                    <option selected value="0">Layout livre</option>                                    
                                     <option value="2">Layout completo</option>
                                 </select>
                                 <div class="help-block">{{errors.first('layout')}}</div> 
                             </div>
                         </div>
+
+                        <!-- nOVO CAMPO CATEGORIA DA AGENCIA -->
+                         <div class="col-md-12">
+                            <div class="form-group" :class="{'has-error':errors.has('category')}" >
+                                <label for="s3-imput" >{{$t('lang.label_agency_category')}}</label>
+                                <select v-model="viewAgency.category" :disabled="typeAction == 'view'" name="category" class="form-control campos" v-validate="'required'"   id="profile" style="opacity:.7" >
+                                    <option selected value="RM1">RM1</option>
+                                    <option value="RM2">RM2</option>
+                                    <option value="RM3">RM3</option>
+                                </select>
+                                <div class="help-block">{{errors.first('category')}}</div> 
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="col-md-6 pt-2">
                         <div class="checks ml-3 mb-3">
+                            
+                            <span class="mt-3">{{$t('lang.table_agency_flag_monthly')}}:</span>&nbsp;
+                            <input id="m" :disabled="typeAction=='view'"  class="ml-2" v-model="viewAgency.flagMonthly" type="radio" value="M"  /><label>Mensal</label>&nbsp;&nbsp;
+                            <input id="s" :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="S"     /><label>Semanal</label>&nbsp;&nbsp;
+                            <input id="d" :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="D"     /><label>Diário</label>
+                            <br><br>
                             <input :disabled="typeAction=='view'" class="ml-2 campo-check" type="checkbox" v-model="viewAgency.odFlag" value="0"   true-value="1" false-value="0" />
                             <label   class="checkboxtext mr-3" for="od">{{$t('lang.table_Agency_od_flag')}}</label>&nbsp;
                            
                           
                             <input :disabled="typeAction=='view'" v-model="viewAgency.flagApproved" type="checkbox" value="0"  true-value="1" false-value="0" />
-                            <label for="approved">{{$t('lang.table_agency_flag_approved')}}</label>&nbsp;&nbsp;|&nbsp;&nbsp;
-
-                            <span class="mt-3">{{$t('lang.table_agency_flag_monthly')}}:</span>&nbsp;
-                            <input id="m" :disabled="typeAction=='view'"  class="ml-2" v-model="viewAgency.flagMonthly" type="radio" value="M"  /><label>M</label>&nbsp;&nbsp;
-                            <input id="s" :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="S"     /><label>S</label>&nbsp;&nbsp;
-                            <input id="d" :disabled="typeAction=='view'" class="ml-2 campo-check" v-model="viewAgency.flagMonthly" type="radio" value="D"     /><label>D</label>
+                            <label for="approved">{{$t('lang.table_agency_flag_approved')}}</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                 
+                            
                         </div>
 
                     </div>
@@ -224,11 +254,14 @@ export default {
                 if (!response) return;
 
                 if (this.typeAction == 'new') {
+                    console.log('Salvando');
+                    console.log('request',this.viewAgency)
                     this.loading = AgenciaService.save(this.viewAgency).then(() => {
                         this.savedSuccess();
                     }).catch(erro => {
                         this.mxShowModalError(erro);
                     });
+                
                 } else {
                     this.loading = AgenciaService.update(this.viewAgency).then(() => {
                         this.savedSuccess();

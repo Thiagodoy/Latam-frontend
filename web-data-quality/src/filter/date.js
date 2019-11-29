@@ -9,6 +9,32 @@ export function date(value, format='L') {
 }
 
 
+
+
+export function dateDay(value, format='DD') {
+  if (value === undefined || value === null) return value;
+
+  let d = moment(value).format(format);
+  return d == "Invalid date" ? value : d;
+}
+
+export function dateMonth(value, format='MM') {
+  if (value === undefined || value === null) return value;
+
+  let d = moment(value).format(format);
+  return d == "Invalid date" ? value : d;
+}
+
+export function dateYear(value, format='YYYY') {
+  if (value === undefined || value === null) return value;
+
+  let d = moment(value).format(format);
+  return d == "Invalid date" ? value : d;
+}
+
+
+
+
 export function dateTime(value, format='L LT') {
   return date(value, format);
 }

@@ -26,12 +26,28 @@ class DataTableConfigFactory {
                     return this.configTableFileValidationUploadVisualization();
             case 'DATA-TABLE-USER-AGENCY':
                 return this.configTableUserAgencyVisualisation();
+            case 'DATA-TABLE-DATA-TABLE-HOLLIDAY-VISUALIZATION':
+                return this.configTableHollidayVisualisation();
+            case 'DATA-TABLE-DATA-TABLE-CALENDER-VISUALIZATION':
+            return this.configTableCalenderVisualisation();
+            case 'DATA-TABLE-JOB':
+            return this.configTableJob(); 
+            case 'DATA-TABLE-APROVAR':
+            return this.configTableAprovar();  
+            case 'DATA-TABLE-REVISAR':
+            return this.configTableRevisar();
+            case 'DATA-TABLE-RECEITA':
+            return this.configTableReceita();
+            
+           
+            
+                
             default:
                 throw new Error('Configuration not exists!');
 
         }
     }
-
+    configTableCalenderDetail
     configTableFileValidationUploadVisualization() {
 
 
@@ -279,6 +295,145 @@ class DataTableConfigFactory {
                 { name: "group", title: "profile", formatter: (value) => { return value.toUpperCase() } },
 
             ]
+        };
+    }
+
+    configTableHollidayVisualisation() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: true,
+            showPagination: true,
+            searchBy: "",
+            columns: [
+
+                { name: "description", title: "table_description", formatter: undefined },
+                { name: "date", title: "table_date", formatter: undefined },
+               
+
+            ]
+        };
+    }
+
+    configTableCalenderVisualisation() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: false,
+            showRowPerPage: true,
+            showPagination: true,
+            searchBy: "",
+            columns: [
+
+                { name: "period", title: "table_period", formatter: undefined },
+                { name: "dateInit", title: "table_date_start", formatter: undefined },
+                { name: "dateEnd", title: "table_date_end", formatter: undefined },
+               
+
+            ]
+        };
+    }
+
+   
+
+    configTableJob() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'JOB',
+            showSearch: false,
+            showHeaderOptions: true,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "job_name", title: "Job", formatter: undefined },
+                { name: "sched_name", title: "Sched", formatter: undefined },
+                { name: "description", title: "Descrição", formatter: undefined },
+                { name: "trigguer_state", title: "Trigguer", formatter: undefined },
+                { name: "cron_expression", title: "Cron ", formatter: undefined },
+                { name: "next_fire_time", title: "Next", formatter: undefined },
+                { name: "prev_fire_time", title: "Prev", formatter: undefined }
+              
+            ]
+
+        };
+    }
+
+    configTableAprovar() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'CHECK',
+            showSearch: false,
+            showHeaderOptions: true,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+              
+                { name: "agency", title: "Agência", formatter: undefined },
+                { name: "cluster", title: "Cluster", formatter: undefined },
+                { name: "bda", title: "Nota BDA", formatter: undefined },
+                { name: "im", title: "Nota IM", formatter: undefined },
+                { name: "scorecard", title: "Scorecard", formatter: undefined },
+                { name: "comentario", title: "Comentário/Justificativa", formatter: undefined },
+                { name: "ajust", title: "Sc Ajustado", formatter: undefined },
+                { name: "ajustBy", title: "Ajustado por", formatter: undefined },
+            ]
+
+        };
+    }
+
+    configTableRevisar() {
+        return {
+            showCount: false,
+            showOptions: true,
+            showOptionsTYPE: 'APROVED',
+            showSearch: false,
+            showHeaderOptions: true,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "agency", title: "Agência", formatter: undefined },
+                { name: "cluster", title: "Cluster", formatter: undefined },
+                { name: "bda", title: "Nota BDA", formatter: undefined },
+                { name: "im", title: "Nota IM", formatter: undefined },
+                { name: "scorecard", title: "Scorecard", formatter: undefined },
+                { name: "comentario", title: "Comentário/Justificativa", formatter: undefined },
+                { name: "ajust", title: "Sc Ajustado", formatter: undefined },
+                { name: "ajustBy", title: "Ajustado por", formatter: undefined },
+            ]
+
+        };
+    }
+
+    configTableReceita() {
+        return {
+            showCount: false,
+            showOptions: false,
+            showOptionsTYPE: 'DEFAULT',
+            showSearch: false,
+            showHeaderOptions: true,
+            showRowPerPage: false,
+            showPagination: false,
+            searchBy: "",
+            columns: [
+
+                { name: "cia_voo", title: "CIA_VOO", formatter: undefined },
+                { name: "receita", title: "Receita não aproveitada", formatter: undefined },
+                
+            ]
+
         };
     }
 

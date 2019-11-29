@@ -2,8 +2,8 @@ import Service from './service';
 import md5 from 'md5';
 
 class AgencyService extends Service {
-    constructor(endpoint) {
-        super(endpoint);
+    constructor(type,endpoint) {
+        super(type,endpoint);
     }
 
     /**
@@ -56,5 +56,5 @@ class AgencyService extends Service {
 
 
 
-const instance = new AgencyService('/agency');
+const instance = new AgencyService('behavior','/agency');
 export default instance;

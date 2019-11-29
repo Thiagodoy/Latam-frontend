@@ -5,7 +5,7 @@
     </button>
     <div class="modal fade" id="message-dialog" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
       <div class="modal-dialog " role="document">
-        <div class="modal-content" :width="width">
+        <div class="modal-content" :style="{width:width}">
           <div class="modal-header">
             <h5 class="modal-title" id="titulo">{{title}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -139,6 +139,7 @@ color:#333;
 font-size: 18px;
 background:  rgb(240, 240, 240);
 min-height: 100px;
+min-width: 100px;
 }
 .modal-footer{
 background:  rgba(240, 240, 240, 1);

@@ -1,7 +1,7 @@
 import Service from './service';
 class FileService extends Service {
-    constructor(endpoint) {
-        super(endpoint);
+    constructor(type,endpoint) {
+        super(type,endpoint);
     }
 
     /**
@@ -33,7 +33,13 @@ class FileService extends Service {
         return this.get(request,false);
     }
 
+    generateFileReturn(request){
+        this._url = '/generate/arquivo-retorno';
+        return this.get(request,true);
+    }
+
+
 }
 
-const instance = new FileService("/file");
+const instance = new FileService('behavior',"/file");
 export default instance;

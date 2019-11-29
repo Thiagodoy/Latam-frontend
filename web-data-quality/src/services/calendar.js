@@ -1,5 +1,5 @@
 import Service from './service';
-class GroupService extends Service {
+class CalendarService extends Service {
     constructor(type,endpoint) {
         super(type,endpoint);
     }
@@ -7,7 +7,7 @@ class GroupService extends Service {
     /**
      * @param  {} request
      */
-    getGroups(request) {
+    listar(request) {
         this._url = ''
         return this.get(request, true);
     }
@@ -15,7 +15,7 @@ class GroupService extends Service {
     /**
      * @param  {} request
      */
-    saveGroup(request) {
+    salvar(request) {
         this._url = '';
         return this.post(request);
     }
@@ -23,10 +23,16 @@ class GroupService extends Service {
     /**
      * @param  {} request
      */
-    updateGroup(request) {
+    update(request) {
+        this._url = '';
         return this.put(request);
+    }
+
+    deletar(request) {
+        this._url = `${request.id}`;
+        return this.delete({});
     }
 }
 
-const instance = new GroupService('behavior','/group');
+const instance = new CalendarService('scorecard','/calendar');
 export default instance;

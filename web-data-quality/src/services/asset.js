@@ -1,8 +1,8 @@
 import Service from './service';
 
 class AssetService extends Service{
-    constructor(url){
-        super(url);
+    constructor(type,url){
+        super(type,url);
     }
 
     getVersao(){
@@ -12,5 +12,5 @@ class AssetService extends Service{
 }
 
 
-const instance = new AssetService('/asset');
+const instance = new AssetService('behavior','/asset');
 export default instance;
