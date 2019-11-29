@@ -77,8 +77,18 @@ export default {
             console.log("filtro",this.filter)
             this.loading = HollidayService.getHolliday(this.filter).then((response)=>{
                console.log("Feriados",response) ;
-               this.data.conteudo = response.content;
-               this.data.pagination = response;
+              
+              if(response.content){
+                   this.data.conteudo = response.content;
+                   this.data.pagination = response;
+              }
+              if(!response.content){
+                 this.data.conteudo = [],
+                  this.data.conteudo.push(response);
+                  
+              }
+
+            
                 
         })
         },

@@ -19,7 +19,10 @@
                 </div>&nbsp;
             </div> &nbsp;  
             <div v-if="config.filter.length > 0" class="toolbar-item input-search-box">
-                  <input style="color:#eee" class="input-search form-control mx-auto" v-model="searchText" @keyup="search"  type="text" :placeholder="labelFilter"/>
+                
+                
+                <input  v-if="!filterSelected || filterSelected != 'date' "  style="color:#eee" class="input-search form-control mx-auto" v-model="searchText" @keyup="search"  type="text" :placeholder="labelFilter"/>
+                <datepicker v-model="searchText" @selected="search" v-if="filterSelected == 'date'"  :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"    style="color:#222;max-width:50%; min-width:200px" class="form-control  ml-2"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>  
             </div>
 
             <!--
@@ -49,6 +52,8 @@
 
 <script>
 import _ from 'lodash';
+import VueTimepicker from 'vue2-timepicker';
+import moment from 'moment';
 export default {
     props:{config:Object},
     data(){
@@ -64,9 +69,14 @@ export default {
     methods:{
         search:_.debounce(function(){
              if(this.filterSelected ){
+                 if(this.filterSelected == 'date'){ this.searchText = moment(this.searchText).format("DD/MM/YYYY")}
+                
                 this.filter[this.filterSelected] = this.searchText.length > 0 ? this.searchText : undefined;                
-                this.$emit('filter',this.filter);                   
-             }else{
+                this.$emit('filter',this.filter); 
+                
+                
+            
+            }else{
                  this.mxShowModal({title:'Informação', message:'Selecione um filtro!'});
              }   
         },400),
