@@ -194,7 +194,7 @@ export default {
 
 
        this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
-
+                debugger;
               let temp = undefined;               
               if(!this.getIsMaster){
                   temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
@@ -202,6 +202,10 @@ export default {
               }else{
                   temp = response.content;
               }  
+
+
+              //Só exibir as agencias que tem o layout Completo definido
+              temp = temp.filter(a=> a.layoutFile == 2);
 
               this.agencys = temp;
               this.options = temp;                                          
@@ -274,8 +278,8 @@ export default {
             this.request.page = page;
             this.listFiles();
         },
-        getNameAgency(id){            
-            return this.agencys.find(e=>e.id == id).name;
+        getNameAgency(id){             
+            return  this.agencys.length > 0 ? this.agencys.find(e=>e.id == id).name : '';
         },
         showDetail(data){
             this.showOp = 'detail';

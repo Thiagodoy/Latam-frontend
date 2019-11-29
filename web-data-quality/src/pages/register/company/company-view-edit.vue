@@ -90,8 +90,7 @@
                             <div class="form-group" :class="{'has-error':errors.has('layout')}" >
                                 <label for="s3-imput" >Layout</label>
                                 <select v-model="viewAgency.layoutFile" :disabled="typeAction == 'view'" name="layout" class="form-control campos" v-validate="'required'"   id="profile" style="opacity:.7" >
-                                    <option selected value="0">Nenhum layout</option>
-                                    <option value="1">Layout mínimo</option>
+                                    <option selected value="0">Layout livre</option>                                    
                                     <option value="2">Layout completo</option>
                                 </select>
                                 <div class="help-block">{{errors.first('layout')}}</div> 
