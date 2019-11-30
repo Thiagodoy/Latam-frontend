@@ -19,7 +19,7 @@
                     <div class="col-md-12">
                         <div class="form-group" :class="{'has-error':errors.has('table-period')}" >
                             <label >{{$t('lang.table_period')}}</label>
-                            <input :disabled="typeAction=='view'" v-model="periodo" name="table-period" v-validate="'required,max:7'" type="text" class="form-control campos" :placeholder="$t('lang.table_period')"   >
+                            <input :disabled="typeAction=='view'" v-model="periodo" name="table-period" v-validate="'required|max:7'" type="text" class="form-control campos" :placeholder="$t('lang.table_period')"   >
                             <div class="help-block">{{errors.first('table-period')}}</div>
                         </div>
                     </div>
