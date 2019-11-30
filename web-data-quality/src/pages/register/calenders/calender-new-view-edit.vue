@@ -17,26 +17,26 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
+                        <div class="form-group" :class="{'has-error':errors.has('table-period')}" >
                             <label >{{$t('lang.table_period')}}</label>
-                            <input :disabled="typeAction=='view'" v-model="periodo" name="imput-path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_period')"   >
-                            <div class="help-block">{{errors.first('imput-path')}}</div>
+                            <input :disabled="typeAction=='view'" v-model="periodo" name="table-period" v-validate="'required,max:7'" type="text" class="form-control campos" :placeholder="$t('lang.table_period')"   >
+                            <div class="help-block">{{errors.first('table-period')}}</div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                            <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
+                            <div class="form-group" :class="{'has-error':errors.has('date-start')}" >
                                 <label >{{$t('lang.table_date_start')}}</label>
                                 <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date_start"  name="date-start" style="color:#222; min-width:200px" class="form-control  "  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker> 
-                                <div class="help-block">{{errors.first('imput-path')}}</div>
+                                <div class="help-block">{{errors.first('date-start')}}</div>
                             </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
+                                <div class="form-group" :class="{'has-error':errors.has('date-end')}" >
                                     <label class="ml-1" >{{$t('lang.table_date_end')}}</label>
-                                    <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date_end"  name="date-init" style="color:#222; min-width:200px" class="form-control  "  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker> 
-                                    <div class="help-block">{{errors.first('imput-path')}}</div>
+                                    <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date_end"  name="date-end" style="color:#222; min-width:200px" class="form-control  "  placeholder="DD/MM/YYY" format="dd/MM/yyyy"></datepicker> 
+                                    <div class="help-block">{{errors.first('date-end')}}</div>
                                 </div>
                             </div>
                         </div> 
@@ -84,21 +84,12 @@ export default {
         }
     },
     
-   mounted() {
-       
-  
+   mounted() {       
 
-          
-          
-           console.log("Objeto",this.currentObject)
-           console.log("Type",this.typeAction)
-
-        if(this.typeAction == "view" || this.typeAction == "edit"){
-           console.log("certo")
+        if(this.typeAction == "view" || this.typeAction == "edit"){           
            this.periodo = this.currentObject.period;
            let ini = this.currentObject.dateInit.split('/');
-           let fim = this.currentObject.dateEnd.split('/');
-          
+           let fim = this.currentObject.dateEnd.split('/');          
           
           this.date_start = new Date(parseInt(ini[2]),parseInt(ini[1]) - 1,parseInt(ini[0]))
            this.date_end = new Date(parseInt(fim[2]),parseInt(fim[1]) - 1,parseInt(fim[0]))
@@ -133,7 +124,7 @@ export default {
                    this.loading = CalendarService.salvar(request).then(()=>{
                         this.savedSuccess();
                     }).catch(e=>{
-                        console.log(e);
+                        this.mxShowModal({title:'Erro', message:'Erro ao processar sua solicitação.',  type:'OK', width:'100%' });
                     })   
                    
                 } else {
@@ -152,7 +143,7 @@ export default {
                    this.loading = CalendarService.update(requestEdit).then(()=>{
                         this.savedSuccess();
                     }).catch(e=>{
-                        console.log(e);
+                        this.mxShowModal({title:'Erro', message:'Erro ao processar sua solicitação.',  type:'OK', width:'100%' });
                     })   
 
                   
