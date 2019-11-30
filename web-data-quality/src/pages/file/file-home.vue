@@ -336,10 +336,10 @@ export default {
                     });
                 }else{
 
-                    if(this.checkLayout(response.id)){
+                    if(this.checkLayout(this.getAgencysFromUser[0].value)){
                         this.processFile(e,this.getAgencysFromUser[0].value);
                     }else{
-                            this.mxShowModal({title:'Informação', message:'<p>Não é possivel validar arquivo.</p><p>A agência escolhida, esta com layout livre</p> ', type:'OK'});
+                        this.mxShowModal({title:'Informação', message:'<p>Não é possivel validar arquivo.</p><p>A agência escolhida, esta com layout livre</p> ', type:'OK'});
                     }
                 }
             };
