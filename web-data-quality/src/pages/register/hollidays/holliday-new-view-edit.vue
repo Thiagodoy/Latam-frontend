@@ -17,17 +17,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-12">
-                        <div class="form-group" :class="{'has-error':errors.has('imput-path')}" >
+                        <div class="form-group" :class="{'has-error':errors.has('table-description')}" >
                             <label >{{$t('lang.table_description')}}</label>
-                            <input v-model="description" :disabled="typeAction=='view'"  name="imput-path" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_description')"   >
-                            <div class="help-block">{{errors.first('imput-path')}}</div>
+                            <input v-model="description" :disabled="typeAction=='view'"  name="table-description" v-validate="'required'" type="text" class="form-control campos" :placeholder="$t('lang.table_description')"   >
+                            <div class="help-block">{{errors.first('table-description')}}</div>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div :disabled="typeAction=='view'" class="form-group" :class="{'has-error':errors.has('imput-path')}" >
+                        <div :disabled="typeAction=='view'" class="form-group" :class="{'has-error':errors.has('date-init')}" >
                             <label >{{$t('lang.table_date')}}</label>
                              <datepicker :disabled="typeAction=='view'" :clear-button="true" :clear-button-icon="'fas fa-backspace'"  input-class="input-date"  v-model="date"  name="date-init" style="color:#222;max-width:50%; min-width:200px" class="form-control  ml-2"  placeholder="DD/MM/YYYY" format="dd/MM/yyyy"></datepicker>  
-                            <div class="help-block">{{errors.first('imput-path')}}</div>
+                            <div class="help-block">{{errors.first('date-init')}}</div>
                         </div>
                     </div>
                      <div v-if="typeAction == 'edit' || typeAction == 'new'" class="col-md-6 mt-3 ml-3">                        

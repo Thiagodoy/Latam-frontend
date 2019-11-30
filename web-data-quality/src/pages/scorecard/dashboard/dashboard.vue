@@ -275,7 +275,7 @@ export default {
             this.loading = ServicePeriodo.listar({pagination:false,page:0,size:1000}).then(response=>{
                // console.log(response);
                 this.periodos = response;
-                this.periodos.push({id:9,period:"Set/19"})
+               // this.periodos.push({id:9,period:"Set/19"})
             }).catch(e=>{
                 console.log(e);
             })

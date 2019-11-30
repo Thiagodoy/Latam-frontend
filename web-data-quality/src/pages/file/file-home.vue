@@ -201,11 +201,7 @@ export default {
                   this.request.company = temp.map(e=>e.id)  
               }else{
                   temp = response.content;
-              }  
-
-
-              //Só exibir as agencias que tem o layout Completo definido
-              temp = temp.filter(a=> a.layoutFile == 2);
+              }                
 
               this.agencys = temp;
               this.options = temp;                                          
@@ -296,28 +292,18 @@ export default {
 
 
             let user  = this.getUser;
-
             let request = {id:data.id,email:user.email};    
-
 
             this.loading = FileService.generateFileReturn(request).then(response=>{
                 this.mxShowModal({title:'Informação', message:`<p>Solicitação realizada com sucesso!</p><p>Assim que o processo for finalizado o usuário <b>${user.email}</b> receberá o email com o link para o download do arquivo</p>`, type:'OK' });
             }).catch((error)=>{
                 console.error(error);
-            });
-
-
-            // this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download/arquivo-retorno?id=${data.id}`;       
-            // var aTag = window.document.getElementById('mobi');
-            // aTag.setAttribute('href', this.downloadStatementUrl);
-            // aTag.setAttribute('type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');      
-            // aTag.click();
+            });          
         },
         listFiles(){          
             this.loading = FileService.listFile(this.request).then((response)=>{
                 
-                this.data.conteudo = response.content.map(f=>{
-                    
+                this.data.conteudo = response.content.map(f=>{                    
                     f.companyName = this.getNameAgency(f.company);
                     f.status = MockFactory.build('MAKE_IMAGE_STATUS',f.status);
                     return f;
@@ -342,13 +328,25 @@ export default {
             inputFile.onchange = (e)=>{                
                if(this.getAgencysFromUser.length > 1){
                     this.mxShowModal({title:'Informação', message:'Qual agência os arquivos serão carregados?', type:'AGENCIA', agencys: this.getAgencys(this.getAgencysFromUser) }).then((response)=>{                                               
-                       this.processFile(e, response.id);
+                        if(this.checkLayout(response.id)){
+                            this.processFile(e, response.id);
+                        }else{
+                            this.mxShowModal({title:'Informação', message:'<p>Não é possivel validar arquivo.</p><p>A agência escolhida, esta com layout livre</p> ', type:'OK'});
+                        }
                     });
                 }else{
-                    this.processFile(e,this.getAgencysFromUser[0].value);
+
+                    if(this.checkLayout(response.id)){
+                        this.processFile(e,this.getAgencysFromUser[0].value);
+                    }else{
+                            this.mxShowModal({title:'Informação', message:'<p>Não é possivel validar arquivo.</p><p>A agência escolhida, esta com layout livre</p> ', type:'OK'});
+                    }
                 }
             };
             inputFile.click();   
+        },
+        checkLayout(id){            
+            return this.agencys.find(a=> a.id == id).layoutFile == 2;            
         },
         processFile(e, agencia){ 
             

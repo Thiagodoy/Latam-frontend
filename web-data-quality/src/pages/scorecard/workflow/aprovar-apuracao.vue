@@ -306,7 +306,7 @@ export default {
 
         getScore(){
             this.loading = ServiceScore.listar(this.filterScore).then(response=>{
-                console.log("response score",response);
+                
                 this.conteudo = response.content;
                 this.pagination = response;
             }).catch(erro=>{
@@ -315,10 +315,8 @@ export default {
         },
 
         getPeriodos(){
-            this.loading =    ServicePeriodo.listar({pagination:false,page:0,size:1000}).then(response=>{
-               // console.log(response);
-                this.periodos = response;
-                 this.periodos.push({id:9,period :'Set/19'});
+            this.loading =    ServicePeriodo.listar({pagination:false,page:0,size:1000}).then(response=>{               
+                this.periodos = response;                 
             }).catch(e=>{
                 console.log(e);
             })
@@ -327,7 +325,7 @@ export default {
          aprovarScore(object,i){
          this.mxShowModal({ type:"YES-NO",title:'Informação', message:' Aprovar Score ?'}).then(response=>{
           if(response == 'YES'){
-             console.log("yes")
+             
                      let requestRevisado = {
                         "adjustedResult": object.adjustedResult,
                         "adjustedUserId": object.adjustedUserId,
@@ -339,7 +337,7 @@ export default {
                         "reviewed": object.reviewed,
                     }
 
-                    console.log("sssssssssss",requestRevisado);
+                    
 
           
                 this.loading = ServiceScore.update(requestRevisado).then(()=>{

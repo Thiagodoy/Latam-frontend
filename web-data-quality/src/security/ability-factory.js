@@ -27,11 +27,11 @@ class AbilityFactory {
             abilities.push({ subject: ['Score-Workflow'], actions: 'manage', });
             abilities.push({ subject: ['Workflow-planejamento'], actions: 'manage', });
         } else if (this.isMasterAgencia(user)) {
-            abilities.push({ subject: ['Upload', 'Opcao', 'User', 'File'], actions: 'manage', conditions: { agencys, profile: ['agência'] } });
+            abilities.push({ subject: ['Upload', 'Opcao', 'User', 'File','Valid'], actions: 'manage', conditions: { agencys, profile: ['agência'] } });
             abilities.push({ subject: ['Score'], actions: 'manage', });
             abilities.push({ subject: ['Score-Dashboard'], actions: 'manage', });
         } else if (this.isAgencia(user)) {
-            abilities.push({ subject: ['Upload', 'Opcao'], actions: 'manage', });
+            abilities.push({ subject: ['Upload', 'Opcao','File','Valid'], actions: 'manage', });
             abilities.push({ subject: ['File'], actions: 'upload' });
             abilities.push({ subject: ['File'], actions: 'report' });
         }else if (this.isAnalistaIm(user)){
@@ -39,11 +39,11 @@ class AbilityFactory {
             abilities.push({ subject: ['Score-Workflow'], actions: 'manage', });
             abilities.push({ subject: ['Workflow-im'], actions: 'manage', });
         }else if (this.isAnalistaPerformance(user)){
-        abilities.push({ subject: ['Score'], actions: 'manage', });
-        abilities.push({ subject: ['Score-Dashboard'], actions: 'manage', });
-        abilities.push({ subject: ['Score-Dashboard-agency'], actions: 'manage', });
-        abilities.push({ subject: ['Score-Workflow'], actions: 'manage', });
-        abilities.push({ subject: ['Workflow-performance'], actions: 'manage', });
+            abilities.push({ subject: ['Score'], actions: 'manage', });
+            abilities.push({ subject: ['Score-Dashboard'], actions: 'manage', });
+            abilities.push({ subject: ['Score-Dashboard-agency'], actions: 'manage', });
+            abilities.push({ subject: ['Score-Workflow'], actions: 'manage', });
+            abilities.push({ subject: ['Workflow-performance'], actions: 'manage', });
     }
 
 
