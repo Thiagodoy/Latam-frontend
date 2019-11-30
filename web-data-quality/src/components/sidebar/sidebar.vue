@@ -52,25 +52,11 @@
                         </div>
                          <div class="x-smenu" v-if="$can('manage', 'Score-Workflow')">
                             <router-link   class="pl-4" tag="li" to="workflow"><i class="fas fa-check"></i>&nbsp;Workflow</router-link>  
-                                                  
-                        
-                        
-                        
                         </div>
-                      
-                       
-                       
-                      
-                      
-                       
-                        
-                      
-                        
-                        
                 </li>
-                <li style="cursor:pointer" class="x-item" id="" v-if="$can('manage', 'Job')">
+                <!-- <li style="cursor:pointer" class="x-item" id="" v-if="$can('manage', 'Job')">
                     <router-link class="x-btn" tag="li" to="/job"><i class="fas fa-toolbox"></i>&nbsp;Job</router-link>
-                </li> 
+                </li>  -->
                 
                
             </div>
