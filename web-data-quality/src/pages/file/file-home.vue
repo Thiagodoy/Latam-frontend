@@ -289,7 +289,7 @@ export default {
                this.showError(erro);
             });
         },
-        downloadOriginal(){
+        downloadOriginal(data){
             this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download?fileName=${data.name}&company=${data.company}&original=true`;       
             var aTag = window.document.getElementById('mobi');
             aTag.setAttribute('href', this.downloadStatementUrl);
