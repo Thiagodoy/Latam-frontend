@@ -95,6 +95,7 @@
                     :data="data"
                     @page="setPage"
                     @download="download"
+                    @downloadOriginal="downloadOriginal"
                     @rowPerPage="setRowPage"
                     @info="showDetail">
                 </data-table>   
@@ -288,8 +289,14 @@ export default {
                this.showError(erro);
             });
         },
+        downloadOriginal(){
+            this.downloadStatementUrl = `${process.env.VUE_APP_BASE_PATH}/file/download?fileName=${data.name}&company=${data.company}&original=true`;       
+            var aTag = window.document.getElementById('mobi');
+            aTag.setAttribute('href', this.downloadStatementUrl);
+            aTag.setAttribute('download', data.name);      
+            aTag.click();
+        },
         download(data){ 
-
 
             let user  = this.getUser;
             let request = {id:data.id,email:user.email};    

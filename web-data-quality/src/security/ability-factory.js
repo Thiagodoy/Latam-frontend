@@ -9,15 +9,17 @@ class AbilityFactory {
         //Ability.addAlias('upload', ['report', 'upload']);
 
 
-        if (this.isMaster(user)) {
+        if (this.isMaster(user)) {            
             abilities.push({ subject: ['all'], actions: 'manage' });
         } else if (this.isCoordenador(user)) {
             abilities.push({ subject: ['Upload', 'Opcao', 'User', 'File','Valid'], actions: 'manage', conditions: { agencys, profile: ['executivo de planejamento', 'executivo de vendas', 'master agência', 'agência'] } });
         } else if (this.isExecutivoVenda(user)) {
+            abilities.push({ subject: ['FILE-ORIGINAL'], actions: 'manage', });
             abilities.push({ subject: ['Upload', 'Opcao', 'User','Valid'], actions: 'manage', conditions: { agencys, profile: ['master agência', 'agência'] } });
             abilities.push({ subject: ['File'], actions: 'upload' });
             abilities.push({ subject: ['File'], actions: 'report' });
         } else if (this.isExecutivoPlanejamento(user)) {
+            abilities.push({ subject: ['FILE-ORIGINAL'], actions: 'manage' });
             abilities.push({ subject: ['Upload', 'Opcao', 'User','Valid'], actions: 'manage', conditions: { agencys, profile: ['master agência', 'agência'] } });
             abilities.push({ subject: ['File'], actions: 'upload' });
             abilities.push({ subject: ['File'], actions: 'report' });
@@ -34,7 +36,7 @@ class AbilityFactory {
             abilities.push({ subject: ['Upload', 'Opcao','File','Valid'], actions: 'manage', });
             abilities.push({ subject: ['File'], actions: 'upload' });
             abilities.push({ subject: ['File'], actions: 'report' });
-        }else if (this.isAnalistaIm(user)){
+        }else if (this.isAnalistaIm(user)){            
             abilities.push({ subject: ['Score'], actions: 'manage', });
             abilities.push({ subject: ['Score-Workflow'], actions: 'manage', });
             abilities.push({ subject: ['Workflow-im'], actions: 'manage', });
