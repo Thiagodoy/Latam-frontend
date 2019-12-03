@@ -194,8 +194,7 @@ export default {
     mounted(){
 
 
-       this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{            
-                debugger;
+       this.loading =  AgencyService.list({page:0,size:1000}).then(response=>{                            
               let temp = undefined;               
               if(!this.getIsMaster){
                   temp = response.content.filter(a=> this.getAgencysFromUser.some(e=> e.value == a.id));
