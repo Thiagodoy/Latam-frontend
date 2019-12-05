@@ -287,7 +287,7 @@ export default {
           x = x.replace("]","")
           x=x*100;
 
-          if(x >= 80){  return  x+"%"}
+          if(x >= 90){  return  x.toFixed(2);+"%"}
        
       
         }
@@ -309,7 +309,7 @@ export default {
           x = x.replace("]","")
           x=x*100;
        
-       if(x < 80){  return  x+"%"}
+       if(x < 90){  return  x.toFixed(2);+"%"}
         }
 
       }
