@@ -5,6 +5,7 @@
     "scripts": {
         "dev": "vue-cli-service serve --port 8002",
         "hml": "vue-cli-service serve --mode test --port 8080",
+        "prod" : "vue-cli-service serve --mode prod --port 8080",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "cypress:open": "cypress open"

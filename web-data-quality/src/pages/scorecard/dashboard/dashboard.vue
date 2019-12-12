@@ -82,10 +82,10 @@
                                 </div>
                             
                                 <!-- v-if="profileAgency == 'CORPORATE'" -->
-                                <div v-if="profileAgency == 'CORPORATE'" class="mt-5" >
+                                <div  class="mt-5" >
                                     <div style="display:flex; justify-content:space-between" >
                                         <div><span  style="font-size:18px;" >Info Empresas</span></div>
-                                        <div style="font-size:20px; color:#ffed69;">10/10</div>
+                                        <div style="font-size:20px; color:#ffed69;">{{diasCorridosPlacarInfo}}/{{info.diasEmit}}</div>
                                     </div>
                                     <div><small style="color:#888;font-size:18px;">(Pontos)</small></div> 
                                    
@@ -138,6 +138,7 @@ import ServiceWeeks from '../../../services/weeks'
 import Multiselect from 'vue-multiselect';
 import {mapGetters} from 'vuex'
 import moment from 'moment';
+import InfoPlacarService from '../../../services/info-placar'
 export default {
     data(){
         return{
@@ -151,6 +152,7 @@ export default {
             calenderInfo:undefined,
             calenderQualidade:undefined,
             profileAgency:undefined,
+            diasCorridosPlacarInfo:0,
 
             frequencia:{
                 semanas:undefined,
@@ -190,6 +192,7 @@ export default {
 
 
     mounted() {
+       
         this.getPeriodos();
         //this.getAgency();
         this.agency();
@@ -324,6 +327,9 @@ export default {
                 console.log(e);
             })
         },
+        
+
+        
 
         getCalenderInfo(filtro){
                     this.loading = ServiceWeeks.listar(filtro).then(response=>{
@@ -336,7 +342,30 @@ export default {
                         this.info.diasEntregues = x;
                         this.info.diasEmit = response.weeks[0].calendar.workDays
                         this.profileAgency = response.weeks[0].agency.profile
-                        //console.log('Info ->',response)
+                        console.log('Info ->',response)
+
+                       
+                       let requestPlacar = {
+                           "start":response.weeks[0].calendar.dateInit,
+                            "end":response.weeks[0].calendar.dateEnd,
+                            "agency":response.weeks[0].agency.agencyCode
+                       }
+
+                       console.log("REQUEST-PLACAR",requestPlacar);
+                       
+                       var perfil = response.weeks[0].agency.profile;
+                       console.log("perfil :", perfil)
+                      
+                      this.loading = InfoPlacarService.listar(requestPlacar).then(response=>{
+                            console.log('placar response',response)
+                            if(perfil == "CORPORATE"){
+                                this.diasCorridosPlacarInfo = response.company
+                            }
+                            if(perfil == "CONSOLIDATORS"){
+                                 this.diasCorridosPlacarInfo = response.consolidate
+                            }
+                            
+                        }); 
                     });
 
         },
@@ -391,8 +420,8 @@ export default {
                     
                          var mediaPercent =( valorTotal/dias)*100
                        this.qualidade.linhasAprovadas =  mediaPercent.toFixed(2);
-                      console.log(valorTotal) ;
-                       console.log(dias) ;
+                        console.log(valorTotal) ;
+                        console.log(dias) ;
                         console.log(mediaPercent) ;
                       
                        

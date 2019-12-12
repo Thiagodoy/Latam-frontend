@@ -32,6 +32,7 @@ class AbilityFactory {
             abilities.push({ subject: ['Upload', 'Opcao', 'User', 'File','Valid'], actions: 'manage', conditions: { agencys, profile: ['agência'] } });
             abilities.push({ subject: ['Score'], actions: 'manage', });
             abilities.push({ subject: ['Score-Dashboard'], actions: 'manage', });
+            abilities.push({ subject: ['Score-Dashboard-agency'], actions: 'manage', });
         } else if (this.isAgencia(user)) {
             abilities.push({ subject: ['Upload', 'Opcao','File','Valid'], actions: 'manage', });
             abilities.push({ subject: ['File'], actions: 'upload' });
