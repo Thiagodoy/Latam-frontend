@@ -45,11 +45,13 @@ export default {
     },
 
     computed:{
-        ...mapGetters(['getCheckChangePassword','getUser','getIsMaster'])
+        ...mapGetters(['getCheckChangePassword','getUser','getIsMaster', 'getIsFirstAccess'])
     },
     mounted(){
 
-        let value = Math.sign(this.getCheckChangePassword) < 0 ? 0 : this.getCheckChangePassword;        
+        let value = Math.sign(this.getCheckChangePassword) < 0 ? 0 : this.getCheckChangePassword; 
+        console.log('Home value -> ', value ) ;  
+        console.log('Home user -> ', this.getUser);    
         if(!(this.getIsMaster) && value >= 1 && value <= 10){
             
             if(value == 10 || value == 5 || value == 1){
@@ -58,7 +60,7 @@ export default {
                 this.mxShowModal({title:'Informação', message:`Sua senha expira em ${message}.</br>Favor altere a sua senha.`});
             }
                 
-        }else if(!(this.getIsMaster) && value <= 0){
+        }else if(!(this.getIsMaster) && value <= 0 && !this.getIsFirstAccess){
             this.mxShowModal({title:'Informação', message:this.$t('lang.msg_error_3')}).then(()=>{
                 return AuthService.expired(this.getUser.email).then(()=>{
                     this.$router.push({name:'login'});

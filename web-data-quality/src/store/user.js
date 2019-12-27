@@ -86,6 +86,8 @@ const userStore = {
     actions: {
         loginStore({ commit, getters }, payload) {
             return AuthService.login(payload).then(response => {
+
+                
                 commit(MAIN_LOGIN, response);
                 commit(MAIN_PASS_WORD,payload.password)
                 instance.$session.set('user', response);  
@@ -94,7 +96,7 @@ const userStore = {
                 commit(MAIN_ABILITY,ability)              
                 Vue.use(abilitiesPlugin, ability);
                 instance.$forceUpdate();   
-                console.log('instance',instance)             
+                
                 return response;
             });
         },
