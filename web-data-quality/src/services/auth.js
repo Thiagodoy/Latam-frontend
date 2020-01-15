@@ -13,7 +13,7 @@ class AuthenticationService extends Service {
         this._url = '/change';
         let temp = {};
         temp.password = md5(request.password);
-        temp.newPassword = md5(request.newPassword);
+        temp.newPassword = request.newPassword;
         temp.email = request.email;
         temp.firstAccess = request.isFirstAcces;
         return this.post(temp);

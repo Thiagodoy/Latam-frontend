@@ -377,7 +377,7 @@ module.exports = {
             msg_error_1988: 'Arquivo carregado com sucesso!',
             msg_error_1986: 'Arquivo vazio',
             msg_error_1989: 'Agência sem layout definido!',
-            msg_error_500: 'Erro no servidor!',
+            msg_error_500: '<p>Erro no servidor!</p>',
             msg_error_501: 'Erro no servidor AWS!',
             msg_error_502: 'Erro no servidor do SFTP!',
             msg_error_1: 'Not found the user!',
