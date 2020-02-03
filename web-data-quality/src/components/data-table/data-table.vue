@@ -91,6 +91,8 @@
                           <option value="20" class="select-filtro">20</option>
                           <option value="30" class="select-filtro">30</option>
                           <option value="40" class="select-filtro">40</option>
+                          <option value="40" class="select-filtro">50</option>
+                          <option value="40" class="select-filtro">100</option>
                         </select>
                       </div>                      
                     </div>
