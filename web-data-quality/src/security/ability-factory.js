@@ -13,14 +13,14 @@ class AbilityFactory {
             abilities.push({ subject: ['all'], actions: 'manage' });
         } else if (this.isCoordenador(user)) {
             abilities.push({ subject: ['Upload', 'Opcao', 'User', 'File','Valid'], actions: 'manage', conditions: { agencys, profile: ['executivo de planejamento', 'executivo de vendas', 'master agência', 'agência'] } });
-        } else if (this.isExecutivoVenda(user)) {
-            abilities.push({ subject: ['FILE-ORIGINAL'], actions: 'manage', });
+        } else if (this.isExecutivoVenda(user)) {            
             abilities.push({ subject: ['Upload', 'Opcao', 'User','Valid'], actions: 'manage', conditions: { agencys, profile: ['master agência', 'agência'] } });
+            abilities.push({ subject: ['FILE-ORIGINAL'], actions: 'manage', });
             abilities.push({ subject: ['File'], actions: 'upload' });
             abilities.push({ subject: ['File'], actions: 'report' });
         } else if (this.isExecutivoPlanejamento(user)) {
-            abilities.push({ subject: ['FILE-ORIGINAL'], actions: 'manage' });
             abilities.push({ subject: ['Upload', 'Opcao', 'User','Valid'], actions: 'manage', conditions: { agencys, profile: ['master agência', 'agência'] } });
+            abilities.push({ subject: ['FILE-ORIGINAL'], actions: 'manage' });
             abilities.push({ subject: ['File'], actions: 'upload' });
             abilities.push({ subject: ['File'], actions: 'report' });
             abilities.push({ subject: ['Score'], actions: 'manage', });
